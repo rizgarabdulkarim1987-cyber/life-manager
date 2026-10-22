@@ -6,8 +6,12 @@ import '../../../core/money/conversion.dart';
 import '../../../core/money/money.dart';
 import '../domain/alerts.dart';
 import '../domain/buckets_math.dart';
+import '../domain/budgets_math.dart';
+import '../domain/installments.dart';
 import 'accounts_repository.dart';
 import 'buckets_repository.dart';
+import 'budgets_repository.dart';
+import 'debts_repository.dart';
 import 'categories_repository.dart';
 import 'rates_repository.dart';
 import 'transactions_repository.dart';
@@ -70,16 +74,37 @@ final bucketStatusProvider = FutureProvider<List<BucketStatus>>((ref) async {
   return ref.watch(bucketsRepositoryProvider).status(DateTime.now());
 });
 
+final budgetsRepositoryProvider = Provider<BudgetsRepository>(
+  (ref) => BudgetsRepository(ref.watch(appDatabaseProvider), ref.watch(ratesRepositoryProvider)),
+);
+
+final debtsRepositoryProvider = Provider<DebtsRepository>((ref) => DebtsRepository(ref.watch(appDatabaseProvider)));
+
+final budgetsProvider = StreamProvider<List<Budget>>((ref) => ref.watch(budgetsRepositoryProvider).watch());
+
+final budgetProgressProvider = FutureProvider<List<BudgetProgress>>((ref) async {
+  ref.watch(balancesProvider);
+  ref.watch(budgetsProvider);
+  ref.watch(ratesHistoryProvider);
+  return ref.watch(budgetsRepositoryProvider).progress(DateTime.now());
+});
+
+final debtSummariesProvider = StreamProvider<List<DebtSummary>>(
+  (ref) => ref.watch(debtsRepositoryProvider).watchSummaries(),
+);
+
 final financeAlertsProvider = FutureProvider<List<FinanceAlert>>((ref) async {
   final buckets = await ref.watch(bucketStatusProvider.future);
+  final budgets = await ref.watch(budgetProgressProvider.future);
+  final debts = await ref.watch(debtSummariesProvider.future);
   final settings = await ref.watch(settingsProvider.future);
   final unallocated = settings.unallocatedIncomeAlert
       ? await ref.watch(bucketsRepositoryProvider).unallocatedIncomeCount(DateTime.now())
       : 0;
   return evaluateAlerts(
     buckets: buckets,
-    budgets: const [],
-    debts: const [],
+    budgets: budgets,
+    debts: debts,
     unallocatedIncomeCount: unallocated,
     unallocatedAlertOn: settings.unallocatedIncomeAlert,
     now: DateTime.now(),
