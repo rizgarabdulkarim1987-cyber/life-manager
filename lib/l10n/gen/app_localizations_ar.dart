@@ -245,7 +245,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get privacyPhase1 =>
-      'لا يخرج شيء من هذا الهاتف. التطبيق لا يملك صلاحية الإنترنت بعد.';
+      'بياناتك تبقى على هذا التلفون. بس إذا شغّلت الذكاء الاصطناعي عبر الإنترنت ووافقت، ينرسل صوت أو نص التسجيل إلى Groq. الخزنة ما تطلع من التلفون أبداً.';
 
   @override
   String get restoreTooNew =>
@@ -1290,4 +1290,127 @@ class AppLocalizationsAr extends AppLocalizations {
   String impBatchLine(int count, String date) {
     return '$count سطر · $date';
   }
+
+  @override
+  String get setAi => 'الذكاء الاصطناعي عبر الإنترنت';
+
+  @override
+  String get setAiHint => 'مفتاح Groq، النماذج، وشنو ينرسل';
+
+  @override
+  String get aiOnline => 'استخدم الذكاء الاصطناعي عبر الإنترنت';
+
+  @override
+  String get aiOnlineHint =>
+      'إذا طفيته، كلشي يتفهم على التلفون، بدقة أقل شوية.';
+
+  @override
+  String get aiKey => 'مفتاح Groq API';
+
+  @override
+  String get aiKeyHint =>
+      'مجاني من console.groq.com. ينحفظ مشفّر على هذا التلفون بس.';
+
+  @override
+  String aiKeySaved(String last4) {
+    return 'المفتاح المحفوظ ••••$last4';
+  }
+
+  @override
+  String get aiKeyRemove => 'احذف';
+
+  @override
+  String get aiKeyPaste => 'لصق';
+
+  @override
+  String get aiKeySave => 'احفظ المفتاح';
+
+  @override
+  String get aiTest => 'جرّب المفتاح';
+
+  @override
+  String get aiTestOk => 'المفتاح يشتغل.';
+
+  @override
+  String get aiTestUnauthorized =>
+      'Groq رفض هذا المفتاح. تأكد منه واحفظه مرة ثانية.';
+
+  @override
+  String get aiTestOffline => 'ما گدرنا نوصل لـ Groq. تأكد من الإنترنت.';
+
+  @override
+  String get aiTestBusy => 'Groq مشغول هسه. جرّب بعد دقيقة.';
+
+  @override
+  String get aiTestOther => 'Groq ما جاوب مثل المتوقع. جرّب بعدين.';
+
+  @override
+  String get aiModels => 'النماذج';
+
+  @override
+  String get aiSttModel => 'نموذج تحويل الصوت لنص';
+
+  @override
+  String get aiLlmModel => 'نموذج الفهم';
+
+  @override
+  String get aiModelsSave => 'احفظ النماذج';
+
+  @override
+  String get aiModelsSaved => 'انحفظت النماذج';
+
+  @override
+  String get aiConsents => 'شنو ينرسل لـ Groq';
+
+  @override
+  String get aiConsentVoiceTitle => 'الصوت إلى نص';
+
+  @override
+  String get aiConsentParseTitle => 'تعبئة الاستمارة';
+
+  @override
+  String get aiConsentVoice => 'تسجيل صوتك ينرسل إلى Groq حتى يتحول لنص.';
+
+  @override
+  String get aiConsentParse =>
+      'نص الحچيته، وتاريخ ووقت اليوم، وأسماء حساباتك ومساحات العمل والفئات والصناديق تنرسل إلى Groq حتى تتعبى الاستمارة. الأرصدة والمعاملات السابقة والخزنة ما تنرسل أبداً.';
+
+  @override
+  String get aiConsentGranted => 'مسموح';
+
+  @override
+  String get aiConsentDeclined => 'مو مسموح';
+
+  @override
+  String get aiConsentUnset => 'بعد ما انسأل';
+
+  @override
+  String get aiConsentReset => 'اسألني مرة ثانية';
+
+  @override
+  String get aiOfflineModel => 'نموذج الكلام بدون إنترنت';
+
+  @override
+  String get aiOfflineModelHint =>
+      'يحوّل الكلام لنص على التلفون إذا الذكاء الاصطناعي طافي أو ما يوصل.';
+
+  @override
+  String get consentTitle => 'نرسل هذا إلى Groq؟';
+
+  @override
+  String get consentWho => 'شركة Groq تعالجه على سيرفرات بالولايات المتحدة.';
+
+  @override
+  String get consentNever =>
+      'ما ينرسل أبداً: أرصدتك، معاملاتك السابقة، الرمز، النسخ الاحتياطية أو الخزنة.';
+
+  @override
+  String get consentOff =>
+      'تگدر تطفيه بأي وقت من الإعدادات ← الذكاء الاصطناعي عبر الإنترنت.';
+
+  @override
+  String get consentAllow => 'اسمح';
+
+  @override
+  String get consentDecline => 'لا، خلّيه على التلفون';
 }

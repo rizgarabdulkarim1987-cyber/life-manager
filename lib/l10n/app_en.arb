@@ -113,7 +113,7 @@
   "homeBuckets": "Buckets",
   "homeTasks": "Tasks",
   "privacy": "Privacy",
-  "privacyPhase1": "Nothing leaves this phone. The app has no internet access yet.",
+  "privacyPhase1": "Your data stays on this phone. Only if you turn on online AI and agree is a capture's voice or text sent to Groq. The vault never leaves the phone.",
   "restoreTooNew": "This backup was made by a newer version of the app. Update the app first.",
   "restoreWrongPassword": "Wrong password, or the file is damaged.",
   "restoreCorrupt": "This file is damaged or isn't a backup from this app.",
@@ -704,5 +704,50 @@
         "type": "String"
       }
     }
-  }
+  },
+  "setAi": "Online AI",
+  "setAiHint": "Groq key, models and what is sent",
+  "aiOnline": "Use online AI",
+  "aiOnlineHint": "When off, everything is understood on the phone, a little less accurately.",
+  "aiKey": "Groq API key",
+  "aiKeyHint": "Free from console.groq.com. Kept encrypted on this phone only.",
+  "aiKeySaved": "Saved key ••••{last4}",
+  "@aiKeySaved": {
+    "placeholders": {
+      "last4": {
+        "type": "String"
+      }
+    }
+  },
+  "aiKeyRemove": "Remove",
+  "aiKeyPaste": "Paste",
+  "aiKeySave": "Save key",
+  "aiTest": "Test key",
+  "aiTestOk": "The key works.",
+  "aiTestUnauthorized": "Groq refused this key. Check it and save it again.",
+  "aiTestOffline": "Could not reach Groq. Check the internet.",
+  "aiTestBusy": "Groq is busy. Try again in a minute.",
+  "aiTestOther": "Groq did not answer as expected. Try again later.",
+  "aiModels": "Models",
+  "aiSttModel": "Speech-to-text model",
+  "aiLlmModel": "Understanding model",
+  "aiModelsSave": "Save models",
+  "aiModelsSaved": "Models saved",
+  "aiConsents": "What is sent to Groq",
+  "aiConsentVoiceTitle": "Voice to text",
+  "aiConsentParseTitle": "Filling in the form",
+  "aiConsentVoice": "Your voice recording is sent to Groq to turn it into text.",
+  "aiConsentParse": "The text of what you said, today's date and time, and the names of your accounts, workspaces, categories and buckets are sent to Groq to fill in the form. Balances, past transactions and the vault are never sent.",
+  "aiConsentGranted": "Allowed",
+  "aiConsentDeclined": "Not allowed",
+  "aiConsentUnset": "Not asked yet",
+  "aiConsentReset": "Ask again",
+  "aiOfflineModel": "Offline speech model",
+  "aiOfflineModelHint": "Turns speech into text on the phone when online AI is off or unreachable.",
+  "consentTitle": "Send this to Groq?",
+  "consentWho": "Groq, Inc. processes it on servers in the United States.",
+  "consentNever": "Never sent: your balances, past transactions, PIN, backups or the vault.",
+  "consentOff": "You can turn this off any time in Settings → Online AI.",
+  "consentAllow": "Allow",
+  "consentDecline": "No, keep it on the phone"
 }

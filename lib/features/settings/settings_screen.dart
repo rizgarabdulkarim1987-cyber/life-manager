@@ -72,6 +72,12 @@ class SettingsScreen extends ConsumerWidget {
                   ],
                 ),
                 SettingsSection(
+                  title: l10n.setAi,
+                  children: [
+                    _Link('settings-ai', Icons.auto_awesome_outlined, l10n.setAi, l10n.setAiHint, '/settings/ai'),
+                  ],
+                ),
+                SettingsSection(
                   title: l10n.backupRestore,
                   children: [_BackupLink(lastBackupAt: settings.lastBackupAt)],
                 ),

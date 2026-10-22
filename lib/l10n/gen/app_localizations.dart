@@ -511,7 +511,7 @@ abstract class AppLocalizations {
   /// No description provided for @privacyPhase1.
   ///
   /// In en, this message translates to:
-  /// **'Nothing leaves this phone. The app has no internet access yet.'**
+  /// **'Your data stays on this phone. Only if you turn on online AI and agree is a capture\'s voice or text sent to Groq. The vault never leaves the phone.'**
   String get privacyPhase1;
 
   /// No description provided for @restoreTooNew.
@@ -2427,6 +2427,234 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count} rows · {date}'**
   String impBatchLine(int count, String date);
+
+  /// No description provided for @setAi.
+  ///
+  /// In en, this message translates to:
+  /// **'Online AI'**
+  String get setAi;
+
+  /// No description provided for @setAiHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Groq key, models and what is sent'**
+  String get setAiHint;
+
+  /// No description provided for @aiOnline.
+  ///
+  /// In en, this message translates to:
+  /// **'Use online AI'**
+  String get aiOnline;
+
+  /// No description provided for @aiOnlineHint.
+  ///
+  /// In en, this message translates to:
+  /// **'When off, everything is understood on the phone, a little less accurately.'**
+  String get aiOnlineHint;
+
+  /// No description provided for @aiKey.
+  ///
+  /// In en, this message translates to:
+  /// **'Groq API key'**
+  String get aiKey;
+
+  /// No description provided for @aiKeyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Free from console.groq.com. Kept encrypted on this phone only.'**
+  String get aiKeyHint;
+
+  /// No description provided for @aiKeySaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved key ••••{last4}'**
+  String aiKeySaved(String last4);
+
+  /// No description provided for @aiKeyRemove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get aiKeyRemove;
+
+  /// No description provided for @aiKeyPaste.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste'**
+  String get aiKeyPaste;
+
+  /// No description provided for @aiKeySave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save key'**
+  String get aiKeySave;
+
+  /// No description provided for @aiTest.
+  ///
+  /// In en, this message translates to:
+  /// **'Test key'**
+  String get aiTest;
+
+  /// No description provided for @aiTestOk.
+  ///
+  /// In en, this message translates to:
+  /// **'The key works.'**
+  String get aiTestOk;
+
+  /// No description provided for @aiTestUnauthorized.
+  ///
+  /// In en, this message translates to:
+  /// **'Groq refused this key. Check it and save it again.'**
+  String get aiTestUnauthorized;
+
+  /// No description provided for @aiTestOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not reach Groq. Check the internet.'**
+  String get aiTestOffline;
+
+  /// No description provided for @aiTestBusy.
+  ///
+  /// In en, this message translates to:
+  /// **'Groq is busy. Try again in a minute.'**
+  String get aiTestBusy;
+
+  /// No description provided for @aiTestOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Groq did not answer as expected. Try again later.'**
+  String get aiTestOther;
+
+  /// No description provided for @aiModels.
+  ///
+  /// In en, this message translates to:
+  /// **'Models'**
+  String get aiModels;
+
+  /// No description provided for @aiSttModel.
+  ///
+  /// In en, this message translates to:
+  /// **'Speech-to-text model'**
+  String get aiSttModel;
+
+  /// No description provided for @aiLlmModel.
+  ///
+  /// In en, this message translates to:
+  /// **'Understanding model'**
+  String get aiLlmModel;
+
+  /// No description provided for @aiModelsSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save models'**
+  String get aiModelsSave;
+
+  /// No description provided for @aiModelsSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Models saved'**
+  String get aiModelsSaved;
+
+  /// No description provided for @aiConsents.
+  ///
+  /// In en, this message translates to:
+  /// **'What is sent to Groq'**
+  String get aiConsents;
+
+  /// No description provided for @aiConsentVoiceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice to text'**
+  String get aiConsentVoiceTitle;
+
+  /// No description provided for @aiConsentParseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Filling in the form'**
+  String get aiConsentParseTitle;
+
+  /// No description provided for @aiConsentVoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Your voice recording is sent to Groq to turn it into text.'**
+  String get aiConsentVoice;
+
+  /// No description provided for @aiConsentParse.
+  ///
+  /// In en, this message translates to:
+  /// **'The text of what you said, today\'s date and time, and the names of your accounts, workspaces, categories and buckets are sent to Groq to fill in the form. Balances, past transactions and the vault are never sent.'**
+  String get aiConsentParse;
+
+  /// No description provided for @aiConsentGranted.
+  ///
+  /// In en, this message translates to:
+  /// **'Allowed'**
+  String get aiConsentGranted;
+
+  /// No description provided for @aiConsentDeclined.
+  ///
+  /// In en, this message translates to:
+  /// **'Not allowed'**
+  String get aiConsentDeclined;
+
+  /// No description provided for @aiConsentUnset.
+  ///
+  /// In en, this message translates to:
+  /// **'Not asked yet'**
+  String get aiConsentUnset;
+
+  /// No description provided for @aiConsentReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask again'**
+  String get aiConsentReset;
+
+  /// No description provided for @aiOfflineModel.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline speech model'**
+  String get aiOfflineModel;
+
+  /// No description provided for @aiOfflineModelHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Turns speech into text on the phone when online AI is off or unreachable.'**
+  String get aiOfflineModelHint;
+
+  /// No description provided for @consentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Send this to Groq?'**
+  String get consentTitle;
+
+  /// No description provided for @consentWho.
+  ///
+  /// In en, this message translates to:
+  /// **'Groq, Inc. processes it on servers in the United States.'**
+  String get consentWho;
+
+  /// No description provided for @consentNever.
+  ///
+  /// In en, this message translates to:
+  /// **'Never sent: your balances, past transactions, PIN, backups or the vault.'**
+  String get consentNever;
+
+  /// No description provided for @consentOff.
+  ///
+  /// In en, this message translates to:
+  /// **'You can turn this off any time in Settings → Online AI.'**
+  String get consentOff;
+
+  /// No description provided for @consentAllow.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow'**
+  String get consentAllow;
+
+  /// No description provided for @consentDecline.
+  ///
+  /// In en, this message translates to:
+  /// **'No, keep it on the phone'**
+  String get consentDecline;
 }
 
 class _AppLocalizationsDelegate

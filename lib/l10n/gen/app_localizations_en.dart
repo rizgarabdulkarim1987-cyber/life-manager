@@ -243,7 +243,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get privacyPhase1 =>
-      'Nothing leaves this phone. The app has no internet access yet.';
+      'Your data stays on this phone. Only if you turn on online AI and agree is a capture\'s voice or text sent to Groq. The vault never leaves the phone.';
 
   @override
   String get restoreTooNew =>
@@ -1295,4 +1295,129 @@ class AppLocalizationsEn extends AppLocalizations {
   String impBatchLine(int count, String date) {
     return '$count rows · $date';
   }
+
+  @override
+  String get setAi => 'Online AI';
+
+  @override
+  String get setAiHint => 'Groq key, models and what is sent';
+
+  @override
+  String get aiOnline => 'Use online AI';
+
+  @override
+  String get aiOnlineHint =>
+      'When off, everything is understood on the phone, a little less accurately.';
+
+  @override
+  String get aiKey => 'Groq API key';
+
+  @override
+  String get aiKeyHint =>
+      'Free from console.groq.com. Kept encrypted on this phone only.';
+
+  @override
+  String aiKeySaved(String last4) {
+    return 'Saved key ••••$last4';
+  }
+
+  @override
+  String get aiKeyRemove => 'Remove';
+
+  @override
+  String get aiKeyPaste => 'Paste';
+
+  @override
+  String get aiKeySave => 'Save key';
+
+  @override
+  String get aiTest => 'Test key';
+
+  @override
+  String get aiTestOk => 'The key works.';
+
+  @override
+  String get aiTestUnauthorized =>
+      'Groq refused this key. Check it and save it again.';
+
+  @override
+  String get aiTestOffline => 'Could not reach Groq. Check the internet.';
+
+  @override
+  String get aiTestBusy => 'Groq is busy. Try again in a minute.';
+
+  @override
+  String get aiTestOther => 'Groq did not answer as expected. Try again later.';
+
+  @override
+  String get aiModels => 'Models';
+
+  @override
+  String get aiSttModel => 'Speech-to-text model';
+
+  @override
+  String get aiLlmModel => 'Understanding model';
+
+  @override
+  String get aiModelsSave => 'Save models';
+
+  @override
+  String get aiModelsSaved => 'Models saved';
+
+  @override
+  String get aiConsents => 'What is sent to Groq';
+
+  @override
+  String get aiConsentVoiceTitle => 'Voice to text';
+
+  @override
+  String get aiConsentParseTitle => 'Filling in the form';
+
+  @override
+  String get aiConsentVoice =>
+      'Your voice recording is sent to Groq to turn it into text.';
+
+  @override
+  String get aiConsentParse =>
+      'The text of what you said, today\'s date and time, and the names of your accounts, workspaces, categories and buckets are sent to Groq to fill in the form. Balances, past transactions and the vault are never sent.';
+
+  @override
+  String get aiConsentGranted => 'Allowed';
+
+  @override
+  String get aiConsentDeclined => 'Not allowed';
+
+  @override
+  String get aiConsentUnset => 'Not asked yet';
+
+  @override
+  String get aiConsentReset => 'Ask again';
+
+  @override
+  String get aiOfflineModel => 'Offline speech model';
+
+  @override
+  String get aiOfflineModelHint =>
+      'Turns speech into text on the phone when online AI is off or unreachable.';
+
+  @override
+  String get consentTitle => 'Send this to Groq?';
+
+  @override
+  String get consentWho =>
+      'Groq, Inc. processes it on servers in the United States.';
+
+  @override
+  String get consentNever =>
+      'Never sent: your balances, past transactions, PIN, backups or the vault.';
+
+  @override
+  String get consentOff =>
+      'You can turn this off any time in Settings → Online AI.';
+
+  @override
+  String get consentAllow => 'Allow';
+
+  @override
+  String get consentDecline => 'No, keep it on the phone';
 }

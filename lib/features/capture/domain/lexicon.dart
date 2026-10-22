@@ -6,15 +6,23 @@ import '../../../core/text/digits.dart';
 import '../../../l10n/gen/app_localizations.dart';
 import '../../finance/data/categories_repository.dart';
 
+List<String> _aliases(Workspace w) => [
+  for (final a in w.aliases.split(','))
+    if (a.trim().isNotEmpty) a.trim(),
+];
+
 List<String> _terms(Iterable<String> raw) =>
     {for (final r in raw) normalizeForMatch(r.trim())}.where((t) => t.isNotEmpty).toList();
 
 class LexWorkspace {
-  const LexWorkspace(this.id, this.name, this.terms);
+  const LexWorkspace(this.id, this.name, this.terms, {this.aliases = const []});
 
   final int id;
   final String name;
   final List<String> terms;
+
+  /// As the owner typed them.
+  final List<String> aliases;
 }
 
 class LexAccount {
@@ -82,7 +90,7 @@ Future<Lexicon> loadLexicon(AppDatabase db, AppLocalizations l10n) async {
   final settings = await db.select(db.appSettingsTable).getSingleOrNull();
   return Lexicon(
     workspaces: [
-      for (final w in ws) LexWorkspace(w.id, w.name, _terms([w.name, ...w.aliases.split(',')])),
+      for (final w in ws) LexWorkspace(w.id, w.name, _terms([w.name, ..._aliases(w)]), aliases: _aliases(w)),
     ],
     accounts: [
       for (final a in accounts)

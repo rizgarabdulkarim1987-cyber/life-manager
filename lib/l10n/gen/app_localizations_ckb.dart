@@ -242,7 +242,7 @@ class AppLocalizationsCkb extends AppLocalizations {
 
   @override
   String get privacyPhase1 =>
-      'هیچ شتێک لەم مۆبایلە دەرناچێت. ئەپەکە هێشتا دەسەڵاتی ئینتەرنێتی نییە.';
+      'زانیارییەکانت لەسەر ئەم مۆبایلە دەمێننەوە. تەنها ئەگەر زیرەکی دەستکردی ئۆنلاین هەڵبکەیت و ڕازی بیت، دەنگ یان دەقی تۆمارەکە بۆ Groq دەنێردرێت. گەنجینەکە هەرگیز لە مۆبایلەکە دەرناچێت.';
 
   @override
   String get restoreTooNew =>
@@ -1293,4 +1293,130 @@ class AppLocalizationsCkb extends AppLocalizations {
   String impBatchLine(int count, String date) {
     return '$count ڕیز · $date';
   }
+
+  @override
+  String get setAi => 'زیرەکی دەستکردی ئۆنلاین';
+
+  @override
+  String get setAiHint => 'کلیلی Groq، مۆدێلەکان و ئەوەی دەنێردرێت';
+
+  @override
+  String get aiOnline => 'زیرەکی دەستکردی ئۆنلاین بەکاربهێنە';
+
+  @override
+  String get aiOnlineHint =>
+      'کاتێک کوژاوەیە، هەموو شتێک لەسەر مۆبایلەکە تێدەگات، کەمێک بە وردی کەمتر.';
+
+  @override
+  String get aiKey => 'کلیلی Groq API';
+
+  @override
+  String get aiKeyHint =>
+      'بەخۆڕایی لە console.groq.com. تەنها لەسەر ئەم مۆبایلە بە نهێنی هەڵدەگیرێت.';
+
+  @override
+  String aiKeySaved(String last4) {
+    return 'کلیلی هەڵگیراو ••••$last4';
+  }
+
+  @override
+  String get aiKeyRemove => 'بیسڕەوە';
+
+  @override
+  String get aiKeyPaste => 'لکاندن';
+
+  @override
+  String get aiKeySave => 'کلیلەکە هەڵبگرە';
+
+  @override
+  String get aiTest => 'کلیلەکە تاقی بکەرەوە';
+
+  @override
+  String get aiTestOk => 'کلیلەکە کار دەکات.';
+
+  @override
+  String get aiTestUnauthorized =>
+      'Groq ئەم کلیلەی ڕەتکردەوە. بیپشکنە و دووبارە هەڵیبگرەوە.';
+
+  @override
+  String get aiTestOffline => 'نەتوانرا بگەینە Groq. ئینتەرنێتەکە بپشکنە.';
+
+  @override
+  String get aiTestBusy => 'Groq سەرقاڵە. دوای خولەکێک دووبارە هەوڵ بدەرەوە.';
+
+  @override
+  String get aiTestOther =>
+      'Groq وەک چاوەڕوانکراو وەڵامی نەدایەوە. دواتر هەوڵ بدەرەوە.';
+
+  @override
+  String get aiModels => 'مۆدێلەکان';
+
+  @override
+  String get aiSttModel => 'مۆدێلی دەنگ بۆ دەق';
+
+  @override
+  String get aiLlmModel => 'مۆدێلی تێگەیشتن';
+
+  @override
+  String get aiModelsSave => 'مۆدێلەکان هەڵبگرە';
+
+  @override
+  String get aiModelsSaved => 'مۆدێلەکان هەڵگیران';
+
+  @override
+  String get aiConsents => 'چی بۆ Groq دەنێردرێت';
+
+  @override
+  String get aiConsentVoiceTitle => 'دەنگ بۆ دەق';
+
+  @override
+  String get aiConsentParseTitle => 'پڕکردنەوەی فۆرمەکە';
+
+  @override
+  String get aiConsentVoice =>
+      'تۆماری دەنگەکەت بۆ Groq دەنێردرێت بۆ ئەوەی بکرێتە دەق.';
+
+  @override
+  String get aiConsentParse =>
+      'دەقی ئەوەی وتت، بەروار و کاتی ئەمڕۆ، و ناوی هەژمارەکان، شوێنەکانی کار، پۆلەکان و سندوقەکانت بۆ Groq دەنێردرێن بۆ پڕکردنەوەی فۆرمەکە. باڵانس، مامەڵە کۆنەکان و گەنجینەکە هەرگیز نانێردرێن.';
+
+  @override
+  String get aiConsentGranted => 'ڕێگەپێدراو';
+
+  @override
+  String get aiConsentDeclined => 'ڕێگەپێنەدراو';
+
+  @override
+  String get aiConsentUnset => 'هێشتا نەپرسراوە';
+
+  @override
+  String get aiConsentReset => 'دووبارە بپرسە';
+
+  @override
+  String get aiOfflineModel => 'مۆدێلی قسەکردن بێ ئینتەرنێت';
+
+  @override
+  String get aiOfflineModelHint =>
+      'قسە دەکاتە دەق لەسەر مۆبایلەکە کاتێک زیرەکی ئۆنلاین کوژاوەیە یان ناگات.';
+
+  @override
+  String get consentTitle => 'ئەمە بنێرین بۆ Groq؟';
+
+  @override
+  String get consentWho =>
+      'کۆمپانیای Groq لەسەر سێرڤەرەکانی ویلایەتە یەکگرتووەکان چارەسەری دەکات.';
+
+  @override
+  String get consentNever =>
+      'هەرگیز نانێردرێت: باڵانسەکانت، مامەڵە کۆنەکان، PIN، پاشەکەوتەکان یان گەنجینەکە.';
+
+  @override
+  String get consentOff =>
+      'هەر کاتێک دەتوانیت لە ڕێکخستنەکان ← زیرەکی دەستکردی ئۆنلاین بیکوژێنیتەوە.';
+
+  @override
+  String get consentAllow => 'ڕێگە بدە';
+
+  @override
+  String get consentDecline => 'نەخێر، با لەسەر مۆبایلەکە بمێنێت';
 }
