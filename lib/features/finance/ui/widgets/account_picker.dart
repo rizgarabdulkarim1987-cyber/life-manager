@@ -13,6 +13,7 @@ class AccountPicker extends ConsumerWidget {
     required this.label,
     required this.value,
     required this.onChanged,
+    this.currency,
   });
 
   final Key fieldKey;
@@ -20,11 +21,19 @@ class AccountPicker extends ConsumerWidget {
   final int? value;
   final ValueChanged<int> onChanged;
 
+  /// When set, only accounts in this currency are offered.
+  final String? currency;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final k = context.tokens;
     final text = Theme.of(context).textTheme;
-    final groups = ref.watch(accountGroupsProvider).value ?? const [];
+    final all = ref.watch(accountGroupsProvider).value ?? const [];
+    final groups = [
+      for (final (ws, accounts) in all)
+        if (accounts.any((a) => currency == null || a.currencyCode == currency))
+          (ws, accounts.where((a) => currency == null || a.currencyCode == currency).toList()),
+    ];
     final exists = groups.any((g) => g.$2.any((a) => a.id == value));
     return DropdownButtonFormField<int>(
       key: fieldKey,

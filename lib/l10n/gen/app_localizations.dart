@@ -1305,6 +1305,288 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Saved'**
   String get finSaved;
+
+  /// No description provided for @finBuckets.
+  ///
+  /// In en, this message translates to:
+  /// **'Buckets'**
+  String get finBuckets;
+
+  /// No description provided for @finBudgets.
+  ///
+  /// In en, this message translates to:
+  /// **'Budgets'**
+  String get finBudgets;
+
+  /// No description provided for @finDebts.
+  ///
+  /// In en, this message translates to:
+  /// **'Debts'**
+  String get finDebts;
+
+  /// No description provided for @finAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Available'**
+  String get finAvailable;
+
+  /// No description provided for @finAllocated.
+  ///
+  /// In en, this message translates to:
+  /// **'Split in'**
+  String get finAllocated;
+
+  /// No description provided for @finSpent.
+  ///
+  /// In en, this message translates to:
+  /// **'Spent'**
+  String get finSpent;
+
+  /// No description provided for @finTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Target'**
+  String get finTarget;
+
+  /// No description provided for @finSetTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Set target'**
+  String get finSetTarget;
+
+  /// No description provided for @finTargetHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave empty for no target'**
+  String get finTargetHint;
+
+  /// No description provided for @finEditPercentages.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit percentages'**
+  String get finEditPercentages;
+
+  /// No description provided for @finPercentagesNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Must add up to 100%. Only income you split after saving uses the new percentages.'**
+  String get finPercentagesNote;
+
+  /// No description provided for @finPercentTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Total {percent}%'**
+  String finPercentTotal(String percent);
+
+  /// No description provided for @finBucketsUnconfirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Set your own percentages before splitting income into buckets.'**
+  String get finBucketsUnconfirmed;
+
+  /// No description provided for @finExpensesMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Resets every month'**
+  String get finExpensesMonthly;
+
+  /// No description provided for @finCarriesOver.
+  ///
+  /// In en, this message translates to:
+  /// **'Carries over'**
+  String get finCarriesOver;
+
+  /// No description provided for @finAddBudget.
+  ///
+  /// In en, this message translates to:
+  /// **'Add budget'**
+  String get finAddBudget;
+
+  /// No description provided for @finEditBudget.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit budget'**
+  String get finEditBudget;
+
+  /// No description provided for @finBudgetNeedsScope.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a category, a workspace or both'**
+  String get finBudgetNeedsScope;
+
+  /// No description provided for @finAnyWorkspace.
+  ///
+  /// In en, this message translates to:
+  /// **'All workspaces'**
+  String get finAnyWorkspace;
+
+  /// No description provided for @finAnyCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'All categories'**
+  String get finAnyCategory;
+
+  /// No description provided for @finRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'Remaining'**
+  String get finRemaining;
+
+  /// No description provided for @finOfBudget.
+  ///
+  /// In en, this message translates to:
+  /// **'of {amount}'**
+  String finOfBudget(String amount);
+
+  /// No description provided for @finMissingRatesNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Left out: {currencies} (no rate on those dates)'**
+  String finMissingRatesNote(String currencies);
+
+  /// No description provided for @finNoBudgets.
+  ///
+  /// In en, this message translates to:
+  /// **'No budgets yet'**
+  String get finNoBudgets;
+
+  /// No description provided for @finOwedToMe.
+  ///
+  /// In en, this message translates to:
+  /// **'Owed to me'**
+  String get finOwedToMe;
+
+  /// No description provided for @finOwedByMe.
+  ///
+  /// In en, this message translates to:
+  /// **'I owe'**
+  String get finOwedByMe;
+
+  /// No description provided for @finAddDebt.
+  ///
+  /// In en, this message translates to:
+  /// **'Add debt'**
+  String get finAddDebt;
+
+  /// No description provided for @finCounterparty.
+  ///
+  /// In en, this message translates to:
+  /// **'Person or company'**
+  String get finCounterparty;
+
+  /// No description provided for @finStartDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Started'**
+  String get finStartDate;
+
+  /// No description provided for @finRecordMoveNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Record the money now'**
+  String get finRecordMoveNow;
+
+  /// No description provided for @finRecordMoveGiven.
+  ///
+  /// In en, this message translates to:
+  /// **'Money left this account'**
+  String get finRecordMoveGiven;
+
+  /// No description provided for @finRecordMoveReceived.
+  ///
+  /// In en, this message translates to:
+  /// **'Money came into this account'**
+  String get finRecordMoveReceived;
+
+  /// No description provided for @finInstallments.
+  ///
+  /// In en, this message translates to:
+  /// **'Installments'**
+  String get finInstallments;
+
+  /// No description provided for @finInstallmentCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Number of monthly installments (optional)'**
+  String get finInstallmentCount;
+
+  /// No description provided for @finFirstDue.
+  ///
+  /// In en, this message translates to:
+  /// **'First due'**
+  String get finFirstDue;
+
+  /// No description provided for @finNextDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Next due {date}'**
+  String finNextDue(String date);
+
+  /// No description provided for @finOverdue.
+  ///
+  /// In en, this message translates to:
+  /// **'Overdue'**
+  String get finOverdue;
+
+  /// No description provided for @finPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid'**
+  String get finPaid;
+
+  /// No description provided for @finNoDebts.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing here'**
+  String get finNoDebts;
+
+  /// No description provided for @finRecordRepayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Record repayment'**
+  String get finRecordRepayment;
+
+  /// No description provided for @finRepaymentTooBig.
+  ///
+  /// In en, this message translates to:
+  /// **'Up to {amount}'**
+  String finRepaymentTooBig(String amount);
+
+  /// No description provided for @finWrongCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose an account in {currency}'**
+  String finWrongCurrency(String currency);
+
+  /// No description provided for @finPayments.
+  ///
+  /// In en, this message translates to:
+  /// **'Payments'**
+  String get finPayments;
+
+  /// No description provided for @finPrincipal.
+  ///
+  /// In en, this message translates to:
+  /// **'Principal'**
+  String get finPrincipal;
+
+  /// No description provided for @finRepayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Repayment'**
+  String get finRepayment;
+
+  /// No description provided for @finClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'Settled'**
+  String get finClosed;
+
+  /// No description provided for @finNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get finNotes;
 }
 
 class _AppLocalizationsDelegate

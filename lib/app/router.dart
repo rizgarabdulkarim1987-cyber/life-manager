@@ -7,6 +7,10 @@ import '../features/backup/backup_screen.dart';
 import '../features/capture/domain/proposal.dart';
 import '../features/finance/ui/account_detail_screen.dart';
 import '../features/finance/ui/accounts_screen.dart';
+import '../features/finance/ui/buckets_screen.dart';
+import '../features/finance/ui/budgets_screen.dart';
+import '../features/finance/ui/debt_detail_screen.dart';
+import '../features/finance/ui/debts_screen.dart';
 import '../features/finance/ui/finance_overview_screen.dart';
 import '../features/finance/ui/history_screen.dart';
 import '../features/finance/ui/transaction_form_screen.dart';
@@ -95,6 +99,18 @@ GoRouter buildRouter() => GoRouter(
                     GoRoute(
                       path: ':id',
                       builder: (_, state) => AccountDetailScreen(accountId: int.parse(state.pathParameters['id']!)),
+                    ),
+                  ],
+                ),
+                GoRoute(path: 'buckets', builder: (_, _) => const BucketsScreen()),
+                GoRoute(path: 'budgets', builder: (_, _) => const BudgetsScreen()),
+                GoRoute(
+                  path: 'debts',
+                  builder: (_, _) => const DebtsScreen(),
+                  routes: [
+                    GoRoute(
+                      path: ':id',
+                      builder: (_, state) => DebtDetailScreen(debtId: int.parse(state.pathParameters['id']!)),
                     ),
                   ],
                 ),

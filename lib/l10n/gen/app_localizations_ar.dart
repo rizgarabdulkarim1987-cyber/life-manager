@@ -676,4 +676,158 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get finSaved => 'انحفظ';
+
+  @override
+  String get finBuckets => 'السطول';
+
+  @override
+  String get finBudgets => 'الميزانيات';
+
+  @override
+  String get finDebts => 'الديون';
+
+  @override
+  String get finAvailable => 'المتوفر';
+
+  @override
+  String get finAllocated => 'الموزع';
+
+  @override
+  String get finSpent => 'المصروف';
+
+  @override
+  String get finTarget => 'الهدف';
+
+  @override
+  String get finSetTarget => 'حدد الهدف';
+
+  @override
+  String get finTargetHint => 'اتركه فارغ إذا ما تريد هدف';
+
+  @override
+  String get finEditPercentages => 'تعديل النسب';
+
+  @override
+  String get finPercentagesNote =>
+      'لازم مجموعها 100%. بس الدخل اللي توزعه بعد الحفظ ياخذ النسب الجديدة.';
+
+  @override
+  String finPercentTotal(String percent) {
+    return 'المجموع $percent%';
+  }
+
+  @override
+  String get finBucketsUnconfirmed => 'حدد نسبك قبل ما توزع الدخل على السطول.';
+
+  @override
+  String get finExpensesMonthly => 'يتصفر كل شهر';
+
+  @override
+  String get finCarriesOver => 'يتراكم';
+
+  @override
+  String get finAddBudget => 'إضافة ميزانية';
+
+  @override
+  String get finEditBudget => 'تعديل الميزانية';
+
+  @override
+  String get finBudgetNeedsScope => 'اختار فئة أو مساحة عمل أو الاثنين';
+
+  @override
+  String get finAnyWorkspace => 'كل مساحات العمل';
+
+  @override
+  String get finAnyCategory => 'كل الفئات';
+
+  @override
+  String get finRemaining => 'الباقي';
+
+  @override
+  String finOfBudget(String amount) {
+    return 'من $amount';
+  }
+
+  @override
+  String finMissingRatesNote(String currencies) {
+    return 'ما انحسب: $currencies (ماكو سعر بهذيك التواريخ)';
+  }
+
+  @override
+  String get finNoBudgets => 'ماكو ميزانيات بعد';
+
+  @override
+  String get finOwedToMe => 'إلي';
+
+  @override
+  String get finOwedByMe => 'علي';
+
+  @override
+  String get finAddDebt => 'إضافة دين';
+
+  @override
+  String get finCounterparty => 'الشخص أو الجهة';
+
+  @override
+  String get finStartDate => 'تاريخ البداية';
+
+  @override
+  String get finRecordMoveNow => 'سجّل حركة الفلوس هسه';
+
+  @override
+  String get finRecordMoveGiven => 'الفلوس طلعت من هذا الحساب';
+
+  @override
+  String get finRecordMoveReceived => 'الفلوس دخلت لهذا الحساب';
+
+  @override
+  String get finInstallments => 'الأقساط';
+
+  @override
+  String get finInstallmentCount => 'عدد الأقساط الشهرية (اختياري)';
+
+  @override
+  String get finFirstDue => 'أول قسط';
+
+  @override
+  String finNextDue(String date) {
+    return 'القسط الجاي $date';
+  }
+
+  @override
+  String get finOverdue => 'متأخر';
+
+  @override
+  String get finPaid => 'مدفوع';
+
+  @override
+  String get finNoDebts => 'ماكو شي';
+
+  @override
+  String get finRecordRepayment => 'سجّل تسديد';
+
+  @override
+  String finRepaymentTooBig(String amount) {
+    return 'لحد $amount';
+  }
+
+  @override
+  String finWrongCurrency(String currency) {
+    return 'اختار حساب بـ $currency';
+  }
+
+  @override
+  String get finPayments => 'الدفعات';
+
+  @override
+  String get finPrincipal => 'أصل الدين';
+
+  @override
+  String get finRepayment => 'تسديد';
+
+  @override
+  String get finClosed => 'مسدّد';
+
+  @override
+  String get finNotes => 'ملاحظات';
 }

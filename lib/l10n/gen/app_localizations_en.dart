@@ -677,4 +677,159 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get finSaved => 'Saved';
+
+  @override
+  String get finBuckets => 'Buckets';
+
+  @override
+  String get finBudgets => 'Budgets';
+
+  @override
+  String get finDebts => 'Debts';
+
+  @override
+  String get finAvailable => 'Available';
+
+  @override
+  String get finAllocated => 'Split in';
+
+  @override
+  String get finSpent => 'Spent';
+
+  @override
+  String get finTarget => 'Target';
+
+  @override
+  String get finSetTarget => 'Set target';
+
+  @override
+  String get finTargetHint => 'Leave empty for no target';
+
+  @override
+  String get finEditPercentages => 'Edit percentages';
+
+  @override
+  String get finPercentagesNote =>
+      'Must add up to 100%. Only income you split after saving uses the new percentages.';
+
+  @override
+  String finPercentTotal(String percent) {
+    return 'Total $percent%';
+  }
+
+  @override
+  String get finBucketsUnconfirmed =>
+      'Set your own percentages before splitting income into buckets.';
+
+  @override
+  String get finExpensesMonthly => 'Resets every month';
+
+  @override
+  String get finCarriesOver => 'Carries over';
+
+  @override
+  String get finAddBudget => 'Add budget';
+
+  @override
+  String get finEditBudget => 'Edit budget';
+
+  @override
+  String get finBudgetNeedsScope => 'Choose a category, a workspace or both';
+
+  @override
+  String get finAnyWorkspace => 'All workspaces';
+
+  @override
+  String get finAnyCategory => 'All categories';
+
+  @override
+  String get finRemaining => 'Remaining';
+
+  @override
+  String finOfBudget(String amount) {
+    return 'of $amount';
+  }
+
+  @override
+  String finMissingRatesNote(String currencies) {
+    return 'Left out: $currencies (no rate on those dates)';
+  }
+
+  @override
+  String get finNoBudgets => 'No budgets yet';
+
+  @override
+  String get finOwedToMe => 'Owed to me';
+
+  @override
+  String get finOwedByMe => 'I owe';
+
+  @override
+  String get finAddDebt => 'Add debt';
+
+  @override
+  String get finCounterparty => 'Person or company';
+
+  @override
+  String get finStartDate => 'Started';
+
+  @override
+  String get finRecordMoveNow => 'Record the money now';
+
+  @override
+  String get finRecordMoveGiven => 'Money left this account';
+
+  @override
+  String get finRecordMoveReceived => 'Money came into this account';
+
+  @override
+  String get finInstallments => 'Installments';
+
+  @override
+  String get finInstallmentCount => 'Number of monthly installments (optional)';
+
+  @override
+  String get finFirstDue => 'First due';
+
+  @override
+  String finNextDue(String date) {
+    return 'Next due $date';
+  }
+
+  @override
+  String get finOverdue => 'Overdue';
+
+  @override
+  String get finPaid => 'Paid';
+
+  @override
+  String get finNoDebts => 'Nothing here';
+
+  @override
+  String get finRecordRepayment => 'Record repayment';
+
+  @override
+  String finRepaymentTooBig(String amount) {
+    return 'Up to $amount';
+  }
+
+  @override
+  String finWrongCurrency(String currency) {
+    return 'Choose an account in $currency';
+  }
+
+  @override
+  String get finPayments => 'Payments';
+
+  @override
+  String get finPrincipal => 'Principal';
+
+  @override
+  String get finRepayment => 'Repayment';
+
+  @override
+  String get finClosed => 'Settled';
+
+  @override
+  String get finNotes => 'Notes';
 }

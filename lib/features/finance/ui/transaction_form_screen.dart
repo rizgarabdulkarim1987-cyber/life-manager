@@ -14,6 +14,7 @@ import '../../capture/domain/proposal.dart';
 import '../data/categories_repository.dart';
 import '../data/finance_providers.dart';
 import '../data/transactions_repository.dart';
+import 'buckets_screen.dart' show showPercentagesSheet;
 import 'ui_format.dart';
 import 'widgets/account_picker.dart';
 import 'widgets/allocation_editor.dart';
@@ -246,6 +247,7 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
     // Watched before the loading check so the providers run while the row loads.
     final accounts = ref.watch(accountsProvider).value ?? const <Account>[];
     final base = ref.watch(settingsProvider).value?.baseCurrency ?? 'IQD';
+    final confirmed = ref.watch(settingsProvider).value?.bucketsConfirmed ?? false;
     if (!_loaded) return Scaffold(appBar: AppBar());
 
     final account = accounts.where((a) => a.id == _accountId).firstOrNull;
@@ -375,7 +377,10 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
                     ? MoneyText(Money(_baseTotal!, base), style: text.bodyMedium?.copyWith(color: k.textMuted))
                     : null,
                 value: _allocate && _canAllocate,
-                onChanged: _canAllocate ? (v) => setState(() => _allocate = v) : null,
+                onChanged: !_canAllocate
+                    ? null
+                    // Until the owner has set their own percentages, the toggle asks for them first.
+                    : (v) => confirmed ? setState(() => _allocate = v) : showPercentagesSheet(context, ref),
               ),
             if (_allocate && _canAllocate) ...[
               const SizedBox(height: 8),

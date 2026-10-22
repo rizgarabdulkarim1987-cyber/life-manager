@@ -341,5 +341,94 @@
   "finOwnerDraw": "سحب شخصي (راتب)",
   "finOwnerDrawHint": "ينحسب مصروف على الشغل ودخل للشخص",
   "finSameAccount": "اختار حسابين مختلفين",
-  "finSaved": "انحفظ"
+  "finSaved": "انحفظ",
+  "finBuckets": "السطول",
+  "finBudgets": "الميزانيات",
+  "finDebts": "الديون",
+  "finAvailable": "المتوفر",
+  "finAllocated": "الموزع",
+  "finSpent": "المصروف",
+  "finTarget": "الهدف",
+  "finSetTarget": "حدد الهدف",
+  "finTargetHint": "اتركه فارغ إذا ما تريد هدف",
+  "finEditPercentages": "تعديل النسب",
+  "finPercentagesNote": "لازم مجموعها 100%. بس الدخل اللي توزعه بعد الحفظ ياخذ النسب الجديدة.",
+  "finPercentTotal": "المجموع {percent}%",
+  "@finPercentTotal": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "finBucketsUnconfirmed": "حدد نسبك قبل ما توزع الدخل على السطول.",
+  "finExpensesMonthly": "يتصفر كل شهر",
+  "finCarriesOver": "يتراكم",
+  "finAddBudget": "إضافة ميزانية",
+  "finEditBudget": "تعديل الميزانية",
+  "finBudgetNeedsScope": "اختار فئة أو مساحة عمل أو الاثنين",
+  "finAnyWorkspace": "كل مساحات العمل",
+  "finAnyCategory": "كل الفئات",
+  "finRemaining": "الباقي",
+  "finOfBudget": "من {amount}",
+  "@finOfBudget": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "finMissingRatesNote": "ما انحسب: {currencies} (ماكو سعر بهذيك التواريخ)",
+  "@finMissingRatesNote": {
+    "placeholders": {
+      "currencies": {
+        "type": "String"
+      }
+    }
+  },
+  "finNoBudgets": "ماكو ميزانيات بعد",
+  "finOwedToMe": "إلي",
+  "finOwedByMe": "علي",
+  "finAddDebt": "إضافة دين",
+  "finCounterparty": "الشخص أو الجهة",
+  "finStartDate": "تاريخ البداية",
+  "finRecordMoveNow": "سجّل حركة الفلوس هسه",
+  "finRecordMoveGiven": "الفلوس طلعت من هذا الحساب",
+  "finRecordMoveReceived": "الفلوس دخلت لهذا الحساب",
+  "finInstallments": "الأقساط",
+  "finInstallmentCount": "عدد الأقساط الشهرية (اختياري)",
+  "finFirstDue": "أول قسط",
+  "finNextDue": "القسط الجاي {date}",
+  "@finNextDue": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "finOverdue": "متأخر",
+  "finPaid": "مدفوع",
+  "finNoDebts": "ماكو شي",
+  "finRecordRepayment": "سجّل تسديد",
+  "finRepaymentTooBig": "لحد {amount}",
+  "@finRepaymentTooBig": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "finWrongCurrency": "اختار حساب بـ {currency}",
+  "@finWrongCurrency": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "finPayments": "الدفعات",
+  "finPrincipal": "أصل الدين",
+  "finRepayment": "تسديد",
+  "finClosed": "مسدّد",
+  "finNotes": "ملاحظات"
 }

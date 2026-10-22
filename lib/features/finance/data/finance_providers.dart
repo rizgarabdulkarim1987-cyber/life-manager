@@ -155,3 +155,32 @@ final debtDirectionsProvider = Provider<Map<int, String>>(
     for (final d in ref.watch(debtSummariesProvider).value ?? const <DebtSummary>[]) d.debt.id: d.debt.direction,
   },
 );
+
+/// Bucket figures for any month (the screen's month switcher). Keyed by the month's first day.
+final bucketStatusForMonthProvider = FutureProvider.family<List<BucketStatus>, DateTime>((ref, month) async {
+  ref.watch(balancesProvider);
+  ref.watch(bucketsProvider);
+  ref.watch(ratesHistoryProvider);
+  return ref.watch(bucketsRepositoryProvider).status(month);
+});
+
+final budgetProgressForMonthProvider = FutureProvider.family<List<BudgetProgress>, DateTime>((ref, month) async {
+  ref.watch(balancesProvider);
+  ref.watch(budgetsProvider);
+  ref.watch(ratesHistoryProvider);
+  return ref.watch(budgetsRepositoryProvider).progress(month);
+});
+
+/// Open and settled debts, for the detail screen (a settled debt stays readable).
+final allDebtSummariesProvider = StreamProvider<List<DebtSummary>>(
+  (ref) => ref.watch(debtsRepositoryProvider).watchSummaries(includeClosed: true),
+);
+
+final debtPaymentsProvider = StreamProvider.family<List<Transaction>, int>(
+  (ref, debtId) => ref.watch(debtsRepositoryProvider).watchPayments(debtId),
+);
+
+final debtInstallmentsProvider = FutureProvider.family<List<InstallmentState>, int>((ref, debtId) async {
+  await ref.watch(debtPaymentsProvider(debtId).future);
+  return ref.watch(debtsRepositoryProvider).installments(debtId);
+});

@@ -341,5 +341,94 @@
   "finOwnerDraw": "Owner draw (salary)",
   "finOwnerDrawHint": "Counts as an expense of the business and income of the person",
   "finSameAccount": "Choose two different accounts",
-  "finSaved": "Saved"
+  "finSaved": "Saved",
+  "finBuckets": "Buckets",
+  "finBudgets": "Budgets",
+  "finDebts": "Debts",
+  "finAvailable": "Available",
+  "finAllocated": "Split in",
+  "finSpent": "Spent",
+  "finTarget": "Target",
+  "finSetTarget": "Set target",
+  "finTargetHint": "Leave empty for no target",
+  "finEditPercentages": "Edit percentages",
+  "finPercentagesNote": "Must add up to 100%. Only income you split after saving uses the new percentages.",
+  "finPercentTotal": "Total {percent}%",
+  "@finPercentTotal": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "finBucketsUnconfirmed": "Set your own percentages before splitting income into buckets.",
+  "finExpensesMonthly": "Resets every month",
+  "finCarriesOver": "Carries over",
+  "finAddBudget": "Add budget",
+  "finEditBudget": "Edit budget",
+  "finBudgetNeedsScope": "Choose a category, a workspace or both",
+  "finAnyWorkspace": "All workspaces",
+  "finAnyCategory": "All categories",
+  "finRemaining": "Remaining",
+  "finOfBudget": "of {amount}",
+  "@finOfBudget": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "finMissingRatesNote": "Left out: {currencies} (no rate on those dates)",
+  "@finMissingRatesNote": {
+    "placeholders": {
+      "currencies": {
+        "type": "String"
+      }
+    }
+  },
+  "finNoBudgets": "No budgets yet",
+  "finOwedToMe": "Owed to me",
+  "finOwedByMe": "I owe",
+  "finAddDebt": "Add debt",
+  "finCounterparty": "Person or company",
+  "finStartDate": "Started",
+  "finRecordMoveNow": "Record the money now",
+  "finRecordMoveGiven": "Money left this account",
+  "finRecordMoveReceived": "Money came into this account",
+  "finInstallments": "Installments",
+  "finInstallmentCount": "Number of monthly installments (optional)",
+  "finFirstDue": "First due",
+  "finNextDue": "Next due {date}",
+  "@finNextDue": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "finOverdue": "Overdue",
+  "finPaid": "Paid",
+  "finNoDebts": "Nothing here",
+  "finRecordRepayment": "Record repayment",
+  "finRepaymentTooBig": "Up to {amount}",
+  "@finRepaymentTooBig": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "finWrongCurrency": "Choose an account in {currency}",
+  "@finWrongCurrency": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "finPayments": "Payments",
+  "finPrincipal": "Principal",
+  "finRepayment": "Repayment",
+  "finClosed": "Settled",
+  "finNotes": "Notes"
 }

@@ -29,6 +29,9 @@ class FinanceEntry {
 final kFinanceEntries = <FinanceEntry>[
   FinanceEntry('history', Icons.receipt_long_rounded, (l) => l.finHistory, '/finance/history'),
   FinanceEntry('accounts', Icons.account_balance_wallet_outlined, (l) => l.accounts, '/finance/accounts'),
+  FinanceEntry('buckets', Icons.savings_outlined, (l) => l.finBuckets, '/finance/buckets'),
+  FinanceEntry('budgets', Icons.donut_small_outlined, (l) => l.finBudgets, '/finance/budgets'),
+  FinanceEntry('debts', Icons.handshake_outlined, (l) => l.finDebts, '/finance/debts'),
 ];
 
 class FinanceOverviewScreen extends ConsumerWidget {

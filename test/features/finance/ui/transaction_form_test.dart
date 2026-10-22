@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:life_manager/features/finance/data/buckets_repository.dart';
 import 'package:life_manager/features/finance/data/rates_repository.dart';
+import 'package:life_manager/features/settings/settings_repository.dart';
 
 import '../../../helpers/app_harness.dart';
 import '../../../helpers/finance_ui.dart';
@@ -29,6 +30,7 @@ void main() {
   }
 
   Future<void> usdIncomeWithAllocation(WidgetTester t, c) async {
+    await SettingsRepository(dbOf(c)).setBucketsConfirmed();
     await RatesRepository(dbOf(c))
         .setRate(base: 'USD', quote: 'IQD', rateE6: 1310000000, effectiveFrom: DateTime.utc(2026, 1, 1));
     await pushRoute(t, c, '/finance/tx/new?type=income');

@@ -672,4 +672,160 @@ class AppLocalizationsCkb extends AppLocalizations {
 
   @override
   String get finSaved => 'پاشەکەوت کرا';
+
+  @override
+  String get finBuckets => 'سەبەتەکان';
+
+  @override
+  String get finBudgets => 'بودجەکان';
+
+  @override
+  String get finDebts => 'قەرزەکان';
+
+  @override
+  String get finAvailable => 'بەردەست';
+
+  @override
+  String get finAllocated => 'دابەشکراو';
+
+  @override
+  String get finSpent => 'خەرجکراو';
+
+  @override
+  String get finTarget => 'ئامانج';
+
+  @override
+  String get finSetTarget => 'ئامانج دابنێ';
+
+  @override
+  String get finTargetHint => 'بەتاڵی بهێڵە بۆ بێ ئامانج';
+
+  @override
+  String get finEditPercentages => 'دەستکاری ڕێژەکان';
+
+  @override
+  String get finPercentagesNote =>
+      'دەبێت کۆیان 100% بێت. تەنها ئەو داهاتەی دوای پاشەکەوت دابەشی دەکەیت ڕێژە نوێیەکان وەردەگرێت.';
+
+  @override
+  String finPercentTotal(String percent) {
+    return 'کۆ $percent%';
+  }
+
+  @override
+  String get finBucketsUnconfirmed =>
+      'پێش دابەشکردنی داهات، ڕێژەکانی خۆت دابنێ.';
+
+  @override
+  String get finExpensesMonthly => 'هەموو مانگێک سفر دەبێتەوە';
+
+  @override
+  String get finCarriesOver => 'کۆدەبێتەوە';
+
+  @override
+  String get finAddBudget => 'زیادکردنی بودجە';
+
+  @override
+  String get finEditBudget => 'دەستکاری بودجە';
+
+  @override
+  String get finBudgetNeedsScope =>
+      'پۆلێک یان شوێنی کارێک یان هەردووکیان هەڵبژێرە';
+
+  @override
+  String get finAnyWorkspace => 'هەموو شوێنەکانی کار';
+
+  @override
+  String get finAnyCategory => 'هەموو پۆلەکان';
+
+  @override
+  String get finRemaining => 'ماوە';
+
+  @override
+  String finOfBudget(String amount) {
+    return 'لە $amount';
+  }
+
+  @override
+  String finMissingRatesNote(String currencies) {
+    return 'نەژمێردرا: $currencies (لەو بەروارانەدا نرخ نییە)';
+  }
+
+  @override
+  String get finNoBudgets => 'هێشتا بودجە نییە';
+
+  @override
+  String get finOwedToMe => 'قەرزی من لای خەڵک';
+
+  @override
+  String get finOwedByMe => 'قەرزی خەڵک لای من';
+
+  @override
+  String get finAddDebt => 'زیادکردنی قەرز';
+
+  @override
+  String get finCounterparty => 'کەس یان کۆمپانیا';
+
+  @override
+  String get finStartDate => 'دەستپێکردن';
+
+  @override
+  String get finRecordMoveNow => 'ئێستا جووڵەی پارەکە تۆمار بکە';
+
+  @override
+  String get finRecordMoveGiven => 'پارەکە لەم هەژمارە دەرچوو';
+
+  @override
+  String get finRecordMoveReceived => 'پارەکە هاتە ئەم هەژمارە';
+
+  @override
+  String get finInstallments => 'قیستەکان';
+
+  @override
+  String get finInstallmentCount => 'ژمارەی قیستی مانگانە (ئارەزوومەندانە)';
+
+  @override
+  String get finFirstDue => 'یەکەم قیست';
+
+  @override
+  String finNextDue(String date) {
+    return 'داهاتوو $date';
+  }
+
+  @override
+  String get finOverdue => 'دواکەوتوو';
+
+  @override
+  String get finPaid => 'دراوە';
+
+  @override
+  String get finNoDebts => 'هیچ نییە';
+
+  @override
+  String get finRecordRepayment => 'تۆمارکردنی گەڕاندنەوە';
+
+  @override
+  String finRepaymentTooBig(String amount) {
+    return 'تا $amount';
+  }
+
+  @override
+  String finWrongCurrency(String currency) {
+    return 'هەژمارێک بە $currency هەڵبژێرە';
+  }
+
+  @override
+  String get finPayments => 'پارەدانەکان';
+
+  @override
+  String get finPrincipal => 'بنەڕەت';
+
+  @override
+  String get finRepayment => 'گەڕاندنەوە';
+
+  @override
+  String get finClosed => 'تەواوبوو';
+
+  @override
+  String get finNotes => 'تێبینی';
 }

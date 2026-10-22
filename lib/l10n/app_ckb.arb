@@ -341,5 +341,94 @@
   "finOwnerDraw": "کێشانی خاوەن (مووچە)",
   "finOwnerDrawHint": "وەک خەرجی کار و داهاتی کەسی دەژمێردرێت",
   "finSameAccount": "دوو هەژماری جیاواز هەڵبژێرە",
-  "finSaved": "پاشەکەوت کرا"
+  "finSaved": "پاشەکەوت کرا",
+  "finBuckets": "سەبەتەکان",
+  "finBudgets": "بودجەکان",
+  "finDebts": "قەرزەکان",
+  "finAvailable": "بەردەست",
+  "finAllocated": "دابەشکراو",
+  "finSpent": "خەرجکراو",
+  "finTarget": "ئامانج",
+  "finSetTarget": "ئامانج دابنێ",
+  "finTargetHint": "بەتاڵی بهێڵە بۆ بێ ئامانج",
+  "finEditPercentages": "دەستکاری ڕێژەکان",
+  "finPercentagesNote": "دەبێت کۆیان 100% بێت. تەنها ئەو داهاتەی دوای پاشەکەوت دابەشی دەکەیت ڕێژە نوێیەکان وەردەگرێت.",
+  "finPercentTotal": "کۆ {percent}%",
+  "@finPercentTotal": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "finBucketsUnconfirmed": "پێش دابەشکردنی داهات، ڕێژەکانی خۆت دابنێ.",
+  "finExpensesMonthly": "هەموو مانگێک سفر دەبێتەوە",
+  "finCarriesOver": "کۆدەبێتەوە",
+  "finAddBudget": "زیادکردنی بودجە",
+  "finEditBudget": "دەستکاری بودجە",
+  "finBudgetNeedsScope": "پۆلێک یان شوێنی کارێک یان هەردووکیان هەڵبژێرە",
+  "finAnyWorkspace": "هەموو شوێنەکانی کار",
+  "finAnyCategory": "هەموو پۆلەکان",
+  "finRemaining": "ماوە",
+  "finOfBudget": "لە {amount}",
+  "@finOfBudget": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "finMissingRatesNote": "نەژمێردرا: {currencies} (لەو بەروارانەدا نرخ نییە)",
+  "@finMissingRatesNote": {
+    "placeholders": {
+      "currencies": {
+        "type": "String"
+      }
+    }
+  },
+  "finNoBudgets": "هێشتا بودجە نییە",
+  "finOwedToMe": "قەرزی من لای خەڵک",
+  "finOwedByMe": "قەرزی خەڵک لای من",
+  "finAddDebt": "زیادکردنی قەرز",
+  "finCounterparty": "کەس یان کۆمپانیا",
+  "finStartDate": "دەستپێکردن",
+  "finRecordMoveNow": "ئێستا جووڵەی پارەکە تۆمار بکە",
+  "finRecordMoveGiven": "پارەکە لەم هەژمارە دەرچوو",
+  "finRecordMoveReceived": "پارەکە هاتە ئەم هەژمارە",
+  "finInstallments": "قیستەکان",
+  "finInstallmentCount": "ژمارەی قیستی مانگانە (ئارەزوومەندانە)",
+  "finFirstDue": "یەکەم قیست",
+  "finNextDue": "داهاتوو {date}",
+  "@finNextDue": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "finOverdue": "دواکەوتوو",
+  "finPaid": "دراوە",
+  "finNoDebts": "هیچ نییە",
+  "finRecordRepayment": "تۆمارکردنی گەڕاندنەوە",
+  "finRepaymentTooBig": "تا {amount}",
+  "@finRepaymentTooBig": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "finWrongCurrency": "هەژمارێک بە {currency} هەڵبژێرە",
+  "@finWrongCurrency": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "finPayments": "پارەدانەکان",
+  "finPrincipal": "بنەڕەت",
+  "finRepayment": "گەڕاندنەوە",
+  "finClosed": "تەواوبوو",
+  "finNotes": "تێبینی"
 }
