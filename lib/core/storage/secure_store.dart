@@ -9,12 +9,12 @@ abstract interface class SecureStore {
 /// Android Keystore-backed storage (AES-GCM data, RSA-OAEP wrapped key).
 final class FlutterSecureStore implements SecureStore {
   FlutterSecureStore()
-      : _storage = const FlutterSecureStorage(
-          // The package default wipes all entries when a read fails to decrypt.
-          // That would destroy the database key and with it every record, so
-          // errors must surface instead.
-          aOptions: AndroidOptions(resetOnError: false),
-        );
+    : _storage = const FlutterSecureStorage(
+        // The package default wipes all entries when a read fails to decrypt.
+        // That would destroy the database key and with it every record, so
+        // errors must surface instead.
+        aOptions: AndroidOptions(resetOnError: false),
+      );
 
   final FlutterSecureStorage _storage;
 

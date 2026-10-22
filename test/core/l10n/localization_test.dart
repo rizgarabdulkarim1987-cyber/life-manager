@@ -9,18 +9,22 @@ void main() {
   Future<(TextDirection, String)> render(WidgetTester t, Locale l) async {
     late TextDirection d;
     late String home;
-    await t.pumpWidget(MaterialApp(
-      locale: l,
-      supportedLocales: kSupportedLocales,
-      localizationsDelegates: appLocalizationDelegates,
-      home: Builder(builder: (c) {
-        d = Directionality.of(c);
-        home = c.l10n.navHome;
-        // Touch a Material string so a missing Material delegate would throw.
-        MaterialLocalizations.of(c).okButtonLabel;
-        return const SizedBox();
-      }),
-    ));
+    await t.pumpWidget(
+      MaterialApp(
+        locale: l,
+        supportedLocales: kSupportedLocales,
+        localizationsDelegates: appLocalizationDelegates,
+        home: Builder(
+          builder: (c) {
+            d = Directionality.of(c);
+            home = c.l10n.navHome;
+            // Touch a Material string so a missing Material delegate would throw.
+            MaterialLocalizations.of(c).okButtonLabel;
+            return const SizedBox();
+          },
+        ),
+      ),
+    );
     return (d, home);
   }
 

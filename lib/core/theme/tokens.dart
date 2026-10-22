@@ -79,20 +79,19 @@ class AppTokens extends ThemeExtension<AppTokens> {
     Color? success,
     Color? danger,
     Color? warning,
-  }) =>
-      AppTokens(
-        bg: bg ?? this.bg,
-        surface: surface ?? this.surface,
-        surfaceHigh: surfaceHigh ?? this.surfaceHigh,
-        border: border ?? this.border,
-        text: text ?? this.text,
-        textMuted: textMuted ?? this.textMuted,
-        accent: accent ?? this.accent,
-        onAccent: onAccent ?? this.onAccent,
-        success: success ?? this.success,
-        danger: danger ?? this.danger,
-        warning: warning ?? this.warning,
-      );
+  }) => AppTokens(
+    bg: bg ?? this.bg,
+    surface: surface ?? this.surface,
+    surfaceHigh: surfaceHigh ?? this.surfaceHigh,
+    border: border ?? this.border,
+    text: text ?? this.text,
+    textMuted: textMuted ?? this.textMuted,
+    accent: accent ?? this.accent,
+    onAccent: onAccent ?? this.onAccent,
+    success: success ?? this.success,
+    danger: danger ?? this.danger,
+    warning: warning ?? this.warning,
+  );
 
   @override
   AppTokens lerp(AppTokens? other, double t) {

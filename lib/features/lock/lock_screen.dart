@@ -83,9 +83,11 @@ class _LockScreenState extends ConsumerState<LockScreen> {
       case PinWrong(:final attemptsBeforeLockout):
         HapticFeedback.heavyImpact();
         _shake.currentState?.shake();
-        setState(() => _error = attemptsBeforeLockout <= 2
-            ? '${l10n.wrongPin}\n${l10n.attemptsLeft(attemptsBeforeLockout)}'
-            : l10n.wrongPin);
+        setState(
+          () => _error = attemptsBeforeLockout <= 2
+              ? '${l10n.wrongPin}\n${l10n.attemptsLeft(attemptsBeforeLockout)}'
+              : l10n.wrongPin,
+        );
       case PinLockedOut(:final remaining):
         HapticFeedback.heavyImpact();
         _shake.currentState?.shake();
@@ -138,30 +140,32 @@ class _LockScreenState extends ConsumerState<LockScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(children: [
-                      const SizedBox(height: 24),
-                      Icon(Icons.lock_outline_rounded, size: 32, color: k.accent),
-                      const SizedBox(height: 16),
-                      Text(l10n.enterPin, style: text.titleLarge?.copyWith(color: k.text)),
-                      const SizedBox(height: 24),
-                      PinDots(key: _shake, filled: _entered.length, error: message != null),
-                      const SizedBox(height: 16),
-                      SizedBox(
-                        height: 48,
-                        child: AnimatedSwitcher(
-                          duration: kDurationBase,
-                          switchInCurve: kEaseOut,
-                          child: message == null
-                              ? const SizedBox.shrink()
-                              : Text(
-                                  message,
-                                  key: ValueKey(message),
-                                  textAlign: TextAlign.center,
-                                  style: text.bodyMedium?.copyWith(color: k.danger),
-                                ),
+                    Column(
+                      children: [
+                        const SizedBox(height: 24),
+                        Icon(Icons.lock_outline_rounded, size: 32, color: k.accent),
+                        const SizedBox(height: 16),
+                        Text(l10n.enterPin, style: text.titleLarge?.copyWith(color: k.text)),
+                        const SizedBox(height: 24),
+                        PinDots(key: _shake, filled: _entered.length, error: message != null),
+                        const SizedBox(height: 16),
+                        SizedBox(
+                          height: 48,
+                          child: AnimatedSwitcher(
+                            duration: kDurationBase,
+                            switchInCurve: kEaseOut,
+                            child: message == null
+                                ? const SizedBox.shrink()
+                                : Text(
+                                    message,
+                                    key: ValueKey(message),
+                                    textAlign: TextAlign.center,
+                                    style: text.bodyMedium?.copyWith(color: k.danger),
+                                  ),
+                          ),
                         ),
-                      ),
-                    ]),
+                      ],
+                    ),
                     const SizedBox(height: 16),
                     PinPad(
                       enabled: !_busy && !_isLockedOut,
@@ -265,11 +269,11 @@ class PinPad extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget digit(String d) => _PadKey(
-          key: ValueKey('pin-key-$d'),
-          onTap: enabled ? () => onDigit(d) : null,
-          semanticLabel: d,
-          child: Text(d, style: Theme.of(context).textTheme.headlineSmall),
-        );
+      key: ValueKey('pin-key-$d'),
+      onTap: enabled ? () => onDigit(d) : null,
+      semanticLabel: d,
+      child: Text(d, style: Theme.of(context).textTheme.headlineSmall),
+    );
 
     final rows = [
       ['1', '2', '3'],
@@ -335,7 +339,12 @@ class _PadKey extends StatelessWidget {
             child: SizedBox(
               width: size,
               height: size,
-              child: Center(child: IconTheme.merge(data: IconThemeData(color: k.text), child: child)),
+              child: Center(
+                child: IconTheme.merge(
+                  data: IconThemeData(color: k.text),
+                  child: child,
+                ),
+              ),
             ),
           ),
         ),

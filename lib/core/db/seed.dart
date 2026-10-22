@@ -1,6 +1,5 @@
 import 'dart:ui' show Color;
 
-
 import '../theme/tokens.dart';
 import 'app_database.dart';
 
@@ -41,23 +40,31 @@ Future<void> seedInitialData(AppDatabase db, SeedNames n) async {
 
     var order = 0;
     for (final (name, icon, color, hasCash) in workspaces) {
-      final wsId = await db.into(db.workspaces).insert(WorkspacesCompanion.insert(
-            name: name,
-            iconKey: icon,
-            colorArgb: color.toARGB32(),
-            sortOrder: order,
-            createdAt: now,
-          ));
+      final wsId = await db
+          .into(db.workspaces)
+          .insert(
+            WorkspacesCompanion.insert(
+              name: name,
+              iconKey: icon,
+              colorArgb: color.toARGB32(),
+              sortOrder: order,
+              createdAt: now,
+            ),
+          );
       if (hasCash) {
         for (final (currency, label) in [('IQD', n.cashIqd), ('USD', n.cashUsd)]) {
-          await db.into(db.accounts).insert(AccountsCompanion.insert(
-                workspaceId: wsId,
-                name: '$name · $label',
-                kind: 'cash',
-                currencyCode: currency,
-                sortOrder: order * 2 + (currency == 'USD' ? 1 : 0),
-                createdAt: now,
-              ));
+          await db
+              .into(db.accounts)
+              .insert(
+                AccountsCompanion.insert(
+                  workspaceId: wsId,
+                  name: '$name · $label',
+                  kind: 'cash',
+                  currencyCode: currency,
+                  sortOrder: order * 2 + (currency == 'USD' ? 1 : 0),
+                  createdAt: now,
+                ),
+              );
         }
       }
       order++;

@@ -19,6 +19,4 @@ final settingsRepositoryProvider = Provider<SettingsRepository>(
   (ref) => SettingsRepository(ref.watch(appDatabaseProvider)),
 );
 
-final settingsProvider = StreamProvider<AppSetting>(
-  (ref) => ref.watch(settingsRepositoryProvider).watch(),
-);
+final settingsProvider = StreamProvider<AppSetting>((ref) => ref.watch(settingsRepositoryProvider).watch());

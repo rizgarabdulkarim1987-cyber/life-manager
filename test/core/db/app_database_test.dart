@@ -12,13 +12,13 @@ void main() {
   tearDown(() => db.close());
 
   AccountsCompanion account(int workspaceId) => AccountsCompanion.insert(
-        workspaceId: workspaceId,
-        name: 'x',
-        kind: 'cash',
-        currencyCode: 'IQD',
-        sortOrder: 0,
-        createdAt: DateTime.utc(2026),
-      );
+    workspaceId: workspaceId,
+    name: 'x',
+    kind: 'cash',
+    currencyCode: 'IQD',
+    sortOrder: 0,
+    createdAt: DateTime.utc(2026),
+  );
 
   test('settings row exists with defaults', () async {
     final s = await db.select(db.appSettingsTable).getSingle();
@@ -36,24 +36,44 @@ void main() {
   });
 
   test('cannot delete a workspace that has accounts', () async {
-    final ws = await db.into(db.workspaces).insert(WorkspacesCompanion.insert(
-        name: 'W', iconKey: 'person', colorArgb: 0xFF3B82FF, sortOrder: 0, createdAt: DateTime.utc(2026)));
+    final ws = await db
+        .into(db.workspaces)
+        .insert(
+          WorkspacesCompanion.insert(
+            name: 'W',
+            iconKey: 'person',
+            colorArgb: 0xFF3B82FF,
+            sortOrder: 0,
+            createdAt: DateTime.utc(2026),
+          ),
+        );
     await db.into(db.accounts).insert(account(ws));
-    expect(() => (db.delete(db.workspaces)..where((w) => w.id.equals(ws))).go(),
-        throwsA(isA<SqliteException>()));
+    expect(() => (db.delete(db.workspaces)..where((w) => w.id.equals(ws))).go(), throwsA(isA<SqliteException>()));
   });
 
   test('account kind is restricted', () async {
-    final ws = await db.into(db.workspaces).insert(WorkspacesCompanion.insert(
-        name: 'W', iconKey: 'person', colorArgb: 0, sortOrder: 0, createdAt: DateTime.utc(2026)));
+    final ws = await db
+        .into(db.workspaces)
+        .insert(
+          WorkspacesCompanion.insert(
+            name: 'W',
+            iconKey: 'person',
+            colorArgb: 0,
+            sortOrder: 0,
+            createdAt: DateTime.utc(2026),
+          ),
+        );
     expect(
-        () => db.into(db.accounts).insert(account(ws).copyWith(kind: const Value('crypto'))),
-        throwsA(isA<SqliteException>()));
+      () => db.into(db.accounts).insert(account(ws).copyWith(kind: const Value('crypto'))),
+      throwsA(isA<SqliteException>()),
+    );
   });
 
   test('only one settings row may exist', () async {
-    expect(() => db.into(db.appSettingsTable).insert(AppSettingsTableCompanion.insert(id: const Value(2))),
-        throwsA(isA<SqliteException>()));
+    expect(
+      () => db.into(db.appSettingsTable).insert(AppSettingsTableCompanion.insert(id: const Value(2))),
+      throwsA(isA<SqliteException>()),
+    );
   });
 
   test('encrypted file database round-trips and rejects a wrong key', () async {
@@ -61,8 +81,17 @@ void main() {
     final file = appDatabaseFile(dir);
     const key = Sensitive('00112233445566778899aabbccddeeff00112233445566778899aabbccddeeff');
     final a = await openAppDatabase(file: file, hexKey: key);
-    await a.into(a.workspaces).insert(WorkspacesCompanion.insert(
-        name: 'Secret workspace name', iconKey: 'person', colorArgb: 0, sortOrder: 0, createdAt: DateTime.utc(2026)));
+    await a
+        .into(a.workspaces)
+        .insert(
+          WorkspacesCompanion.insert(
+            name: 'Secret workspace name',
+            iconKey: 'person',
+            colorArgb: 0,
+            sortOrder: 0,
+            createdAt: DateTime.utc(2026),
+          ),
+        );
     await a.close();
 
     final header = file.readAsBytesSync().sublist(0, 16);

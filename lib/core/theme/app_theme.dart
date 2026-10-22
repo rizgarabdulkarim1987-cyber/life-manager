@@ -29,12 +29,7 @@ ThemeData buildAppTheme(Brightness brightness) {
     outlineVariant: k.border,
   );
 
-  final base = ThemeData(
-    useMaterial3: true,
-    brightness: brightness,
-    colorScheme: scheme,
-    fontFamily: kAppFont,
-  );
+  final base = ThemeData(useMaterial3: true, brightness: brightness, colorScheme: scheme, fontFamily: kAppFont);
 
   return base.copyWith(
     scaffoldBackgroundColor: k.bg,

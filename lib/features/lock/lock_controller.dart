@@ -36,6 +36,4 @@ final pinServiceProvider = Provider<PinService>(
   (ref) => PinService(ref.watch(secureStoreProvider), ref.watch(kdfProvider)),
 );
 
-final biometricAuthenticatorProvider = Provider<BiometricAuthenticator>(
-  (ref) => LocalAuthBiometricAuthenticator(),
-);
+final biometricAuthenticatorProvider = Provider<BiometricAuthenticator>((ref) => LocalAuthBiometricAuthenticator());

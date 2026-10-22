@@ -30,7 +30,10 @@ void main() {
   test('params change the key', () async {
     final a = await kdf.derive(password: utf8b('pw'), salt: Uint8List(16), params: cheap);
     final b = await kdf.derive(
-        password: utf8b('pw'), salt: Uint8List(16), params: const KdfParams(memoryKiB: 1024, iterations: 3));
+      password: utf8b('pw'),
+      salt: Uint8List(16),
+      params: const KdfParams(memoryKiB: 1024, iterations: 3),
+    );
     expect(a, isNot(b));
   });
 
@@ -91,6 +94,5 @@ class _AlwaysOkKdf implements Kdf {
     required Uint8List salt,
     required KdfParams params,
     int length = 32,
-  }) async =>
-      Uint8List(length);
+  }) async => Uint8List(length);
 }

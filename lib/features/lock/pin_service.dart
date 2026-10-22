@@ -29,8 +29,8 @@ final class PinLockedOut extends PinCheckResult {
 /// storage, with a persisted exponential lockout.
 class PinService {
   PinService(this._store, this._kdf, {DateTime Function()? now, KdfParams params = kDefaultKdfParams})
-      : _now = now ?? DateTime.now,
-        _params = params; // ignore: prefer_initializing_formals
+    : _now = now ?? DateTime.now,
+      _params = params; // ignore: prefer_initializing_formals
 
   static const recordKey = 'app_pin_v1';
   static const failuresKey = 'app_pin_failures_v1';
@@ -121,10 +121,8 @@ class PinService {
     return (count: j['count'] as int, lockedUntil: until == null ? null : DateTime.parse(until));
   }
 
-  Future<void> _writeFailures(int count, DateTime? lockedUntil) => _store.write(
-        failuresKey,
-        jsonEncode({'count': count, 'lockedUntil': lockedUntil?.toUtc().toIso8601String()}),
-      );
+  Future<void> _writeFailures(int count, DateTime? lockedUntil) =>
+      _store.write(failuresKey, jsonEncode({'count': count, 'lockedUntil': lockedUntil?.toUtc().toIso8601String()}));
 
   static bool _constantTimeEquals(List<int> a, List<int> b) {
     if (a.length != b.length) return false;

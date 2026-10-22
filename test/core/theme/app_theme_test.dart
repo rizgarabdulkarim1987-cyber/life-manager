@@ -16,8 +16,7 @@ void main() {
 
   test('light theme has its own tokens and keeps accent hue', () {
     final k = buildAppTheme(Brightness.light).extension<AppTokens>()!;
-    expect(HSVColor.fromColor(k.accent).hue,
-        closeTo(HSVColor.fromColor(const Color(0xFF3B82FF)).hue, 3));
+    expect(HSVColor.fromColor(k.accent).hue, closeTo(HSVColor.fromColor(const Color(0xFF3B82FF)).hue, 3));
     expect(k.bg.computeLuminance(), greaterThan(0.8));
   });
 

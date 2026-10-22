@@ -36,15 +36,8 @@ final class AesGcmAead implements Aead {
   @override
   Future<SealedBox> seal(Uint8List plain, Uint8List key, {Uint8List? aad}) async {
     _checkKey(key);
-    final box = await _algo.encrypt(
-      plain,
-      secretKey: SecretKey(key),
-      aad: aad ?? const <int>[],
-    );
-    return SealedBox(
-      Uint8List.fromList(box.nonce),
-      Uint8List.fromList([...box.cipherText, ...box.mac.bytes]),
-    );
+    final box = await _algo.encrypt(plain, secretKey: SecretKey(key), aad: aad ?? const <int>[]);
+    return SealedBox(Uint8List.fromList(box.nonce), Uint8List.fromList([...box.cipherText, ...box.mac.bytes]));
   }
 
   @override
@@ -54,11 +47,7 @@ final class AesGcmAead implements Aead {
     final split = box.cipherText.length - _tagLength;
     try {
       final plain = await _algo.decrypt(
-        SecretBox(
-          box.cipherText.sublist(0, split),
-          nonce: box.nonce,
-          mac: Mac(box.cipherText.sublist(split)),
-        ),
+        SecretBox(box.cipherText.sublist(0, split), nonce: box.nonce, mac: Mac(box.cipherText.sublist(split))),
         secretKey: SecretKey(key),
         aad: aad ?? const <int>[],
       );

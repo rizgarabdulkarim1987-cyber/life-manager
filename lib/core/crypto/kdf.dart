@@ -11,20 +11,11 @@ class KdfParams {
   final int iterations;
   final int parallelism;
 
-  Map<String, Object> toJson() => {
-        'alg': 'argon2id',
-        'm': memoryKiB,
-        't': iterations,
-        'p': parallelism,
-      };
+  Map<String, Object> toJson() => {'alg': 'argon2id', 'm': memoryKiB, 't': iterations, 'p': parallelism};
 
   factory KdfParams.fromJson(Map<String, Object?> j) {
     if (j['alg'] != 'argon2id') throw const FormatException('unsupported kdf');
-    return KdfParams(
-      memoryKiB: j['m']! as int,
-      iterations: j['t']! as int,
-      parallelism: j['p']! as int,
-    );
+    return KdfParams(memoryKiB: j['m']! as int, iterations: j['t']! as int, parallelism: j['p']! as int);
   }
 }
 

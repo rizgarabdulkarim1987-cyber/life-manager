@@ -46,8 +46,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get biometrics => 'الفتح بالبصمة';
 
   @override
-  String get biometricsUnavailable =>
-      'لا توجد بصمة أو فتح بالوجه مفعّل على هذا الهاتف';
+  String get biometricsUnavailable => 'لا توجد بصمة أو فتح بالوجه مفعّل على هذا الهاتف';
 
   @override
   String get changePin => 'تغيير رمز PIN';
@@ -244,19 +243,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get privacy => 'الخصوصية';
 
   @override
-  String get privacyPhase1 =>
-      'لا يخرج شيء من هذا الهاتف. التطبيق لا يملك صلاحية الإنترنت بعد.';
+  String get privacyPhase1 => 'لا يخرج شيء من هذا الهاتف. التطبيق لا يملك صلاحية الإنترنت بعد.';
 
   @override
-  String get restoreTooNew =>
-      'هذه النسخة من إصدار أحدث للتطبيق. حدّث التطبيق أولاً.';
+  String get restoreTooNew => 'هذه النسخة من إصدار أحدث للتطبيق. حدّث التطبيق أولاً.';
 
   @override
   String get restoreWrongPassword => 'كلمة المرور خاطئة، أو الملف تالف.';
 
   @override
-  String get restoreCorrupt =>
-      'الملف تالف أو ليس نسخة احتياطية من هذا التطبيق.';
+  String get restoreCorrupt => 'الملف تالف أو ليس نسخة احتياطية من هذا التطبيق.';
 
   @override
   String get restoreSuccess => 'تم الاسترجاع. جارٍ إعادة التشغيل…';

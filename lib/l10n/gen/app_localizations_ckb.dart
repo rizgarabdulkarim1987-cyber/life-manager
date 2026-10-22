@@ -46,8 +46,7 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get biometrics => 'کردنەوە بە پەنجەمۆر';
 
   @override
-  String get biometricsUnavailable =>
-      'هیچ پەنجەمۆر یان ناسینەوەی ڕوو لەسەر ئەم مۆبایلە چالاک نییە';
+  String get biometricsUnavailable => 'هیچ پەنجەمۆر یان ناسینەوەی ڕوو لەسەر ئەم مۆبایلە چالاک نییە';
 
   @override
   String get changePin => 'گۆڕینی PIN';
@@ -160,8 +159,7 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get setupWelcome => 'بەخێربێیت';
 
   @override
-  String get setupWelcomeBody =>
-      'هەموو شتێک لەسەر ئەم مۆبایلە دەمێنێتەوە، لەژێر قوفڵی خۆت.';
+  String get setupWelcomeBody => 'هەموو شتێک لەسەر ئەم مۆبایلە دەمێنێتەوە، لەژێر قوفڵی خۆت.';
 
   @override
   String get setupChooseLanguage => 'زمانەکەت هەڵبژێرە';
@@ -241,12 +239,10 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get privacy => 'تایبەتمەندی';
 
   @override
-  String get privacyPhase1 =>
-      'هیچ شتێک لەم مۆبایلە دەرناچێت. ئەپەکە هێشتا دەسەڵاتی ئینتەرنێتی نییە.';
+  String get privacyPhase1 => 'هیچ شتێک لەم مۆبایلە دەرناچێت. ئەپەکە هێشتا دەسەڵاتی ئینتەرنێتی نییە.';
 
   @override
-  String get restoreTooNew =>
-      'ئەم پاشەکەوتە لە وەشانێکی نوێتری ئەپەکە دروستکراوە. سەرەتا ئەپەکە نوێ بکەرەوە.';
+  String get restoreTooNew => 'ئەم پاشەکەوتە لە وەشانێکی نوێتری ئەپەکە دروستکراوە. سەرەتا ئەپەکە نوێ بکەرەوە.';
 
   @override
   String get restoreWrongPassword => 'وشەی نهێنی هەڵەیە، یان فایلەکە تێکچووە.';
