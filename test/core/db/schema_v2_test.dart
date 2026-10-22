@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:life_manager/core/db/app_database.dart';
 import 'package:life_manager/core/db/finance_seed.dart';
 import 'package:life_manager/core/db/seed.dart';
-import 'package:sqlite3/sqlite3.dart' show SqliteException;
 
 import 'seed_test.dart' show names;
 
