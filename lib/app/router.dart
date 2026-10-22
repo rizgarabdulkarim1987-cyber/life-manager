@@ -16,7 +16,10 @@ import '../features/finance/ui/history_screen.dart';
 import '../features/finance/ui/reports_screen.dart';
 import '../features/finance/ui/transaction_form_screen.dart';
 import '../features/finance/ui/transfer_form_screen.dart';
+import '../features/settings/categories_screen.dart';
+import '../features/settings/finance_settings_screen.dart';
 import '../features/settings/settings_screen.dart';
+import '../features/settings/workspaces_screen.dart';
 import '../features/setup/setup_flow.dart';
 import '../features/setup/splash_screen.dart';
 import '../features/shell/home_screen.dart';
@@ -155,7 +158,12 @@ GoRouter buildRouter() => GoRouter(
     GoRoute(
       path: '/settings',
       builder: (_, _) => const SettingsScreen(),
-      routes: [GoRoute(path: 'backup', builder: (_, _) => const BackupScreen())],
+      routes: [
+        GoRoute(path: 'backup', builder: (_, _) => const BackupScreen()),
+        GoRoute(path: 'finance', builder: (_, _) => const FinanceSettingsScreen()),
+        GoRoute(path: 'categories', builder: (_, _) => const CategoriesScreen()),
+        GoRoute(path: 'workspaces', builder: (_, _) => const WorkspacesScreen()),
+      ],
     ),
   ],
 );

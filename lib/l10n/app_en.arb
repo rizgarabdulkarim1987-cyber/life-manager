@@ -490,5 +490,79 @@
   "repExportCsv": "Transactions as CSV",
   "repExportPdf": "Report as PDF",
   "repNotEncrypted": "This file is not encrypted. Anyone who gets it can read it.",
-  "repExportFailed": "Could not save the file"
+  "repExportFailed": "Could not save the file",
+  "setFinance": "Finance",
+  "setFinanceSettings": "Currency and rates",
+  "setFinanceSettingsHint": "Base currency, USD rate, alerts",
+  "setCategories": "Categories",
+  "setCategoriesHint": "Names and the words that pick them",
+  "setWorkspaces": "Workspaces",
+  "setWorkspacesHint": "Names, aliases, buckets",
+  "setBaseCurrency": "Base currency",
+  "setBaseCurrencyHint": "Totals, buckets and reports use it unless you pick another.",
+  "setRateDate": "From {date}",
+  "@setRateDate": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "setRateHistory": "Rate history",
+  "setNoRates": "No rate yet. USD and IQD stay apart until you add one.",
+  "setRateSaved": "Rate saved",
+  "setAlerts": "Alerts",
+  "setUnallocatedAlert": "Remind me about income not split into buckets",
+  "setUnallocatedAlertHint": "Shows on the Finance screen",
+  "setIncomeCategories": "Income",
+  "setExpenseCategories": "Expenses",
+  "setAddCategory": "Add category",
+  "setEditCategory": "Edit category",
+  "setKeywords": "Words that pick this category",
+  "setBuiltInWords": "Built in",
+  "setYourWords": "Your words",
+  "setAddWord": "Add a word",
+  "setRemoveWord": "Remove {word}",
+  "@setRemoveWord": {
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "setArchiveCategory": "Archive {name}? Old entries keep it.",
+  "@setArchiveCategory": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "setAddWorkspace": "Add workspace",
+  "setEditWorkspace": "Edit workspace",
+  "setIcon": "Icon",
+  "setColour": "Colour",
+  "setAliases": "Other names you say",
+  "setAliasesHint": "Voice and quick capture match these too",
+  "setAddAlias": "Add a name",
+  "setCountsInBuckets": "Counts in buckets",
+  "setCountsInBucketsHint": "Its expenses come out of the Expenses bucket",
+  "setArchiveWorkspace": "Archive {name}? Its history stays.",
+  "@setArchiveWorkspace": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "setArchiveBlocked": "Archive or move its accounts first. {name} still has accounts in use.",
+  "@setArchiveBlocked": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "setArchived": "Archived",
+  "ok": "OK"
 }

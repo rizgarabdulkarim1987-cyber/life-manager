@@ -490,5 +490,79 @@
   "repExportCsv": "العمليات كملف CSV",
   "repExportPdf": "التقرير كملف PDF",
   "repNotEncrypted": "هالملف مو مشفّر. أي واحد يوصله يگدر يقراه.",
-  "repExportFailed": "ما گدرنا نحفظ الملف"
+  "repExportFailed": "ما گدرنا نحفظ الملف",
+  "setFinance": "المالية",
+  "setFinanceSettings": "العملة وأسعار الصرف",
+  "setFinanceSettingsHint": "العملة الأساسية، سعر الدولار، التنبيهات",
+  "setCategories": "الفئات",
+  "setCategoriesHint": "الأسماء والكلمات اللي تختارها",
+  "setWorkspaces": "مساحات العمل",
+  "setWorkspacesHint": "الأسماء، الأسماء الثانية، الصناديق",
+  "setBaseCurrency": "العملة الأساسية",
+  "setBaseCurrencyHint": "المجاميع والصناديق والتقارير تستخدمها إلا إذا اخترت غيرها.",
+  "setRateDate": "من {date}",
+  "@setRateDate": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "setRateHistory": "سجل الأسعار",
+  "setNoRates": "ماكو سعر بعد. الدولار والدينار يبقون منفصلين لحد ما تضيف سعر.",
+  "setRateSaved": "انحفظ السعر",
+  "setAlerts": "التنبيهات",
+  "setUnallocatedAlert": "ذكّرني بالدخل اللي ما توزّع على الصناديق",
+  "setUnallocatedAlertHint": "يطلع بشاشة المالية",
+  "setIncomeCategories": "الدخل",
+  "setExpenseCategories": "المصاريف",
+  "setAddCategory": "أضف فئة",
+  "setEditCategory": "عدّل الفئة",
+  "setKeywords": "الكلمات اللي تختار هالفئة",
+  "setBuiltInWords": "موجودة أصلاً",
+  "setYourWords": "كلماتك",
+  "setAddWord": "أضف كلمة",
+  "setRemoveWord": "احذف {word}",
+  "@setRemoveWord": {
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "setArchiveCategory": "تأرشف {name}؟ العمليات القديمة تبقى عليها.",
+  "@setArchiveCategory": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "setAddWorkspace": "أضف مساحة عمل",
+  "setEditWorkspace": "عدّل مساحة العمل",
+  "setIcon": "الأيقونة",
+  "setColour": "اللون",
+  "setAliases": "أسماء ثانية تگولها",
+  "setAliasesHint": "التسجيل الصوتي والسريع يتعرف عليها هم",
+  "setAddAlias": "أضف اسم",
+  "setCountsInBuckets": "تنحسب بالصناديق",
+  "setCountsInBucketsHint": "مصاريفها تنطلع من صندوق المصاريف",
+  "setArchiveWorkspace": "تأرشف {name}؟ سجلّها يبقى.",
+  "@setArchiveWorkspace": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "setArchiveBlocked": "أرشف حساباتها أول. {name} بعدها بيها حسابات شغالة.",
+  "@setArchiveBlocked": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "setArchived": "انأرشفت",
+  "ok": "تمام"
 }

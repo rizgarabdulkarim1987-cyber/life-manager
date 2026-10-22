@@ -47,14 +47,16 @@ class WorkspacesRepository {
   Future<void> setCountsInBuckets(int id, bool v) =>
       (_db.update(_db.workspaces)..where((w) => w.id.equals(id))).write(WorkspacesCompanion(countsInBuckets: Value(v)));
 
+  Future<bool> hasActiveAccounts(int id) async =>
+      (await (_db.select(_db.accounts)
+                ..where((a) => a.workspaceId.equals(id) & a.isArchived.equals(false))
+                ..limit(1))
+              .get())
+          .isNotEmpty;
+
   /// Refuses while the workspace still has accounts in use.
   Future<void> archive(int id) => _db.transaction(() async {
-    final active =
-        await (_db.select(_db.accounts)
-              ..where((a) => a.workspaceId.equals(id) & a.isArchived.equals(false))
-              ..limit(1))
-            .get();
-    if (active.isNotEmpty) throw StateError('workspace has active accounts');
+    if (await hasActiveAccounts(id)) throw StateError('workspace has active accounts');
     await (_db.update(
       _db.workspaces,
     )..where((w) => w.id.equals(id))).write(const WorkspacesCompanion(isArchived: Value(true)));

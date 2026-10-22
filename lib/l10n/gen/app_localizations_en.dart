@@ -938,4 +938,135 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get repExportFailed => 'Could not save the file';
+
+  @override
+  String get setFinance => 'Finance';
+
+  @override
+  String get setFinanceSettings => 'Currency and rates';
+
+  @override
+  String get setFinanceSettingsHint => 'Base currency, USD rate, alerts';
+
+  @override
+  String get setCategories => 'Categories';
+
+  @override
+  String get setCategoriesHint => 'Names and the words that pick them';
+
+  @override
+  String get setWorkspaces => 'Workspaces';
+
+  @override
+  String get setWorkspacesHint => 'Names, aliases, buckets';
+
+  @override
+  String get setBaseCurrency => 'Base currency';
+
+  @override
+  String get setBaseCurrencyHint =>
+      'Totals, buckets and reports use it unless you pick another.';
+
+  @override
+  String setRateDate(String date) {
+    return 'From $date';
+  }
+
+  @override
+  String get setRateHistory => 'Rate history';
+
+  @override
+  String get setNoRates =>
+      'No rate yet. USD and IQD stay apart until you add one.';
+
+  @override
+  String get setRateSaved => 'Rate saved';
+
+  @override
+  String get setAlerts => 'Alerts';
+
+  @override
+  String get setUnallocatedAlert =>
+      'Remind me about income not split into buckets';
+
+  @override
+  String get setUnallocatedAlertHint => 'Shows on the Finance screen';
+
+  @override
+  String get setIncomeCategories => 'Income';
+
+  @override
+  String get setExpenseCategories => 'Expenses';
+
+  @override
+  String get setAddCategory => 'Add category';
+
+  @override
+  String get setEditCategory => 'Edit category';
+
+  @override
+  String get setKeywords => 'Words that pick this category';
+
+  @override
+  String get setBuiltInWords => 'Built in';
+
+  @override
+  String get setYourWords => 'Your words';
+
+  @override
+  String get setAddWord => 'Add a word';
+
+  @override
+  String setRemoveWord(String word) {
+    return 'Remove $word';
+  }
+
+  @override
+  String setArchiveCategory(String name) {
+    return 'Archive $name? Old entries keep it.';
+  }
+
+  @override
+  String get setAddWorkspace => 'Add workspace';
+
+  @override
+  String get setEditWorkspace => 'Edit workspace';
+
+  @override
+  String get setIcon => 'Icon';
+
+  @override
+  String get setColour => 'Colour';
+
+  @override
+  String get setAliases => 'Other names you say';
+
+  @override
+  String get setAliasesHint => 'Voice and quick capture match these too';
+
+  @override
+  String get setAddAlias => 'Add a name';
+
+  @override
+  String get setCountsInBuckets => 'Counts in buckets';
+
+  @override
+  String get setCountsInBucketsHint =>
+      'Its expenses come out of the Expenses bucket';
+
+  @override
+  String setArchiveWorkspace(String name) {
+    return 'Archive $name? Its history stays.';
+  }
+
+  @override
+  String setArchiveBlocked(String name) {
+    return 'Archive or move its accounts first. $name still has accounts in use.';
+  }
+
+  @override
+  String get setArchived => 'Archived';
+
+  @override
+  String get ok => 'OK';
 }

@@ -490,5 +490,79 @@
   "repExportCsv": "مامەڵەکان وەک CSV",
   "repExportPdf": "ڕاپۆرت وەک PDF",
   "repNotEncrypted": "ئەم فایلە نهێنی نەکراوە. هەر کەسێک دەستی بکەوێت دەتوانێت بیخوێنێتەوە.",
-  "repExportFailed": "نەتوانرا فایلەکە پاشەکەوت بکرێت"
+  "repExportFailed": "نەتوانرا فایلەکە پاشەکەوت بکرێت",
+  "setFinance": "دارایی",
+  "setFinanceSettings": "دراو و نرخەکان",
+  "setFinanceSettingsHint": "دراوی بنەڕەت، نرخی دۆلار، ئاگادارکردنەوە",
+  "setCategories": "پۆلەکان",
+  "setCategoriesHint": "ناوەکان و ئەو وشانەی هەڵیان دەبژێرن",
+  "setWorkspaces": "شوێنەکانی کار",
+  "setWorkspacesHint": "ناوەکان، ناوە دیکەکان، سندوقەکان",
+  "setBaseCurrency": "دراوی بنەڕەت",
+  "setBaseCurrencyHint": "کۆکان و سندوقەکان و ڕاپۆرتەکان بەکاری دەهێنن مەگەر یەکێکی تر هەڵبژێریت.",
+  "setRateDate": "لە {date}ەوە",
+  "@setRateDate": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "setRateHistory": "مێژووی نرخەکان",
+  "setNoRates": "هێشتا نرخ نییە. دۆلار و دینار جیا دەمێننەوە تا نرخێک زیاد دەکەیت.",
+  "setRateSaved": "نرخەکە پاشەکەوت کرا",
+  "setAlerts": "ئاگادارکردنەوەکان",
+  "setUnallocatedAlert": "بیرم بخەرەوە بە داهاتێک کە دابەش نەکراوە بۆ سندوقەکان",
+  "setUnallocatedAlertHint": "لە شاشەی دارایی دەردەکەوێت",
+  "setIncomeCategories": "داهات",
+  "setExpenseCategories": "خەرجی",
+  "setAddCategory": "پۆل زیاد بکە",
+  "setEditCategory": "پۆل دەستکاری بکە",
+  "setKeywords": "ئەو وشانەی ئەم پۆلە هەڵدەبژێرن",
+  "setBuiltInWords": "بنەڕەتی",
+  "setYourWords": "وشەکانی تۆ",
+  "setAddWord": "وشەیەک زیاد بکە",
+  "setRemoveWord": "{word} لاببە",
+  "@setRemoveWord": {
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "setArchiveCategory": "{name} ئەرشیف بکرێت؟ تۆمارە کۆنەکان دەیپارێزن.",
+  "@setArchiveCategory": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "setAddWorkspace": "شوێنی کار زیاد بکە",
+  "setEditWorkspace": "شوێنی کار دەستکاری بکە",
+  "setIcon": "ئایکۆن",
+  "setColour": "ڕەنگ",
+  "setAliases": "ناوە دیکەکان کە دەیڵێیت",
+  "setAliasesHint": "تۆمارکردنی دەنگی و خێرا ئەمانەش دەناسێتەوە",
+  "setAddAlias": "ناوێک زیاد بکە",
+  "setCountsInBuckets": "لە سندوقەکاندا دەژمێردرێت",
+  "setCountsInBucketsHint": "خەرجییەکانی لە سندوقی خەرجی دەبڕدرێن",
+  "setArchiveWorkspace": "{name} ئەرشیف بکرێت؟ مێژووەکەی دەمێنێت.",
+  "@setArchiveWorkspace": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "setArchiveBlocked": "سەرەتا هەژمارەکانی ئەرشیف بکە. {name} هێشتا هەژماری کارای هەیە.",
+  "@setArchiveBlocked": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "setArchived": "ئەرشیف کرا",
+  "ok": "باشە"
 }

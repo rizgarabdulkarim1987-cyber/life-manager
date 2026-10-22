@@ -934,4 +934,135 @@ class AppLocalizationsCkb extends AppLocalizations {
 
   @override
   String get repExportFailed => 'نەتوانرا فایلەکە پاشەکەوت بکرێت';
+
+  @override
+  String get setFinance => 'دارایی';
+
+  @override
+  String get setFinanceSettings => 'دراو و نرخەکان';
+
+  @override
+  String get setFinanceSettingsHint =>
+      'دراوی بنەڕەت، نرخی دۆلار، ئاگادارکردنەوە';
+
+  @override
+  String get setCategories => 'پۆلەکان';
+
+  @override
+  String get setCategoriesHint => 'ناوەکان و ئەو وشانەی هەڵیان دەبژێرن';
+
+  @override
+  String get setWorkspaces => 'شوێنەکانی کار';
+
+  @override
+  String get setWorkspacesHint => 'ناوەکان، ناوە دیکەکان، سندوقەکان';
+
+  @override
+  String get setBaseCurrency => 'دراوی بنەڕەت';
+
+  @override
+  String get setBaseCurrencyHint =>
+      'کۆکان و سندوقەکان و ڕاپۆرتەکان بەکاری دەهێنن مەگەر یەکێکی تر هەڵبژێریت.';
+
+  @override
+  String setRateDate(String date) {
+    return 'لە $dateەوە';
+  }
+
+  @override
+  String get setRateHistory => 'مێژووی نرخەکان';
+
+  @override
+  String get setNoRates =>
+      'هێشتا نرخ نییە. دۆلار و دینار جیا دەمێننەوە تا نرخێک زیاد دەکەیت.';
+
+  @override
+  String get setRateSaved => 'نرخەکە پاشەکەوت کرا';
+
+  @override
+  String get setAlerts => 'ئاگادارکردنەوەکان';
+
+  @override
+  String get setUnallocatedAlert =>
+      'بیرم بخەرەوە بە داهاتێک کە دابەش نەکراوە بۆ سندوقەکان';
+
+  @override
+  String get setUnallocatedAlertHint => 'لە شاشەی دارایی دەردەکەوێت';
+
+  @override
+  String get setIncomeCategories => 'داهات';
+
+  @override
+  String get setExpenseCategories => 'خەرجی';
+
+  @override
+  String get setAddCategory => 'پۆل زیاد بکە';
+
+  @override
+  String get setEditCategory => 'پۆل دەستکاری بکە';
+
+  @override
+  String get setKeywords => 'ئەو وشانەی ئەم پۆلە هەڵدەبژێرن';
+
+  @override
+  String get setBuiltInWords => 'بنەڕەتی';
+
+  @override
+  String get setYourWords => 'وشەکانی تۆ';
+
+  @override
+  String get setAddWord => 'وشەیەک زیاد بکە';
+
+  @override
+  String setRemoveWord(String word) {
+    return '$word لاببە';
+  }
+
+  @override
+  String setArchiveCategory(String name) {
+    return '$name ئەرشیف بکرێت؟ تۆمارە کۆنەکان دەیپارێزن.';
+  }
+
+  @override
+  String get setAddWorkspace => 'شوێنی کار زیاد بکە';
+
+  @override
+  String get setEditWorkspace => 'شوێنی کار دەستکاری بکە';
+
+  @override
+  String get setIcon => 'ئایکۆن';
+
+  @override
+  String get setColour => 'ڕەنگ';
+
+  @override
+  String get setAliases => 'ناوە دیکەکان کە دەیڵێیت';
+
+  @override
+  String get setAliasesHint => 'تۆمارکردنی دەنگی و خێرا ئەمانەش دەناسێتەوە';
+
+  @override
+  String get setAddAlias => 'ناوێک زیاد بکە';
+
+  @override
+  String get setCountsInBuckets => 'لە سندوقەکاندا دەژمێردرێت';
+
+  @override
+  String get setCountsInBucketsHint => 'خەرجییەکانی لە سندوقی خەرجی دەبڕدرێن';
+
+  @override
+  String setArchiveWorkspace(String name) {
+    return '$name ئەرشیف بکرێت؟ مێژووەکەی دەمێنێت.';
+  }
+
+  @override
+  String setArchiveBlocked(String name) {
+    return 'سەرەتا هەژمارەکانی ئەرشیف بکە. $name هێشتا هەژماری کارای هەیە.';
+  }
+
+  @override
+  String get setArchived => 'ئەرشیف کرا';
+
+  @override
+  String get ok => 'باشە';
 }

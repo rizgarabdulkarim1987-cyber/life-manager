@@ -1785,6 +1785,240 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Could not save the file'**
   String get repExportFailed;
+
+  /// No description provided for @setFinance.
+  ///
+  /// In en, this message translates to:
+  /// **'Finance'**
+  String get setFinance;
+
+  /// No description provided for @setFinanceSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Currency and rates'**
+  String get setFinanceSettings;
+
+  /// No description provided for @setFinanceSettingsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Base currency, USD rate, alerts'**
+  String get setFinanceSettingsHint;
+
+  /// No description provided for @setCategories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get setCategories;
+
+  /// No description provided for @setCategoriesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Names and the words that pick them'**
+  String get setCategoriesHint;
+
+  /// No description provided for @setWorkspaces.
+  ///
+  /// In en, this message translates to:
+  /// **'Workspaces'**
+  String get setWorkspaces;
+
+  /// No description provided for @setWorkspacesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Names, aliases, buckets'**
+  String get setWorkspacesHint;
+
+  /// No description provided for @setBaseCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Base currency'**
+  String get setBaseCurrency;
+
+  /// No description provided for @setBaseCurrencyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Totals, buckets and reports use it unless you pick another.'**
+  String get setBaseCurrencyHint;
+
+  /// No description provided for @setRateDate.
+  ///
+  /// In en, this message translates to:
+  /// **'From {date}'**
+  String setRateDate(String date);
+
+  /// No description provided for @setRateHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate history'**
+  String get setRateHistory;
+
+  /// No description provided for @setNoRates.
+  ///
+  /// In en, this message translates to:
+  /// **'No rate yet. USD and IQD stay apart until you add one.'**
+  String get setNoRates;
+
+  /// No description provided for @setRateSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate saved'**
+  String get setRateSaved;
+
+  /// No description provided for @setAlerts.
+  ///
+  /// In en, this message translates to:
+  /// **'Alerts'**
+  String get setAlerts;
+
+  /// No description provided for @setUnallocatedAlert.
+  ///
+  /// In en, this message translates to:
+  /// **'Remind me about income not split into buckets'**
+  String get setUnallocatedAlert;
+
+  /// No description provided for @setUnallocatedAlertHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Shows on the Finance screen'**
+  String get setUnallocatedAlertHint;
+
+  /// No description provided for @setIncomeCategories.
+  ///
+  /// In en, this message translates to:
+  /// **'Income'**
+  String get setIncomeCategories;
+
+  /// No description provided for @setExpenseCategories.
+  ///
+  /// In en, this message translates to:
+  /// **'Expenses'**
+  String get setExpenseCategories;
+
+  /// No description provided for @setAddCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Add category'**
+  String get setAddCategory;
+
+  /// No description provided for @setEditCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit category'**
+  String get setEditCategory;
+
+  /// No description provided for @setKeywords.
+  ///
+  /// In en, this message translates to:
+  /// **'Words that pick this category'**
+  String get setKeywords;
+
+  /// No description provided for @setBuiltInWords.
+  ///
+  /// In en, this message translates to:
+  /// **'Built in'**
+  String get setBuiltInWords;
+
+  /// No description provided for @setYourWords.
+  ///
+  /// In en, this message translates to:
+  /// **'Your words'**
+  String get setYourWords;
+
+  /// No description provided for @setAddWord.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a word'**
+  String get setAddWord;
+
+  /// No description provided for @setRemoveWord.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {word}'**
+  String setRemoveWord(String word);
+
+  /// No description provided for @setArchiveCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Archive {name}? Old entries keep it.'**
+  String setArchiveCategory(String name);
+
+  /// No description provided for @setAddWorkspace.
+  ///
+  /// In en, this message translates to:
+  /// **'Add workspace'**
+  String get setAddWorkspace;
+
+  /// No description provided for @setEditWorkspace.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit workspace'**
+  String get setEditWorkspace;
+
+  /// No description provided for @setIcon.
+  ///
+  /// In en, this message translates to:
+  /// **'Icon'**
+  String get setIcon;
+
+  /// No description provided for @setColour.
+  ///
+  /// In en, this message translates to:
+  /// **'Colour'**
+  String get setColour;
+
+  /// No description provided for @setAliases.
+  ///
+  /// In en, this message translates to:
+  /// **'Other names you say'**
+  String get setAliases;
+
+  /// No description provided for @setAliasesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice and quick capture match these too'**
+  String get setAliasesHint;
+
+  /// No description provided for @setAddAlias.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a name'**
+  String get setAddAlias;
+
+  /// No description provided for @setCountsInBuckets.
+  ///
+  /// In en, this message translates to:
+  /// **'Counts in buckets'**
+  String get setCountsInBuckets;
+
+  /// No description provided for @setCountsInBucketsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Its expenses come out of the Expenses bucket'**
+  String get setCountsInBucketsHint;
+
+  /// No description provided for @setArchiveWorkspace.
+  ///
+  /// In en, this message translates to:
+  /// **'Archive {name}? Its history stays.'**
+  String setArchiveWorkspace(String name);
+
+  /// No description provided for @setArchiveBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Archive or move its accounts first. {name} still has accounts in use.'**
+  String setArchiveBlocked(String name);
+
+  /// No description provided for @setArchived.
+  ///
+  /// In en, this message translates to:
+  /// **'Archived'**
+  String get setArchived;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get ok;
 }
 
 class _AppLocalizationsDelegate

@@ -10,6 +10,7 @@ import '../../core/theme/tokens.dart';
 import '../lock/lock_controller.dart';
 import 'change_pin_screen.dart';
 import 'settings_repository.dart';
+import 'settings_section.dart';
 
 final biometricAvailableProvider = FutureProvider<bool>(
   (ref) => ref.watch(biometricAuthenticatorProvider).isAvailable(),
@@ -32,23 +33,49 @@ class SettingsScreen extends ConsumerWidget {
           : ListView(
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 32),
               children: [
-                _Section(
+                SettingsSection(
                   title: l10n.language,
                   children: [_LanguagePicker(current: settings.localeCode)],
                 ),
-                _Section(
+                SettingsSection(
                   title: l10n.theme,
                   children: [_ThemePicker(current: settings.themeMode)],
                 ),
-                _Section(
+                SettingsSection(
                   title: l10n.appLock,
                   children: [_LockSettings(settings: settings)],
                 ),
-                _Section(
+                SettingsSection(
+                  title: l10n.setFinance,
+                  children: [
+                    _Link(
+                      'settings-finance',
+                      Icons.currency_exchange_rounded,
+                      l10n.setFinanceSettings,
+                      l10n.setFinanceSettingsHint,
+                      '/settings/finance',
+                    ),
+                    _Link(
+                      'settings-categories',
+                      Icons.sell_outlined,
+                      l10n.setCategories,
+                      l10n.setCategoriesHint,
+                      '/settings/categories',
+                    ),
+                    _Link(
+                      'settings-workspaces',
+                      Icons.workspaces_outline,
+                      l10n.setWorkspaces,
+                      l10n.setWorkspacesHint,
+                      '/settings/workspaces',
+                    ),
+                  ],
+                ),
+                SettingsSection(
                   title: l10n.backupRestore,
                   children: [_BackupLink(lastBackupAt: settings.lastBackupAt)],
                 ),
-                _Section(
+                SettingsSection(
                   title: l10n.privacy,
                   children: [
                     ListTile(leading: const Icon(Icons.verified_user_outlined), title: Text(l10n.privacyPhase1)),
@@ -56,36 +83,6 @@ class SettingsScreen extends ConsumerWidget {
                 ),
               ],
             ),
-    );
-  }
-}
-
-class _Section extends StatelessWidget {
-  const _Section({required this.title, required this.children});
-
-  final String title;
-  final List<Widget> children;
-
-  @override
-  Widget build(BuildContext context) {
-    final k = context.tokens;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Padding(
-          padding: const EdgeInsetsDirectional.fromSTEB(8, 24, 8, 8),
-          child: Text(title, style: Theme.of(context).textTheme.titleSmall?.copyWith(color: k.accent)),
-        ),
-        Material(
-          color: k.surface,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppTokens.radiusCard),
-            side: BorderSide(color: k.border),
-          ),
-          clipBehavior: Clip.antiAlias,
-          child: Column(children: children),
-        ),
-      ],
     );
   }
 }
@@ -255,4 +252,24 @@ class _BackupLink extends StatelessWidget {
       onTap: () => context.push('/settings/backup'),
     );
   }
+}
+
+class _Link extends StatelessWidget {
+  const _Link(this.id, this.icon, this.title, this.subtitle, this.location);
+
+  final String id;
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final String location;
+
+  @override
+  Widget build(BuildContext context) => ListTile(
+    key: ValueKey(id),
+    leading: Icon(icon),
+    title: Text(title),
+    subtitle: Text(subtitle, maxLines: 2, overflow: TextOverflow.ellipsis),
+    trailing: const Icon(Icons.chevron_right_rounded),
+    onTap: () => context.push(location),
+  );
 }

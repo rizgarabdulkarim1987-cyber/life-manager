@@ -935,4 +935,134 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get repExportFailed => 'ما گدرنا نحفظ الملف';
+
+  @override
+  String get setFinance => 'المالية';
+
+  @override
+  String get setFinanceSettings => 'العملة وأسعار الصرف';
+
+  @override
+  String get setFinanceSettingsHint =>
+      'العملة الأساسية، سعر الدولار، التنبيهات';
+
+  @override
+  String get setCategories => 'الفئات';
+
+  @override
+  String get setCategoriesHint => 'الأسماء والكلمات اللي تختارها';
+
+  @override
+  String get setWorkspaces => 'مساحات العمل';
+
+  @override
+  String get setWorkspacesHint => 'الأسماء، الأسماء الثانية، الصناديق';
+
+  @override
+  String get setBaseCurrency => 'العملة الأساسية';
+
+  @override
+  String get setBaseCurrencyHint =>
+      'المجاميع والصناديق والتقارير تستخدمها إلا إذا اخترت غيرها.';
+
+  @override
+  String setRateDate(String date) {
+    return 'من $date';
+  }
+
+  @override
+  String get setRateHistory => 'سجل الأسعار';
+
+  @override
+  String get setNoRates =>
+      'ماكو سعر بعد. الدولار والدينار يبقون منفصلين لحد ما تضيف سعر.';
+
+  @override
+  String get setRateSaved => 'انحفظ السعر';
+
+  @override
+  String get setAlerts => 'التنبيهات';
+
+  @override
+  String get setUnallocatedAlert => 'ذكّرني بالدخل اللي ما توزّع على الصناديق';
+
+  @override
+  String get setUnallocatedAlertHint => 'يطلع بشاشة المالية';
+
+  @override
+  String get setIncomeCategories => 'الدخل';
+
+  @override
+  String get setExpenseCategories => 'المصاريف';
+
+  @override
+  String get setAddCategory => 'أضف فئة';
+
+  @override
+  String get setEditCategory => 'عدّل الفئة';
+
+  @override
+  String get setKeywords => 'الكلمات اللي تختار هالفئة';
+
+  @override
+  String get setBuiltInWords => 'موجودة أصلاً';
+
+  @override
+  String get setYourWords => 'كلماتك';
+
+  @override
+  String get setAddWord => 'أضف كلمة';
+
+  @override
+  String setRemoveWord(String word) {
+    return 'احذف $word';
+  }
+
+  @override
+  String setArchiveCategory(String name) {
+    return 'تأرشف $name؟ العمليات القديمة تبقى عليها.';
+  }
+
+  @override
+  String get setAddWorkspace => 'أضف مساحة عمل';
+
+  @override
+  String get setEditWorkspace => 'عدّل مساحة العمل';
+
+  @override
+  String get setIcon => 'الأيقونة';
+
+  @override
+  String get setColour => 'اللون';
+
+  @override
+  String get setAliases => 'أسماء ثانية تگولها';
+
+  @override
+  String get setAliasesHint => 'التسجيل الصوتي والسريع يتعرف عليها هم';
+
+  @override
+  String get setAddAlias => 'أضف اسم';
+
+  @override
+  String get setCountsInBuckets => 'تنحسب بالصناديق';
+
+  @override
+  String get setCountsInBucketsHint => 'مصاريفها تنطلع من صندوق المصاريف';
+
+  @override
+  String setArchiveWorkspace(String name) {
+    return 'تأرشف $name؟ سجلّها يبقى.';
+  }
+
+  @override
+  String setArchiveBlocked(String name) {
+    return 'أرشف حساباتها أول. $name بعدها بيها حسابات شغالة.';
+  }
+
+  @override
+  String get setArchived => 'انأرشفت';
+
+  @override
+  String get ok => 'تمام';
 }
