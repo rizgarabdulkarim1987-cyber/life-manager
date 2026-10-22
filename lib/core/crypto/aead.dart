@@ -16,7 +16,9 @@ class AeadAuthException implements Exception {
 }
 
 abstract interface class Aead {
-  Future<SealedBox> seal(Uint8List plain, Uint8List key, {Uint8List? aad});
+  /// [nonce] defaults to 12 fresh random bytes; pass one only when it must be
+  /// known before sealing (e.g. it is part of the AAD) and is never reused.
+  Future<SealedBox> seal(Uint8List plain, Uint8List key, {Uint8List? aad, Uint8List? nonce});
   Future<Uint8List> open(SealedBox box, Uint8List key, {Uint8List? aad});
 }
 
@@ -34,9 +36,10 @@ final class AesGcmAead implements Aead {
   }
 
   @override
-  Future<SealedBox> seal(Uint8List plain, Uint8List key, {Uint8List? aad}) async {
+  Future<SealedBox> seal(Uint8List plain, Uint8List key, {Uint8List? aad, Uint8List? nonce}) async {
     _checkKey(key);
-    final box = await _algo.encrypt(plain, secretKey: SecretKey(key), aad: aad ?? const <int>[]);
+    if (nonce != null && nonce.length != 12) throw ArgumentError('GCM nonce must be 12 bytes');
+    final box = await _algo.encrypt(plain, secretKey: SecretKey(key), nonce: nonce, aad: aad ?? const <int>[]);
     return SealedBox(Uint8List.fromList(box.nonce), Uint8List.fromList([...box.cipherText, ...box.mac.bytes]));
   }
 
