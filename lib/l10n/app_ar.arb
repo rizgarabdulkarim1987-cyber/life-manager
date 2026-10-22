@@ -430,5 +430,65 @@
   "finPrincipal": "أصل الدين",
   "finRepayment": "تسديد",
   "finClosed": "مسدّد",
-  "finNotes": "ملاحظات"
+  "finNotes": "ملاحظات",
+  "finReports": "التقارير",
+  "repRange": "المدة",
+  "repThisMonth": "هالشهر",
+  "repLastMonth": "الشهر الماضي",
+  "repLastMonths": "آخر {count} أشهر",
+  "@repLastMonths": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "repCustom": "تواريخ أختارها",
+  "repGroupBy": "التجميع",
+  "repDaily": "يومي",
+  "repWeekly": "أسبوعي",
+  "repMonthly": "شهري",
+  "repAllWorkspaces": "كل مساحات العمل",
+  "repTabIncomeExpense": "الدخل والمصاريف",
+  "repTabCategory": "حسب الفئة",
+  "repTabWorkspace": "حسب مساحة العمل",
+  "repTabCashFlow": "حركة الفلوس",
+  "repTabBalance": "الرصيد عبر الوقت",
+  "repTabDebts": "الديون الباقية",
+  "repShowTable": "اعرضها جدول",
+  "repShowChart": "اعرضها رسم",
+  "repSkipped": "{count} ما انحسبت: ماكو سعر {currencies} بتواريخها",
+  "@repSkipped": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "currencies": {
+        "type": "String"
+      }
+    }
+  },
+  "repMoneyIn": "الداخل",
+  "repMoneyOut": "الطالع",
+  "repNet": "الصافي",
+  "repOther": "غيرها",
+  "repPeriodColumn": "الفترة",
+  "repBalance": "الرصيد",
+  "repNothing": "ماكو شي بهالمدة",
+  "repBucketsMonth": "{month}، بعملة {currency}",
+  "@repBucketsMonth": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      },
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "repExport": "تصدير",
+  "repExportCsv": "العمليات كملف CSV",
+  "repExportPdf": "التقرير كملف PDF",
+  "repNotEncrypted": "هالملف مو مشفّر. أي واحد يوصله يگدر يقراه.",
+  "repExportFailed": "ما گدرنا نحفظ الملف"
 }

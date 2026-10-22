@@ -430,5 +430,65 @@
   "finPrincipal": "Principal",
   "finRepayment": "Repayment",
   "finClosed": "Settled",
-  "finNotes": "Notes"
+  "finNotes": "Notes",
+  "finReports": "Reports",
+  "repRange": "Range",
+  "repThisMonth": "This month",
+  "repLastMonth": "Last month",
+  "repLastMonths": "Last {count} months",
+  "@repLastMonths": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "repCustom": "Custom dates",
+  "repGroupBy": "Group by",
+  "repDaily": "Daily",
+  "repWeekly": "Weekly",
+  "repMonthly": "Monthly",
+  "repAllWorkspaces": "All workspaces",
+  "repTabIncomeExpense": "Income vs expenses",
+  "repTabCategory": "By category",
+  "repTabWorkspace": "By workspace",
+  "repTabCashFlow": "Cash flow",
+  "repTabBalance": "Balance over time",
+  "repTabDebts": "Outstanding debts",
+  "repShowTable": "Show as table",
+  "repShowChart": "Show as chart",
+  "repSkipped": "{count} left out: no {currencies} rate on their dates",
+  "@repSkipped": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "currencies": {
+        "type": "String"
+      }
+    }
+  },
+  "repMoneyIn": "Money in",
+  "repMoneyOut": "Money out",
+  "repNet": "Net",
+  "repOther": "Other",
+  "repPeriodColumn": "Period",
+  "repBalance": "Balance",
+  "repNothing": "Nothing in this range",
+  "repBucketsMonth": "{month}, in {currency}",
+  "@repBucketsMonth": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      },
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "repExport": "Export",
+  "repExportCsv": "Transactions as CSV",
+  "repExportPdf": "Report as PDF",
+  "repNotEncrypted": "This file is not encrypted. Anyone who gets it can read it.",
+  "repExportFailed": "Could not save the file"
 }

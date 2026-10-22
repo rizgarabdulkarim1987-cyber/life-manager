@@ -6,11 +6,19 @@ import 'rates_repository.dart';
 
 /// Rows and context for one report screen, loaded once.
 class ReportData {
-  const ReportData({required this.transactions, required this.context, required this.openingByAccount});
+  const ReportData({
+    required this.transactions,
+    required this.context,
+    required this.openingByAccount,
+    this.accounts = const [],
+  });
 
   final List<Transaction> transactions;
   final ReportContext context;
   final Map<int, int> openingByAccount;
+
+  /// Every account, archived ones too, for names in exports.
+  final List<Account> accounts;
 }
 
 class ReportsQuery {
@@ -27,6 +35,7 @@ class ReportsQuery {
     final book = await _rates.book();
     return ReportData(
       transactions: txs,
+      accounts: accounts,
       openingByAccount: {for (final a in accounts) a.id: a.openingBalanceMinor},
       context: ReportContext(
         rates: book.on,

@@ -832,4 +832,110 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get finNotes => 'Notes';
+
+  @override
+  String get finReports => 'Reports';
+
+  @override
+  String get repRange => 'Range';
+
+  @override
+  String get repThisMonth => 'This month';
+
+  @override
+  String get repLastMonth => 'Last month';
+
+  @override
+  String repLastMonths(int count) {
+    return 'Last $count months';
+  }
+
+  @override
+  String get repCustom => 'Custom dates';
+
+  @override
+  String get repGroupBy => 'Group by';
+
+  @override
+  String get repDaily => 'Daily';
+
+  @override
+  String get repWeekly => 'Weekly';
+
+  @override
+  String get repMonthly => 'Monthly';
+
+  @override
+  String get repAllWorkspaces => 'All workspaces';
+
+  @override
+  String get repTabIncomeExpense => 'Income vs expenses';
+
+  @override
+  String get repTabCategory => 'By category';
+
+  @override
+  String get repTabWorkspace => 'By workspace';
+
+  @override
+  String get repTabCashFlow => 'Cash flow';
+
+  @override
+  String get repTabBalance => 'Balance over time';
+
+  @override
+  String get repTabDebts => 'Outstanding debts';
+
+  @override
+  String get repShowTable => 'Show as table';
+
+  @override
+  String get repShowChart => 'Show as chart';
+
+  @override
+  String repSkipped(int count, String currencies) {
+    return '$count left out: no $currencies rate on their dates';
+  }
+
+  @override
+  String get repMoneyIn => 'Money in';
+
+  @override
+  String get repMoneyOut => 'Money out';
+
+  @override
+  String get repNet => 'Net';
+
+  @override
+  String get repOther => 'Other';
+
+  @override
+  String get repPeriodColumn => 'Period';
+
+  @override
+  String get repBalance => 'Balance';
+
+  @override
+  String get repNothing => 'Nothing in this range';
+
+  @override
+  String repBucketsMonth(String month, String currency) {
+    return '$month, in $currency';
+  }
+
+  @override
+  String get repExport => 'Export';
+
+  @override
+  String get repExportCsv => 'Transactions as CSV';
+
+  @override
+  String get repExportPdf => 'Report as PDF';
+
+  @override
+  String get repNotEncrypted =>
+      'This file is not encrypted. Anyone who gets it can read it.';
+
+  @override
+  String get repExportFailed => 'Could not save the file';
 }

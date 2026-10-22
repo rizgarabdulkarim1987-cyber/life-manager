@@ -27,6 +27,7 @@ class FinanceEntry {
 
 /// Entry tiles in display order. Each task that adds a finance screen adds its entry here.
 final kFinanceEntries = <FinanceEntry>[
+  FinanceEntry('reports', Icons.insights_rounded, (l) => l.finReports, '/finance/reports'),
   FinanceEntry('history', Icons.receipt_long_rounded, (l) => l.finHistory, '/finance/history'),
   FinanceEntry('accounts', Icons.account_balance_wallet_outlined, (l) => l.accounts, '/finance/accounts'),
   FinanceEntry('buckets', Icons.savings_outlined, (l) => l.finBuckets, '/finance/buckets'),

@@ -13,6 +13,7 @@ import '../features/finance/ui/debt_detail_screen.dart';
 import '../features/finance/ui/debts_screen.dart';
 import '../features/finance/ui/finance_overview_screen.dart';
 import '../features/finance/ui/history_screen.dart';
+import '../features/finance/ui/reports_screen.dart';
 import '../features/finance/ui/transaction_form_screen.dart';
 import '../features/finance/ui/transfer_form_screen.dart';
 import '../features/settings/settings_screen.dart';
@@ -102,6 +103,7 @@ GoRouter buildRouter() => GoRouter(
                     ),
                   ],
                 ),
+                GoRoute(path: 'reports', builder: (_, _) => const ReportsScreen()),
                 GoRoute(path: 'buckets', builder: (_, _) => const BucketsScreen()),
                 GoRoute(path: 'budgets', builder: (_, _) => const BudgetsScreen()),
                 GoRoute(

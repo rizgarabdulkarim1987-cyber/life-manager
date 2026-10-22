@@ -828,4 +828,110 @@ class AppLocalizationsCkb extends AppLocalizations {
 
   @override
   String get finNotes => 'تێبینی';
+
+  @override
+  String get finReports => 'ڕاپۆرتەکان';
+
+  @override
+  String get repRange => 'ماوە';
+
+  @override
+  String get repThisMonth => 'ئەم مانگە';
+
+  @override
+  String get repLastMonth => 'مانگی ڕابردوو';
+
+  @override
+  String repLastMonths(int count) {
+    return '$count مانگی ڕابردوو';
+  }
+
+  @override
+  String get repCustom => 'بەرواری دیاریکراو';
+
+  @override
+  String get repGroupBy => 'کۆکردنەوە';
+
+  @override
+  String get repDaily => 'ڕۆژانە';
+
+  @override
+  String get repWeekly => 'هەفتانە';
+
+  @override
+  String get repMonthly => 'مانگانە';
+
+  @override
+  String get repAllWorkspaces => 'هەموو شوێنەکانی کار';
+
+  @override
+  String get repTabIncomeExpense => 'داهات و خەرجی';
+
+  @override
+  String get repTabCategory => 'بەپێی پۆل';
+
+  @override
+  String get repTabWorkspace => 'بەپێی شوێنی کار';
+
+  @override
+  String get repTabCashFlow => 'جووڵەی پارە';
+
+  @override
+  String get repTabBalance => 'باڵانس بە درێژایی کات';
+
+  @override
+  String get repTabDebts => 'قەرزە ماوەکان';
+
+  @override
+  String get repShowTable => 'وەک خشتە پیشانی بدە';
+
+  @override
+  String get repShowChart => 'وەک هێڵکاری پیشانی بدە';
+
+  @override
+  String repSkipped(int count, String currencies) {
+    return '$count نەژمێردران: لە بەروارەکانیاندا نرخی $currencies نییە';
+  }
+
+  @override
+  String get repMoneyIn => 'هاتوو';
+
+  @override
+  String get repMoneyOut => 'ڕۆیشتوو';
+
+  @override
+  String get repNet => 'پوخت';
+
+  @override
+  String get repOther => 'هیتر';
+
+  @override
+  String get repPeriodColumn => 'ماوە';
+
+  @override
+  String get repBalance => 'باڵانس';
+
+  @override
+  String get repNothing => 'لەم ماوەیەدا هیچ نییە';
+
+  @override
+  String repBucketsMonth(String month, String currency) {
+    return '$month، بە $currency';
+  }
+
+  @override
+  String get repExport => 'هەناردن';
+
+  @override
+  String get repExportCsv => 'مامەڵەکان وەک CSV';
+
+  @override
+  String get repExportPdf => 'ڕاپۆرت وەک PDF';
+
+  @override
+  String get repNotEncrypted =>
+      'ئەم فایلە نهێنی نەکراوە. هەر کەسێک دەستی بکەوێت دەتوانێت بیخوێنێتەوە.';
+
+  @override
+  String get repExportFailed => 'نەتوانرا فایلەکە پاشەکەوت بکرێت';
 }

@@ -117,6 +117,13 @@ final reportsQueryProvider = Provider<ReportsQuery>(
   (ref) => ReportsQuery(ref.watch(appDatabaseProvider), ref.watch(ratesRepositoryProvider)),
 );
 
+/// Everything booked before [to], reloaded whenever money or rates change.
+final reportDataProvider = FutureProvider.family<ReportData, DateTime>((ref, to) async {
+  ref.watch(balancesProvider);
+  ref.watch(ratesHistoryProvider);
+  return ref.watch(reportsQueryProvider).load(to: to);
+});
+
 /// This month's income, expense and surplus in the base currency.
 final monthSummaryProvider = FutureProvider<ReportResult<IncomeExpense>>((ref) async {
   ref.watch(balancesProvider);

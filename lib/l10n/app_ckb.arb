@@ -430,5 +430,65 @@
   "finPrincipal": "بنەڕەت",
   "finRepayment": "گەڕاندنەوە",
   "finClosed": "تەواوبوو",
-  "finNotes": "تێبینی"
+  "finNotes": "تێبینی",
+  "finReports": "ڕاپۆرتەکان",
+  "repRange": "ماوە",
+  "repThisMonth": "ئەم مانگە",
+  "repLastMonth": "مانگی ڕابردوو",
+  "repLastMonths": "{count} مانگی ڕابردوو",
+  "@repLastMonths": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "repCustom": "بەرواری دیاریکراو",
+  "repGroupBy": "کۆکردنەوە",
+  "repDaily": "ڕۆژانە",
+  "repWeekly": "هەفتانە",
+  "repMonthly": "مانگانە",
+  "repAllWorkspaces": "هەموو شوێنەکانی کار",
+  "repTabIncomeExpense": "داهات و خەرجی",
+  "repTabCategory": "بەپێی پۆل",
+  "repTabWorkspace": "بەپێی شوێنی کار",
+  "repTabCashFlow": "جووڵەی پارە",
+  "repTabBalance": "باڵانس بە درێژایی کات",
+  "repTabDebts": "قەرزە ماوەکان",
+  "repShowTable": "وەک خشتە پیشانی بدە",
+  "repShowChart": "وەک هێڵکاری پیشانی بدە",
+  "repSkipped": "{count} نەژمێردران: لە بەروارەکانیاندا نرخی {currencies} نییە",
+  "@repSkipped": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "currencies": {
+        "type": "String"
+      }
+    }
+  },
+  "repMoneyIn": "هاتوو",
+  "repMoneyOut": "ڕۆیشتوو",
+  "repNet": "پوخت",
+  "repOther": "هیتر",
+  "repPeriodColumn": "ماوە",
+  "repBalance": "باڵانس",
+  "repNothing": "لەم ماوەیەدا هیچ نییە",
+  "repBucketsMonth": "{month}، بە {currency}",
+  "@repBucketsMonth": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      },
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "repExport": "هەناردن",
+  "repExportCsv": "مامەڵەکان وەک CSV",
+  "repExportPdf": "ڕاپۆرت وەک PDF",
+  "repNotEncrypted": "ئەم فایلە نهێنی نەکراوە. هەر کەسێک دەستی بکەوێت دەتوانێت بیخوێنێتەوە.",
+  "repExportFailed": "نەتوانرا فایلەکە پاشەکەوت بکرێت"
 }

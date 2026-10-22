@@ -1587,6 +1587,204 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Notes'**
   String get finNotes;
+
+  /// No description provided for @finReports.
+  ///
+  /// In en, this message translates to:
+  /// **'Reports'**
+  String get finReports;
+
+  /// No description provided for @repRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Range'**
+  String get repRange;
+
+  /// No description provided for @repThisMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'This month'**
+  String get repThisMonth;
+
+  /// No description provided for @repLastMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Last month'**
+  String get repLastMonth;
+
+  /// No description provided for @repLastMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'Last {count} months'**
+  String repLastMonths(int count);
+
+  /// No description provided for @repCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom dates'**
+  String get repCustom;
+
+  /// No description provided for @repGroupBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Group by'**
+  String get repGroupBy;
+
+  /// No description provided for @repDaily.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily'**
+  String get repDaily;
+
+  /// No description provided for @repWeekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly'**
+  String get repWeekly;
+
+  /// No description provided for @repMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get repMonthly;
+
+  /// No description provided for @repAllWorkspaces.
+  ///
+  /// In en, this message translates to:
+  /// **'All workspaces'**
+  String get repAllWorkspaces;
+
+  /// No description provided for @repTabIncomeExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Income vs expenses'**
+  String get repTabIncomeExpense;
+
+  /// No description provided for @repTabCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'By category'**
+  String get repTabCategory;
+
+  /// No description provided for @repTabWorkspace.
+  ///
+  /// In en, this message translates to:
+  /// **'By workspace'**
+  String get repTabWorkspace;
+
+  /// No description provided for @repTabCashFlow.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash flow'**
+  String get repTabCashFlow;
+
+  /// No description provided for @repTabBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance over time'**
+  String get repTabBalance;
+
+  /// No description provided for @repTabDebts.
+  ///
+  /// In en, this message translates to:
+  /// **'Outstanding debts'**
+  String get repTabDebts;
+
+  /// No description provided for @repShowTable.
+  ///
+  /// In en, this message translates to:
+  /// **'Show as table'**
+  String get repShowTable;
+
+  /// No description provided for @repShowChart.
+  ///
+  /// In en, this message translates to:
+  /// **'Show as chart'**
+  String get repShowChart;
+
+  /// No description provided for @repSkipped.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} left out: no {currencies} rate on their dates'**
+  String repSkipped(int count, String currencies);
+
+  /// No description provided for @repMoneyIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Money in'**
+  String get repMoneyIn;
+
+  /// No description provided for @repMoneyOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Money out'**
+  String get repMoneyOut;
+
+  /// No description provided for @repNet.
+  ///
+  /// In en, this message translates to:
+  /// **'Net'**
+  String get repNet;
+
+  /// No description provided for @repOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get repOther;
+
+  /// No description provided for @repPeriodColumn.
+  ///
+  /// In en, this message translates to:
+  /// **'Period'**
+  String get repPeriodColumn;
+
+  /// No description provided for @repBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance'**
+  String get repBalance;
+
+  /// No description provided for @repNothing.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing in this range'**
+  String get repNothing;
+
+  /// No description provided for @repBucketsMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'{month}, in {currency}'**
+  String repBucketsMonth(String month, String currency);
+
+  /// No description provided for @repExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Export'**
+  String get repExport;
+
+  /// No description provided for @repExportCsv.
+  ///
+  /// In en, this message translates to:
+  /// **'Transactions as CSV'**
+  String get repExportCsv;
+
+  /// No description provided for @repExportPdf.
+  ///
+  /// In en, this message translates to:
+  /// **'Report as PDF'**
+  String get repExportPdf;
+
+  /// No description provided for @repNotEncrypted.
+  ///
+  /// In en, this message translates to:
+  /// **'This file is not encrypted. Anyone who gets it can read it.'**
+  String get repNotEncrypted;
+
+  /// No description provided for @repExportFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save the file'**
+  String get repExportFailed;
 }
 
 class _AppLocalizationsDelegate

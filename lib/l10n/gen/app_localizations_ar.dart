@@ -830,4 +830,109 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get finNotes => 'ملاحظات';
+
+  @override
+  String get finReports => 'التقارير';
+
+  @override
+  String get repRange => 'المدة';
+
+  @override
+  String get repThisMonth => 'هالشهر';
+
+  @override
+  String get repLastMonth => 'الشهر الماضي';
+
+  @override
+  String repLastMonths(int count) {
+    return 'آخر $count أشهر';
+  }
+
+  @override
+  String get repCustom => 'تواريخ أختارها';
+
+  @override
+  String get repGroupBy => 'التجميع';
+
+  @override
+  String get repDaily => 'يومي';
+
+  @override
+  String get repWeekly => 'أسبوعي';
+
+  @override
+  String get repMonthly => 'شهري';
+
+  @override
+  String get repAllWorkspaces => 'كل مساحات العمل';
+
+  @override
+  String get repTabIncomeExpense => 'الدخل والمصاريف';
+
+  @override
+  String get repTabCategory => 'حسب الفئة';
+
+  @override
+  String get repTabWorkspace => 'حسب مساحة العمل';
+
+  @override
+  String get repTabCashFlow => 'حركة الفلوس';
+
+  @override
+  String get repTabBalance => 'الرصيد عبر الوقت';
+
+  @override
+  String get repTabDebts => 'الديون الباقية';
+
+  @override
+  String get repShowTable => 'اعرضها جدول';
+
+  @override
+  String get repShowChart => 'اعرضها رسم';
+
+  @override
+  String repSkipped(int count, String currencies) {
+    return '$count ما انحسبت: ماكو سعر $currencies بتواريخها';
+  }
+
+  @override
+  String get repMoneyIn => 'الداخل';
+
+  @override
+  String get repMoneyOut => 'الطالع';
+
+  @override
+  String get repNet => 'الصافي';
+
+  @override
+  String get repOther => 'غيرها';
+
+  @override
+  String get repPeriodColumn => 'الفترة';
+
+  @override
+  String get repBalance => 'الرصيد';
+
+  @override
+  String get repNothing => 'ماكو شي بهالمدة';
+
+  @override
+  String repBucketsMonth(String month, String currency) {
+    return '$month، بعملة $currency';
+  }
+
+  @override
+  String get repExport => 'تصدير';
+
+  @override
+  String get repExportCsv => 'العمليات كملف CSV';
+
+  @override
+  String get repExportPdf => 'التقرير كملف PDF';
+
+  @override
+  String get repNotEncrypted => 'هالملف مو مشفّر. أي واحد يوصله يگدر يقراه.';
+
+  @override
+  String get repExportFailed => 'ما گدرنا نحفظ الملف';
 }
