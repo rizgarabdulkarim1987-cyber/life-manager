@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:cryptography_flutter/cryptography_flutter.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:life_manager/core/crypto/aead.dart';
@@ -11,7 +10,6 @@ import 'package:life_manager/core/crypto/random.dart';
 /// Runs on a phone: `flutter test integration_test/crypto_device_test.dart -d <id>`.
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  FlutterCryptography.enable();
 
   testWidgets('AES-GCM round-trips through the platform implementation', (_) async {
     const aead = AesGcmAead();

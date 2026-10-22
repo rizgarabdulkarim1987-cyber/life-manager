@@ -20,8 +20,8 @@ abstract interface class Aead {
   Future<Uint8List> open(SealedBox box, Uint8List key, {Uint8List? aad});
 }
 
-/// AES-256-GCM with a fresh 12-byte nonce per seal. On Android,
-/// `FlutterCryptography.enable()` in main() routes this to the platform.
+/// AES-256-GCM with a fresh 12-byte nonce per seal. On Android the
+/// cryptography_flutter plugin registers itself and routes this to the platform.
 final class AesGcmAead implements Aead {
   const AesGcmAead();
 
