@@ -1089,6 +1089,222 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Today'**
   String get finToday;
+
+  /// No description provided for @finAddExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Add expense'**
+  String get finAddExpense;
+
+  /// No description provided for @finAddIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Add income'**
+  String get finAddIncome;
+
+  /// No description provided for @finAddRefund.
+  ///
+  /// In en, this message translates to:
+  /// **'Add refund'**
+  String get finAddRefund;
+
+  /// No description provided for @finAddTransfer.
+  ///
+  /// In en, this message translates to:
+  /// **'Transfer'**
+  String get finAddTransfer;
+
+  /// No description provided for @finEditTransaction.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit transaction'**
+  String get finEditTransaction;
+
+  /// No description provided for @finEditTransfer.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit transfer'**
+  String get finEditTransfer;
+
+  /// No description provided for @finAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get finAmount;
+
+  /// No description provided for @finAmountRounded.
+  ///
+  /// In en, this message translates to:
+  /// **'Rounded to what {currency} allows'**
+  String finAmountRounded(String currency);
+
+  /// No description provided for @finAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get finAccount;
+
+  /// No description provided for @finChooseAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose an account'**
+  String get finChooseAccount;
+
+  /// No description provided for @finCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get finCategory;
+
+  /// No description provided for @finNoCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'No category'**
+  String get finNoCategory;
+
+  /// No description provided for @finDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get finDate;
+
+  /// No description provided for @finTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get finTime;
+
+  /// No description provided for @finDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get finDescription;
+
+  /// No description provided for @finNotReceived.
+  ///
+  /// In en, this message translates to:
+  /// **'Not received yet'**
+  String get finNotReceived;
+
+  /// No description provided for @finNotReceivedHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending income doesn\'t count in balances'**
+  String get finNotReceivedHint;
+
+  /// No description provided for @finAllocate.
+  ///
+  /// In en, this message translates to:
+  /// **'Split into buckets'**
+  String get finAllocate;
+
+  /// No description provided for @finAllocateNoRate.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a {currency} rate first to split this income'**
+  String finAllocateNoRate(String currency);
+
+  /// No description provided for @finAllocatePending.
+  ///
+  /// In en, this message translates to:
+  /// **'Only received income can be split'**
+  String get finAllocatePending;
+
+  /// No description provided for @finUnallocated.
+  ///
+  /// In en, this message translates to:
+  /// **'Not split'**
+  String get finUnallocated;
+
+  /// No description provided for @finOverAllocated.
+  ///
+  /// In en, this message translates to:
+  /// **'Over by'**
+  String get finOverAllocated;
+
+  /// No description provided for @finBucketTag.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid from bucket'**
+  String get finBucketTag;
+
+  /// No description provided for @finBucketNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Normal spending'**
+  String get finBucketNone;
+
+  /// No description provided for @finClearAllocationsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear the bucket split?'**
+  String get finClearAllocationsTitle;
+
+  /// No description provided for @finClearAllocationsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This income is split into buckets. Changing its money clears the split; you can split it again afterwards.'**
+  String get finClearAllocationsBody;
+
+  /// No description provided for @finClearAndSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear and save'**
+  String get finClearAndSave;
+
+  /// No description provided for @finFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'From'**
+  String get finFrom;
+
+  /// No description provided for @finTo.
+  ///
+  /// In en, this message translates to:
+  /// **'To'**
+  String get finTo;
+
+  /// No description provided for @finToAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount received'**
+  String get finToAmount;
+
+  /// No description provided for @finRateField.
+  ///
+  /// In en, this message translates to:
+  /// **'{quote} per 1 {base}'**
+  String finRateField(String quote, String base);
+
+  /// No description provided for @finTwoOfThree.
+  ///
+  /// In en, this message translates to:
+  /// **'Type any two; the third is worked out'**
+  String get finTwoOfThree;
+
+  /// No description provided for @finOwnerDraw.
+  ///
+  /// In en, this message translates to:
+  /// **'Owner draw (salary)'**
+  String get finOwnerDraw;
+
+  /// No description provided for @finOwnerDrawHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Counts as an expense of the business and income of the person'**
+  String get finOwnerDrawHint;
+
+  /// No description provided for @finSameAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose two different accounts'**
+  String get finSameAccount;
+
+  /// No description provided for @finSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get finSaved;
 }
 
 class _AppLocalizationsDelegate

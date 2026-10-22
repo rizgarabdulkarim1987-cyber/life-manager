@@ -79,6 +79,7 @@ class AccountDetailScreen extends ConsumerWidget {
             ),
           ),
           TransactionSliverList(
+            onTap: (t) => openTransaction(context, t),
             filter: TxFilter(accountIds: {accountId}),
             filterKey: accountId,
             accountId: accountId,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../core/db/app_database.dart';
@@ -12,6 +13,16 @@ import '../../data/transactions_repository.dart';
 import '../../domain/ledger.dart';
 import '../ui_format.dart';
 import 'money_text.dart';
+
+/// Opens the edit form for rows that have one (debt payments and
+/// adjustments are changed from their own screens).
+void openTransaction(BuildContext context, Transaction t) {
+  if (t.type == 'transfer') {
+    context.push('/finance/transfer/${t.id}');
+  } else if (const {'income', 'expense', 'refund'}.contains(t.type)) {
+    context.push('/finance/tx/${t.id}');
+  }
+}
 
 /// Transactions matching [filter] as slivers: day headers with the day's net
 /// per currency, swipe to delete with an Undo snackbar. [filterKey] changes

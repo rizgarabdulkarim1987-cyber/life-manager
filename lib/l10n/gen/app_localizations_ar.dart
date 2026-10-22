@@ -561,4 +561,119 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get finToday => 'اليوم';
+
+  @override
+  String get finAddExpense => 'إضافة مصروف';
+
+  @override
+  String get finAddIncome => 'إضافة دخل';
+
+  @override
+  String get finAddRefund => 'إضافة استرجاع';
+
+  @override
+  String get finAddTransfer => 'تحويل';
+
+  @override
+  String get finEditTransaction => 'تعديل المعاملة';
+
+  @override
+  String get finEditTransfer => 'تعديل التحويل';
+
+  @override
+  String get finAmount => 'المبلغ';
+
+  @override
+  String finAmountRounded(String currency) {
+    return 'تقرّب حسب دقة $currency';
+  }
+
+  @override
+  String get finAccount => 'الحساب';
+
+  @override
+  String get finChooseAccount => 'اختار حساب';
+
+  @override
+  String get finCategory => 'الفئة';
+
+  @override
+  String get finNoCategory => 'بدون فئة';
+
+  @override
+  String get finDate => 'التاريخ';
+
+  @override
+  String get finTime => 'الوقت';
+
+  @override
+  String get finDescription => 'الوصف';
+
+  @override
+  String get finNotReceived => 'بعد ما استلمته';
+
+  @override
+  String get finNotReceivedHint => 'الدخل المعلّق ما ينحسب بالرصيد';
+
+  @override
+  String get finAllocate => 'وزّع على السطول';
+
+  @override
+  String finAllocateNoRate(String currency) {
+    return 'حدد سعر $currency أول حتى توزع هذا الدخل';
+  }
+
+  @override
+  String get finAllocatePending => 'بس الدخل المستلم يتوزع';
+
+  @override
+  String get finUnallocated => 'غير موزع';
+
+  @override
+  String get finOverAllocated => 'زايد بمقدار';
+
+  @override
+  String get finBucketTag => 'مدفوع من سطل';
+
+  @override
+  String get finBucketNone => 'صرف عادي';
+
+  @override
+  String get finClearAllocationsTitle => 'تمسح توزيع السطول؟';
+
+  @override
+  String get finClearAllocationsBody =>
+      'هذا الدخل متوزع على السطول. تغيير المبلغ يمسح التوزيع، وتكدر توزعه مرة ثانية بعدين.';
+
+  @override
+  String get finClearAndSave => 'امسح واحفظ';
+
+  @override
+  String get finFrom => 'من';
+
+  @override
+  String get finTo => 'إلى';
+
+  @override
+  String get finToAmount => 'المبلغ المستلم';
+
+  @override
+  String finRateField(String quote, String base) {
+    return '$quote لكل 1 $base';
+  }
+
+  @override
+  String get finTwoOfThree => 'اكتب أي اثنين والثالث ينحسب';
+
+  @override
+  String get finOwnerDraw => 'سحب شخصي (راتب)';
+
+  @override
+  String get finOwnerDrawHint => 'ينحسب مصروف على الشغل ودخل للشخص';
+
+  @override
+  String get finSameAccount => 'اختار حسابين مختلفين';
+
+  @override
+  String get finSaved => 'انحفظ';
 }

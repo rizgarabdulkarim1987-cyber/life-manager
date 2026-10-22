@@ -281,5 +281,65 @@
   "finNoMatches": "هیچ مامەڵەیەک لەگەڵ فلتەرەکان ناگونجێت",
   "finDeleted": "مامەڵەکە سڕایەوە",
   "undo": "گەڕانەوە",
-  "finToday": "ئەمڕۆ"
+  "finToday": "ئەمڕۆ",
+  "finAddExpense": "زیادکردنی خەرجی",
+  "finAddIncome": "زیادکردنی داهات",
+  "finAddRefund": "زیادکردنی گەڕاندنەوە",
+  "finAddTransfer": "گواستنەوە",
+  "finEditTransaction": "دەستکاری مامەڵە",
+  "finEditTransfer": "دەستکاری گواستنەوە",
+  "finAmount": "بڕ",
+  "finAmountRounded": "بەپێی {currency} خڕکرایەوە",
+  "@finAmountRounded": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "finAccount": "هەژمار",
+  "finChooseAccount": "هەژمارێک هەڵبژێرە",
+  "finCategory": "پۆل",
+  "finNoCategory": "بێ پۆل",
+  "finDate": "بەروار",
+  "finTime": "کات",
+  "finDescription": "وەسف",
+  "finNotReceived": "هێشتا وەرنەگیراوە",
+  "finNotReceivedHint": "داهاتی چاوەڕوان لە باڵانسدا ناژمێردرێت",
+  "finAllocate": "دابەشکردن بۆ سەبەتەکان",
+  "finAllocateNoRate": "سەرەتا نرخی {currency} دابنێ بۆ دابەشکردن",
+  "@finAllocateNoRate": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "finAllocatePending": "تەنها داهاتی وەرگیراو دابەش دەکرێت",
+  "finUnallocated": "دابەش نەکراو",
+  "finOverAllocated": "زیادە بە",
+  "finBucketTag": "لە سەبەتە دراوە",
+  "finBucketNone": "خەرجی ئاسایی",
+  "finClearAllocationsTitle": "دابەشکردنی سەبەتەکان بسڕدرێتەوە؟",
+  "finClearAllocationsBody": "ئەم داهاتە دابەش کراوە. گۆڕینی بڕەکە دابەشکردنەکە دەسڕێتەوە؛ دواتر دەتوانیت دووبارە دابەشی بکەیت.",
+  "finClearAndSave": "بیسڕەوە و پاشەکەوت بکە",
+  "finFrom": "لە",
+  "finTo": "بۆ",
+  "finToAmount": "بڕی وەرگیراو",
+  "finRateField": "{quote} بۆ هەر 1 {base}",
+  "@finRateField": {
+    "placeholders": {
+      "quote": {
+        "type": "String"
+      },
+      "base": {
+        "type": "String"
+      }
+    }
+  },
+  "finTwoOfThree": "هەر دوانیان بنووسە؛ سێیەم دەژمێردرێت",
+  "finOwnerDraw": "کێشانی خاوەن (مووچە)",
+  "finOwnerDrawHint": "وەک خەرجی کار و داهاتی کەسی دەژمێردرێت",
+  "finSameAccount": "دوو هەژماری جیاواز هەڵبژێرە",
+  "finSaved": "پاشەکەوت کرا"
 }

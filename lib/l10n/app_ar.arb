@@ -281,5 +281,65 @@
   "finNoMatches": "ماكو معاملات تطابق الفلاتر",
   "finDeleted": "انحذفت المعاملة",
   "undo": "تراجع",
-  "finToday": "اليوم"
+  "finToday": "اليوم",
+  "finAddExpense": "إضافة مصروف",
+  "finAddIncome": "إضافة دخل",
+  "finAddRefund": "إضافة استرجاع",
+  "finAddTransfer": "تحويل",
+  "finEditTransaction": "تعديل المعاملة",
+  "finEditTransfer": "تعديل التحويل",
+  "finAmount": "المبلغ",
+  "finAmountRounded": "تقرّب حسب دقة {currency}",
+  "@finAmountRounded": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "finAccount": "الحساب",
+  "finChooseAccount": "اختار حساب",
+  "finCategory": "الفئة",
+  "finNoCategory": "بدون فئة",
+  "finDate": "التاريخ",
+  "finTime": "الوقت",
+  "finDescription": "الوصف",
+  "finNotReceived": "بعد ما استلمته",
+  "finNotReceivedHint": "الدخل المعلّق ما ينحسب بالرصيد",
+  "finAllocate": "وزّع على السطول",
+  "finAllocateNoRate": "حدد سعر {currency} أول حتى توزع هذا الدخل",
+  "@finAllocateNoRate": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "finAllocatePending": "بس الدخل المستلم يتوزع",
+  "finUnallocated": "غير موزع",
+  "finOverAllocated": "زايد بمقدار",
+  "finBucketTag": "مدفوع من سطل",
+  "finBucketNone": "صرف عادي",
+  "finClearAllocationsTitle": "تمسح توزيع السطول؟",
+  "finClearAllocationsBody": "هذا الدخل متوزع على السطول. تغيير المبلغ يمسح التوزيع، وتكدر توزعه مرة ثانية بعدين.",
+  "finClearAndSave": "امسح واحفظ",
+  "finFrom": "من",
+  "finTo": "إلى",
+  "finToAmount": "المبلغ المستلم",
+  "finRateField": "{quote} لكل 1 {base}",
+  "@finRateField": {
+    "placeholders": {
+      "quote": {
+        "type": "String"
+      },
+      "base": {
+        "type": "String"
+      }
+    }
+  },
+  "finTwoOfThree": "اكتب أي اثنين والثالث ينحسب",
+  "finOwnerDraw": "سحب شخصي (راتب)",
+  "finOwnerDrawHint": "ينحسب مصروف على الشغل ودخل للشخص",
+  "finSameAccount": "اختار حسابين مختلفين",
+  "finSaved": "انحفظ"
 }

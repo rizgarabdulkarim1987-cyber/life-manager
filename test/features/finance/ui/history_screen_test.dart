@@ -18,7 +18,9 @@ void main() {
 
   Future<void> openHistory(WidgetTester t) async {
     await openFinance(t);
-    await t.tap(find.byKey(const ValueKey('open-history')));
+    final tile = find.byKey(const ValueKey('open-history'));
+    await t.scrollUntilVisible(tile, 200, scrollable: find.byType(Scrollable).first);
+    await t.tap(tile);
     await t.pumpAndSettle();
   }
 

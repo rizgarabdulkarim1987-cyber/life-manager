@@ -45,6 +45,7 @@ class FinanceOverviewScreen extends ConsumerWidget {
         padding: const EdgeInsets.fromLTRB(16, 4, 16, 112),
         children: [
           const _MonthPanel(),
+          const _AddActions(),
           const _ConsolidatedPanel(),
           AlertsBanner(alerts),
           const _Entries(),
@@ -105,6 +106,47 @@ class _MonthPanel extends ConsumerWidget {
                 style: text.bodySmall?.copyWith(color: k.warning),
               ),
             ),
+        ],
+      ),
+    );
+  }
+}
+
+/// One-tap entry to the three forms, under the month figures.
+class _AddActions extends StatelessWidget {
+  const _AddActions();
+
+  @override
+  Widget build(BuildContext context) {
+    final l = context.l10n;
+    Widget action(String key, IconData icon, String label, String route) => Expanded(
+      child: FilledButton.tonal(
+        key: ValueKey(key),
+        style: FilledButton.styleFrom(
+          minimumSize: const Size(0, 56),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppTokens.radiusSmall)),
+        ),
+        onPressed: () => context.push(route),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 20),
+            const SizedBox(height: 2),
+            Text(label, maxLines: 1, overflow: TextOverflow.ellipsis),
+          ],
+        ),
+      ),
+    );
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Row(
+        children: [
+          action('add-expense', Icons.remove_rounded, l.typeExpense, '/finance/tx/new?type=expense'),
+          const SizedBox(width: 10),
+          action('add-income', Icons.add_rounded, l.typeIncome, '/finance/tx/new?type=income'),
+          const SizedBox(width: 10),
+          action('add-transfer', Icons.swap_horiz_rounded, l.typeTransfer, '/finance/transfer/new'),
         ],
       ),
     );

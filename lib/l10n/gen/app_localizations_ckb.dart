@@ -557,4 +557,119 @@ class AppLocalizationsCkb extends AppLocalizations {
 
   @override
   String get finToday => 'ئەمڕۆ';
+
+  @override
+  String get finAddExpense => 'زیادکردنی خەرجی';
+
+  @override
+  String get finAddIncome => 'زیادکردنی داهات';
+
+  @override
+  String get finAddRefund => 'زیادکردنی گەڕاندنەوە';
+
+  @override
+  String get finAddTransfer => 'گواستنەوە';
+
+  @override
+  String get finEditTransaction => 'دەستکاری مامەڵە';
+
+  @override
+  String get finEditTransfer => 'دەستکاری گواستنەوە';
+
+  @override
+  String get finAmount => 'بڕ';
+
+  @override
+  String finAmountRounded(String currency) {
+    return 'بەپێی $currency خڕکرایەوە';
+  }
+
+  @override
+  String get finAccount => 'هەژمار';
+
+  @override
+  String get finChooseAccount => 'هەژمارێک هەڵبژێرە';
+
+  @override
+  String get finCategory => 'پۆل';
+
+  @override
+  String get finNoCategory => 'بێ پۆل';
+
+  @override
+  String get finDate => 'بەروار';
+
+  @override
+  String get finTime => 'کات';
+
+  @override
+  String get finDescription => 'وەسف';
+
+  @override
+  String get finNotReceived => 'هێشتا وەرنەگیراوە';
+
+  @override
+  String get finNotReceivedHint => 'داهاتی چاوەڕوان لە باڵانسدا ناژمێردرێت';
+
+  @override
+  String get finAllocate => 'دابەشکردن بۆ سەبەتەکان';
+
+  @override
+  String finAllocateNoRate(String currency) {
+    return 'سەرەتا نرخی $currency دابنێ بۆ دابەشکردن';
+  }
+
+  @override
+  String get finAllocatePending => 'تەنها داهاتی وەرگیراو دابەش دەکرێت';
+
+  @override
+  String get finUnallocated => 'دابەش نەکراو';
+
+  @override
+  String get finOverAllocated => 'زیادە بە';
+
+  @override
+  String get finBucketTag => 'لە سەبەتە دراوە';
+
+  @override
+  String get finBucketNone => 'خەرجی ئاسایی';
+
+  @override
+  String get finClearAllocationsTitle => 'دابەشکردنی سەبەتەکان بسڕدرێتەوە؟';
+
+  @override
+  String get finClearAllocationsBody =>
+      'ئەم داهاتە دابەش کراوە. گۆڕینی بڕەکە دابەشکردنەکە دەسڕێتەوە؛ دواتر دەتوانیت دووبارە دابەشی بکەیت.';
+
+  @override
+  String get finClearAndSave => 'بیسڕەوە و پاشەکەوت بکە';
+
+  @override
+  String get finFrom => 'لە';
+
+  @override
+  String get finTo => 'بۆ';
+
+  @override
+  String get finToAmount => 'بڕی وەرگیراو';
+
+  @override
+  String finRateField(String quote, String base) {
+    return '$quote بۆ هەر 1 $base';
+  }
+
+  @override
+  String get finTwoOfThree => 'هەر دوانیان بنووسە؛ سێیەم دەژمێردرێت';
+
+  @override
+  String get finOwnerDraw => 'کێشانی خاوەن (مووچە)';
+
+  @override
+  String get finOwnerDrawHint => 'وەک خەرجی کار و داهاتی کەسی دەژمێردرێت';
+
+  @override
+  String get finSameAccount => 'دوو هەژماری جیاواز هەڵبژێرە';
+
+  @override
+  String get finSaved => 'پاشەکەوت کرا';
 }

@@ -35,5 +35,29 @@ AppDatabase dbOf(ProviderContainer c) => c.read(appDatabaseProvider);
 /// Pushes a finance route directly (tiles low on the overview can sit under the mic button).
 Future<void> pushRoute(WidgetTester t, ProviderContainer c, String location) async {
   c.read(routerProvider).push(location);
+  await settle(t);
+}
+
+/// Lets real database work finish (screens that load in initState), then settles.
+Future<void> settle(WidgetTester t) async {
   await t.pumpAndSettle();
+  for (var i = 0; i < 8; i++) {
+    await t.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 5)));
+    await t.pumpAndSettle();
+  }
+}
+
+Future<void> pickAccount(WidgetTester t, String field, int id) async {
+  await t.tap(find.byKey(ValueKey(field)));
+  await settle(t);
+  await t.tap(find.byKey(ValueKey('account-option-$id')).last);
+  await settle(t);
+}
+
+bool saveEnabled(WidgetTester t, String key) => t.widget<FilledButton>(find.byKey(ValueKey(key))).onPressed != null;
+
+/// Scrolls the topmost route's list until [f] is built and visible.
+Future<void> revealInForm(WidgetTester t, Finder f) async {
+  await t.scrollUntilVisible(f, 200, scrollable: find.byType(Scrollable).last);
+  await settle(t);
 }

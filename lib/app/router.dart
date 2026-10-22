@@ -4,10 +4,13 @@ import 'package:go_router/go_router.dart';
 
 import '../core/l10n/ckb_fallback_localizations.dart';
 import '../features/backup/backup_screen.dart';
+import '../features/capture/domain/proposal.dart';
 import '../features/finance/ui/account_detail_screen.dart';
 import '../features/finance/ui/accounts_screen.dart';
 import '../features/finance/ui/finance_overview_screen.dart';
 import '../features/finance/ui/history_screen.dart';
+import '../features/finance/ui/transaction_form_screen.dart';
+import '../features/finance/ui/transfer_form_screen.dart';
 import '../features/settings/settings_screen.dart';
 import '../features/setup/setup_flow.dart';
 import '../features/setup/splash_screen.dart';
@@ -21,7 +24,10 @@ final routerProvider = Provider<GoRouter>((ref) {
   return router;
 });
 
+final _rootKey = GlobalKey<NavigatorState>();
+
 GoRouter buildRouter() => GoRouter(
+  navigatorKey: _rootKey,
   initialLocation: '/splash',
   routes: [
     GoRoute(
@@ -44,6 +50,44 @@ GoRouter buildRouter() => GoRouter(
               path: '/finance',
               builder: (_, _) => const FinanceOverviewScreen(),
               routes: [
+                // Forms cover the shell (no bottom bar or mic over the Save button).
+                GoRoute(
+                  path: 'tx/new',
+                  parentNavigatorKey: _rootKey,
+                  builder: (_, state) {
+                    final draft = state.extra is TransactionDraft ? state.extra! as TransactionDraft : null;
+                    final type = state.uri.queryParameters['type'];
+                    return TransactionFormScreen(
+                      initial: type == null || draft?.type != null
+                          ? draft
+                          : TransactionDraft(
+                              type: type,
+                              accountId: draft?.accountId,
+                              amountMinor: draft?.amountMinor,
+                              categoryId: draft?.categoryId,
+                              occurredAt: draft?.occurredAt,
+                              description: draft?.description,
+                              bucketTag: draft?.bucketTag,
+                            ),
+                    );
+                  },
+                ),
+                GoRoute(
+                  path: 'tx/:id',
+                  parentNavigatorKey: _rootKey,
+                  builder: (_, state) => TransactionFormScreen(editId: int.parse(state.pathParameters['id']!)),
+                ),
+                GoRoute(
+                  path: 'transfer/new',
+                  parentNavigatorKey: _rootKey,
+                  builder: (_, state) =>
+                      TransferFormScreen(initial: state.extra is TransferDraft ? state.extra! as TransferDraft : null),
+                ),
+                GoRoute(
+                  path: 'transfer/:id',
+                  parentNavigatorKey: _rootKey,
+                  builder: (_, state) => TransferFormScreen(editId: int.parse(state.pathParameters['id']!)),
+                ),
                 GoRoute(
                   path: 'accounts',
                   builder: (_, _) => const AccountsScreen(),

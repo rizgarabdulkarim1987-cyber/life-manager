@@ -561,4 +561,120 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get finToday => 'Today';
+
+  @override
+  String get finAddExpense => 'Add expense';
+
+  @override
+  String get finAddIncome => 'Add income';
+
+  @override
+  String get finAddRefund => 'Add refund';
+
+  @override
+  String get finAddTransfer => 'Transfer';
+
+  @override
+  String get finEditTransaction => 'Edit transaction';
+
+  @override
+  String get finEditTransfer => 'Edit transfer';
+
+  @override
+  String get finAmount => 'Amount';
+
+  @override
+  String finAmountRounded(String currency) {
+    return 'Rounded to what $currency allows';
+  }
+
+  @override
+  String get finAccount => 'Account';
+
+  @override
+  String get finChooseAccount => 'Choose an account';
+
+  @override
+  String get finCategory => 'Category';
+
+  @override
+  String get finNoCategory => 'No category';
+
+  @override
+  String get finDate => 'Date';
+
+  @override
+  String get finTime => 'Time';
+
+  @override
+  String get finDescription => 'Description';
+
+  @override
+  String get finNotReceived => 'Not received yet';
+
+  @override
+  String get finNotReceivedHint => 'Pending income doesn\'t count in balances';
+
+  @override
+  String get finAllocate => 'Split into buckets';
+
+  @override
+  String finAllocateNoRate(String currency) {
+    return 'Set a $currency rate first to split this income';
+  }
+
+  @override
+  String get finAllocatePending => 'Only received income can be split';
+
+  @override
+  String get finUnallocated => 'Not split';
+
+  @override
+  String get finOverAllocated => 'Over by';
+
+  @override
+  String get finBucketTag => 'Paid from bucket';
+
+  @override
+  String get finBucketNone => 'Normal spending';
+
+  @override
+  String get finClearAllocationsTitle => 'Clear the bucket split?';
+
+  @override
+  String get finClearAllocationsBody =>
+      'This income is split into buckets. Changing its money clears the split; you can split it again afterwards.';
+
+  @override
+  String get finClearAndSave => 'Clear and save';
+
+  @override
+  String get finFrom => 'From';
+
+  @override
+  String get finTo => 'To';
+
+  @override
+  String get finToAmount => 'Amount received';
+
+  @override
+  String finRateField(String quote, String base) {
+    return '$quote per 1 $base';
+  }
+
+  @override
+  String get finTwoOfThree => 'Type any two; the third is worked out';
+
+  @override
+  String get finOwnerDraw => 'Owner draw (salary)';
+
+  @override
+  String get finOwnerDrawHint =>
+      'Counts as an expense of the business and income of the person';
+
+  @override
+  String get finSameAccount => 'Choose two different accounts';
+
+  @override
+  String get finSaved => 'Saved';
 }

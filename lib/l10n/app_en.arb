@@ -281,5 +281,65 @@
   "finNoMatches": "No transactions match these filters",
   "finDeleted": "Transaction deleted",
   "undo": "Undo",
-  "finToday": "Today"
+  "finToday": "Today",
+  "finAddExpense": "Add expense",
+  "finAddIncome": "Add income",
+  "finAddRefund": "Add refund",
+  "finAddTransfer": "Transfer",
+  "finEditTransaction": "Edit transaction",
+  "finEditTransfer": "Edit transfer",
+  "finAmount": "Amount",
+  "finAmountRounded": "Rounded to what {currency} allows",
+  "@finAmountRounded": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "finAccount": "Account",
+  "finChooseAccount": "Choose an account",
+  "finCategory": "Category",
+  "finNoCategory": "No category",
+  "finDate": "Date",
+  "finTime": "Time",
+  "finDescription": "Description",
+  "finNotReceived": "Not received yet",
+  "finNotReceivedHint": "Pending income doesn't count in balances",
+  "finAllocate": "Split into buckets",
+  "finAllocateNoRate": "Set a {currency} rate first to split this income",
+  "@finAllocateNoRate": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "finAllocatePending": "Only received income can be split",
+  "finUnallocated": "Not split",
+  "finOverAllocated": "Over by",
+  "finBucketTag": "Paid from bucket",
+  "finBucketNone": "Normal spending",
+  "finClearAllocationsTitle": "Clear the bucket split?",
+  "finClearAllocationsBody": "This income is split into buckets. Changing its money clears the split; you can split it again afterwards.",
+  "finClearAndSave": "Clear and save",
+  "finFrom": "From",
+  "finTo": "To",
+  "finToAmount": "Amount received",
+  "finRateField": "{quote} per 1 {base}",
+  "@finRateField": {
+    "placeholders": {
+      "quote": {
+        "type": "String"
+      },
+      "base": {
+        "type": "String"
+      }
+    }
+  },
+  "finTwoOfThree": "Type any two; the third is worked out",
+  "finOwnerDraw": "Owner draw (salary)",
+  "finOwnerDrawHint": "Counts as an expense of the business and income of the person",
+  "finSameAccount": "Choose two different accounts",
+  "finSaved": "Saved"
 }
