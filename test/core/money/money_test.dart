@@ -22,8 +22,15 @@ void main() {
   group('rounding', () {
     test('half-even', () {
       BigInt r(int n, int d) => divRoundHalfEven(BigInt.from(n), BigInt.from(d));
-      expect([r(5, 10), r(15, 10), r(25, 10), r(26, 10), r(-15, 10), r(-25, 10), r(7, 1)].map((b) => b.toInt()),
-          [0, 2, 2, 3, -2, -2, 7]);
+      expect([r(5, 10), r(15, 10), r(25, 10), r(26, 10), r(-15, 10), r(-25, 10), r(7, 1)].map((b) => b.toInt()), [
+        0,
+        2,
+        2,
+        3,
+        -2,
+        -2,
+        7,
+      ]);
     });
   });
 
@@ -42,7 +49,10 @@ void main() {
   group('convert', () {
     test('USD→IQD', () => expect(convert(const Money(10000, 'USD'), 'IQD', r1310), const Money(131000, 'IQD')));
     test('IQD→USD', () => expect(convert(const Money(131000, 'IQD'), 'USD', r1310), const Money(10000, 'USD')));
-    test('same currency is identity', () => expect(convert(const Money(3, 'IQD'), 'IQD', r1310), const Money(3, 'IQD')));
+    test(
+      'same currency is identity',
+      () => expect(convert(const Money(3, 'IQD'), 'IQD', r1310), const Money(3, 'IQD')),
+    );
     test('half-even at rate 1000', () {
       final r = RateValue(base: 'USD', quote: 'IQD', rateE6: 1000000000, effectiveFrom: d0);
       expect([5, 15, 25].map((i) => convert(Money(i, 'IQD'), 'USD', r).minor), [0, 2, 2]);

@@ -37,10 +37,9 @@ class FinanceFixture {
 
   int cat(String systemKey) => _categories.firstWhere((c) => c.systemKey == systemKey).id;
 
-  Future<void> setOpening(int accountId, int minor) =>
-      (db.update(db.accounts)..where((a) => a.id.equals(accountId))).write(
-        AccountsCompanion(openingBalanceMinor: Value(minor)),
-      );
+  Future<void> setOpening(int accountId, int minor) => (db.update(
+    db.accounts,
+  )..where((a) => a.id.equals(accountId))).write(AccountsCompanion(openingBalanceMinor: Value(minor)));
 }
 
 Future<FinanceFixture> financeFixture() async {

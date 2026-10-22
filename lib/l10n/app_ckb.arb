@@ -20,10 +20,22 @@
   "lockTimeout": "قوفڵکردن دوای چوونە دەرەوە لە ئەپ",
   "lockImmediately": "یەکسەر",
   "lockAfterMinutes": "{minutes, plural, =1{دوای 1 خولەک} other{دوای {minutes} خولەک}}",
-  "@lockAfterMinutes": {"placeholders": {"minutes": {"type": "int"}}},
+  "@lockAfterMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "backupRestore": "پاشەکەوت و گەڕاندنەوە",
   "lastBackup": "دوایین پاشەکەوت: {date}",
-  "@lastBackup": {"placeholders": {"date": {"type": "String"}}},
+  "@lastBackup": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "neverBackedUp": "هێشتا هیچ پاشەکەوتێک نەکراوە",
   "createBackup": "دروستکردنی پاشەکەوت",
   "restoreBackup": "گەڕاندنەوە لە پاشەکەوت",
@@ -35,15 +47,36 @@
   "backupCreated": "پاشەکەوت هەڵگیرا",
   "restoreConfirmTitle": "هەموو داتای ئێستا بگۆڕدرێت؟",
   "restoreConfirmBody": "پاشەکەوتی {date}، وەشانی {version}. هەموو ئەوەی ئێستا لە ئەپەکەدایە دەگۆڕدرێت.",
-  "@restoreConfirmBody": {"placeholders": {"date": {"type": "String"}, "version": {"type": "String"}}},
+  "@restoreConfirmBody": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "replace": "گۆڕین",
   "cancel": "هەڵوەشاندنەوە",
   "enterPin": "PINەکەت بنووسە",
   "wrongPin": "PIN هەڵەیە",
   "attemptsLeft": "{count, plural, =1{1 هەوڵ ماوە پێش وەستان} other{{count} هەوڵ ماوە پێش وەستان}}",
-  "@attemptsLeft": {"placeholders": {"count": {"type": "int"}}},
+  "@attemptsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "tryAgainIn": "هەوڵی زۆر. دوای {time} دووبارە هەوڵ بدەرەوە",
-  "@tryAgainIn": {"placeholders": {"time": {"type": "String"}}},
+  "@tryAgainIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "unlockReason": "کردنەوەی بەڕێوەبەری ژیانم",
   "useFingerprint": "پەنجەمۆر بەکاربهێنە",
   "setupWelcome": "بەخێربێیت",
@@ -61,7 +94,13 @@
   "skip": "تێپەڕاندن",
   "finish": "دەستپێبکە",
   "comingInPhase": "لە قۆناغی {phase} دێت",
-  "@comingInPhase": {"placeholders": {"phase": {"type": "int"}}},
+  "@comingInPhase": {
+    "placeholders": {
+      "phase": {
+        "type": "int"
+      }
+    }
+  },
   "seedPersonal": "کەسی",
   "seedBuzzify": "Buzzify",
   "seedEo": "Related / EO",
@@ -87,5 +126,24 @@
   "somethingWentWrong": "هەڵەیەک ڕوویدا. دووبارە هەوڵ بدەرەوە.",
   "backupFailed": "پاشەکەوت دروست نەکرا. داتاکانت نەگۆڕاون.",
   "startupFailed": "داتاکانت نەکرانەوە. هیچ شتێک نەسڕایەوە.",
-  "retry": "دووبارە هەوڵ بدەرەوە"
+  "retry": "دووبارە هەوڵ بدەرەوە",
+  "cat_food": "خواردن",
+  "cat_transport": "گواستنەوە",
+  "cat_rent": "کرێ",
+  "cat_bills": "پسوڵەکان",
+  "cat_family": "خێزان",
+  "cat_shopping": "بازاڕکردن",
+  "cat_health": "تەندروستی",
+  "cat_business": "کار",
+  "cat_marketing": "بازاڕگەری",
+  "cat_subscriptions": "بەشدارییەکان",
+  "cat_other_expense": "خەرجی تر",
+  "cat_salary": "مووچە",
+  "cat_business_income": "داهاتی کار",
+  "cat_freelance": "کاری ئازاد",
+  "cat_client_payment": "پارەی کڕیار",
+  "cat_other_income": "داهاتی تر",
+  "bucket_expenses": "خەرجییەکان",
+  "bucket_emergency": "فریاکەوتن",
+  "bucket_investment": "وەبەرهێنان"
 }

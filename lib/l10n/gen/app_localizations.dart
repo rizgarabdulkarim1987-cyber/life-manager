@@ -63,8 +63,7 @@ import 'app_localizations_en.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale)
-    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -72,8 +71,7 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations)!;
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate =
-      _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -85,20 +83,15 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
-        delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('ar'),
-    Locale('ckb'),
-    Locale('en'),
-  ];
+  static const List<Locale> supportedLocales = <Locale>[Locale('ar'), Locale('ckb'), Locale('en')];
 
   /// No description provided for @appTitle.
   ///
@@ -591,10 +584,123 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Try again'**
   String get retry;
+
+  /// No description provided for @cat_food.
+  ///
+  /// In en, this message translates to:
+  /// **'Food'**
+  String get cat_food;
+
+  /// No description provided for @cat_transport.
+  ///
+  /// In en, this message translates to:
+  /// **'Transport'**
+  String get cat_transport;
+
+  /// No description provided for @cat_rent.
+  ///
+  /// In en, this message translates to:
+  /// **'Rent'**
+  String get cat_rent;
+
+  /// No description provided for @cat_bills.
+  ///
+  /// In en, this message translates to:
+  /// **'Bills'**
+  String get cat_bills;
+
+  /// No description provided for @cat_family.
+  ///
+  /// In en, this message translates to:
+  /// **'Family'**
+  String get cat_family;
+
+  /// No description provided for @cat_shopping.
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping'**
+  String get cat_shopping;
+
+  /// No description provided for @cat_health.
+  ///
+  /// In en, this message translates to:
+  /// **'Health'**
+  String get cat_health;
+
+  /// No description provided for @cat_business.
+  ///
+  /// In en, this message translates to:
+  /// **'Business'**
+  String get cat_business;
+
+  /// No description provided for @cat_marketing.
+  ///
+  /// In en, this message translates to:
+  /// **'Marketing'**
+  String get cat_marketing;
+
+  /// No description provided for @cat_subscriptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscriptions'**
+  String get cat_subscriptions;
+
+  /// No description provided for @cat_other_expense.
+  ///
+  /// In en, this message translates to:
+  /// **'Other expense'**
+  String get cat_other_expense;
+
+  /// No description provided for @cat_salary.
+  ///
+  /// In en, this message translates to:
+  /// **'Salary'**
+  String get cat_salary;
+
+  /// No description provided for @cat_business_income.
+  ///
+  /// In en, this message translates to:
+  /// **'Business income'**
+  String get cat_business_income;
+
+  /// No description provided for @cat_freelance.
+  ///
+  /// In en, this message translates to:
+  /// **'Freelance'**
+  String get cat_freelance;
+
+  /// No description provided for @cat_client_payment.
+  ///
+  /// In en, this message translates to:
+  /// **'Client payment'**
+  String get cat_client_payment;
+
+  /// No description provided for @cat_other_income.
+  ///
+  /// In en, this message translates to:
+  /// **'Other income'**
+  String get cat_other_income;
+
+  /// No description provided for @bucket_expenses.
+  ///
+  /// In en, this message translates to:
+  /// **'Expenses'**
+  String get bucket_expenses;
+
+  /// No description provided for @bucket_emergency.
+  ///
+  /// In en, this message translates to:
+  /// **'Emergency'**
+  String get bucket_emergency;
+
+  /// No description provided for @bucket_investment.
+  ///
+  /// In en, this message translates to:
+  /// **'Investment'**
+  String get bucket_investment;
 }
 
-class _AppLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -603,8 +709,7 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['ar', 'ckb', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['ar', 'ckb', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;

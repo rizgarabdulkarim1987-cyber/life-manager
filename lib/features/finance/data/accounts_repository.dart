@@ -46,10 +46,11 @@ class AccountsRepository {
     required String currencyCode,
     int openingBalanceMinor = 0,
   }) async {
-    final last = await (_db.select(_db.accounts)
-          ..orderBy([(a) => OrderingTerm.desc(a.sortOrder)])
-          ..limit(1))
-        .getSingleOrNull();
+    final last =
+        await (_db.select(_db.accounts)
+              ..orderBy([(a) => OrderingTerm.desc(a.sortOrder)])
+              ..limit(1))
+            .getSingleOrNull();
     return _db
         .into(_db.accounts)
         .insert(
@@ -70,18 +71,18 @@ class AccountsRepository {
   Future<void> update(Account a) => _db.transaction(() async {
     final old = await get(a.id);
     if (old.currencyCode != a.currencyCode || old.workspaceId != a.workspaceId) {
-      final used = await (_db.select(_db.transactions)
-            ..where((t) => t.accountId.equals(a.id) | t.toAccountId.equals(a.id))
-            ..limit(1))
-          .get();
+      final used =
+          await (_db.select(_db.transactions)
+                ..where((t) => t.accountId.equals(a.id) | t.toAccountId.equals(a.id))
+                ..limit(1))
+              .get();
       if (used.isNotEmpty) throw StateError('account currency is locked');
     }
     await _db.update(_db.accounts).replace(a);
   });
 
-  Future<void> archive(int id) => (_db.update(
-    _db.accounts,
-  )..where((a) => a.id.equals(id))).write(const AccountsCompanion(isArchived: Value(true)));
+  Future<void> archive(int id) =>
+      (_db.update(_db.accounts)..where((a) => a.id.equals(id))).write(const AccountsCompanion(isArchived: Value(true)));
 
   Selectable<(int, Money)> _balances(DateTime? asOf) => _db
       .customSelect(

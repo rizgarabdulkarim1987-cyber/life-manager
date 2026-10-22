@@ -63,13 +63,10 @@ void main() {
     expect(ws.every((w) => w.aliases == ''), isTrue);
     expect(await db.select(db.accounts).get(), hasLength(6));
     final s = await db.select(db.appSettingsTable).getSingle();
-    expect((s.localeCode, s.themeMode, s.lockTimeoutSeconds, s.biometricEnabled, s.setupCompleted), (
-      'ckb',
-      'light',
-      60,
-      true,
-      true,
-    ));
+    expect(
+      (s.localeCode, s.themeMode, s.lockTimeoutSeconds, s.biometricEnabled, s.setupCompleted),
+      ('ckb', 'light', 60, true, true),
+    );
     expect(s.groqSttModel, 'whisper-large-v3-turbo');
     expect(await db.select(db.backupMetadata).get(), hasLength(1));
     expect(await db.select(db.categories).get(), hasLength(16));

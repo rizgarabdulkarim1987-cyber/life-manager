@@ -46,8 +46,7 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get biometrics => 'کردنەوە بە پەنجەمۆر';
 
   @override
-  String get biometricsUnavailable =>
-      'هیچ پەنجەمۆر یان ناسینەوەی ڕوو لەسەر ئەم مۆبایلە چالاک نییە';
+  String get biometricsUnavailable => 'هیچ پەنجەمۆر یان ناسینەوەی ڕوو لەسەر ئەم مۆبایلە چالاک نییە';
 
   @override
   String get changePin => 'گۆڕینی PIN';
@@ -160,8 +159,7 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get setupWelcome => 'بەخێربێیت';
 
   @override
-  String get setupWelcomeBody =>
-      'هەموو شتێک لەسەر ئەم مۆبایلە دەمێنێتەوە، لەژێر قوفڵی خۆت.';
+  String get setupWelcomeBody => 'هەموو شتێک لەسەر ئەم مۆبایلە دەمێنێتەوە، لەژێر قوفڵی خۆت.';
 
   @override
   String get setupChooseLanguage => 'زمانەکەت هەڵبژێرە';
@@ -241,12 +239,10 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get privacy => 'تایبەتمەندی';
 
   @override
-  String get privacyPhase1 =>
-      'هیچ شتێک لەم مۆبایلە دەرناچێت. ئەپەکە هێشتا دەسەڵاتی ئینتەرنێتی نییە.';
+  String get privacyPhase1 => 'هیچ شتێک لەم مۆبایلە دەرناچێت. ئەپەکە هێشتا دەسەڵاتی ئینتەرنێتی نییە.';
 
   @override
-  String get restoreTooNew =>
-      'ئەم پاشەکەوتە لە وەشانێکی نوێتری ئەپەکە دروستکراوە. سەرەتا ئەپەکە نوێ بکەرەوە.';
+  String get restoreTooNew => 'ئەم پاشەکەوتە لە وەشانێکی نوێتری ئەپەکە دروستکراوە. سەرەتا ئەپەکە نوێ بکەرەوە.';
 
   @override
   String get restoreWrongPassword => 'وشەی نهێنی هەڵەیە، یان فایلەکە تێکچووە.';
@@ -261,8 +257,7 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get micSoon => 'تۆمارکردنی دەنگی لە قۆناغی 2 دێت';
 
   @override
-  String get passwordStrengthWeak =>
-      'لاواز: درێژتری بکە، یان پیت و ژمارە و هێما تێکەڵ بکە';
+  String get passwordStrengthWeak => 'لاواز: درێژتری بکە، یان پیت و ژمارە و هێما تێکەڵ بکە';
 
   @override
   String get passwordStrengthFair => 'مامناوەند';
@@ -271,8 +266,7 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get passwordStrengthStrong => 'بەهێز';
 
   @override
-  String get backupPasswordHint =>
-      'بۆ گەڕاندنەوە پێویستت بەم وشەی نهێنییە دەبێت. ئەگەر لەبیرت بچێت، ناگەڕێتەوە.';
+  String get backupPasswordHint => 'بۆ گەڕاندنەوە پێویستت بەم وشەی نهێنییە دەبێت. ئەگەر لەبیرت بچێت، ناگەڕێتەوە.';
 
   @override
   String get somethingWentWrong => 'هەڵەیەک ڕوویدا. دووبارە هەوڵ بدەرەوە.';
@@ -285,4 +279,61 @@ class AppLocalizationsCkb extends AppLocalizations {
 
   @override
   String get retry => 'دووبارە هەوڵ بدەرەوە';
+
+  @override
+  String get cat_food => 'خواردن';
+
+  @override
+  String get cat_transport => 'گواستنەوە';
+
+  @override
+  String get cat_rent => 'کرێ';
+
+  @override
+  String get cat_bills => 'پسوڵەکان';
+
+  @override
+  String get cat_family => 'خێزان';
+
+  @override
+  String get cat_shopping => 'بازاڕکردن';
+
+  @override
+  String get cat_health => 'تەندروستی';
+
+  @override
+  String get cat_business => 'کار';
+
+  @override
+  String get cat_marketing => 'بازاڕگەری';
+
+  @override
+  String get cat_subscriptions => 'بەشدارییەکان';
+
+  @override
+  String get cat_other_expense => 'خەرجی تر';
+
+  @override
+  String get cat_salary => 'مووچە';
+
+  @override
+  String get cat_business_income => 'داهاتی کار';
+
+  @override
+  String get cat_freelance => 'کاری ئازاد';
+
+  @override
+  String get cat_client_payment => 'پارەی کڕیار';
+
+  @override
+  String get cat_other_income => 'داهاتی تر';
+
+  @override
+  String get bucket_expenses => 'خەرجییەکان';
+
+  @override
+  String get bucket_emergency => 'فریاکەوتن';
+
+  @override
+  String get bucket_investment => 'وەبەرهێنان';
 }

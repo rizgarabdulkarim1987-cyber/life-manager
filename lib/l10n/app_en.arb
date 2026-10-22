@@ -20,10 +20,22 @@
   "lockTimeout": "Lock after leaving the app",
   "lockImmediately": "Immediately",
   "lockAfterMinutes": "{minutes, plural, =1{After 1 minute} other{After {minutes} minutes}}",
-  "@lockAfterMinutes": {"placeholders": {"minutes": {"type": "int"}}},
+  "@lockAfterMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "backupRestore": "Backup & restore",
   "lastBackup": "Last backup: {date}",
-  "@lastBackup": {"placeholders": {"date": {"type": "String"}}},
+  "@lastBackup": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "neverBackedUp": "Never backed up",
   "createBackup": "Create backup",
   "restoreBackup": "Restore from backup",
@@ -35,15 +47,36 @@
   "backupCreated": "Backup saved",
   "restoreConfirmTitle": "Replace all current data?",
   "restoreConfirmBody": "Backup from {date}, app version {version}. Everything currently in the app will be replaced.",
-  "@restoreConfirmBody": {"placeholders": {"date": {"type": "String"}, "version": {"type": "String"}}},
+  "@restoreConfirmBody": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "replace": "Replace",
   "cancel": "Cancel",
   "enterPin": "Enter your PIN",
   "wrongPin": "Wrong PIN",
   "attemptsLeft": "{count, plural, =1{1 attempt left before a pause} other{{count} attempts left before a pause}}",
-  "@attemptsLeft": {"placeholders": {"count": {"type": "int"}}},
+  "@attemptsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "tryAgainIn": "Too many attempts. Try again in {time}",
-  "@tryAgainIn": {"placeholders": {"time": {"type": "String"}}},
+  "@tryAgainIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "unlockReason": "Unlock My Life Manager",
   "useFingerprint": "Use fingerprint",
   "setupWelcome": "Welcome",
@@ -61,7 +94,13 @@
   "skip": "Skip",
   "finish": "Start",
   "comingInPhase": "Arrives in phase {phase}",
-  "@comingInPhase": {"placeholders": {"phase": {"type": "int"}}},
+  "@comingInPhase": {
+    "placeholders": {
+      "phase": {
+        "type": "int"
+      }
+    }
+  },
   "seedPersonal": "Personal",
   "seedBuzzify": "Buzzify",
   "seedEo": "Related / EO",
@@ -87,5 +126,24 @@
   "somethingWentWrong": "Something went wrong. Please try again.",
   "backupFailed": "The backup couldn't be created. Your data is unchanged.",
   "startupFailed": "Your data couldn't be opened. Nothing was deleted.",
-  "retry": "Try again"
+  "retry": "Try again",
+  "cat_food": "Food",
+  "cat_transport": "Transport",
+  "cat_rent": "Rent",
+  "cat_bills": "Bills",
+  "cat_family": "Family",
+  "cat_shopping": "Shopping",
+  "cat_health": "Health",
+  "cat_business": "Business",
+  "cat_marketing": "Marketing",
+  "cat_subscriptions": "Subscriptions",
+  "cat_other_expense": "Other expense",
+  "cat_salary": "Salary",
+  "cat_business_income": "Business income",
+  "cat_freelance": "Freelance",
+  "cat_client_payment": "Client payment",
+  "cat_other_income": "Other income",
+  "bucket_expenses": "Expenses",
+  "bucket_emergency": "Emergency",
+  "bucket_investment": "Investment"
 }

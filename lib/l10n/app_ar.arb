@@ -20,10 +20,22 @@
   "lockTimeout": "القفل بعد الخروج من التطبيق",
   "lockImmediately": "فوراً",
   "lockAfterMinutes": "{minutes, plural, =1{بعد دقيقة} =2{بعد دقيقتين} few{بعد {minutes} دقائق} other{بعد {minutes} دقيقة}}",
-  "@lockAfterMinutes": {"placeholders": {"minutes": {"type": "int"}}},
+  "@lockAfterMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "backupRestore": "النسخ الاحتياطي والاسترجاع",
   "lastBackup": "آخر نسخة: {date}",
-  "@lastBackup": {"placeholders": {"date": {"type": "String"}}},
+  "@lastBackup": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "neverBackedUp": "لم تُنشأ أي نسخة احتياطية بعد",
   "createBackup": "إنشاء نسخة احتياطية",
   "restoreBackup": "الاسترجاع من نسخة احتياطية",
@@ -35,15 +47,36 @@
   "backupCreated": "تم حفظ النسخة الاحتياطية",
   "restoreConfirmTitle": "استبدال كل البيانات الحالية؟",
   "restoreConfirmBody": "نسخة بتاريخ {date}، من إصدار {version}. كل ما في التطبيق الآن سيُستبدل بها.",
-  "@restoreConfirmBody": {"placeholders": {"date": {"type": "String"}, "version": {"type": "String"}}},
+  "@restoreConfirmBody": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "replace": "استبدال",
   "cancel": "إلغاء",
   "enterPin": "أدخل رمز PIN",
   "wrongPin": "الرمز غير صحيح",
   "attemptsLeft": "{count, plural, =1{بقيت محاولة واحدة قبل الإيقاف المؤقت} =2{بقيت محاولتان قبل الإيقاف المؤقت} few{بقيت {count} محاولات قبل الإيقاف المؤقت} other{بقيت {count} محاولة قبل الإيقاف المؤقت}}",
-  "@attemptsLeft": {"placeholders": {"count": {"type": "int"}}},
+  "@attemptsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "tryAgainIn": "محاولات كثيرة. حاول مجدداً بعد {time}",
-  "@tryAgainIn": {"placeholders": {"time": {"type": "String"}}},
+  "@tryAgainIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "unlockReason": "افتح مدير حياتي",
   "useFingerprint": "استخدم البصمة",
   "setupWelcome": "أهلاً بك",
@@ -61,7 +94,13 @@
   "skip": "تخطٍّ",
   "finish": "ابدأ",
   "comingInPhase": "يأتي في المرحلة {phase}",
-  "@comingInPhase": {"placeholders": {"phase": {"type": "int"}}},
+  "@comingInPhase": {
+    "placeholders": {
+      "phase": {
+        "type": "int"
+      }
+    }
+  },
   "seedPersonal": "شخصي",
   "seedBuzzify": "Buzzify",
   "seedEo": "Related / EO",
@@ -87,5 +126,24 @@
   "somethingWentWrong": "حدث خطأ. حاول مرة أخرى.",
   "backupFailed": "تعذّر إنشاء النسخة الاحتياطية. بياناتك لم تتغير.",
   "startupFailed": "تعذّر فتح بياناتك. لم يُحذف أي شيء.",
-  "retry": "حاول مرة أخرى"
+  "retry": "حاول مرة أخرى",
+  "cat_food": "أكل",
+  "cat_transport": "مواصلات",
+  "cat_rent": "إيجار",
+  "cat_bills": "فواتير",
+  "cat_family": "العائلة",
+  "cat_shopping": "تسوّق",
+  "cat_health": "صحة",
+  "cat_business": "شغل",
+  "cat_marketing": "تسويق",
+  "cat_subscriptions": "اشتراكات",
+  "cat_other_expense": "مصروف آخر",
+  "cat_salary": "راتب",
+  "cat_business_income": "دخل الشغل",
+  "cat_freelance": "عمل حر",
+  "cat_client_payment": "دفعة عميل",
+  "cat_other_income": "دخل آخر",
+  "bucket_expenses": "المصاريف",
+  "bucket_emergency": "الطوارئ",
+  "bucket_investment": "الاستثمار"
 }

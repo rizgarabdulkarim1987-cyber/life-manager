@@ -17,10 +17,11 @@ class WorkspacesRepository {
   }
 
   Future<int> create({required String name, required String iconKey, required int colorArgb}) async {
-    final last = await (_db.select(_db.workspaces)
-          ..orderBy([(w) => OrderingTerm.desc(w.sortOrder)])
-          ..limit(1))
-        .getSingleOrNull();
+    final last =
+        await (_db.select(_db.workspaces)
+              ..orderBy([(w) => OrderingTerm.desc(w.sortOrder)])
+              ..limit(1))
+            .getSingleOrNull();
     return _db
         .into(_db.workspaces)
         .insert(
@@ -38,22 +39,24 @@ class WorkspacesRepository {
 
   Future<void> setAliases(int id, List<String> aliases) {
     final clean = aliases.map((a) => a.trim().replaceAll(',', ' ')).where((a) => a.isNotEmpty).toSet().join(',');
-    return (_db.update(_db.workspaces)..where((w) => w.id.equals(id))).write(WorkspacesCompanion(aliases: Value(clean)));
+    return (_db.update(
+      _db.workspaces,
+    )..where((w) => w.id.equals(id))).write(WorkspacesCompanion(aliases: Value(clean)));
   }
 
-  Future<void> setCountsInBuckets(int id, bool v) => (_db.update(
-    _db.workspaces,
-  )..where((w) => w.id.equals(id))).write(WorkspacesCompanion(countsInBuckets: Value(v)));
+  Future<void> setCountsInBuckets(int id, bool v) =>
+      (_db.update(_db.workspaces)..where((w) => w.id.equals(id))).write(WorkspacesCompanion(countsInBuckets: Value(v)));
 
   /// Refuses while the workspace still has accounts in use.
   Future<void> archive(int id) => _db.transaction(() async {
-    final active = await (_db.select(_db.accounts)
-          ..where((a) => a.workspaceId.equals(id) & a.isArchived.equals(false))
-          ..limit(1))
-        .get();
+    final active =
+        await (_db.select(_db.accounts)
+              ..where((a) => a.workspaceId.equals(id) & a.isArchived.equals(false))
+              ..limit(1))
+            .get();
     if (active.isNotEmpty) throw StateError('workspace has active accounts');
-    await (_db.update(_db.workspaces)..where((w) => w.id.equals(id))).write(
-      const WorkspacesCompanion(isArchived: Value(true)),
-    );
+    await (_db.update(
+      _db.workspaces,
+    )..where((w) => w.id.equals(id))).write(const WorkspacesCompanion(isArchived: Value(true)));
   });
 }

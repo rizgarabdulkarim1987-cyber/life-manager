@@ -64,7 +64,12 @@ void main() {
   });
 
   test('same-currency transfer copies the amount and stores no rate', () async {
-    final id = await tx.addTransfer(fromAccountId: f.buzzIqd, toAccountId: f.personalIqd, amountMinor: 5000, occurredAt: d);
+    final id = await tx.addTransfer(
+      fromAccountId: f.buzzIqd,
+      toAccountId: f.personalIqd,
+      amountMinor: 5000,
+      occurredAt: d,
+    );
     final row = await tx.get(id);
     expect((row!.toAmountMinor, row.rateE6), (5000, null));
   });
@@ -91,7 +96,13 @@ void main() {
 
   test('a category of the wrong kind is rejected', () async {
     await expectLater(
-      tx.addSimple(type: 'expense', accountId: f.personalIqd, amountMinor: 1, occurredAt: d, categoryId: f.cat('salary')),
+      tx.addSimple(
+        type: 'expense',
+        accountId: f.personalIqd,
+        amountMinor: 1,
+        occurredAt: d,
+        categoryId: f.cat('salary'),
+      ),
       throwsArgumentError,
     );
   });
@@ -103,7 +114,12 @@ void main() {
     await tx.delete(e);
     expect(await acc.balanceOf(f.personalIqd), const Money(0, 'IQD'));
 
-    final t = await tx.addTransfer(fromAccountId: f.buzzIqd, toAccountId: f.personalIqd, amountMinor: 9000, occurredAt: d);
+    final t = await tx.addTransfer(
+      fromAccountId: f.buzzIqd,
+      toAccountId: f.personalIqd,
+      amountMinor: 9000,
+      occurredAt: d,
+    );
     await tx.update(t, TransactionsCompanion(accountId: Value(f.eoIqd)));
     expect(await acc.balanceOf(f.buzzIqd), const Money(0, 'IQD'));
     expect(await acc.balanceOf(f.eoIqd), const Money(-9000, 'IQD'));
@@ -144,7 +160,12 @@ void main() {
 
   test('asOf balance ignores later transactions', () async {
     await tx.addSimple(type: 'income', accountId: f.personalIqd, amountMinor: 100, occurredAt: d);
-    await tx.addSimple(type: 'income', accountId: f.personalIqd, amountMinor: 50, occurredAt: d.add(const Duration(days: 3)));
+    await tx.addSimple(
+      type: 'income',
+      accountId: f.personalIqd,
+      amountMinor: 50,
+      occurredAt: d.add(const Duration(days: 3)),
+    );
     expect(await acc.balanceOf(f.personalIqd, asOf: d.add(const Duration(days: 1))), const Money(100, 'IQD'));
   });
 
@@ -168,7 +189,13 @@ void main() {
   });
 
   test('filter by text matches Arabic without diacritics', () async {
-    await tx.addSimple(type: 'expense', accountId: f.personalIqd, amountMinor: 1, occurredAt: d, description: 'أكلة غداء');
+    await tx.addSimple(
+      type: 'expense',
+      accountId: f.personalIqd,
+      amountMinor: 1,
+      occurredAt: d,
+      description: 'أكلة غداء',
+    );
     await tx.addSimple(type: 'expense', accountId: f.personalIqd, amountMinor: 2, occurredAt: d, description: 'تكسي');
     final rows = await tx.watch(const TxFilter(text: 'اكله')).first;
     expect(rows.map((r) => r.amountMinor), [1]);

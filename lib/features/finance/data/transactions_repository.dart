@@ -108,31 +108,33 @@ class TransactionsRepository {
     return _db.into(_db.transactions).insert(row);
   });
 
-  Future<void> update(int id, TransactionsCompanion changes, {bool clearAllocations = false}) =>
-      _db.transaction(() async {
-        final old = await get(id);
-        if (old == null) throw StateError('transaction not found');
-        final merged = old.copyWithCompanion(changes).toCompanion(true);
-        final row = await _normalize(merged);
-        final moneyChanged =
-            row.amountMinor.value != old.amountMinor ||
-            row.accountId.value != old.accountId ||
-            row.occurredAt.value != old.occurredAt ||
-            row.type.value != old.type ||
-            row.paymentStatus.value != old.paymentStatus;
-        if (moneyChanged) {
-          final allocations = _db.bucketAllocations;
-          final has = await (_db.select(allocations)
-                ..where((a) => a.transactionId.equals(id))
-                ..limit(1))
-              .get();
-          if (has.isNotEmpty) {
-            if (!clearAllocations) throw const AllocationsLocked();
-            await (_db.delete(allocations)..where((a) => a.transactionId.equals(id))).go();
-          }
+  Future<void> update(int id, TransactionsCompanion changes, {bool clearAllocations = false}) => _db.transaction(
+    () async {
+      final old = await get(id);
+      if (old == null) throw StateError('transaction not found');
+      final merged = old.copyWithCompanion(changes).toCompanion(true);
+      final row = await _normalize(merged);
+      final moneyChanged =
+          row.amountMinor.value != old.amountMinor ||
+          row.accountId.value != old.accountId ||
+          row.occurredAt.value != old.occurredAt ||
+          row.type.value != old.type ||
+          row.paymentStatus.value != old.paymentStatus;
+      if (moneyChanged) {
+        final allocations = _db.bucketAllocations;
+        final has =
+            await (_db.select(allocations)
+                  ..where((a) => a.transactionId.equals(id))
+                  ..limit(1))
+                .get();
+        if (has.isNotEmpty) {
+          if (!clearAllocations) throw const AllocationsLocked();
+          await (_db.delete(allocations)..where((a) => a.transactionId.equals(id))).go();
         }
-        await _db.update(_db.transactions).replace(row.copyWith(id: Value(id), updatedAt: Value(DateTime.now().toUtc())));
-      });
+      }
+      await _db.update(_db.transactions).replace(row.copyWith(id: Value(id), updatedAt: Value(DateTime.now().toUtc())));
+    },
+  );
 
   Future<void> delete(int id) => (_db.delete(_db.transactions)..where((t) => t.id.equals(id))).go();
 

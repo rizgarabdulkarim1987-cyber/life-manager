@@ -46,8 +46,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get biometrics => 'الفتح بالبصمة';
 
   @override
-  String get biometricsUnavailable =>
-      'لا توجد بصمة أو فتح بالوجه مفعّل على هذا الهاتف';
+  String get biometricsUnavailable => 'لا توجد بصمة أو فتح بالوجه مفعّل على هذا الهاتف';
 
   @override
   String get changePin => 'تغيير رمز PIN';
@@ -244,19 +243,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get privacy => 'الخصوصية';
 
   @override
-  String get privacyPhase1 =>
-      'لا يخرج شيء من هذا الهاتف. التطبيق لا يملك صلاحية الإنترنت بعد.';
+  String get privacyPhase1 => 'لا يخرج شيء من هذا الهاتف. التطبيق لا يملك صلاحية الإنترنت بعد.';
 
   @override
-  String get restoreTooNew =>
-      'هذه النسخة من إصدار أحدث للتطبيق. حدّث التطبيق أولاً.';
+  String get restoreTooNew => 'هذه النسخة من إصدار أحدث للتطبيق. حدّث التطبيق أولاً.';
 
   @override
   String get restoreWrongPassword => 'كلمة المرور خاطئة، أو الملف تالف.';
 
   @override
-  String get restoreCorrupt =>
-      'الملف تالف أو ليس نسخة احتياطية من هذا التطبيق.';
+  String get restoreCorrupt => 'الملف تالف أو ليس نسخة احتياطية من هذا التطبيق.';
 
   @override
   String get restoreSuccess => 'تم الاسترجاع. جارٍ إعادة التشغيل…';
@@ -265,8 +261,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get micSoon => 'الإدخال الصوتي يأتي في المرحلة 2';
 
   @override
-  String get passwordStrengthWeak =>
-      'ضعيفة: اجعلها أطول، أو امزج حروفاً وأرقاماً ورموزاً';
+  String get passwordStrengthWeak => 'ضعيفة: اجعلها أطول، أو امزج حروفاً وأرقاماً ورموزاً';
 
   @override
   String get passwordStrengthFair => 'متوسطة';
@@ -275,8 +270,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get passwordStrengthStrong => 'قوية';
 
   @override
-  String get backupPasswordHint =>
-      'ستحتاج كلمة المرور هذه عند الاسترجاع. إذا نسيتها فلا يمكن استعادتها.';
+  String get backupPasswordHint => 'ستحتاج كلمة المرور هذه عند الاسترجاع. إذا نسيتها فلا يمكن استعادتها.';
 
   @override
   String get somethingWentWrong => 'حدث خطأ. حاول مرة أخرى.';
@@ -289,4 +283,61 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get retry => 'حاول مرة أخرى';
+
+  @override
+  String get cat_food => 'أكل';
+
+  @override
+  String get cat_transport => 'مواصلات';
+
+  @override
+  String get cat_rent => 'إيجار';
+
+  @override
+  String get cat_bills => 'فواتير';
+
+  @override
+  String get cat_family => 'العائلة';
+
+  @override
+  String get cat_shopping => 'تسوّق';
+
+  @override
+  String get cat_health => 'صحة';
+
+  @override
+  String get cat_business => 'شغل';
+
+  @override
+  String get cat_marketing => 'تسويق';
+
+  @override
+  String get cat_subscriptions => 'اشتراكات';
+
+  @override
+  String get cat_other_expense => 'مصروف آخر';
+
+  @override
+  String get cat_salary => 'راتب';
+
+  @override
+  String get cat_business_income => 'دخل الشغل';
+
+  @override
+  String get cat_freelance => 'عمل حر';
+
+  @override
+  String get cat_client_payment => 'دفعة عميل';
+
+  @override
+  String get cat_other_income => 'دخل آخر';
+
+  @override
+  String get bucket_expenses => 'المصاريف';
+
+  @override
+  String get bucket_emergency => 'الطوارئ';
+
+  @override
+  String get bucket_investment => 'الاستثمار';
 }

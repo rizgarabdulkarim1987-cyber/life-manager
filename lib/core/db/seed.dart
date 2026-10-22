@@ -1,6 +1,7 @@
 import 'dart:ui' show Color;
 
 import '../theme/tokens.dart';
+
 import 'package:drift/drift.dart' show Value;
 
 import 'app_database.dart';
