@@ -13,6 +13,12 @@ class Workspaces extends Table {
   IntColumn get sortOrder => integer()();
   BoolColumn get isArchived => boolean().withDefault(const Constant(false))();
   DateTimeColumn get createdAt => dateTime()();
+
+  /// Comma-separated names the capture parser also matches.
+  TextColumn get aliases => text().withDefault(const Constant(''))();
+
+  /// Whether this workspace's expenses count against the buckets (spec §10.3).
+  BoolColumn get countsInBuckets => boolean().withDefault(const Constant(false))();
 }
 
 const kAccountKinds = ['cash', 'bank', 'savings', 'custom'];
@@ -45,6 +51,17 @@ class AppSettingsTable extends Table {
   TextColumn get baseCurrency => text().withDefault(const Constant('IQD'))();
   BoolColumn get setupCompleted => boolean().withDefault(const Constant(false))();
   DateTimeColumn get lastBackupAt => dateTime().nullable()();
+
+  // Phase 2 (schema v2)
+  BoolColumn get aiOnlineEnabled => boolean().withDefault(const Constant(true))();
+  TextColumn get aiVoiceConsent => text().nullable().check(aiVoiceConsent.isIn(const ['granted', 'declined']))();
+  TextColumn get aiParseConsent => text().nullable().check(aiParseConsent.isIn(const ['granted', 'declined']))();
+  TextColumn get groqSttModel => text().withDefault(const Constant('whisper-large-v3-turbo'))();
+  TextColumn get groqLlmModel => text().withDefault(const Constant('llama-3.3-70b-versatile'))();
+  TextColumn get localWhisperModel =>
+      text().withDefault(const Constant('small')).check(localWhisperModel.isIn(const ['small', 'base']))();
+  BoolColumn get unallocatedIncomeAlert => boolean().withDefault(const Constant(false))();
+  BoolColumn get bucketsConfirmed => boolean().withDefault(const Constant(false))();
 
   @override
   Set<Column> get primaryKey => {id};

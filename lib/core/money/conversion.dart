@@ -14,8 +14,12 @@ final class RateValue {
   bool covers(String a, String b) => (a == base && b == quote) || (a == quote && b == base);
 
   @override
-  bool operator ==(Object o) =>
-      o is RateValue && o.base == base && o.quote == quote && o.rateE6 == rateE6 && o.effectiveFrom == effectiveFrom;
+  bool operator ==(Object other) =>
+      other is RateValue &&
+      other.base == base &&
+      other.quote == quote &&
+      other.rateE6 == rateE6 &&
+      other.effectiveFrom == effectiveFrom;
 
   @override
   int get hashCode => Object.hash(base, quote, rateE6, effectiveFrom);

@@ -5,21 +5,84 @@ import 'package:drift/native.dart';
 import 'package:path/path.dart' as p;
 
 import '../security/sensitive.dart';
+import 'capture_tables.dart';
+import 'finance_seed.dart';
+import 'finance_tables.dart';
 import 'tables.dart';
 
+export 'capture_tables.dart';
+export 'finance_tables.dart';
 export 'tables.dart';
 
 part 'app_database.g.dart';
 
-@DriftDatabase(tables: [Workspaces, Accounts, AppSettingsTable, BackupMetadata])
+@DriftDatabase(
+  tables: [
+    Workspaces,
+    Accounts,
+    AppSettingsTable,
+    BackupMetadata,
+    Categories,
+    ExchangeRates,
+    ImportBatches,
+    Debts,
+    Installments,
+    Transactions,
+    Buckets,
+    BucketAllocations,
+    Budgets,
+    Captures,
+  ],
+)
 class AppDatabase extends _$AppDatabase {
   AppDatabase(super.e);
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
+    onCreate: (m) async {
+      await m.createAll();
+      await seedFinanceDefaults(this);
+    },
+    onUpgrade: (m, from, to) async {
+      if (from < 2) {
+        await m.addColumn(workspaces, workspaces.aliases);
+        await m.addColumn(workspaces, workspaces.countsInBuckets);
+        for (final c in <GeneratedColumn>[
+          appSettingsTable.aiOnlineEnabled,
+          appSettingsTable.aiVoiceConsent,
+          appSettingsTable.aiParseConsent,
+          appSettingsTable.groqSttModel,
+          appSettingsTable.groqLlmModel,
+          appSettingsTable.localWhisperModel,
+          appSettingsTable.unallocatedIncomeAlert,
+          appSettingsTable.bucketsConfirmed,
+        ]) {
+          await m.addColumn(appSettingsTable, c);
+        }
+        for (final t in <TableInfo>[
+          categories,
+          exchangeRates,
+          importBatches,
+          debts,
+          installments,
+          transactions,
+          buckets,
+          bucketAllocations,
+          budgets,
+          captures,
+        ]) {
+          await m.createTable(t);
+        }
+        for (final i in [txAccountTime, txTime, txBatch]) {
+          await m.createIndex(i);
+        }
+        await seedFinanceDefaults(this);
+        await markPersonalCountsInBuckets(this);
+      }
+    },
     beforeOpen: (details) async {
       await customStatement('PRAGMA foreign_keys = ON');
       await into(appSettingsTable)

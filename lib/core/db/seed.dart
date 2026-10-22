@@ -1,7 +1,10 @@
 import 'dart:ui' show Color;
 
 import '../theme/tokens.dart';
+import 'package:drift/drift.dart' show Value;
+
 import 'app_database.dart';
+import 'finance_seed.dart';
 
 /// Localized names for the seeded workspaces and accounts.
 class SeedNames {
@@ -22,10 +25,11 @@ class SeedNames {
   final String cashUsd;
 }
 
-/// Creates the four workspaces and six cash accounts from spec §10.1.
-/// Does nothing once any workspace exists.
+/// Creates the four workspaces and six cash accounts from spec §10.1, plus
+/// the finance defaults. Does nothing once any workspace exists.
 Future<void> seedInitialData(AppDatabase db, SeedNames n) async {
   await db.transaction(() async {
+    await seedFinanceDefaults(db);
     final existing = await (db.select(db.workspaces)..limit(1)).get();
     if (existing.isNotEmpty) return;
 
@@ -49,6 +53,7 @@ Future<void> seedInitialData(AppDatabase db, SeedNames n) async {
               colorArgb: color.toARGB32(),
               sortOrder: order,
               createdAt: now,
+              countsInBuckets: Value(order == 0),
             ),
           );
       if (hasCash) {
