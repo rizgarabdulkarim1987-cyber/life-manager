@@ -8,6 +8,9 @@ class RestartScope extends StatefulWidget {
   final Future<Widget> Function() build;
   final Widget loading;
 
+  static Future<void> maybeRestart(BuildContext context) async =>
+      context.findAncestorStateOfType<_RestartScopeState>()?._restart();
+
   static Future<void> restart(BuildContext context) =>
       context.findAncestorStateOfType<_RestartScopeState>()!._restart();
 

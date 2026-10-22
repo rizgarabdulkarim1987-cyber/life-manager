@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../core/l10n/ckb_fallback_localizations.dart';
+import '../features/backup/backup_screen.dart';
 import '../features/settings/settings_screen.dart';
 import '../features/setup/setup_flow.dart';
 import '../features/setup/splash_screen.dart';
@@ -68,14 +69,7 @@ GoRouter buildRouter() => GoRouter(
     GoRoute(
       path: '/settings',
       builder: (_, _) => const SettingsScreen(),
-      routes: [
-        // Replaced by the real backup screen in Task 13.
-        GoRoute(
-          path: 'backup',
-          builder: (context, _) =>
-              PlaceholderScreen(title: context.l10n.backupRestore, phase: 1, icon: Icons.save_alt_rounded),
-        ),
-      ],
+      routes: [GoRoute(path: 'backup', builder: (_, _) => const BackupScreen())],
     ),
   ],
 );

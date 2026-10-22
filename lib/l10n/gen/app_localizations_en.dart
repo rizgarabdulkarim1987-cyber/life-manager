@@ -255,4 +255,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get micSoon => 'Voice capture arrives in phase 2';
+
+  @override
+  String get passwordStrengthWeak => 'Weak: make it longer, or mix letters, numbers and symbols';
+
+  @override
+  String get passwordStrengthFair => 'Fair';
+
+  @override
+  String get passwordStrengthStrong => 'Strong';
+
+  @override
+  String get backupPasswordHint => 'You will need this password to restore. If you forget it, it cannot be recovered.';
 }

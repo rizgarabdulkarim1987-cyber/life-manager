@@ -536,6 +536,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Voice capture arrives in phase 2'**
   String get micSoon;
+
+  /// No description provided for @passwordStrengthWeak.
+  ///
+  /// In en, this message translates to:
+  /// **'Weak: make it longer, or mix letters, numbers and symbols'**
+  String get passwordStrengthWeak;
+
+  /// No description provided for @passwordStrengthFair.
+  ///
+  /// In en, this message translates to:
+  /// **'Fair'**
+  String get passwordStrengthFair;
+
+  /// No description provided for @passwordStrengthStrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Strong'**
+  String get passwordStrengthStrong;
+
+  /// No description provided for @backupPasswordHint.
+  ///
+  /// In en, this message translates to:
+  /// **'You will need this password to restore. If you forget it, it cannot be recovered.'**
+  String get backupPasswordHint;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

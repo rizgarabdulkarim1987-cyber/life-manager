@@ -79,5 +79,9 @@
   "restoreWrongPassword": "Wrong password, or the file is damaged.",
   "restoreCorrupt": "This file is damaged or isn't a backup from this app.",
   "restoreSuccess": "Restored. Restarting…",
-  "micSoon": "Voice capture arrives in phase 2"
+  "micSoon": "Voice capture arrives in phase 2",
+  "passwordStrengthWeak": "Weak: make it longer, or mix letters, numbers and symbols",
+  "passwordStrengthFair": "Fair",
+  "passwordStrengthStrong": "Strong",
+  "backupPasswordHint": "You will need this password to restore. If you forget it, it cannot be recovered."
 }

@@ -259,4 +259,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get micSoon => 'الإدخال الصوتي يأتي في المرحلة 2';
+
+  @override
+  String get passwordStrengthWeak => 'ضعيفة: اجعلها أطول، أو امزج حروفاً وأرقاماً ورموزاً';
+
+  @override
+  String get passwordStrengthFair => 'متوسطة';
+
+  @override
+  String get passwordStrengthStrong => 'قوية';
+
+  @override
+  String get backupPasswordHint => 'ستحتاج كلمة المرور هذه عند الاسترجاع. إذا نسيتها فلا يمكن استعادتها.';
 }

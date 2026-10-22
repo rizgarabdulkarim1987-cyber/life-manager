@@ -255,4 +255,16 @@ class AppLocalizationsCkb extends AppLocalizations {
 
   @override
   String get micSoon => 'تۆمارکردنی دەنگی لە قۆناغی ٢ دێت';
+
+  @override
+  String get passwordStrengthWeak => 'لاواز: درێژتری بکە، یان پیت و ژمارە و هێما تێکەڵ بکە';
+
+  @override
+  String get passwordStrengthFair => 'مامناوەند';
+
+  @override
+  String get passwordStrengthStrong => 'بەهێز';
+
+  @override
+  String get backupPasswordHint => 'بۆ گەڕاندنەوە پێویستت بەم وشەی نهێنییە دەبێت. ئەگەر لەبیرت بچێت، ناگەڕێتەوە.';
 }
