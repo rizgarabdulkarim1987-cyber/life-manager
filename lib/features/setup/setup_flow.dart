@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../app/providers.dart';
 import '../../core/db/seed.dart';
 import '../../core/l10n/ckb_fallback_localizations.dart';
+import '../../core/logging/app_logger.dart';
 import '../../core/theme/motion.dart';
 import '../../core/theme/tokens.dart';
 import '../lock/lock_controller.dart';
@@ -97,24 +98,36 @@ class _SetupFlowState extends ConsumerState<SetupFlow> {
     final db = ref.read(appDatabaseProvider);
     final settings = ref.read(settingsRepositoryProvider);
 
-    await ref.read(pinServiceProvider).setPin(_firstPin!);
+    try {
+      await ref.read(pinServiceProvider).setPin(_firstPin!);
+      await seedInitialData(
+        db,
+        SeedNames(
+          personal: l10n.seedPersonal,
+          buzzify: l10n.seedBuzzify,
+          eo: l10n.seedEo,
+          otherProjects: l10n.seedOtherProjects,
+          cashIqd: l10n.seedCashIqd,
+          cashUsd: l10n.seedCashUsd,
+        ),
+      );
+      await settings.setBiometricEnabled(_bioEnabled);
+      // Unlock before setup counts as done, so the lock screen never flashes
+      // over the first home screen.
+      ref.read(lockControllerProvider.notifier).unlock();
+      // Last, so an interrupted setup simply runs again on the next launch.
+      await settings.markSetupCompleted();
+    } catch (e) {
+      // Every step above is safe to repeat, so the owner can just press again.
+      AppLogger.error('setup failed', e.runtimeType);
+      if (mounted) {
+        setState(() => _busy = false);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(l10n.somethingWentWrong)));
+      }
+      return;
+    }
     _firstPin = null;
-    await seedInitialData(
-      db,
-      SeedNames(
-        personal: l10n.seedPersonal,
-        buzzify: l10n.seedBuzzify,
-        eo: l10n.seedEo,
-        otherProjects: l10n.seedOtherProjects,
-        cashIqd: l10n.seedCashIqd,
-        cashUsd: l10n.seedCashUsd,
-      ),
-    );
-    await settings.setBiometricEnabled(_bioEnabled);
-    // Last, so an interrupted setup simply runs again on the next launch.
-    await settings.markSetupCompleted();
     if (!mounted) return;
-    ref.read(lockControllerProvider.notifier).unlock();
     widget.onDone();
   }
 

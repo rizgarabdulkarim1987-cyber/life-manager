@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/l10n/ckb_fallback_localizations.dart';
+import '../../core/logging/app_logger.dart';
 import '../../core/theme/tokens.dart';
 import '../lock/lock_controller.dart';
 import '../lock/lock_screen.dart';
@@ -50,7 +51,17 @@ class _ChangePinScreenState extends ConsumerState<ChangePinScreen> {
     switch (_stage) {
       case _Stage.current:
         setState(() => _busy = true);
-        final result = await pins.verify(pin);
+        final PinCheckResult result;
+        try {
+          result = await pins.verify(pin);
+        } catch (e) {
+          AppLogger.error('pin verify failed', e.runtimeType);
+          if (mounted) {
+            setState(() => _busy = false);
+            _fail(l10n.somethingWentWrong);
+          }
+          return;
+        }
         if (!mounted) return;
         setState(() => _busy = false);
         switch (result) {
@@ -78,7 +89,19 @@ class _ChangePinScreenState extends ConsumerState<ChangePinScreen> {
           return;
         }
         setState(() => _busy = true);
-        await pins.setPin(pin);
+        try {
+          await pins.setPin(pin);
+        } catch (e) {
+          // The old PIN is still in place; start the new-PIN step again.
+          AppLogger.error('pin change failed', e.runtimeType);
+          if (mounted) {
+            setState(() => _busy = false);
+            _next = null;
+            _stage = _Stage.next;
+            _fail(l10n.somethingWentWrong);
+          }
+          return;
+        }
         if (mounted) Navigator.of(context).pop(true);
     }
   }

@@ -46,7 +46,8 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get biometrics => 'کردنەوە بە پەنجەمۆر';
 
   @override
-  String get biometricsUnavailable => 'هیچ پەنجەمۆر یان ناسینەوەی ڕوو لەسەر ئەم مۆبایلە چالاک نییە';
+  String get biometricsUnavailable =>
+      'هیچ پەنجەمۆر یان ناسینەوەی ڕوو لەسەر ئەم مۆبایلە چالاک نییە';
 
   @override
   String get changePin => 'گۆڕینی PIN';
@@ -72,7 +73,7 @@ class AppLocalizationsCkb extends AppLocalizations {
       minutes,
       locale: localeName,
       other: 'دوای $minutes خولەک',
-      one: 'دوای ١ خولەک',
+      one: 'دوای 1 خولەک',
     );
     return '$_temp0';
   }
@@ -101,7 +102,7 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get confirmPassword => 'دووپاتکردنەوەی وشەی نهێنی';
 
   @override
-  String get passwordTooShort => 'لانیکەم ٨ پیت بەکاربهێنە';
+  String get passwordTooShort => 'لانیکەم 8 پیت بەکاربهێنە';
 
   @override
   String get passwordsDontMatch => 'وشە نهێنییەکان وەک یەک نین';
@@ -139,7 +140,7 @@ class AppLocalizationsCkb extends AppLocalizations {
       count,
       locale: localeName,
       other: '$count هەوڵ ماوە پێش وەستان',
-      one: '١ هەوڵ ماوە پێش وەستان',
+      one: '1 هەوڵ ماوە پێش وەستان',
     );
     return '$_temp0';
   }
@@ -159,13 +160,14 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get setupWelcome => 'بەخێربێیت';
 
   @override
-  String get setupWelcomeBody => 'هەموو شتێک لەسەر ئەم مۆبایلە دەمێنێتەوە، لەژێر قوفڵی خۆت.';
+  String get setupWelcomeBody =>
+      'هەموو شتێک لەسەر ئەم مۆبایلە دەمێنێتەوە، لەژێر قوفڵی خۆت.';
 
   @override
   String get setupChooseLanguage => 'زمانەکەت هەڵبژێرە';
 
   @override
-  String get setupCreatePin => 'PINێکی ٦ ژمارەیی دروست بکە';
+  String get setupCreatePin => 'PINێکی 6 ژمارەیی دروست بکە';
 
   @override
   String get setupConfirmPin => 'PINەکە دووبارە بنووسەوە';
@@ -239,10 +241,12 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get privacy => 'تایبەتمەندی';
 
   @override
-  String get privacyPhase1 => 'هیچ شتێک لەم مۆبایلە دەرناچێت. ئەپەکە هێشتا دەسەڵاتی ئینتەرنێتی نییە.';
+  String get privacyPhase1 =>
+      'هیچ شتێک لەم مۆبایلە دەرناچێت. ئەپەکە هێشتا دەسەڵاتی ئینتەرنێتی نییە.';
 
   @override
-  String get restoreTooNew => 'ئەم پاشەکەوتە لە وەشانێکی نوێتری ئەپەکە دروستکراوە. سەرەتا ئەپەکە نوێ بکەرەوە.';
+  String get restoreTooNew =>
+      'ئەم پاشەکەوتە لە وەشانێکی نوێتری ئەپەکە دروستکراوە. سەرەتا ئەپەکە نوێ بکەرەوە.';
 
   @override
   String get restoreWrongPassword => 'وشەی نهێنی هەڵەیە، یان فایلەکە تێکچووە.';
@@ -254,10 +258,11 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get restoreSuccess => 'گەڕێندرایەوە. دووبارە دەستپێدەکاتەوە…';
 
   @override
-  String get micSoon => 'تۆمارکردنی دەنگی لە قۆناغی ٢ دێت';
+  String get micSoon => 'تۆمارکردنی دەنگی لە قۆناغی 2 دێت';
 
   @override
-  String get passwordStrengthWeak => 'لاواز: درێژتری بکە، یان پیت و ژمارە و هێما تێکەڵ بکە';
+  String get passwordStrengthWeak =>
+      'لاواز: درێژتری بکە، یان پیت و ژمارە و هێما تێکەڵ بکە';
 
   @override
   String get passwordStrengthFair => 'مامناوەند';
@@ -266,5 +271,18 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get passwordStrengthStrong => 'بەهێز';
 
   @override
-  String get backupPasswordHint => 'بۆ گەڕاندنەوە پێویستت بەم وشەی نهێنییە دەبێت. ئەگەر لەبیرت بچێت، ناگەڕێتەوە.';
+  String get backupPasswordHint =>
+      'بۆ گەڕاندنەوە پێویستت بەم وشەی نهێنییە دەبێت. ئەگەر لەبیرت بچێت، ناگەڕێتەوە.';
+
+  @override
+  String get somethingWentWrong => 'هەڵەیەک ڕوویدا. دووبارە هەوڵ بدەرەوە.';
+
+  @override
+  String get backupFailed => 'پاشەکەوت دروست نەکرا. داتاکانت نەگۆڕاون.';
+
+  @override
+  String get startupFailed => 'داتاکانت نەکرانەوە. هیچ شتێک نەسڕایەوە.';
+
+  @override
+  String get retry => 'دووبارە هەوڵ بدەرەوە';
 }

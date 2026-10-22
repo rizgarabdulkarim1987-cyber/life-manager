@@ -33,6 +33,8 @@ flutter build apk --release
 
 الملف الناتج: `build/app/outputs/flutter-apk/app-release.apk`.
 
+إذا بنيت نسخة debug قبلها، فقد يفشل بناء الإصدار بخطأ `package dev.flutter.plugins.integration_test does not exist`. السبب ملف مولَّد قديم؛ نفّذ `flutter clean` (أو احذف `android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java`) ثم أعد البناء.
+
 ### توقيع نسخة الإصدار
 
 - مفتاح التوقيع موجود خارج المستودع في `C:\Users\pc\.keystores\life-manager-release.jks`.
@@ -87,6 +89,8 @@ flutter build apk --release
 ```
 
 Output: `build/app/outputs/flutter-apk/app-release.apk`.
+
+If you built a debug APK first, the release build can fail with `package dev.flutter.plugins.integration_test does not exist`. A stale generated file causes it: run `flutter clean` (or delete `android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java`) and build again.
 
 ### Release signing
 

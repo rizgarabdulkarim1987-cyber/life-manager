@@ -46,7 +46,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get biometrics => 'الفتح بالبصمة';
 
   @override
-  String get biometricsUnavailable => 'لا توجد بصمة أو فتح بالوجه مفعّل على هذا الهاتف';
+  String get biometricsUnavailable =>
+      'لا توجد بصمة أو فتح بالوجه مفعّل على هذا الهاتف';
 
   @override
   String get changePin => 'تغيير رمز PIN';
@@ -243,16 +244,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get privacy => 'الخصوصية';
 
   @override
-  String get privacyPhase1 => 'لا يخرج شيء من هذا الهاتف. التطبيق لا يملك صلاحية الإنترنت بعد.';
+  String get privacyPhase1 =>
+      'لا يخرج شيء من هذا الهاتف. التطبيق لا يملك صلاحية الإنترنت بعد.';
 
   @override
-  String get restoreTooNew => 'هذه النسخة من إصدار أحدث للتطبيق. حدّث التطبيق أولاً.';
+  String get restoreTooNew =>
+      'هذه النسخة من إصدار أحدث للتطبيق. حدّث التطبيق أولاً.';
 
   @override
   String get restoreWrongPassword => 'كلمة المرور خاطئة، أو الملف تالف.';
 
   @override
-  String get restoreCorrupt => 'الملف تالف أو ليس نسخة احتياطية من هذا التطبيق.';
+  String get restoreCorrupt =>
+      'الملف تالف أو ليس نسخة احتياطية من هذا التطبيق.';
 
   @override
   String get restoreSuccess => 'تم الاسترجاع. جارٍ إعادة التشغيل…';
@@ -261,7 +265,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get micSoon => 'الإدخال الصوتي يأتي في المرحلة 2';
 
   @override
-  String get passwordStrengthWeak => 'ضعيفة: اجعلها أطول، أو امزج حروفاً وأرقاماً ورموزاً';
+  String get passwordStrengthWeak =>
+      'ضعيفة: اجعلها أطول، أو امزج حروفاً وأرقاماً ورموزاً';
 
   @override
   String get passwordStrengthFair => 'متوسطة';
@@ -270,5 +275,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get passwordStrengthStrong => 'قوية';
 
   @override
-  String get backupPasswordHint => 'ستحتاج كلمة المرور هذه عند الاسترجاع. إذا نسيتها فلا يمكن استعادتها.';
+  String get backupPasswordHint =>
+      'ستحتاج كلمة المرور هذه عند الاسترجاع. إذا نسيتها فلا يمكن استعادتها.';
+
+  @override
+  String get somethingWentWrong => 'حدث خطأ. حاول مرة أخرى.';
+
+  @override
+  String get backupFailed => 'تعذّر إنشاء النسخة الاحتياطية. بياناتك لم تتغير.';
+
+  @override
+  String get startupFailed => 'تعذّر فتح بياناتك. لم يُحذف أي شيء.';
+
+  @override
+  String get retry => 'حاول مرة أخرى';
 }

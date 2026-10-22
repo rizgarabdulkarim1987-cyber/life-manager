@@ -163,7 +163,7 @@ class _AccountsCard extends ConsumerWidget {
                     Expanded(
                       child: Text(
                         _shortName(a.name, ws.name),
-                        maxLines: 1,
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: text.bodyMedium?.copyWith(color: k.text),
                       ),

@@ -1,12 +1,18 @@
 import 'package:flutter/widgets.dart';
 
+import '../core/logging/app_logger.dart';
+
 /// Builds the app (opening the database and its ProviderScope) and can rebuild
 /// it from scratch, used after a restore swaps the database file.
 class RestartScope extends StatefulWidget {
-  const RestartScope({super.key, required this.build, required this.loading});
+  const RestartScope({super.key, required this.build, required this.loading, required this.failed});
 
   final Future<Widget> Function() build;
   final Widget loading;
+
+  /// Shown when [build] throws (e.g. the database can't be opened), so the app
+  /// never sits on a blank screen. `retry` runs [build] again.
+  final Widget Function(VoidCallback retry) failed;
 
   static Future<void> maybeRestart(BuildContext context) async =>
       context.findAncestorStateOfType<_RestartScopeState>()?._restart();
@@ -29,7 +35,13 @@ class _RestartScopeState extends State<RestartScope> {
   }
 
   Future<void> _load() async {
-    final app = await widget.build();
+    Widget app;
+    try {
+      app = await widget.build();
+    } catch (e, st) {
+      AppLogger.error('app failed to start', e.runtimeType, st);
+      app = widget.failed(_restart);
+    }
     if (mounted) setState(() => _app = app);
   }
 

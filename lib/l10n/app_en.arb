@@ -83,5 +83,9 @@
   "passwordStrengthWeak": "Weak: make it longer, or mix letters, numbers and symbols",
   "passwordStrengthFair": "Fair",
   "passwordStrengthStrong": "Strong",
-  "backupPasswordHint": "You will need this password to restore. If you forget it, it cannot be recovered."
+  "backupPasswordHint": "You will need this password to restore. If you forget it, it cannot be recovered.",
+  "somethingWentWrong": "Something went wrong. Please try again.",
+  "backupFailed": "The backup couldn't be created. Your data is unchanged.",
+  "startupFailed": "Your data couldn't be opened. Nothing was deleted.",
+  "retry": "Try again"
 }

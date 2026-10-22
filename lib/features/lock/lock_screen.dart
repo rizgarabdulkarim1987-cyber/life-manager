@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/providers.dart';
 import '../../core/l10n/ckb_fallback_localizations.dart';
+import '../../core/logging/app_logger.dart';
 import '../../core/theme/motion.dart';
 import '../../core/theme/tokens.dart';
 import 'lock_controller.dart';
@@ -75,7 +76,21 @@ class _LockScreenState extends ConsumerState<LockScreen> {
   Future<void> _submit() async {
     setState(() => _busy = true);
     final l10n = context.l10n;
-    final result = await ref.read(pinServiceProvider).verify(_entered);
+    final PinCheckResult result;
+    try {
+      result = await ref.read(pinServiceProvider).verify(_entered);
+    } catch (e) {
+      // Never leave the keypad dead: report it and let the owner try again.
+      AppLogger.error('pin verify failed', e.runtimeType);
+      if (mounted) {
+        setState(() {
+          _busy = false;
+          _entered = '';
+          _error = l10n.somethingWentWrong;
+        });
+      }
+      return;
+    }
     if (!mounted) return;
     switch (result) {
       case PinOk():

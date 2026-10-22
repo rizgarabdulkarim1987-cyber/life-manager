@@ -46,7 +46,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get biometrics => 'Unlock with fingerprint';
 
   @override
-  String get biometricsUnavailable => 'No fingerprint or face unlock is set up on this phone';
+  String get biometricsUnavailable =>
+      'No fingerprint or face unlock is set up on this phone';
 
   @override
   String get changePin => 'Change PIN';
@@ -159,7 +160,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setupWelcome => 'Welcome';
 
   @override
-  String get setupWelcomeBody => 'Everything stays on this phone, under your lock.';
+  String get setupWelcomeBody =>
+      'Everything stays on this phone, under your lock.';
 
   @override
   String get setupChooseLanguage => 'Choose your language';
@@ -177,7 +179,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setupEnableBiometrics => 'Unlock with fingerprint too?';
 
   @override
-  String get setupEnableBiometricsBody => 'Your PIN always works as a fallback.';
+  String get setupEnableBiometricsBody =>
+      'Your PIN always works as a fallback.';
 
   @override
   String get enable => 'Enable';
@@ -239,16 +242,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get privacy => 'Privacy';
 
   @override
-  String get privacyPhase1 => 'Nothing leaves this phone. The app has no internet access yet.';
+  String get privacyPhase1 =>
+      'Nothing leaves this phone. The app has no internet access yet.';
 
   @override
-  String get restoreTooNew => 'This backup was made by a newer version of the app. Update the app first.';
+  String get restoreTooNew =>
+      'This backup was made by a newer version of the app. Update the app first.';
 
   @override
   String get restoreWrongPassword => 'Wrong password, or the file is damaged.';
 
   @override
-  String get restoreCorrupt => 'This file is damaged or isn\'t a backup from this app.';
+  String get restoreCorrupt =>
+      'This file is damaged or isn\'t a backup from this app.';
 
   @override
   String get restoreSuccess => 'Restored. Restarting…';
@@ -257,7 +263,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get micSoon => 'Voice capture arrives in phase 2';
 
   @override
-  String get passwordStrengthWeak => 'Weak: make it longer, or mix letters, numbers and symbols';
+  String get passwordStrengthWeak =>
+      'Weak: make it longer, or mix letters, numbers and symbols';
 
   @override
   String get passwordStrengthFair => 'Fair';
@@ -266,5 +273,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get passwordStrengthStrong => 'Strong';
 
   @override
-  String get backupPasswordHint => 'You will need this password to restore. If you forget it, it cannot be recovered.';
+  String get backupPasswordHint =>
+      'You will need this password to restore. If you forget it, it cannot be recovered.';
+
+  @override
+  String get somethingWentWrong => 'Something went wrong. Please try again.';
+
+  @override
+  String get backupFailed =>
+      'The backup couldn\'t be created. Your data is unchanged.';
+
+  @override
+  String get startupFailed =>
+      'Your data couldn\'t be opened. Nothing was deleted.';
+
+  @override
+  String get retry => 'Try again';
 }

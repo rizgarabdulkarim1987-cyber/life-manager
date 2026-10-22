@@ -18,6 +18,13 @@ class FakeBackupService implements BackupService {
   String? createdWith;
   String? restoredWith;
   Exception? restoreError = const BackupWrongPasswordException();
+  int exportsRecorded = 0;
+
+  @override
+  bool get databaseClosed => false;
+
+  @override
+  Future<void> recordExport(Uint8List file) async => exportsRecorded++;
 
   @override
   Future<Uint8List> createBackup(Sensitive<String> password, {KdfParams? kdf, DateTime? now}) async {
@@ -37,7 +44,7 @@ class FakeBackupService implements BackupService {
   );
 
   @override
-  Future<void> restore(Uint8List file, Sensitive<String> password, {DateTime? now}) async {
+  Future<void> restore(Uint8List file, Sensitive<String> password, {DateTime? now, void Function()? beforeSwap}) async {
     restoredWith = password.value;
     if (restoreError != null) throw restoreError!;
   }
@@ -45,10 +52,11 @@ class FakeBackupService implements BackupService {
 
 class FakeFiles implements BackupFiles {
   String? savedName;
+  bool saveResult = true;
   @override
   Future<bool> save(String fileName, Uint8List bytes) async {
     savedName = fileName;
-    return true;
+    return saveResult;
   }
 
   @override
@@ -130,6 +138,19 @@ void main() {
     expect(service.createdWith, 'Correct-Horse-9');
     expect(files.savedName, endsWith('.plmbackup'));
     expect(find.text('Backup saved'), findsOneWidget);
+    expect(service.exportsRecorded, 1);
+  });
+
+  testWidgets('a cancelled save is not recorded as a backup', (t) async {
+    await pump(t);
+    files.saveResult = false;
+    await t.enterText(find.byKey(const ValueKey('backup-pw')), 'Correct-Horse-9');
+    await t.enterText(find.byKey(const ValueKey('backup-pw-confirm')), 'Correct-Horse-9');
+    await t.pump();
+    await t.tap(find.byKey(const ValueKey('create-backup')));
+    await t.pumpAndSettle();
+    expect(service.exportsRecorded, 0);
+    expect(find.text('Backup saved'), findsNothing);
   });
 
   testWidgets('restore confirm shows date and version; wrong password is reported', (t) async {

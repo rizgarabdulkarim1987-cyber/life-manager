@@ -107,8 +107,11 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
     final l10n = context.l10n;
     setState(() => _busy = true);
     try {
-      final bytes = await ref.read(backupServiceProvider).createBackup(Sensitive(_pw.text));
+      final service = ref.read(backupServiceProvider);
+      final bytes = await service.createBackup(Sensitive(_pw.text));
       final saved = await ref.read(backupFilesProvider).save(backupFileName(DateTime.now()), bytes);
+      // A cancelled save is not a backup: only a file that was written counts.
+      if (saved) await service.recordExport(bytes);
       if (!mounted) return;
       if (saved) {
         _pw.clear();
@@ -117,8 +120,8 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
         _snack(l10n.backupCreated);
       }
     } catch (e) {
-      AppLogger.error('backup failed', e);
-      if (mounted) _snack(l10n.restoreCorrupt);
+      AppLogger.error('backup failed', e.runtimeType);
+      if (mounted) _snack(l10n.backupFailed);
     } finally {
       if (mounted) setState(() => _busy = false);
     }
@@ -165,8 +168,11 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
       if (!mounted) return;
       _snack(l10n.restoreSuccess);
       await RestartScope.maybeRestart(context);
-    } on Exception catch (e) {
-      if (mounted) _snack(_errorText(e));
+    } catch (e) {
+      if (mounted) _snack(e is Exception ? _errorText(e) : l10n.somethingWentWrong);
+      // The swap closed the database before failing; the old data is back on
+      // disk, but this instance can no longer use it, so reopen everything.
+      if (service.databaseClosed && mounted) await RestartScope.maybeRestart(context);
     } finally {
       if (mounted) setState(() => _busy = false);
     }

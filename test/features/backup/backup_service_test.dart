@@ -131,6 +131,40 @@ void main() {
     expect(paths.db.existsSync(), isTrue);
   });
 
+  test('recoverInterruptedRestore restores the old db when killed mid-swap without a marker', () async {
+    await db.close();
+    final old = hashOf(paths.db);
+    paths.db.renameSync(paths.preRestore.path);
+    paths.incoming.writeAsStringSync('half-written');
+
+    await BackupService.recoverInterruptedRestore(dir, _key);
+    expect(hashOf(paths.db), old);
+    expect(paths.preRestore.existsSync(), isFalse);
+    expect(paths.incoming.existsSync(), isFalse);
+  });
+
+  test('recoverInterruptedRestore deletes a plaintext export left by a killed backup', () async {
+    paths.snapshotTmp.createSync(recursive: true);
+    File('${paths.snapshotTmp.path}/export-1.db').writeAsStringSync('plain');
+    await BackupService.recoverInterruptedRestore(dir, _key);
+    expect(paths.snapshotTmp.existsSync(), isFalse);
+  });
+
+  test('restore that fails during the swap puts the old db back', () async {
+    final file = await service(db).createBackup(_pw, kdf: _cheap);
+    final before = hashOf(paths.db);
+    // A directory where the incoming file must go makes the final rename fail.
+    final svc = service(db);
+    paths.incoming.parent.createSync(recursive: true);
+    await expectLater(
+      svc.restore(file, _pw, beforeSwap: () => Directory(paths.preRestore.path).createSync()),
+      throwsA(anything),
+    );
+    expect(svc.databaseClosed, isTrue);
+    expect(hashOf(paths.db), before);
+    expect(paths.marker.existsSync(), isFalse);
+  });
+
   test('recoverInterruptedRestore removes orphan incoming', () async {
     paths.incoming.writeAsStringSync('half-written');
     await BackupService.recoverInterruptedRestore(dir, _key);
@@ -138,9 +172,16 @@ void main() {
     expect(paths.db.existsSync(), isTrue);
   });
 
-  test('createBackup records metadata and lastBackupAt', () async {
+  test('createBackup alone records nothing (the save may be cancelled)', () async {
+    await service(db).createBackup(_pw, kdf: _cheap);
+    expect(await db.select(db.backupMetadata).get(), isEmpty);
+    expect((await SettingsRepository(db).get()).lastBackupAt, isNull);
+  });
+
+  test('recordExport records metadata and lastBackupAt', () async {
     final at = DateTime.utc(2026, 10, 22, 9);
     final file = await service(db).createBackup(_pw, kdf: _cheap, now: at);
+    await service(db).recordExport(file);
     final rows = await db.select(db.backupMetadata).get();
     expect(rows, hasLength(1));
     expect(rows.single.kind, 'export');
