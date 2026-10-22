@@ -46,7 +46,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get biometrics => 'الفتح بالبصمة';
 
   @override
-  String get biometricsUnavailable => 'لا توجد بصمة أو فتح بالوجه مفعّل على هذا الهاتف';
+  String get biometricsUnavailable =>
+      'لا توجد بصمة أو فتح بالوجه مفعّل على هذا الهاتف';
 
   @override
   String get changePin => 'تغيير رمز PIN';
@@ -243,16 +244,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get privacy => 'الخصوصية';
 
   @override
-  String get privacyPhase1 => 'لا يخرج شيء من هذا الهاتف. التطبيق لا يملك صلاحية الإنترنت بعد.';
+  String get privacyPhase1 =>
+      'لا يخرج شيء من هذا الهاتف. التطبيق لا يملك صلاحية الإنترنت بعد.';
 
   @override
-  String get restoreTooNew => 'هذه النسخة من إصدار أحدث للتطبيق. حدّث التطبيق أولاً.';
+  String get restoreTooNew =>
+      'هذه النسخة من إصدار أحدث للتطبيق. حدّث التطبيق أولاً.';
 
   @override
   String get restoreWrongPassword => 'كلمة المرور خاطئة، أو الملف تالف.';
 
   @override
-  String get restoreCorrupt => 'الملف تالف أو ليس نسخة احتياطية من هذا التطبيق.';
+  String get restoreCorrupt =>
+      'الملف تالف أو ليس نسخة احتياطية من هذا التطبيق.';
 
   @override
   String get restoreSuccess => 'تم الاسترجاع. جارٍ إعادة التشغيل…';
@@ -261,7 +265,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get micSoon => 'الإدخال الصوتي يأتي في المرحلة 2';
 
   @override
-  String get passwordStrengthWeak => 'ضعيفة: اجعلها أطول، أو امزج حروفاً وأرقاماً ورموزاً';
+  String get passwordStrengthWeak =>
+      'ضعيفة: اجعلها أطول، أو امزج حروفاً وأرقاماً ورموزاً';
 
   @override
   String get passwordStrengthFair => 'متوسطة';
@@ -270,7 +275,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get passwordStrengthStrong => 'قوية';
 
   @override
-  String get backupPasswordHint => 'ستحتاج كلمة المرور هذه عند الاسترجاع. إذا نسيتها فلا يمكن استعادتها.';
+  String get backupPasswordHint =>
+      'ستحتاج كلمة المرور هذه عند الاسترجاع. إذا نسيتها فلا يمكن استعادتها.';
 
   @override
   String get somethingWentWrong => 'حدث خطأ. حاول مرة أخرى.';
@@ -340,4 +346,219 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get bucket_investment => 'الاستثمار';
+
+  @override
+  String get finIncome => 'الدخل';
+
+  @override
+  String get finExpense => 'المصاريف';
+
+  @override
+  String get finSurplus => 'الفائض';
+
+  @override
+  String get finAllAccounts => 'كل الحسابات';
+
+  @override
+  String get finHowConvertedHint => 'اضغط حتى تشوف شلون انحسب';
+
+  @override
+  String finNoTotal(String currencies) {
+    return 'ماكو سعر صرف لـ $currencies، فما نكدر نطلع مجموع واحد';
+  }
+
+  @override
+  String get finSetRate => 'حدد سعر الصرف';
+
+  @override
+  String get finRateTitle => 'سعر الصرف';
+
+  @override
+  String get finRateLabel => 'الدولار الواحد بالدينار';
+
+  @override
+  String get finRateInvalid => 'اكتب سعر مثل 1310';
+
+  @override
+  String get save => 'حفظ';
+
+  @override
+  String get finHowConverted => 'شلون انحسب';
+
+  @override
+  String get finSameCurrency => 'نفس العملة';
+
+  @override
+  String get finNoRate => 'ماكو سعر';
+
+  @override
+  String finRateLine(String base, String rate, String quote, String date) {
+    return '1 $base = $rate $quote · من $date';
+  }
+
+  @override
+  String get finPerCurrency => 'حسب العملة';
+
+  @override
+  String get finTotal => 'المجموع';
+
+  @override
+  String alertExpensesBucket(int percent) {
+    return 'سطل المصاريف وصل $percent% هذا الشهر';
+  }
+
+  @override
+  String get alertEmergencyReached => 'صندوق الطوارئ وصل الهدف';
+
+  @override
+  String get alertEmergencyBelow => 'صندوق الطوارئ نازل عن الهدف';
+
+  @override
+  String alertUnallocated(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count دخل ما متوزعة على السطول',
+      one: 'دخل واحد ما متوزع على السطول',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String alertBudget(String name, int percent) {
+    return 'ميزانية $name وصلت $percent%';
+  }
+
+  @override
+  String alertDebtSoon(String name, String date) {
+    return '$name: الدفعة مستحقة $date';
+  }
+
+  @override
+  String alertDebtOverdue(String name) {
+    return '$name: الدفعة متأخرة';
+  }
+
+  @override
+  String get finHistory => 'السجل';
+
+  @override
+  String get finAddAccount => 'إضافة حساب';
+
+  @override
+  String get finAccountName => 'الاسم';
+
+  @override
+  String get finNameRequired => 'اكتب اسم';
+
+  @override
+  String get finWorkspace => 'مساحة العمل';
+
+  @override
+  String get finCurrency => 'العملة';
+
+  @override
+  String get finKind => 'النوع';
+
+  @override
+  String get kindCash => 'كاش';
+
+  @override
+  String get kindBank => 'بنك';
+
+  @override
+  String get kindSavings => 'توفير';
+
+  @override
+  String get kindCustom => 'غيره';
+
+  @override
+  String get rename => 'تغيير الاسم';
+
+  @override
+  String get archive => 'أرشفة';
+
+  @override
+  String finArchiveAccount(String name) {
+    return 'تأرشف $name؟ السجل مالته يبقى.';
+  }
+
+  @override
+  String get finBalance => 'الرصيد';
+
+  @override
+  String get finAdjustBalance => 'تعديل الرصيد';
+
+  @override
+  String get finAdjustHint =>
+      'اكتب المبلغ الموجود فعلاً بالحساب. الفرق ينحفظ كتعديل.';
+
+  @override
+  String get finActualAmount => 'المبلغ الفعلي';
+
+  @override
+  String get finAmountInvalid => 'اكتب مبلغ مثل 25000';
+
+  @override
+  String get finSearch => 'دوّر بالوصف';
+
+  @override
+  String get filterAll => 'الكل';
+
+  @override
+  String get filterDates => 'التاريخ';
+
+  @override
+  String get filterAccount => 'الحساب';
+
+  @override
+  String get filterCategory => 'الفئة';
+
+  @override
+  String get filterType => 'النوع';
+
+  @override
+  String get clearFilters => 'امسح الفلاتر';
+
+  @override
+  String get typeIncome => 'دخل';
+
+  @override
+  String get typeExpense => 'مصروف';
+
+  @override
+  String get typeRefund => 'استرجاع';
+
+  @override
+  String get typeAdjustment => 'تعديل';
+
+  @override
+  String get typeTransfer => 'تحويل';
+
+  @override
+  String get typeOwnerDraw => 'سحب شخصي';
+
+  @override
+  String get typeDebtPayment => 'دفعة دين';
+
+  @override
+  String get finPending => 'معلّق';
+
+  @override
+  String get finUncategorised => 'بدون فئة';
+
+  @override
+  String get finNoTransactions => 'ماكو معاملات بعد';
+
+  @override
+  String get finNoMatches => 'ماكو معاملات تطابق الفلاتر';
+
+  @override
+  String get finDeleted => 'انحذفت المعاملة';
+
+  @override
+  String get undo => 'تراجع';
+
+  @override
+  String get finToday => 'اليوم';
 }

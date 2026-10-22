@@ -145,5 +145,141 @@
   "cat_other_income": "دخل آخر",
   "bucket_expenses": "المصاريف",
   "bucket_emergency": "الطوارئ",
-  "bucket_investment": "الاستثمار"
+  "bucket_investment": "الاستثمار",
+  "finIncome": "الدخل",
+  "finExpense": "المصاريف",
+  "finSurplus": "الفائض",
+  "finAllAccounts": "كل الحسابات",
+  "finHowConvertedHint": "اضغط حتى تشوف شلون انحسب",
+  "finNoTotal": "ماكو سعر صرف لـ {currencies}، فما نكدر نطلع مجموع واحد",
+  "@finNoTotal": {
+    "placeholders": {
+      "currencies": {
+        "type": "String"
+      }
+    }
+  },
+  "finSetRate": "حدد سعر الصرف",
+  "finRateTitle": "سعر الصرف",
+  "finRateLabel": "الدولار الواحد بالدينار",
+  "finRateInvalid": "اكتب سعر مثل 1310",
+  "save": "حفظ",
+  "finHowConverted": "شلون انحسب",
+  "finSameCurrency": "نفس العملة",
+  "finNoRate": "ماكو سعر",
+  "finRateLine": "1 {base} = {rate} {quote} · من {date}",
+  "@finRateLine": {
+    "placeholders": {
+      "base": {
+        "type": "String"
+      },
+      "rate": {
+        "type": "String"
+      },
+      "quote": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "finPerCurrency": "حسب العملة",
+  "finTotal": "المجموع",
+  "alertExpensesBucket": "سطل المصاريف وصل {percent}% هذا الشهر",
+  "@alertExpensesBucket": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "alertEmergencyReached": "صندوق الطوارئ وصل الهدف",
+  "alertEmergencyBelow": "صندوق الطوارئ نازل عن الهدف",
+  "alertUnallocated": "{count, plural, =1{دخل واحد ما متوزع على السطول} other{{count} دخل ما متوزعة على السطول}}",
+  "@alertUnallocated": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "alertBudget": "ميزانية {name} وصلت {percent}%",
+  "@alertBudget": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "alertDebtSoon": "{name}: الدفعة مستحقة {date}",
+  "@alertDebtSoon": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "alertDebtOverdue": "{name}: الدفعة متأخرة",
+  "@alertDebtOverdue": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "finHistory": "السجل",
+  "finAddAccount": "إضافة حساب",
+  "finAccountName": "الاسم",
+  "finNameRequired": "اكتب اسم",
+  "finWorkspace": "مساحة العمل",
+  "finCurrency": "العملة",
+  "finKind": "النوع",
+  "kindCash": "كاش",
+  "kindBank": "بنك",
+  "kindSavings": "توفير",
+  "kindCustom": "غيره",
+  "rename": "تغيير الاسم",
+  "archive": "أرشفة",
+  "finArchiveAccount": "تأرشف {name}؟ السجل مالته يبقى.",
+  "@finArchiveAccount": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "finBalance": "الرصيد",
+  "finAdjustBalance": "تعديل الرصيد",
+  "finAdjustHint": "اكتب المبلغ الموجود فعلاً بالحساب. الفرق ينحفظ كتعديل.",
+  "@finAdjustHint": {},
+  "finActualAmount": "المبلغ الفعلي",
+  "finAmountInvalid": "اكتب مبلغ مثل 25000",
+  "finSearch": "دوّر بالوصف",
+  "filterAll": "الكل",
+  "filterDates": "التاريخ",
+  "filterAccount": "الحساب",
+  "filterCategory": "الفئة",
+  "filterType": "النوع",
+  "clearFilters": "امسح الفلاتر",
+  "typeIncome": "دخل",
+  "typeExpense": "مصروف",
+  "typeRefund": "استرجاع",
+  "typeAdjustment": "تعديل",
+  "typeTransfer": "تحويل",
+  "typeOwnerDraw": "سحب شخصي",
+  "typeDebtPayment": "دفعة دين",
+  "finPending": "معلّق",
+  "finUncategorised": "بدون فئة",
+  "finNoTransactions": "ماكو معاملات بعد",
+  "finNoMatches": "ماكو معاملات تطابق الفلاتر",
+  "finDeleted": "انحذفت المعاملة",
+  "undo": "تراجع",
+  "finToday": "اليوم"
 }

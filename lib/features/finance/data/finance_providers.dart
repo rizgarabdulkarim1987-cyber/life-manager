@@ -8,12 +8,14 @@ import '../domain/alerts.dart';
 import '../domain/buckets_math.dart';
 import '../domain/budgets_math.dart';
 import '../domain/installments.dart';
+import '../domain/reports.dart';
 import 'accounts_repository.dart';
 import 'buckets_repository.dart';
 import 'budgets_repository.dart';
 import 'debts_repository.dart';
 import 'categories_repository.dart';
 import 'rates_repository.dart';
+import 'reports_query.dart';
 import 'transactions_repository.dart';
 import 'workspaces_repository.dart';
 
@@ -110,3 +112,46 @@ final financeAlertsProvider = FutureProvider<List<FinanceAlert>>((ref) async {
     now: DateTime.now(),
   );
 });
+
+final reportsQueryProvider = Provider<ReportsQuery>(
+  (ref) => ReportsQuery(ref.watch(appDatabaseProvider), ref.watch(ratesRepositoryProvider)),
+);
+
+/// This month's income, expense and surplus in the base currency.
+final monthSummaryProvider = FutureProvider<ReportResult<IncomeExpense>>((ref) async {
+  ref.watch(balancesProvider);
+  ref.watch(ratesHistoryProvider);
+  final settings = await ref.watch(settingsProvider.future);
+  final now = DateTime.now();
+  final from = DateTime(now.year, now.month);
+  final to = DateTime(now.year, now.month + 1);
+  final data = await ref.watch(reportsQueryProvider).load(to: to);
+  final r = incomeVsExpense(
+    data.transactions,
+    ReportScope(from: from, to: to, currency: settings.baseCurrency),
+    Period.month,
+    data.context,
+  );
+  return ReportResult(r.data.single, skippedCount: r.skippedCount, missingRates: r.missingRates);
+});
+
+/// Active accounts grouped under their workspace, in workspace order.
+final accountGroupsProvider = Provider<AsyncValue<List<(Workspace, List<Account>)>>>((ref) {
+  final ws = ref.watch(workspacesProvider);
+  final accounts = ref.watch(accountsProvider);
+  if (ws.value == null || accounts.value == null) {
+    return ws.hasError ? AsyncError(ws.error!, ws.stackTrace!) : const AsyncLoading();
+  }
+  return AsyncData([
+    for (final w in ws.value!)
+      if (accounts.value!.any((a) => a.workspaceId == w.id))
+        (w, accounts.value!.where((a) => a.workspaceId == w.id).toList()),
+  ]);
+});
+
+/// Debt id → direction, for signing debt payments in lists.
+final debtDirectionsProvider = Provider<Map<int, String>>(
+  (ref) => {
+    for (final d in ref.watch(debtSummariesProvider).value ?? const <DebtSummary>[]) d.debt.id: d.debt.direction,
+  },
+);

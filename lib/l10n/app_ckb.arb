@@ -145,5 +145,141 @@
   "cat_other_income": "داهاتی تر",
   "bucket_expenses": "خەرجییەکان",
   "bucket_emergency": "فریاکەوتن",
-  "bucket_investment": "وەبەرهێنان"
+  "bucket_investment": "وەبەرهێنان",
+  "finIncome": "داهات",
+  "finExpense": "خەرجی",
+  "finSurplus": "زیادە",
+  "finAllAccounts": "هەموو هەژمارەکان",
+  "finHowConvertedHint": "دەست لێبدە بۆ بینینی گۆڕینەکە",
+  "finNoTotal": "هێشتا نرخی {currencies} نییە، بۆیە کۆی گشتی نییە",
+  "@finNoTotal": {
+    "placeholders": {
+      "currencies": {
+        "type": "String"
+      }
+    }
+  },
+  "finSetRate": "نرخ دابنێ",
+  "finRateTitle": "نرخی گۆڕینەوە",
+  "finRateLabel": "١ دۆلار بە دینار",
+  "finRateInvalid": "نرخێک بنووسە وەک 1310",
+  "save": "پاشەکەوت",
+  "finHowConverted": "چۆن گۆڕدرا",
+  "finSameCurrency": "هەمان دراو",
+  "finNoRate": "نرخ نییە",
+  "finRateLine": "1 {base} = {rate} {quote} · لە {date}",
+  "@finRateLine": {
+    "placeholders": {
+      "base": {
+        "type": "String"
+      },
+      "rate": {
+        "type": "String"
+      },
+      "quote": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "finPerCurrency": "بەپێی دراو",
+  "finTotal": "کۆ",
+  "alertExpensesBucket": "سەبەتەی خەرجی گەیشتە {percent}% ئەم مانگە",
+  "@alertExpensesBucket": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "alertEmergencyReached": "سندوقی فریاکەوتن گەیشتە ئامانج",
+  "alertEmergencyBelow": "سندوقی فریاکەوتن لە خوار ئامانجە",
+  "alertUnallocated": "{count, plural, =1{1 داهات دابەش نەکراوە} other{{count} داهات دابەش نەکراون}}",
+  "@alertUnallocated": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "alertBudget": "بودجەی {name} گەیشتە {percent}%",
+  "@alertBudget": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "alertDebtSoon": "{name}: پارەدان لە {date}",
+  "@alertDebtSoon": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "alertDebtOverdue": "{name}: پارەدان دواکەوتووە",
+  "@alertDebtOverdue": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "finHistory": "مێژوو",
+  "finAddAccount": "زیادکردنی هەژمار",
+  "finAccountName": "ناو",
+  "finNameRequired": "ناوێک بنووسە",
+  "finWorkspace": "شوێنی کار",
+  "finCurrency": "دراو",
+  "finKind": "جۆر",
+  "kindCash": "نەختینە",
+  "kindBank": "بانک",
+  "kindSavings": "پاشەکەوت",
+  "kindCustom": "تر",
+  "rename": "ناوگۆڕین",
+  "archive": "ئەرشیف",
+  "finArchiveAccount": "{name} ئەرشیف بکرێت؟ مێژووەکەی دەمێنێت.",
+  "@finArchiveAccount": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "finBalance": "باڵانس",
+  "finAdjustBalance": "ڕێکخستنی باڵانس",
+  "finAdjustHint": "بڕی ڕاستەقینەی ئەم هەژمارە بنووسە. جیاوازییەکە وەک ڕێکخستن پاشەکەوت دەکرێت.",
+  "@finAdjustHint": {},
+  "finActualAmount": "بڕی ڕاستەقینە",
+  "finAmountInvalid": "بڕێک بنووسە وەک 25000",
+  "finSearch": "گەڕان لە وەسفدا",
+  "filterAll": "هەموو",
+  "filterDates": "بەروار",
+  "filterAccount": "هەژمار",
+  "filterCategory": "پۆل",
+  "filterType": "جۆر",
+  "clearFilters": "پاککردنەوەی فلتەر",
+  "typeIncome": "داهات",
+  "typeExpense": "خەرجی",
+  "typeRefund": "گەڕاندنەوە",
+  "typeAdjustment": "ڕێکخستن",
+  "typeTransfer": "گواستنەوە",
+  "typeOwnerDraw": "کێشانی خاوەن",
+  "typeDebtPayment": "پارەدانی قەرز",
+  "finPending": "چاوەڕوان",
+  "finUncategorised": "بێ پۆل",
+  "finNoTransactions": "هێشتا هیچ مامەڵەیەک نییە",
+  "finNoMatches": "هیچ مامەڵەیەک لەگەڵ فلتەرەکان ناگونجێت",
+  "finDeleted": "مامەڵەکە سڕایەوە",
+  "undo": "گەڕانەوە",
+  "finToday": "ئەمڕۆ"
 }

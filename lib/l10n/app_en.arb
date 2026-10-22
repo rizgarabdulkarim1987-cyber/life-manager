@@ -145,5 +145,141 @@
   "cat_other_income": "Other income",
   "bucket_expenses": "Expenses",
   "bucket_emergency": "Emergency",
-  "bucket_investment": "Investment"
+  "bucket_investment": "Investment",
+  "finIncome": "Income",
+  "finExpense": "Expenses",
+  "finSurplus": "Surplus",
+  "finAllAccounts": "All accounts",
+  "finHowConvertedHint": "Tap to see how it was converted",
+  "finNoTotal": "No rate for {currencies} yet, so there is no single total",
+  "@finNoTotal": {
+    "placeholders": {
+      "currencies": {
+        "type": "String"
+      }
+    }
+  },
+  "finSetRate": "Set a rate",
+  "finRateTitle": "Exchange rate",
+  "finRateLabel": "1 USD in IQD",
+  "finRateInvalid": "Type a rate like 1310",
+  "save": "Save",
+  "finHowConverted": "How it was converted",
+  "finSameCurrency": "Same currency",
+  "finNoRate": "No rate",
+  "finRateLine": "1 {base} = {rate} {quote} · from {date}",
+  "@finRateLine": {
+    "placeholders": {
+      "base": {
+        "type": "String"
+      },
+      "rate": {
+        "type": "String"
+      },
+      "quote": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "finPerCurrency": "Per currency",
+  "finTotal": "Total",
+  "alertExpensesBucket": "Expenses bucket at {percent}% this month",
+  "@alertExpensesBucket": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "alertEmergencyReached": "Emergency fund reached its target",
+  "alertEmergencyBelow": "Emergency fund is below its target",
+  "alertUnallocated": "{count, plural, =1{1 income not split into buckets} other{{count} incomes not split into buckets}}",
+  "@alertUnallocated": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "alertBudget": "{name} budget at {percent}%",
+  "@alertBudget": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "alertDebtSoon": "{name}: payment due {date}",
+  "@alertDebtSoon": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "alertDebtOverdue": "{name}: payment overdue",
+  "@alertDebtOverdue": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "finHistory": "History",
+  "finAddAccount": "Add account",
+  "finAccountName": "Name",
+  "finNameRequired": "Type a name",
+  "finWorkspace": "Workspace",
+  "finCurrency": "Currency",
+  "finKind": "Type",
+  "kindCash": "Cash",
+  "kindBank": "Bank",
+  "kindSavings": "Savings",
+  "kindCustom": "Other",
+  "rename": "Rename",
+  "archive": "Archive",
+  "finArchiveAccount": "Archive {name}? Its history stays.",
+  "@finArchiveAccount": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "finBalance": "Balance",
+  "finAdjustBalance": "Adjust balance",
+  "finAdjustHint": "Type what is actually in this account. The difference is saved as an adjustment.",
+  "@finAdjustHint": {},
+  "finActualAmount": "Actual amount",
+  "finAmountInvalid": "Type an amount like 25000",
+  "finSearch": "Search descriptions",
+  "filterAll": "All",
+  "filterDates": "Dates",
+  "filterAccount": "Account",
+  "filterCategory": "Category",
+  "filterType": "Type",
+  "clearFilters": "Clear filters",
+  "typeIncome": "Income",
+  "typeExpense": "Expense",
+  "typeRefund": "Refund",
+  "typeAdjustment": "Adjustment",
+  "typeTransfer": "Transfer",
+  "typeOwnerDraw": "Owner draw",
+  "typeDebtPayment": "Debt payment",
+  "finPending": "Pending",
+  "finUncategorised": "Uncategorised",
+  "finNoTransactions": "No transactions yet",
+  "finNoMatches": "No transactions match these filters",
+  "finDeleted": "Transaction deleted",
+  "undo": "Undo",
+  "finToday": "Today"
 }

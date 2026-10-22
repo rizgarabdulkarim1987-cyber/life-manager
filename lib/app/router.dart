@@ -4,6 +4,10 @@ import 'package:go_router/go_router.dart';
 
 import '../core/l10n/ckb_fallback_localizations.dart';
 import '../features/backup/backup_screen.dart';
+import '../features/finance/ui/account_detail_screen.dart';
+import '../features/finance/ui/accounts_screen.dart';
+import '../features/finance/ui/finance_overview_screen.dart';
+import '../features/finance/ui/history_screen.dart';
 import '../features/settings/settings_screen.dart';
 import '../features/setup/setup_flow.dart';
 import '../features/setup/splash_screen.dart';
@@ -38,11 +42,31 @@ GoRouter buildRouter() => GoRouter(
           routes: [
             GoRoute(
               path: '/finance',
-              builder: (context, _) => PlaceholderScreen(
-                title: context.l10n.navFinance,
-                phase: 2,
-                icon: Icons.account_balance_wallet_outlined,
-              ),
+              builder: (_, _) => const FinanceOverviewScreen(),
+              routes: [
+                GoRoute(
+                  path: 'accounts',
+                  builder: (_, _) => const AccountsScreen(),
+                  routes: [
+                    GoRoute(
+                      path: ':id',
+                      builder: (_, state) => AccountDetailScreen(accountId: int.parse(state.pathParameters['id']!)),
+                    ),
+                  ],
+                ),
+                GoRoute(
+                  path: 'history',
+                  builder: (_, state) {
+                    final q = state.uri.queryParameters;
+                    return HistoryScreen(
+                      accountId: int.tryParse(q['account'] ?? ''),
+                      workspaceId: int.tryParse(q['workspace'] ?? ''),
+                      categoryId: int.tryParse(q['category'] ?? ''),
+                      type: q['type'],
+                    );
+                  },
+                ),
+              ],
             ),
           ],
         ),

@@ -1,4 +1,4 @@
-import 'package:drift/drift.dart' show Value;
+import 'package:drift/drift.dart' show DatabaseConnection, Value;
 import 'package:drift/native.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -23,7 +23,8 @@ const _names = SeedNames(
 
 /// Pumps the whole app past setup and the lock, landing on Home.
 Future<ProviderContainer> pumpApp(WidgetTester t, {String locale = 'ar', bool bioAvailable = false}) async {
-  final db = AppDatabase(NativeDatabase.memory());
+  // Widget tests fail on drift's deferred stream close; close synchronously instead.
+  final db = AppDatabase(DatabaseConnection(NativeDatabase.memory(), closeStreamsSynchronously: true));
   await seedInitialData(db, _names);
   await db
       .update(db.appSettingsTable)

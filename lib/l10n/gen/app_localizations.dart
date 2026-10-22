@@ -63,7 +63,8 @@ import 'app_localizations_en.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale)
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -71,7 +72,8 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations)!;
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -83,15 +85,20 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('ar'), Locale('ckb'), Locale('en')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('ar'),
+    Locale('ckb'),
+    Locale('en'),
+  ];
 
   /// No description provided for @appTitle.
   ///
@@ -698,9 +705,394 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Investment'**
   String get bucket_investment;
+
+  /// No description provided for @finIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Income'**
+  String get finIncome;
+
+  /// No description provided for @finExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Expenses'**
+  String get finExpense;
+
+  /// No description provided for @finSurplus.
+  ///
+  /// In en, this message translates to:
+  /// **'Surplus'**
+  String get finSurplus;
+
+  /// No description provided for @finAllAccounts.
+  ///
+  /// In en, this message translates to:
+  /// **'All accounts'**
+  String get finAllAccounts;
+
+  /// No description provided for @finHowConvertedHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to see how it was converted'**
+  String get finHowConvertedHint;
+
+  /// No description provided for @finNoTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'No rate for {currencies} yet, so there is no single total'**
+  String finNoTotal(String currencies);
+
+  /// No description provided for @finSetRate.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a rate'**
+  String get finSetRate;
+
+  /// No description provided for @finRateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Exchange rate'**
+  String get finRateTitle;
+
+  /// No description provided for @finRateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'1 USD in IQD'**
+  String get finRateLabel;
+
+  /// No description provided for @finRateInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Type a rate like 1310'**
+  String get finRateInvalid;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @finHowConverted.
+  ///
+  /// In en, this message translates to:
+  /// **'How it was converted'**
+  String get finHowConverted;
+
+  /// No description provided for @finSameCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Same currency'**
+  String get finSameCurrency;
+
+  /// No description provided for @finNoRate.
+  ///
+  /// In en, this message translates to:
+  /// **'No rate'**
+  String get finNoRate;
+
+  /// No description provided for @finRateLine.
+  ///
+  /// In en, this message translates to:
+  /// **'1 {base} = {rate} {quote} · from {date}'**
+  String finRateLine(String base, String rate, String quote, String date);
+
+  /// No description provided for @finPerCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Per currency'**
+  String get finPerCurrency;
+
+  /// No description provided for @finTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get finTotal;
+
+  /// No description provided for @alertExpensesBucket.
+  ///
+  /// In en, this message translates to:
+  /// **'Expenses bucket at {percent}% this month'**
+  String alertExpensesBucket(int percent);
+
+  /// No description provided for @alertEmergencyReached.
+  ///
+  /// In en, this message translates to:
+  /// **'Emergency fund reached its target'**
+  String get alertEmergencyReached;
+
+  /// No description provided for @alertEmergencyBelow.
+  ///
+  /// In en, this message translates to:
+  /// **'Emergency fund is below its target'**
+  String get alertEmergencyBelow;
+
+  /// No description provided for @alertUnallocated.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 income not split into buckets} other{{count} incomes not split into buckets}}'**
+  String alertUnallocated(int count);
+
+  /// No description provided for @alertBudget.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} budget at {percent}%'**
+  String alertBudget(String name, int percent);
+
+  /// No description provided for @alertDebtSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'{name}: payment due {date}'**
+  String alertDebtSoon(String name, String date);
+
+  /// No description provided for @alertDebtOverdue.
+  ///
+  /// In en, this message translates to:
+  /// **'{name}: payment overdue'**
+  String alertDebtOverdue(String name);
+
+  /// No description provided for @finHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get finHistory;
+
+  /// No description provided for @finAddAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Add account'**
+  String get finAddAccount;
+
+  /// No description provided for @finAccountName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get finAccountName;
+
+  /// No description provided for @finNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Type a name'**
+  String get finNameRequired;
+
+  /// No description provided for @finWorkspace.
+  ///
+  /// In en, this message translates to:
+  /// **'Workspace'**
+  String get finWorkspace;
+
+  /// No description provided for @finCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Currency'**
+  String get finCurrency;
+
+  /// No description provided for @finKind.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get finKind;
+
+  /// No description provided for @kindCash.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash'**
+  String get kindCash;
+
+  /// No description provided for @kindBank.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank'**
+  String get kindBank;
+
+  /// No description provided for @kindSavings.
+  ///
+  /// In en, this message translates to:
+  /// **'Savings'**
+  String get kindSavings;
+
+  /// No description provided for @kindCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get kindCustom;
+
+  /// No description provided for @rename.
+  ///
+  /// In en, this message translates to:
+  /// **'Rename'**
+  String get rename;
+
+  /// No description provided for @archive.
+  ///
+  /// In en, this message translates to:
+  /// **'Archive'**
+  String get archive;
+
+  /// No description provided for @finArchiveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Archive {name}? Its history stays.'**
+  String finArchiveAccount(String name);
+
+  /// No description provided for @finBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance'**
+  String get finBalance;
+
+  /// No description provided for @finAdjustBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjust balance'**
+  String get finAdjustBalance;
+
+  /// No description provided for @finAdjustHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type what is actually in this account. The difference is saved as an adjustment.'**
+  String get finAdjustHint;
+
+  /// No description provided for @finActualAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Actual amount'**
+  String get finActualAmount;
+
+  /// No description provided for @finAmountInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Type an amount like 25000'**
+  String get finAmountInvalid;
+
+  /// No description provided for @finSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search descriptions'**
+  String get finSearch;
+
+  /// No description provided for @filterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get filterAll;
+
+  /// No description provided for @filterDates.
+  ///
+  /// In en, this message translates to:
+  /// **'Dates'**
+  String get filterDates;
+
+  /// No description provided for @filterAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get filterAccount;
+
+  /// No description provided for @filterCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get filterCategory;
+
+  /// No description provided for @filterType.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get filterType;
+
+  /// No description provided for @clearFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear filters'**
+  String get clearFilters;
+
+  /// No description provided for @typeIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Income'**
+  String get typeIncome;
+
+  /// No description provided for @typeExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Expense'**
+  String get typeExpense;
+
+  /// No description provided for @typeRefund.
+  ///
+  /// In en, this message translates to:
+  /// **'Refund'**
+  String get typeRefund;
+
+  /// No description provided for @typeAdjustment.
+  ///
+  /// In en, this message translates to:
+  /// **'Adjustment'**
+  String get typeAdjustment;
+
+  /// No description provided for @typeTransfer.
+  ///
+  /// In en, this message translates to:
+  /// **'Transfer'**
+  String get typeTransfer;
+
+  /// No description provided for @typeOwnerDraw.
+  ///
+  /// In en, this message translates to:
+  /// **'Owner draw'**
+  String get typeOwnerDraw;
+
+  /// No description provided for @typeDebtPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Debt payment'**
+  String get typeDebtPayment;
+
+  /// No description provided for @finPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get finPending;
+
+  /// No description provided for @finUncategorised.
+  ///
+  /// In en, this message translates to:
+  /// **'Uncategorised'**
+  String get finUncategorised;
+
+  /// No description provided for @finNoTransactions.
+  ///
+  /// In en, this message translates to:
+  /// **'No transactions yet'**
+  String get finNoTransactions;
+
+  /// No description provided for @finNoMatches.
+  ///
+  /// In en, this message translates to:
+  /// **'No transactions match these filters'**
+  String get finNoMatches;
+
+  /// No description provided for @finDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Transaction deleted'**
+  String get finDeleted;
+
+  /// No description provided for @undo.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get undo;
+
+  /// No description provided for @finToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get finToday;
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -709,7 +1101,8 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['ar', 'ckb', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['ar', 'ckb', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
