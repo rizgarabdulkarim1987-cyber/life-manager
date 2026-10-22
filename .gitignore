@@ -1,1 +1,14 @@
 .superpowers/
+.impeccable/
+android/key.properties
+*.jks
+*.keystore
+# Flutter/Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+build/
+*.iml
+.idea/
+.vscode/
+coverage/
