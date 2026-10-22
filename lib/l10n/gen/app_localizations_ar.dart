@@ -1413,4 +1413,51 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get consentDecline => 'لا، خلّيه على التلفون';
+
+  @override
+  String get aiModelSmall => 'صغير: أدق';
+
+  @override
+  String get aiModelBase => 'أساسي: أسرع';
+
+  @override
+  String aiModelSize(int mb) {
+    return '$mb ميغابايت';
+  }
+
+  @override
+  String aiModelInstall(int mb) {
+    return 'نزّل ($mb ميغابايت)';
+  }
+
+  @override
+  String get aiModelInstalled => 'منزّل ومفحوص';
+
+  @override
+  String get aiModelNotInstalled => 'مو منزّل';
+
+  @override
+  String get aiModelDelete => 'احذف';
+
+  @override
+  String get aiModelCancel => 'وقّف';
+
+  @override
+  String aiModelProgress(int percent) {
+    return 'دا ينزل… $percent٪';
+  }
+
+  @override
+  String get aiModelVerifying => 'دا نفحص الملف…';
+
+  @override
+  String get aiModelFailed =>
+      'التنزيل توقف. جرّب مرة ثانية، والأحسن على الواي فاي.';
+
+  @override
+  String get aiModelMismatch => 'الملف ما طابق وانحذف. جرّب مرة ثانية.';
+
+  @override
+  String get aiModelSorani =>
+      'بدون إنترنت، الكردي (السوراني) يتعرّف بدقة أقل من العربي والإنگليزي.';
 }

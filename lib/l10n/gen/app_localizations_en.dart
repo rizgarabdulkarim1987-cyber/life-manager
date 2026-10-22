@@ -1420,4 +1420,52 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get consentDecline => 'No, keep it on the phone';
+
+  @override
+  String get aiModelSmall => 'Small: more accurate';
+
+  @override
+  String get aiModelBase => 'Base: faster';
+
+  @override
+  String aiModelSize(int mb) {
+    return '$mb MB';
+  }
+
+  @override
+  String aiModelInstall(int mb) {
+    return 'Download ($mb MB)';
+  }
+
+  @override
+  String get aiModelInstalled => 'Downloaded and checked';
+
+  @override
+  String get aiModelNotInstalled => 'Not downloaded';
+
+  @override
+  String get aiModelDelete => 'Delete';
+
+  @override
+  String get aiModelCancel => 'Stop';
+
+  @override
+  String aiModelProgress(int percent) {
+    return 'Downloading… $percent%';
+  }
+
+  @override
+  String get aiModelVerifying => 'Checking the file…';
+
+  @override
+  String get aiModelFailed =>
+      'The download stopped. Try again, ideally on Wi-Fi.';
+
+  @override
+  String get aiModelMismatch =>
+      'The file did not match and was deleted. Try again.';
+
+  @override
+  String get aiModelSorani =>
+      'Offline, Kurdish (Sorani) is recognised less accurately than Arabic and English.';
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
@@ -16,6 +18,7 @@ import 'features/backup/backup_format.dart';
 import 'features/backup/backup_screen.dart';
 import 'features/backup/backup_service.dart';
 import 'features/backup/db_snapshot.dart';
+import 'features/capture/speech/recorder.dart';
 import 'features/settings/settings_repository.dart';
 
 /// Keep in step with `version:` in pubspec.yaml; it is written into every backup.
@@ -35,6 +38,8 @@ Future<void> main() async {
 /// Opens the encrypted database and wraps the app in its provider scope.
 /// Runs again on RestartScope.restart, e.g. after a restore replaced the database.
 Future<Widget> _openApp() async {
+  // Audio left behind by a crash or a killed app is removed before anything else runs.
+  unawaited(sweepCaptureTmp());
   final supportDir = await getApplicationSupportDirectory();
   final key = await obtainDatabaseKey(FlutterSecureStore());
   // Finish or roll back a restore that was cut off before the app could restart.

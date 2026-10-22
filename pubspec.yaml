@@ -54,6 +54,8 @@ dependencies:
   pdf: ^3.13.1
   xml: ^7.1.0
   http: ^1.6.0
+  record: ^7.1.2
+  whisper_ggml: ^2.8.1
 
 dev_dependencies:
   flutter_test:

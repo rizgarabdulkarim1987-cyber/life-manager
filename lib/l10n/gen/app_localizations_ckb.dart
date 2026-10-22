@@ -1419,4 +1419,52 @@ class AppLocalizationsCkb extends AppLocalizations {
 
   @override
   String get consentDecline => 'نەخێر، با لەسەر مۆبایلەکە بمێنێت';
+
+  @override
+  String get aiModelSmall => 'بچووک: وردتر';
+
+  @override
+  String get aiModelBase => 'بنەڕەتی: خێراتر';
+
+  @override
+  String aiModelSize(int mb) {
+    return '$mb مێگابایت';
+  }
+
+  @override
+  String aiModelInstall(int mb) {
+    return 'دابەزاندن ($mb مێگابایت)';
+  }
+
+  @override
+  String get aiModelInstalled => 'دابەزێنراو و پشکنراو';
+
+  @override
+  String get aiModelNotInstalled => 'دانەبەزێنراوە';
+
+  @override
+  String get aiModelDelete => 'بیسڕەوە';
+
+  @override
+  String get aiModelCancel => 'ڕایگرە';
+
+  @override
+  String aiModelProgress(int percent) {
+    return 'دادەبەزێت… $percent%';
+  }
+
+  @override
+  String get aiModelVerifying => 'فایلەکە دەپشکنرێت…';
+
+  @override
+  String get aiModelFailed =>
+      'دابەزاندنەکە وەستا. دووبارە هەوڵ بدەرەوە، باشترە لەسەر Wi-Fi.';
+
+  @override
+  String get aiModelMismatch =>
+      'فایلەکە یەکی نەگرتەوە و سڕایەوە. دووبارە هەوڵ بدەرەوە.';
+
+  @override
+  String get aiModelSorani =>
+      'بێ ئینتەرنێت، کوردی (سۆرانی) بە وردی کەمتر لە عەرەبی و ئینگلیزی دەناسرێتەوە.';
 }

@@ -21,6 +21,7 @@ void main() {
     expect(manifest, contains('android:fullBackupContent="false"'));
     expect(manifest, contains('android:label="@string/app_name"'));
     expect(manifest, contains('android.permission.USE_BIOMETRIC'));
+    expect(manifest, contains('android.permission.RECORD_AUDIO'));
   });
 
   test('app name resources exist in Arabic and English', () {

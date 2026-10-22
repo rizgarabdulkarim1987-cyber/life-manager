@@ -3,6 +3,8 @@
     <!-- Phase 2: the network is used only for online AI (Groq, HTTPS) after the owner turns it
          on and agrees, and to download the offline speech model. Plain HTTP stays off. -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Voice capture: asked for the first time the owner taps the microphone. -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
     <!-- Android backup is off so the encrypted database is never copied to a cloud or
          another device. -->

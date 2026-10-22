@@ -50,6 +50,10 @@ class FakeHttpPort implements HttpPort {
   HttpReply Function(FakeRequest r) reply;
   final requests = <FakeRequest>[];
 
+  /// Answers [getStream]; downloads fail when unset.
+  Stream<List<int>> Function(Uri u)? stream;
+  final streamed = <Uri>[];
+
   @override
   Future<HttpReply> postJson(Uri u, Map<String, String> headers, String body, Duration timeout) async {
     final r = FakeRequest(u, headers, body: body);
@@ -73,5 +77,10 @@ class FakeHttpPort implements HttpPort {
   }
 
   @override
-  Stream<List<int>> getStream(Uri u, Duration timeout) => throw UnimplementedError();
+  Stream<List<int>> getStream(Uri u, Duration timeout) {
+    streamed.add(u);
+    final s = stream;
+    if (s == null) throw StateError('no stream configured');
+    return s(u);
+  }
 }

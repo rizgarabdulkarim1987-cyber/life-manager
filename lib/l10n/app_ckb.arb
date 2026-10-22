@@ -749,5 +749,39 @@
   "consentNever": "هەرگیز نانێردرێت: باڵانسەکانت، مامەڵە کۆنەکان، PIN، پاشەکەوتەکان یان گەنجینەکە.",
   "consentOff": "هەر کاتێک دەتوانیت لە ڕێکخستنەکان ← زیرەکی دەستکردی ئۆنلاین بیکوژێنیتەوە.",
   "consentAllow": "ڕێگە بدە",
-  "consentDecline": "نەخێر، با لەسەر مۆبایلەکە بمێنێت"
+  "consentDecline": "نەخێر، با لەسەر مۆبایلەکە بمێنێت",
+  "aiModelSmall": "بچووک: وردتر",
+  "aiModelBase": "بنەڕەتی: خێراتر",
+  "aiModelSize": "{mb} مێگابایت",
+  "@aiModelSize": {
+    "placeholders": {
+      "mb": {
+        "type": "int"
+      }
+    }
+  },
+  "aiModelInstall": "دابەزاندن ({mb} مێگابایت)",
+  "@aiModelInstall": {
+    "placeholders": {
+      "mb": {
+        "type": "int"
+      }
+    }
+  },
+  "aiModelInstalled": "دابەزێنراو و پشکنراو",
+  "aiModelNotInstalled": "دانەبەزێنراوە",
+  "aiModelDelete": "بیسڕەوە",
+  "aiModelCancel": "ڕایگرە",
+  "aiModelProgress": "دادەبەزێت… {percent}%",
+  "@aiModelProgress": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "aiModelVerifying": "فایلەکە دەپشکنرێت…",
+  "aiModelFailed": "دابەزاندنەکە وەستا. دووبارە هەوڵ بدەرەوە، باشترە لەسەر Wi-Fi.",
+  "aiModelMismatch": "فایلەکە یەکی نەگرتەوە و سڕایەوە. دووبارە هەوڵ بدەرەوە.",
+  "aiModelSorani": "بێ ئینتەرنێت، کوردی (سۆرانی) بە وردی کەمتر لە عەرەبی و ئینگلیزی دەناسرێتەوە."
 }

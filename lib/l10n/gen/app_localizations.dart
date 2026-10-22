@@ -2655,6 +2655,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No, keep it on the phone'**
   String get consentDecline;
+
+  /// No description provided for @aiModelSmall.
+  ///
+  /// In en, this message translates to:
+  /// **'Small: more accurate'**
+  String get aiModelSmall;
+
+  /// No description provided for @aiModelBase.
+  ///
+  /// In en, this message translates to:
+  /// **'Base: faster'**
+  String get aiModelBase;
+
+  /// No description provided for @aiModelSize.
+  ///
+  /// In en, this message translates to:
+  /// **'{mb} MB'**
+  String aiModelSize(int mb);
+
+  /// No description provided for @aiModelInstall.
+  ///
+  /// In en, this message translates to:
+  /// **'Download ({mb} MB)'**
+  String aiModelInstall(int mb);
+
+  /// No description provided for @aiModelInstalled.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloaded and checked'**
+  String get aiModelInstalled;
+
+  /// No description provided for @aiModelNotInstalled.
+  ///
+  /// In en, this message translates to:
+  /// **'Not downloaded'**
+  String get aiModelNotInstalled;
+
+  /// No description provided for @aiModelDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get aiModelDelete;
+
+  /// No description provided for @aiModelCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get aiModelCancel;
+
+  /// No description provided for @aiModelProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading… {percent}%'**
+  String aiModelProgress(int percent);
+
+  /// No description provided for @aiModelVerifying.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking the file…'**
+  String get aiModelVerifying;
+
+  /// No description provided for @aiModelFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The download stopped. Try again, ideally on Wi-Fi.'**
+  String get aiModelFailed;
+
+  /// No description provided for @aiModelMismatch.
+  ///
+  /// In en, this message translates to:
+  /// **'The file did not match and was deleted. Try again.'**
+  String get aiModelMismatch;
+
+  /// No description provided for @aiModelSorani.
+  ///
+  /// In en, this message translates to:
+  /// **'Offline, Kurdish (Sorani) is recognised less accurately than Arabic and English.'**
+  String get aiModelSorani;
 }
 
 class _AppLocalizationsDelegate

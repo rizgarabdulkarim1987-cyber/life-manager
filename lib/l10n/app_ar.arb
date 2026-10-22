@@ -749,5 +749,39 @@
   "consentNever": "ما ينرسل أبداً: أرصدتك، معاملاتك السابقة، الرمز، النسخ الاحتياطية أو الخزنة.",
   "consentOff": "تگدر تطفيه بأي وقت من الإعدادات ← الذكاء الاصطناعي عبر الإنترنت.",
   "consentAllow": "اسمح",
-  "consentDecline": "لا، خلّيه على التلفون"
+  "consentDecline": "لا، خلّيه على التلفون",
+  "aiModelSmall": "صغير: أدق",
+  "aiModelBase": "أساسي: أسرع",
+  "aiModelSize": "{mb} ميغابايت",
+  "@aiModelSize": {
+    "placeholders": {
+      "mb": {
+        "type": "int"
+      }
+    }
+  },
+  "aiModelInstall": "نزّل ({mb} ميغابايت)",
+  "@aiModelInstall": {
+    "placeholders": {
+      "mb": {
+        "type": "int"
+      }
+    }
+  },
+  "aiModelInstalled": "منزّل ومفحوص",
+  "aiModelNotInstalled": "مو منزّل",
+  "aiModelDelete": "احذف",
+  "aiModelCancel": "وقّف",
+  "aiModelProgress": "دا ينزل… {percent}٪",
+  "@aiModelProgress": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "aiModelVerifying": "دا نفحص الملف…",
+  "aiModelFailed": "التنزيل توقف. جرّب مرة ثانية، والأحسن على الواي فاي.",
+  "aiModelMismatch": "الملف ما طابق وانحذف. جرّب مرة ثانية.",
+  "aiModelSorani": "بدون إنترنت، الكردي (السوراني) يتعرّف بدقة أقل من العربي والإنگليزي."
 }

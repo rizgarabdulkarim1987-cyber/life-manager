@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -6,6 +9,8 @@ import 'package:life_manager/core/net/http_port.dart';
 import 'package:life_manager/core/storage/secure_store.dart';
 import 'package:life_manager/features/capture/ai/ai_config.dart';
 import 'package:life_manager/features/capture/ai/consent.dart';
+import 'package:life_manager/features/capture/speech/model_manager.dart';
+import 'package:life_manager/features/capture/speech/speech_to_text.dart';
 import 'package:life_manager/features/settings/settings_repository.dart';
 
 import '../../helpers/app_harness.dart';
@@ -21,11 +26,17 @@ void main() {
     http = FakeHttpPort((_) => const HttpReply(401, ''));
   });
 
-  Future<ProviderContainer> open(WidgetTester t, {String locale = 'en'}) async {
+  Future<ProviderContainer> open(WidgetTester t, {String locale = 'en', ModelManager? models}) async {
     final c = await pumpApp(
       t,
       locale: locale,
-      overrides: [secureStoreProvider.overrideWithValue(store), httpPortProvider.overrideWithValue(http)],
+      overrides: [
+        secureStoreProvider.overrideWithValue(store),
+        httpPortProvider.overrideWithValue(http),
+        modelManagerProvider.overrideWithValue(
+          models ?? ModelManager(http, () async => Directory('${Directory.systemTemp.path}/lm_ai_settings_test')),
+        ),
+      ],
     );
     await pushRoute(t, c, '/settings');
     final link = find.byKey(const ValueKey('settings-ai'));
@@ -37,11 +48,16 @@ void main() {
     return c;
   }
 
-  Future<void> reveal(WidgetTester t, String key) => t.scrollUntilVisible(
-    find.byKey(ValueKey(key)),
-    150,
-    scrollable: find.descendant(of: find.byKey(const ValueKey('ai-settings')), matching: find.byType(Scrollable)).first,
-  );
+  Future<void> reveal(WidgetTester t, String key) async {
+    final f = find.byKey(ValueKey(key));
+    await t.scrollUntilVisible(
+      f,
+      150,
+      scrollable: find.descendant(of: find.byKey(const ValueKey('ai-settings')), matching: find.byType(Scrollable)).first,
+    );
+    await t.ensureVisible(f);
+    await settle(t);
+  }
 
   testWidgets('AI settings shows only the last 4 key chars', (t) async {
     await open(t);
@@ -88,16 +104,16 @@ void main() {
     await settle(t);
     expect((await t.runAsync(repo.get))!.aiOnlineEnabled, isFalse);
 
+    await reveal(t, 'consent-reset-parse');
+    await t.tap(find.byKey(const ValueKey('consent-reset-parse')));
+    await settle(t);
+    expect((await t.runAsync(repo.get))!.aiParseConsent, isNull);
+
     await reveal(t, 'llm-model');
     await t.enterText(find.byKey(const ValueKey('llm-model')), 'llama-3.1-8b-instant');
     await t.tap(find.byKey(const ValueKey('models-save')));
     await settle(t);
     expect((await t.runAsync(repo.get))!.groqLlmModel, 'llama-3.1-8b-instant');
-
-    await reveal(t, 'consent-reset-parse');
-    await t.tap(find.byKey(const ValueKey('consent-reset-parse')));
-    await settle(t);
-    expect((await t.runAsync(repo.get))!.aiParseConsent, isNull);
   });
 
   testWidgets('consent sheet declined → consent stored declined; not shown again', (t) async {
@@ -141,5 +157,41 @@ void main() {
     await settle(t);
     expect(find.byKey(const ValueKey('consent-sheet')), findsOneWidget);
     expect(t.takeException(), isNull);
+  });
+
+  /// File work is real IO: let it run outside the fake clock until [f] shows.
+  Future<void> waitFor(WidgetTester t, Finder f) async {
+    for (var i = 0; i < 50 && f.evaluate().isEmpty; i++) {
+      await t.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 20)));
+      await t.pump();
+    }
+    expect(f, findsOneWidget);
+  }
+
+  testWidgets('offline model: download is checked and installed, then deleted', (t) async {
+    final dir = (await t.runAsync(() => Directory.systemTemp.createTemp('ai_models')))!;
+    addTearDown(() => t.runAsync(() => dir.delete(recursive: true)));
+    final bytes = List<int>.generate(3000, (i) => i & 0xff);
+    WhisperModelSpec spec(String id) => WhisperModelSpec(
+      id: id,
+      fileName: 'ggml-$id.bin',
+      url: Uri.parse('https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-$id.bin'),
+      sha256: sha256.convert(bytes).toString(),
+      sizeBytes: bytes.length,
+    );
+    http.stream = (_) => Stream.fromIterable([bytes.sublist(0, 1000), bytes.sublist(1000)]);
+    final models = ModelManager(http, () async => dir, specs: {'small': spec('small'), 'base': spec('base')});
+    await open(t, models: models);
+    await reveal(t, 'whisper-section');
+    await waitFor(t, find.byKey(const ValueKey('whisper-install')));
+    await t.ensureVisible(find.byKey(const ValueKey('whisper-install')));
+    await t.tap(find.byKey(const ValueKey('whisper-install')));
+    await waitFor(t, find.byKey(const ValueKey('whisper-installed')));
+    expect(http.streamed.single.path, endsWith('ggml-small.bin'));
+    expect(find.textContaining('Sorani'), findsOneWidget);
+
+    await t.tap(find.byKey(const ValueKey('whisper-delete')));
+    await waitFor(t, find.byKey(const ValueKey('whisper-install')));
+    expect((await t.runAsync(() => models.installed('small'))), isNull);
   });
 }

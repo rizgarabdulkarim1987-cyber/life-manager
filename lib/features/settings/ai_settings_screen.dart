@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,6 +12,8 @@ import '../../core/security/sensitive.dart';
 import '../../core/theme/tokens.dart';
 import '../capture/ai/ai_config.dart';
 import '../capture/ai/groq_client.dart';
+import '../capture/speech/model_manager.dart';
+import '../capture/speech/speech_to_text.dart';
 import '../capture/ui/consent_sheet.dart';
 import 'settings_section.dart';
 
@@ -56,14 +60,7 @@ class AiSettingsScreen extends ConsumerWidget {
                 ),
                 SettingsSection(
                   title: l.aiOfflineModel,
-                  children: [
-                    ListTile(
-                      key: const ValueKey('whisper-section'),
-                      leading: const Icon(Icons.graphic_eq_rounded),
-                      title: Text(l.aiOfflineModel),
-                      subtitle: Text(l.aiOfflineModelHint),
-                    ),
-                  ],
+                  children: [_WhisperSection(selected: settings.localWhisperModel)],
                 ),
               ],
             ),
@@ -368,6 +365,191 @@ class _ModelsState extends ConsumerState<_Models> {
             style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(48)),
             onPressed: _valid ? _save : null,
             child: Text(l.aiModelsSave),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+int _mb(int bytes) => (bytes / 1000000).round();
+
+/// Offline speech: pick small or base, download it (hash-checked), or delete it.
+class _WhisperSection extends ConsumerStatefulWidget {
+  const _WhisperSection({required this.selected});
+
+  final String selected;
+
+  @override
+  ConsumerState<_WhisperSection> createState() => _WhisperSectionState();
+}
+
+class _WhisperSectionState extends ConsumerState<_WhisperSection> {
+  bool? _installed;
+  ModelDownloadProgress? _progress;
+  StreamSubscription<ModelDownloadProgress>? _sub;
+  String? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    _check();
+  }
+
+  @override
+  void didUpdateWidget(_WhisperSection old) {
+    super.didUpdateWidget(old);
+    if (old.selected != widget.selected) _check();
+  }
+
+  @override
+  void dispose() {
+    _sub?.cancel();
+    super.dispose();
+  }
+
+  Future<void> _check() async {
+    var installed = false;
+    try {
+      installed = await ref.read(modelManagerProvider).installed(widget.selected) != null;
+    } on Exception catch (e) {
+      AppLogger.warn('model check failed', e);
+    }
+    if (mounted) setState(() => _installed = installed);
+  }
+
+  void _download() {
+    final l = context.l10n;
+    setState(() {
+      _error = null;
+      _progress = const Downloading(0, 1);
+    });
+    _sub = ref
+        .read(modelManagerProvider)
+        .download(widget.selected)
+        .listen(
+          (p) => setState(() => _progress = p),
+          onError: (Object e) {
+            AppLogger.warn('model download failed', e);
+            setState(() {
+              _progress = null;
+              _error = e is ModelChecksumMismatch ? l.aiModelMismatch : l.aiModelFailed;
+            });
+          },
+          onDone: () {
+            _sub = null;
+            setState(() => _progress = null);
+            _check();
+          },
+          cancelOnError: true,
+        );
+  }
+
+  Future<void> _cancel() async {
+    await _sub?.cancel();
+    _sub = null;
+    await ref.read(modelManagerProvider).delete(widget.selected);
+    if (mounted) setState(() => _progress = null);
+  }
+
+  Future<void> _delete() async {
+    await ref.read(modelManagerProvider).delete(widget.selected);
+    await _check();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l = context.l10n;
+    final k = context.tokens;
+    final text = Theme.of(context).textTheme;
+    final models = ref.watch(modelManagerProvider);
+    final spec = models.spec(widget.selected);
+    final busy = _progress != null;
+    final p = _progress;
+    return Padding(
+      key: const ValueKey('whisper-section'),
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(l.aiOfflineModelHint, style: text.bodySmall?.copyWith(color: k.textMuted)),
+          const SizedBox(height: 12),
+          SegmentedButton<String>(
+            key: const ValueKey('whisper-model'),
+            segments: [
+              ButtonSegment(
+                value: 'small',
+                label: Text(l.aiModelSmall, overflow: TextOverflow.ellipsis),
+              ),
+              ButtonSegment(
+                value: 'base',
+                label: Text(l.aiModelBase, overflow: TextOverflow.ellipsis),
+              ),
+            ],
+            selected: {widget.selected},
+            showSelectedIcon: false,
+            onSelectionChanged: busy ? null : (s) => ref.read(settingsRepositoryProvider).setLocalWhisperModel(s.first),
+          ),
+          const SizedBox(height: 12),
+          if (p != null) ...[
+            LinearProgressIndicator(
+              key: const ValueKey('whisper-progress'),
+              value: p is Downloading && p.total > 0 ? p.received / p.total : null,
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    p is Downloading ? l.aiModelProgress((p.received * 100) ~/ p.total) : l.aiModelVerifying,
+                    style: text.bodyMedium?.copyWith(color: k.text),
+                  ),
+                ),
+                TextButton(key: const ValueKey('whisper-cancel'), onPressed: _cancel, child: Text(l.aiModelCancel)),
+              ],
+            ),
+          ] else if (_installed == true)
+            Row(
+              children: [
+                Icon(Icons.check_circle_outline_rounded, color: k.success, size: 20),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    '${l.aiModelInstalled} · ${l.aiModelSize(_mb(spec.sizeBytes))}',
+                    key: const ValueKey('whisper-installed'),
+                    style: text.bodyMedium?.copyWith(color: k.text),
+                  ),
+                ),
+                TextButton(key: const ValueKey('whisper-delete'), onPressed: _delete, child: Text(l.aiModelDelete)),
+              ],
+            )
+          else if (_installed == false)
+            FilledButton.icon(
+              key: const ValueKey('whisper-install'),
+              style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(48)),
+              onPressed: _download,
+              icon: const Icon(Icons.download_rounded, size: 18),
+              label: Text(l.aiModelInstall(_mb(spec.sizeBytes))),
+            ),
+          if (_error != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Text(
+                _error!,
+                key: const ValueKey('whisper-error'),
+                style: text.bodyMedium?.copyWith(color: k.warning),
+              ),
+            ),
+          const SizedBox(height: 12),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(Icons.info_outline_rounded, size: 18, color: k.textMuted),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(l.aiModelSorani, style: text.bodySmall?.copyWith(color: k.textMuted)),
+              ),
+            ],
           ),
         ],
       ),

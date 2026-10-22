@@ -749,5 +749,39 @@
   "consentNever": "Never sent: your balances, past transactions, PIN, backups or the vault.",
   "consentOff": "You can turn this off any time in Settings → Online AI.",
   "consentAllow": "Allow",
-  "consentDecline": "No, keep it on the phone"
+  "consentDecline": "No, keep it on the phone",
+  "aiModelSmall": "Small: more accurate",
+  "aiModelBase": "Base: faster",
+  "aiModelSize": "{mb} MB",
+  "@aiModelSize": {
+    "placeholders": {
+      "mb": {
+        "type": "int"
+      }
+    }
+  },
+  "aiModelInstall": "Download ({mb} MB)",
+  "@aiModelInstall": {
+    "placeholders": {
+      "mb": {
+        "type": "int"
+      }
+    }
+  },
+  "aiModelInstalled": "Downloaded and checked",
+  "aiModelNotInstalled": "Not downloaded",
+  "aiModelDelete": "Delete",
+  "aiModelCancel": "Stop",
+  "aiModelProgress": "Downloading… {percent}%",
+  "@aiModelProgress": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "aiModelVerifying": "Checking the file…",
+  "aiModelFailed": "The download stopped. Try again, ideally on Wi-Fi.",
+  "aiModelMismatch": "The file did not match and was deleted. Try again.",
+  "aiModelSorani": "Offline, Kurdish (Sorani) is recognised less accurately than Arabic and English."
 }
