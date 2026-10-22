@@ -4,7 +4,10 @@ import '../../../app/providers.dart';
 import '../../../core/db/app_database.dart';
 import '../../../core/money/conversion.dart';
 import '../../../core/money/money.dart';
+import '../domain/alerts.dart';
+import '../domain/buckets_math.dart';
 import 'accounts_repository.dart';
+import 'buckets_repository.dart';
 import 'categories_repository.dart';
 import 'rates_repository.dart';
 import 'transactions_repository.dart';
@@ -51,4 +54,34 @@ final consolidatedProvider = FutureProvider<Consolidated>((ref) async {
   return ref
       .watch(ratesRepositoryProvider)
       .consolidate(balances, base: settings.baseCurrency, day: DateTime.now().toUtc());
+});
+
+final bucketsRepositoryProvider = Provider<BucketsRepository>(
+  (ref) => BucketsRepository(ref.watch(appDatabaseProvider), ref.watch(ratesRepositoryProvider)),
+);
+
+final bucketsProvider = StreamProvider<List<Bucket>>((ref) => ref.watch(bucketsRepositoryProvider).watch());
+
+/// Bucket figures for the current month; recomputed when balances change.
+final bucketStatusProvider = FutureProvider<List<BucketStatus>>((ref) async {
+  ref.watch(balancesProvider);
+  ref.watch(bucketsProvider);
+  ref.watch(ratesHistoryProvider);
+  return ref.watch(bucketsRepositoryProvider).status(DateTime.now());
+});
+
+final financeAlertsProvider = FutureProvider<List<FinanceAlert>>((ref) async {
+  final buckets = await ref.watch(bucketStatusProvider.future);
+  final settings = await ref.watch(settingsProvider.future);
+  final unallocated = settings.unallocatedIncomeAlert
+      ? await ref.watch(bucketsRepositoryProvider).unallocatedIncomeCount(DateTime.now())
+      : 0;
+  return evaluateAlerts(
+    buckets: buckets,
+    budgets: const [],
+    debts: const [],
+    unallocatedIncomeCount: unallocated,
+    unallocatedAlertOn: settings.unallocatedIncomeAlert,
+    now: DateTime.now(),
+  );
 });

@@ -131,3 +131,29 @@ class RatesRepository {
     return Consolidated(base: base, total: total, subtotals: subtotals, lines: lines, missingRates: missing);
   }
 }
+
+/// All rates in memory, for converting many rows at their own dates.
+class RateBook {
+  RateBook(List<RateValue> rates) : _rates = [...rates]..sort((a, b) => b.effectiveFrom.compareTo(a.effectiveFrom));
+
+  final List<RateValue> _rates;
+
+  /// The latest rate for the pair with `effectiveFrom ≤ day`, either direction.
+  RateValue? on(String a, String b, DateTime day) {
+    for (final r in _rates) {
+      if (r.covers(a, b) && !r.effectiveFrom.isAfter(day)) return r;
+    }
+    return null;
+  }
+
+  /// Null when [m] is in another currency and no rate covers [day].
+  Money? convertOn(Money m, String to, DateTime day) {
+    if (m.currency == to) return m;
+    final r = on(m.currency, to, day);
+    return r == null ? null : convert(m, to, r);
+  }
+}
+
+extension RateBookLoad on RatesRepository {
+  Future<RateBook> book() async => RateBook(await all());
+}
