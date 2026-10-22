@@ -124,6 +124,8 @@ class _OomOnDefaultKdf implements Kdf {
     int length = 32,
   }) async {
     if (params.memoryKiB == kDefaultKdfParams.memoryKiB) throw const KdfOutOfMemory();
-    return Uint8List.fromList(List.generate(length, (i) => (password.fold(0, (a, b) => a + b) + salt[i % salt.length] + i) & 0xff));
+    return Uint8List.fromList(
+      List.generate(length, (i) => (password.fold(0, (a, b) => a + b) + salt[i % salt.length] + i) & 0xff),
+    );
   }
 }

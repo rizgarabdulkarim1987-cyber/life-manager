@@ -1,72 +1,54 @@
 import 'package:drift/drift.dart' show Value;
-import 'dart:typed_data';
 
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:life_manager/app/providers.dart';
-import 'package:life_manager/core/crypto/kdf.dart';
 import 'package:life_manager/core/db/app_database.dart';
 import 'package:life_manager/core/l10n/ckb_fallback_localizations.dart';
 import 'package:life_manager/core/storage/secure_store.dart';
 import 'package:life_manager/core/theme/app_theme.dart';
-import 'package:life_manager/features/lock/biometric_authenticator.dart';
 import 'package:life_manager/features/lock/lock_controller.dart';
 import 'package:life_manager/features/lock/lock_screen.dart';
 import 'package:life_manager/features/lock/pin_service.dart';
 
-/// Fast deterministic stand-in so widget tests don't wait on a real KDF isolate.
-class FakeKdf implements Kdf {
-  @override
-  Future<Uint8List> derive({
-    required Uint8List password,
-    required Uint8List salt,
-    required KdfParams params,
-    int length = 32,
-  }) async =>
-      Uint8List.fromList(List.generate(length, (i) => (password[i % password.length] * 31 + salt[i % salt.length] + i) & 0xff));
-}
-
-class FakeBiometric implements BiometricAuthenticator {
-  FakeBiometric({required this.available, required this.result});
-  final bool available;
-  final bool result;
-  int prompts = 0;
-  @override
-  Future<bool> isAvailable() async => available;
-  @override
-  Future<bool> authenticate(String reason) async {
-    prompts++;
-    return result;
-  }
-}
+import '../../helpers/fakes.dart';
 
 void main() {
   late AppDatabase db;
   late PinService pins;
   late ProviderContainer container;
 
-  Future<void> pump(WidgetTester t, {required FakeBiometric bio, bool biometricEnabled = true, Locale locale = const Locale('en')}) async {
+  Future<void> pump(
+    WidgetTester t, {
+    required FakeBiometric bio,
+    bool biometricEnabled = true,
+    Locale locale = const Locale('en'),
+  }) async {
     db = AppDatabase(NativeDatabase.memory());
     await db.update(db.appSettingsTable).write(AppSettingsTableCompanion(biometricEnabled: Value(biometricEnabled)));
     pins = PinService(InMemorySecureStore(), FakeKdf());
     await pins.setPin('123456');
-    container = ProviderContainer(overrides: [
-      appDatabaseProvider.overrideWithValue(db),
-      pinServiceProvider.overrideWithValue(pins),
-      biometricAuthenticatorProvider.overrideWithValue(bio),
-    ]);
-    await t.pumpWidget(UncontrolledProviderScope(
-      container: container,
-      child: MaterialApp(
-        theme: buildAppTheme(Brightness.dark),
-        locale: locale,
-        supportedLocales: kSupportedLocales,
-        localizationsDelegates: appLocalizationDelegates,
-        home: const LockScreen(),
+    container = ProviderContainer(
+      overrides: [
+        appDatabaseProvider.overrideWithValue(db),
+        pinServiceProvider.overrideWithValue(pins),
+        biometricAuthenticatorProvider.overrideWithValue(bio),
+      ],
+    );
+    await t.pumpWidget(
+      UncontrolledProviderScope(
+        container: container,
+        child: MaterialApp(
+          theme: buildAppTheme(Brightness.dark),
+          locale: locale,
+          supportedLocales: kSupportedLocales,
+          localizationsDelegates: appLocalizationDelegates,
+          home: const LockScreen(),
+        ),
       ),
-    ));
+    );
     await t.pumpAndSettle();
   }
 
