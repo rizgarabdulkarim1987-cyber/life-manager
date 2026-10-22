@@ -1,0 +1,6 @@
+# Copy to android/key.properties (git-ignored) and fill in. Never commit the real file.
+# See docs/INSTALL.md, "Release signing".
+storeFile=C:/Users/pc/.keystores/life-manager-release.jks
+storePassword=CHANGE_ME
+keyAlias=lifemanager
+keyPassword=CHANGE_ME
