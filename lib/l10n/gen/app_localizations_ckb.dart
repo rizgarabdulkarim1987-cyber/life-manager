@@ -1065,4 +1065,232 @@ class AppLocalizationsCkb extends AppLocalizations {
 
   @override
   String get ok => 'باشە';
+
+  @override
+  String get impTitle => 'هاوردەکردن';
+
+  @override
+  String get impEntry => 'هاوردەکردنی فایل';
+
+  @override
+  String get impStepFile => 'فایل هەڵبژێرە';
+
+  @override
+  String get impStepColumns => 'ستوونەکان';
+
+  @override
+  String get impStepDefaults => 'بنەڕەتەکان';
+
+  @override
+  String get impStepValues => 'بەهاکان بگونجێنە';
+
+  @override
+  String get impStepPreview => 'پشکنین و هاوردە';
+
+  @override
+  String get impStepOpening => 'باڵانسی ئەمڕۆ';
+
+  @override
+  String impStepOf(int n, int total) {
+    return 'هەنگاوی $n لە $total';
+  }
+
+  @override
+  String get impPickHint =>
+      'فایلێکی ‎.xlsx‎ یان ‎.csv‎ لە بانک یان خشتەیەکی کۆن. هیچ پاشەکەوت ناکرێت تا هاوردە دانەگریت.';
+
+  @override
+  String get impPick => 'فایل هەڵبژێرە';
+
+  @override
+  String get impPickAnother => 'فایلێکی تر هەڵبژێرە';
+
+  @override
+  String get impTooLarge =>
+      'فایلەکە زۆر گەورەیە: زیاتر لە 50,000 ڕیز یان 64 ستوون.';
+
+  @override
+  String get impUnreadable =>
+      'نەتوانرا فایلەکە وەک ‎.xlsx‎ یان ‎.csv‎ بخوێنرێتەوە.';
+
+  @override
+  String get impSheet => 'پەڕە';
+
+  @override
+  String get impHeaderRow => 'کام ڕیز ناوی ستوونەکانی تێدایە؟';
+
+  @override
+  String impRowN(int n) {
+    return 'ڕیزی $n';
+  }
+
+  @override
+  String get impColDate => 'بەروار';
+
+  @override
+  String get impDateOrder => 'ڕیزبەندی بەروار';
+
+  @override
+  String get impDayFirst => 'ڕۆژ سەرەتا (31/12)';
+
+  @override
+  String get impMonthFirst => 'مانگ سەرەتا (12/31)';
+
+  @override
+  String get impYearFirst => 'ساڵ سەرەتا (2025-12-31)';
+
+  @override
+  String get impAmountMode => 'بڕەکان چۆن نووسراون';
+
+  @override
+  String get impSigned => 'یەک ستوون، کەم واتە خەرجی';
+
+  @override
+  String get impTypeColumn => 'یەک ستوون لەگەڵ ستوونی جۆر';
+
+  @override
+  String get impSplit => 'ستوونی جیا بۆ داهات و خەرجی';
+
+  @override
+  String get impColAmount => 'بڕ';
+
+  @override
+  String get impColIncome => 'ستوونی داهات';
+
+  @override
+  String get impColExpense => 'ستوونی خەرجی';
+
+  @override
+  String get impColType => 'جۆر';
+
+  @override
+  String get impColCurrency => 'دراو';
+
+  @override
+  String get impColCategory => 'پۆل';
+
+  @override
+  String get impColWorkspace => 'شوێنی کار';
+
+  @override
+  String get impColAccount => 'هەژمار';
+
+  @override
+  String get impColDescription => 'وەسف';
+
+  @override
+  String get impNone => 'لە فایلەکەدا نییە';
+
+  @override
+  String impColumnLetter(String letter) {
+    return 'ستوونی $letter';
+  }
+
+  @override
+  String get impNeedDateAmount =>
+      'ستوونی بەروار و بڕ هەڵبژێرە بۆ بەردەوامبوون.';
+
+  @override
+  String get impDefaultsHint => 'بۆ ئەو ڕیزانە بەکاردێت کە ئەمەیان تێدا نییە.';
+
+  @override
+  String get impNoValues =>
+      'هیچ بۆ گونجاندن نییە: فایلەکە ستوونی جۆر، پۆل، شوێن یان هەژماری تێدا نییە.';
+
+  @override
+  String get impCreateNew => 'نوێ دروست بکە';
+
+  @override
+  String get impSkipRow => 'ئەم ڕیزانە بپەڕێنە';
+
+  @override
+  String get impLeaveEmpty => 'بەتاڵی بهێڵە';
+
+  @override
+  String get impUseDefault => 'بنەڕەت بەکاربهێنە';
+
+  @override
+  String get impReady => 'ئامادە';
+
+  @override
+  String get impDuplicates => 'پێشتر هەیە';
+
+  @override
+  String get impProblems => 'نەخوێندرایەوە';
+
+  @override
+  String get impSkipDuplicates => 'ئەو ڕیزانەی پێشتر هەن بپەڕێنە';
+
+  @override
+  String get impProblemDate => 'بەروار نییە';
+
+  @override
+  String get impProblemAmount => 'بڕ نییە';
+
+  @override
+  String get impProblemType => 'جۆری نەناسراو';
+
+  @override
+  String get impProblemAccount => 'هەژمار نییە';
+
+  @override
+  String get impDuplicateTag => 'هەیە';
+
+  @override
+  String impFirstRows(int count) {
+    return 'یەکەم $count ڕیز';
+  }
+
+  @override
+  String impImport(int count) {
+    return '$count ڕیز هاوردە بکە';
+  }
+
+  @override
+  String impImported(int count) {
+    return '$count ڕیز هاوردە کرا';
+  }
+
+  @override
+  String get impOpeningHint =>
+      'بنووسە هەر هەژمارێک بەڕاستی ئەمڕۆ چەندی تێدایە. جیاوازییەکە وەک ڕێکخستن پاشەکەوت دەکرێت.';
+
+  @override
+  String impComputed(String amount) {
+    return 'لە ئەپەکەدا: $amount';
+  }
+
+  @override
+  String get impActual => 'ڕاستەقینەی ئەمڕۆ';
+
+  @override
+  String get impSaveBalances => 'باڵانسەکان پاشەکەوت بکە';
+
+  @override
+  String get impDone => 'تەواو';
+
+  @override
+  String get impNext => 'دواتر';
+
+  @override
+  String get impBack => 'گەڕانەوە';
+
+  @override
+  String get impPastImports => 'هاوردە پێشووەکان';
+
+  @override
+  String get impUndo => 'پاشگەزبوونەوە';
+
+  @override
+  String impUndoConfirm(int count, String name) {
+    return 'ئەو $count ڕیزەی لە $name هاوردە کران لاببرێن؟';
+  }
+
+  @override
+  String get impUndone => 'هەڵوەشێنرایەوە';
+
+  @override
+  String impBatchLine(int count, String date) {
+    return '$count ڕیز · $date';
+  }
 }

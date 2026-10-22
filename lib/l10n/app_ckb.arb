@@ -564,5 +564,145 @@
     }
   },
   "setArchived": "ئەرشیف کرا",
-  "ok": "باشە"
+  "ok": "باشە",
+  "impTitle": "هاوردەکردن",
+  "impEntry": "هاوردەکردنی فایل",
+  "impStepFile": "فایل هەڵبژێرە",
+  "impStepColumns": "ستوونەکان",
+  "impStepDefaults": "بنەڕەتەکان",
+  "impStepValues": "بەهاکان بگونجێنە",
+  "impStepPreview": "پشکنین و هاوردە",
+  "impStepOpening": "باڵانسی ئەمڕۆ",
+  "impStepOf": "هەنگاوی {n} لە {total}",
+  "@impStepOf": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "impPickHint": "فایلێکی ‎.xlsx‎ یان ‎.csv‎ لە بانک یان خشتەیەکی کۆن. هیچ پاشەکەوت ناکرێت تا هاوردە دانەگریت.",
+  "impPick": "فایل هەڵبژێرە",
+  "impPickAnother": "فایلێکی تر هەڵبژێرە",
+  "impTooLarge": "فایلەکە زۆر گەورەیە: زیاتر لە 50,000 ڕیز یان 64 ستوون.",
+  "impUnreadable": "نەتوانرا فایلەکە وەک ‎.xlsx‎ یان ‎.csv‎ بخوێنرێتەوە.",
+  "impSheet": "پەڕە",
+  "impHeaderRow": "کام ڕیز ناوی ستوونەکانی تێدایە؟",
+  "impRowN": "ڕیزی {n}",
+  "@impRowN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "impColDate": "بەروار",
+  "impDateOrder": "ڕیزبەندی بەروار",
+  "impDayFirst": "ڕۆژ سەرەتا (31/12)",
+  "impMonthFirst": "مانگ سەرەتا (12/31)",
+  "impYearFirst": "ساڵ سەرەتا (2025-12-31)",
+  "impAmountMode": "بڕەکان چۆن نووسراون",
+  "impSigned": "یەک ستوون، کەم واتە خەرجی",
+  "impTypeColumn": "یەک ستوون لەگەڵ ستوونی جۆر",
+  "impSplit": "ستوونی جیا بۆ داهات و خەرجی",
+  "impColAmount": "بڕ",
+  "impColIncome": "ستوونی داهات",
+  "impColExpense": "ستوونی خەرجی",
+  "impColType": "جۆر",
+  "impColCurrency": "دراو",
+  "impColCategory": "پۆل",
+  "impColWorkspace": "شوێنی کار",
+  "impColAccount": "هەژمار",
+  "impColDescription": "وەسف",
+  "impNone": "لە فایلەکەدا نییە",
+  "impColumnLetter": "ستوونی {letter}",
+  "@impColumnLetter": {
+    "placeholders": {
+      "letter": {
+        "type": "String"
+      }
+    }
+  },
+  "impNeedDateAmount": "ستوونی بەروار و بڕ هەڵبژێرە بۆ بەردەوامبوون.",
+  "impDefaultsHint": "بۆ ئەو ڕیزانە بەکاردێت کە ئەمەیان تێدا نییە.",
+  "impNoValues": "هیچ بۆ گونجاندن نییە: فایلەکە ستوونی جۆر، پۆل، شوێن یان هەژماری تێدا نییە.",
+  "impCreateNew": "نوێ دروست بکە",
+  "impSkipRow": "ئەم ڕیزانە بپەڕێنە",
+  "impLeaveEmpty": "بەتاڵی بهێڵە",
+  "impUseDefault": "بنەڕەت بەکاربهێنە",
+  "impReady": "ئامادە",
+  "impDuplicates": "پێشتر هەیە",
+  "impProblems": "نەخوێندرایەوە",
+  "impSkipDuplicates": "ئەو ڕیزانەی پێشتر هەن بپەڕێنە",
+  "impProblemDate": "بەروار نییە",
+  "impProblemAmount": "بڕ نییە",
+  "impProblemType": "جۆری نەناسراو",
+  "impProblemAccount": "هەژمار نییە",
+  "impDuplicateTag": "هەیە",
+  "impFirstRows": "یەکەم {count} ڕیز",
+  "@impFirstRows": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "impImport": "{count} ڕیز هاوردە بکە",
+  "@impImport": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "impImported": "{count} ڕیز هاوردە کرا",
+  "@impImported": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "impOpeningHint": "بنووسە هەر هەژمارێک بەڕاستی ئەمڕۆ چەندی تێدایە. جیاوازییەکە وەک ڕێکخستن پاشەکەوت دەکرێت.",
+  "impComputed": "لە ئەپەکەدا: {amount}",
+  "@impComputed": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "impActual": "ڕاستەقینەی ئەمڕۆ",
+  "impSaveBalances": "باڵانسەکان پاشەکەوت بکە",
+  "impDone": "تەواو",
+  "impNext": "دواتر",
+  "impBack": "گەڕانەوە",
+  "impPastImports": "هاوردە پێشووەکان",
+  "impUndo": "پاشگەزبوونەوە",
+  "impUndoConfirm": "ئەو {count} ڕیزەی لە {name} هاوردە کران لاببرێن؟",
+  "@impUndoConfirm": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "impUndone": "هەڵوەشێنرایەوە",
+  "impBatchLine": "{count} ڕیز · {date}",
+  "@impBatchLine": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  }
 }

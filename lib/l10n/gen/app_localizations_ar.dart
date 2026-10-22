@@ -1065,4 +1065,229 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get ok => 'تمام';
+
+  @override
+  String get impTitle => 'استيراد';
+
+  @override
+  String get impEntry => 'استيراد ملف';
+
+  @override
+  String get impStepFile => 'اختار الملف';
+
+  @override
+  String get impStepColumns => 'الأعمدة';
+
+  @override
+  String get impStepDefaults => 'الافتراضي';
+
+  @override
+  String get impStepValues => 'طابق القيم';
+
+  @override
+  String get impStepPreview => 'راجع واستورد';
+
+  @override
+  String get impStepOpening => 'الأرصدة اليوم';
+
+  @override
+  String impStepOf(int n, int total) {
+    return 'الخطوة $n من $total';
+  }
+
+  @override
+  String get impPickHint =>
+      'ملف ‎.xlsx‎ أو ‎.csv‎ من البنك أو من جدول قديم. ما ينحفظ شي لحد ما تدوس استيراد.';
+
+  @override
+  String get impPick => 'اختار ملف';
+
+  @override
+  String get impPickAnother => 'اختار ملف ثاني';
+
+  @override
+  String get impTooLarge => 'الملف كلش كبير: أكثر من 50,000 سطر أو 64 عمود.';
+
+  @override
+  String get impUnreadable => 'ما گدرنا نقرا الملف كـ ‎.xlsx‎ أو ‎.csv‎.';
+
+  @override
+  String get impSheet => 'الورقة';
+
+  @override
+  String get impHeaderRow => 'يا سطر بيه أسماء الأعمدة؟';
+
+  @override
+  String impRowN(int n) {
+    return 'السطر $n';
+  }
+
+  @override
+  String get impColDate => 'التاريخ';
+
+  @override
+  String get impDateOrder => 'ترتيب التاريخ';
+
+  @override
+  String get impDayFirst => 'اليوم أول (31/12)';
+
+  @override
+  String get impMonthFirst => 'الشهر أول (12/31)';
+
+  @override
+  String get impYearFirst => 'السنة أول (2025-12-31)';
+
+  @override
+  String get impAmountMode => 'شلون مكتوبة المبالغ';
+
+  @override
+  String get impSigned => 'عمود واحد، السالب مصروف';
+
+  @override
+  String get impTypeColumn => 'عمود واحد ويّا عمود للنوع';
+
+  @override
+  String get impSplit => 'عمود للوارد وعمود للصادر';
+
+  @override
+  String get impColAmount => 'المبلغ';
+
+  @override
+  String get impColIncome => 'عمود الوارد';
+
+  @override
+  String get impColExpense => 'عمود الصادر';
+
+  @override
+  String get impColType => 'النوع';
+
+  @override
+  String get impColCurrency => 'العملة';
+
+  @override
+  String get impColCategory => 'الفئة';
+
+  @override
+  String get impColWorkspace => 'مساحة العمل';
+
+  @override
+  String get impColAccount => 'الحساب';
+
+  @override
+  String get impColDescription => 'الوصف';
+
+  @override
+  String get impNone => 'مو موجود بالملف';
+
+  @override
+  String impColumnLetter(String letter) {
+    return 'العمود $letter';
+  }
+
+  @override
+  String get impNeedDateAmount => 'اختار عمود التاريخ والمبلغ حتى تكمل.';
+
+  @override
+  String get impDefaultsHint => 'تنستخدم للأسطر اللي ما بيها هالمعلومة.';
+
+  @override
+  String get impNoValues =>
+      'ماكو شي للمطابقة: الملف ما بيه عمود نوع أو فئة أو مساحة أو حساب.';
+
+  @override
+  String get impCreateNew => 'سوّي جديد';
+
+  @override
+  String get impSkipRow => 'تجاهل هالأسطر';
+
+  @override
+  String get impLeaveEmpty => 'خليها فارغة';
+
+  @override
+  String get impUseDefault => 'استخدم الافتراضي';
+
+  @override
+  String get impReady => 'جاهزة';
+
+  @override
+  String get impDuplicates => 'موجودة أصلاً';
+
+  @override
+  String get impProblems => 'ما انقرت';
+
+  @override
+  String get impSkipDuplicates => 'تجاهل الأسطر الموجودة أصلاً';
+
+  @override
+  String get impProblemDate => 'ماكو تاريخ';
+
+  @override
+  String get impProblemAmount => 'ماكو مبلغ';
+
+  @override
+  String get impProblemType => 'نوع مو معروف';
+
+  @override
+  String get impProblemAccount => 'ماكو حساب';
+
+  @override
+  String get impDuplicateTag => 'موجودة';
+
+  @override
+  String impFirstRows(int count) {
+    return 'أول $count أسطر';
+  }
+
+  @override
+  String impImport(int count) {
+    return 'استورد $count سطر';
+  }
+
+  @override
+  String impImported(int count) {
+    return 'انستوردت $count سطر';
+  }
+
+  @override
+  String get impOpeningHint =>
+      'اكتب شگد بكل حساب فعلاً اليوم. الفرق ينحفظ كتسوية.';
+
+  @override
+  String impComputed(String amount) {
+    return 'بالتطبيق: $amount';
+  }
+
+  @override
+  String get impActual => 'الفعلي اليوم';
+
+  @override
+  String get impSaveBalances => 'احفظ الأرصدة';
+
+  @override
+  String get impDone => 'خلصت';
+
+  @override
+  String get impNext => 'التالي';
+
+  @override
+  String get impBack => 'رجوع';
+
+  @override
+  String get impPastImports => 'الاستيرادات السابقة';
+
+  @override
+  String get impUndo => 'تراجع';
+
+  @override
+  String impUndoConfirm(int count, String name) {
+    return 'تحذف الـ $count سطر اللي انستوردت من $name؟';
+  }
+
+  @override
+  String get impUndone => 'انلغى';
+
+  @override
+  String impBatchLine(int count, String date) {
+    return '$count سطر · $date';
+  }
 }

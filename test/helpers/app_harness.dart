@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart' show DatabaseConnection, Value;
 import 'package:drift/native.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:life_manager/app/app.dart';
 import 'package:life_manager/app/providers.dart';
@@ -22,7 +23,12 @@ const _names = SeedNames(
 );
 
 /// Pumps the whole app past setup and the lock, landing on Home.
-Future<ProviderContainer> pumpApp(WidgetTester t, {String locale = 'ar', bool bioAvailable = false}) async {
+Future<ProviderContainer> pumpApp(
+  WidgetTester t, {
+  String locale = 'ar',
+  bool bioAvailable = false,
+  List<Override> overrides = const [],
+}) async {
   // Widget tests fail on drift's deferred stream close; close synchronously instead.
   final db = AppDatabase(DatabaseConnection(NativeDatabase.memory(), closeStreamsSynchronously: true));
   await seedInitialData(db, _names);
@@ -36,6 +42,7 @@ Future<ProviderContainer> pumpApp(WidgetTester t, {String locale = 'ar', bool bi
       appDatabaseProvider.overrideWithValue(db),
       pinServiceProvider.overrideWithValue(pins),
       biometricAuthenticatorProvider.overrideWithValue(FakeBiometric(available: bioAvailable, result: true)),
+      ...overrides,
     ],
   );
   container.read(lockControllerProvider.notifier).unlock();

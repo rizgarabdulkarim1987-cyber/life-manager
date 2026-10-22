@@ -564,5 +564,145 @@
     }
   },
   "setArchived": "انأرشفت",
-  "ok": "تمام"
+  "ok": "تمام",
+  "impTitle": "استيراد",
+  "impEntry": "استيراد ملف",
+  "impStepFile": "اختار الملف",
+  "impStepColumns": "الأعمدة",
+  "impStepDefaults": "الافتراضي",
+  "impStepValues": "طابق القيم",
+  "impStepPreview": "راجع واستورد",
+  "impStepOpening": "الأرصدة اليوم",
+  "impStepOf": "الخطوة {n} من {total}",
+  "@impStepOf": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "impPickHint": "ملف ‎.xlsx‎ أو ‎.csv‎ من البنك أو من جدول قديم. ما ينحفظ شي لحد ما تدوس استيراد.",
+  "impPick": "اختار ملف",
+  "impPickAnother": "اختار ملف ثاني",
+  "impTooLarge": "الملف كلش كبير: أكثر من 50,000 سطر أو 64 عمود.",
+  "impUnreadable": "ما گدرنا نقرا الملف كـ ‎.xlsx‎ أو ‎.csv‎.",
+  "impSheet": "الورقة",
+  "impHeaderRow": "يا سطر بيه أسماء الأعمدة؟",
+  "impRowN": "السطر {n}",
+  "@impRowN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "impColDate": "التاريخ",
+  "impDateOrder": "ترتيب التاريخ",
+  "impDayFirst": "اليوم أول (31/12)",
+  "impMonthFirst": "الشهر أول (12/31)",
+  "impYearFirst": "السنة أول (2025-12-31)",
+  "impAmountMode": "شلون مكتوبة المبالغ",
+  "impSigned": "عمود واحد، السالب مصروف",
+  "impTypeColumn": "عمود واحد ويّا عمود للنوع",
+  "impSplit": "عمود للوارد وعمود للصادر",
+  "impColAmount": "المبلغ",
+  "impColIncome": "عمود الوارد",
+  "impColExpense": "عمود الصادر",
+  "impColType": "النوع",
+  "impColCurrency": "العملة",
+  "impColCategory": "الفئة",
+  "impColWorkspace": "مساحة العمل",
+  "impColAccount": "الحساب",
+  "impColDescription": "الوصف",
+  "impNone": "مو موجود بالملف",
+  "impColumnLetter": "العمود {letter}",
+  "@impColumnLetter": {
+    "placeholders": {
+      "letter": {
+        "type": "String"
+      }
+    }
+  },
+  "impNeedDateAmount": "اختار عمود التاريخ والمبلغ حتى تكمل.",
+  "impDefaultsHint": "تنستخدم للأسطر اللي ما بيها هالمعلومة.",
+  "impNoValues": "ماكو شي للمطابقة: الملف ما بيه عمود نوع أو فئة أو مساحة أو حساب.",
+  "impCreateNew": "سوّي جديد",
+  "impSkipRow": "تجاهل هالأسطر",
+  "impLeaveEmpty": "خليها فارغة",
+  "impUseDefault": "استخدم الافتراضي",
+  "impReady": "جاهزة",
+  "impDuplicates": "موجودة أصلاً",
+  "impProblems": "ما انقرت",
+  "impSkipDuplicates": "تجاهل الأسطر الموجودة أصلاً",
+  "impProblemDate": "ماكو تاريخ",
+  "impProblemAmount": "ماكو مبلغ",
+  "impProblemType": "نوع مو معروف",
+  "impProblemAccount": "ماكو حساب",
+  "impDuplicateTag": "موجودة",
+  "impFirstRows": "أول {count} أسطر",
+  "@impFirstRows": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "impImport": "استورد {count} سطر",
+  "@impImport": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "impImported": "انستوردت {count} سطر",
+  "@impImported": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "impOpeningHint": "اكتب شگد بكل حساب فعلاً اليوم. الفرق ينحفظ كتسوية.",
+  "impComputed": "بالتطبيق: {amount}",
+  "@impComputed": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "impActual": "الفعلي اليوم",
+  "impSaveBalances": "احفظ الأرصدة",
+  "impDone": "خلصت",
+  "impNext": "التالي",
+  "impBack": "رجوع",
+  "impPastImports": "الاستيرادات السابقة",
+  "impUndo": "تراجع",
+  "impUndoConfirm": "تحذف الـ {count} سطر اللي انستوردت من {name}؟",
+  "@impUndoConfirm": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "impUndone": "انلغى",
+  "impBatchLine": "{count} سطر · {date}",
+  "@impBatchLine": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  }
 }

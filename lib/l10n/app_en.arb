@@ -564,5 +564,145 @@
     }
   },
   "setArchived": "Archived",
-  "ok": "OK"
+  "ok": "OK",
+  "impTitle": "Import",
+  "impEntry": "Import a sheet",
+  "impStepFile": "Choose a file",
+  "impStepColumns": "Columns",
+  "impStepDefaults": "Defaults",
+  "impStepValues": "Match values",
+  "impStepPreview": "Check and import",
+  "impStepOpening": "Balances today",
+  "impStepOf": "Step {n} of {total}",
+  "@impStepOf": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "impPickHint": "An .xlsx or .csv from your bank or an old sheet. Nothing is saved until you tap Import.",
+  "impPick": "Choose a file",
+  "impPickAnother": "Choose another file",
+  "impTooLarge": "This file is too big: over 50,000 rows or 64 columns.",
+  "impUnreadable": "This file could not be read as .xlsx or .csv.",
+  "impSheet": "Sheet",
+  "impHeaderRow": "Which row has the column names?",
+  "impRowN": "Row {n}",
+  "@impRowN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "impColDate": "Date",
+  "impDateOrder": "Date order",
+  "impDayFirst": "Day first (31/12)",
+  "impMonthFirst": "Month first (12/31)",
+  "impYearFirst": "Year first (2025-12-31)",
+  "impAmountMode": "How amounts are written",
+  "impSigned": "One column, minus means expense",
+  "impTypeColumn": "One column plus a type column",
+  "impSplit": "Separate income and expense columns",
+  "impColAmount": "Amount",
+  "impColIncome": "Income column",
+  "impColExpense": "Expense column",
+  "impColType": "Type",
+  "impColCurrency": "Currency",
+  "impColCategory": "Category",
+  "impColWorkspace": "Workspace",
+  "impColAccount": "Account",
+  "impColDescription": "Description",
+  "impNone": "Not in the file",
+  "impColumnLetter": "Column {letter}",
+  "@impColumnLetter": {
+    "placeholders": {
+      "letter": {
+        "type": "String"
+      }
+    }
+  },
+  "impNeedDateAmount": "Pick the date and amount columns to go on.",
+  "impDefaultsHint": "Used for rows that do not say.",
+  "impNoValues": "Nothing to match: the file has no type, category, workspace or account column.",
+  "impCreateNew": "Create new",
+  "impSkipRow": "Skip these rows",
+  "impLeaveEmpty": "Leave empty",
+  "impUseDefault": "Use the default",
+  "impReady": "Ready",
+  "impDuplicates": "Already in the app",
+  "impProblems": "Can't read",
+  "impSkipDuplicates": "Skip rows already in the app",
+  "impProblemDate": "no date",
+  "impProblemAmount": "no amount",
+  "impProblemType": "unknown type",
+  "impProblemAccount": "no account",
+  "impDuplicateTag": "already there",
+  "impFirstRows": "First {count} rows",
+  "@impFirstRows": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "impImport": "Import {count} rows",
+  "@impImport": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "impImported": "Imported {count} rows",
+  "@impImported": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "impOpeningHint": "Type what each account really holds today. A difference is saved as an adjustment.",
+  "impComputed": "In the app: {amount}",
+  "@impComputed": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "impActual": "Actual today",
+  "impSaveBalances": "Save balances",
+  "impDone": "Done",
+  "impNext": "Next",
+  "impBack": "Back",
+  "impPastImports": "Past imports",
+  "impUndo": "Undo",
+  "impUndoConfirm": "Remove the {count} rows imported from {name}?",
+  "@impUndoConfirm": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "impUndone": "Undone",
+  "impBatchLine": "{count} rows · {date}",
+  "@impBatchLine": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  }
 }

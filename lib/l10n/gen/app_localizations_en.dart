@@ -1069,4 +1069,230 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ok => 'OK';
+
+  @override
+  String get impTitle => 'Import';
+
+  @override
+  String get impEntry => 'Import a sheet';
+
+  @override
+  String get impStepFile => 'Choose a file';
+
+  @override
+  String get impStepColumns => 'Columns';
+
+  @override
+  String get impStepDefaults => 'Defaults';
+
+  @override
+  String get impStepValues => 'Match values';
+
+  @override
+  String get impStepPreview => 'Check and import';
+
+  @override
+  String get impStepOpening => 'Balances today';
+
+  @override
+  String impStepOf(int n, int total) {
+    return 'Step $n of $total';
+  }
+
+  @override
+  String get impPickHint =>
+      'An .xlsx or .csv from your bank or an old sheet. Nothing is saved until you tap Import.';
+
+  @override
+  String get impPick => 'Choose a file';
+
+  @override
+  String get impPickAnother => 'Choose another file';
+
+  @override
+  String get impTooLarge =>
+      'This file is too big: over 50,000 rows or 64 columns.';
+
+  @override
+  String get impUnreadable => 'This file could not be read as .xlsx or .csv.';
+
+  @override
+  String get impSheet => 'Sheet';
+
+  @override
+  String get impHeaderRow => 'Which row has the column names?';
+
+  @override
+  String impRowN(int n) {
+    return 'Row $n';
+  }
+
+  @override
+  String get impColDate => 'Date';
+
+  @override
+  String get impDateOrder => 'Date order';
+
+  @override
+  String get impDayFirst => 'Day first (31/12)';
+
+  @override
+  String get impMonthFirst => 'Month first (12/31)';
+
+  @override
+  String get impYearFirst => 'Year first (2025-12-31)';
+
+  @override
+  String get impAmountMode => 'How amounts are written';
+
+  @override
+  String get impSigned => 'One column, minus means expense';
+
+  @override
+  String get impTypeColumn => 'One column plus a type column';
+
+  @override
+  String get impSplit => 'Separate income and expense columns';
+
+  @override
+  String get impColAmount => 'Amount';
+
+  @override
+  String get impColIncome => 'Income column';
+
+  @override
+  String get impColExpense => 'Expense column';
+
+  @override
+  String get impColType => 'Type';
+
+  @override
+  String get impColCurrency => 'Currency';
+
+  @override
+  String get impColCategory => 'Category';
+
+  @override
+  String get impColWorkspace => 'Workspace';
+
+  @override
+  String get impColAccount => 'Account';
+
+  @override
+  String get impColDescription => 'Description';
+
+  @override
+  String get impNone => 'Not in the file';
+
+  @override
+  String impColumnLetter(String letter) {
+    return 'Column $letter';
+  }
+
+  @override
+  String get impNeedDateAmount => 'Pick the date and amount columns to go on.';
+
+  @override
+  String get impDefaultsHint => 'Used for rows that do not say.';
+
+  @override
+  String get impNoValues =>
+      'Nothing to match: the file has no type, category, workspace or account column.';
+
+  @override
+  String get impCreateNew => 'Create new';
+
+  @override
+  String get impSkipRow => 'Skip these rows';
+
+  @override
+  String get impLeaveEmpty => 'Leave empty';
+
+  @override
+  String get impUseDefault => 'Use the default';
+
+  @override
+  String get impReady => 'Ready';
+
+  @override
+  String get impDuplicates => 'Already in the app';
+
+  @override
+  String get impProblems => 'Can\'t read';
+
+  @override
+  String get impSkipDuplicates => 'Skip rows already in the app';
+
+  @override
+  String get impProblemDate => 'no date';
+
+  @override
+  String get impProblemAmount => 'no amount';
+
+  @override
+  String get impProblemType => 'unknown type';
+
+  @override
+  String get impProblemAccount => 'no account';
+
+  @override
+  String get impDuplicateTag => 'already there';
+
+  @override
+  String impFirstRows(int count) {
+    return 'First $count rows';
+  }
+
+  @override
+  String impImport(int count) {
+    return 'Import $count rows';
+  }
+
+  @override
+  String impImported(int count) {
+    return 'Imported $count rows';
+  }
+
+  @override
+  String get impOpeningHint =>
+      'Type what each account really holds today. A difference is saved as an adjustment.';
+
+  @override
+  String impComputed(String amount) {
+    return 'In the app: $amount';
+  }
+
+  @override
+  String get impActual => 'Actual today';
+
+  @override
+  String get impSaveBalances => 'Save balances';
+
+  @override
+  String get impDone => 'Done';
+
+  @override
+  String get impNext => 'Next';
+
+  @override
+  String get impBack => 'Back';
+
+  @override
+  String get impPastImports => 'Past imports';
+
+  @override
+  String get impUndo => 'Undo';
+
+  @override
+  String impUndoConfirm(int count, String name) {
+    return 'Remove the $count rows imported from $name?';
+  }
+
+  @override
+  String get impUndone => 'Undone';
+
+  @override
+  String impBatchLine(int count, String date) {
+    return '$count rows · $date';
+  }
 }

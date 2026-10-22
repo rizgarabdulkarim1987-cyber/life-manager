@@ -12,6 +12,7 @@ import '../features/finance/ui/budgets_screen.dart';
 import '../features/finance/ui/debt_detail_screen.dart';
 import '../features/finance/ui/debts_screen.dart';
 import '../features/finance/ui/finance_overview_screen.dart';
+import '../features/finance/import/ui/import_wizard_screen.dart';
 import '../features/finance/ui/history_screen.dart';
 import '../features/finance/ui/reports_screen.dart';
 import '../features/finance/ui/transaction_form_screen.dart';
@@ -91,6 +92,7 @@ GoRouter buildRouter() => GoRouter(
                   builder: (_, state) =>
                       TransferFormScreen(initial: state.extra is TransferDraft ? state.extra! as TransferDraft : null),
                 ),
+                GoRoute(path: 'import', parentNavigatorKey: _rootKey, builder: (_, _) => const ImportWizardScreen()),
                 GoRoute(
                   path: 'transfer/:id',
                   parentNavigatorKey: _rootKey,

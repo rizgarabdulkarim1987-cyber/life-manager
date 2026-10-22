@@ -2019,6 +2019,414 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'OK'**
   String get ok;
+
+  /// No description provided for @impTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Import'**
+  String get impTitle;
+
+  /// No description provided for @impEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'Import a sheet'**
+  String get impEntry;
+
+  /// No description provided for @impStepFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a file'**
+  String get impStepFile;
+
+  /// No description provided for @impStepColumns.
+  ///
+  /// In en, this message translates to:
+  /// **'Columns'**
+  String get impStepColumns;
+
+  /// No description provided for @impStepDefaults.
+  ///
+  /// In en, this message translates to:
+  /// **'Defaults'**
+  String get impStepDefaults;
+
+  /// No description provided for @impStepValues.
+  ///
+  /// In en, this message translates to:
+  /// **'Match values'**
+  String get impStepValues;
+
+  /// No description provided for @impStepPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Check and import'**
+  String get impStepPreview;
+
+  /// No description provided for @impStepOpening.
+  ///
+  /// In en, this message translates to:
+  /// **'Balances today'**
+  String get impStepOpening;
+
+  /// No description provided for @impStepOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {n} of {total}'**
+  String impStepOf(int n, int total);
+
+  /// No description provided for @impPickHint.
+  ///
+  /// In en, this message translates to:
+  /// **'An .xlsx or .csv from your bank or an old sheet. Nothing is saved until you tap Import.'**
+  String get impPickHint;
+
+  /// No description provided for @impPick.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a file'**
+  String get impPick;
+
+  /// No description provided for @impPickAnother.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose another file'**
+  String get impPickAnother;
+
+  /// No description provided for @impTooLarge.
+  ///
+  /// In en, this message translates to:
+  /// **'This file is too big: over 50,000 rows or 64 columns.'**
+  String get impTooLarge;
+
+  /// No description provided for @impUnreadable.
+  ///
+  /// In en, this message translates to:
+  /// **'This file could not be read as .xlsx or .csv.'**
+  String get impUnreadable;
+
+  /// No description provided for @impSheet.
+  ///
+  /// In en, this message translates to:
+  /// **'Sheet'**
+  String get impSheet;
+
+  /// No description provided for @impHeaderRow.
+  ///
+  /// In en, this message translates to:
+  /// **'Which row has the column names?'**
+  String get impHeaderRow;
+
+  /// No description provided for @impRowN.
+  ///
+  /// In en, this message translates to:
+  /// **'Row {n}'**
+  String impRowN(int n);
+
+  /// No description provided for @impColDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get impColDate;
+
+  /// No description provided for @impDateOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Date order'**
+  String get impDateOrder;
+
+  /// No description provided for @impDayFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Day first (31/12)'**
+  String get impDayFirst;
+
+  /// No description provided for @impMonthFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Month first (12/31)'**
+  String get impMonthFirst;
+
+  /// No description provided for @impYearFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Year first (2025-12-31)'**
+  String get impYearFirst;
+
+  /// No description provided for @impAmountMode.
+  ///
+  /// In en, this message translates to:
+  /// **'How amounts are written'**
+  String get impAmountMode;
+
+  /// No description provided for @impSigned.
+  ///
+  /// In en, this message translates to:
+  /// **'One column, minus means expense'**
+  String get impSigned;
+
+  /// No description provided for @impTypeColumn.
+  ///
+  /// In en, this message translates to:
+  /// **'One column plus a type column'**
+  String get impTypeColumn;
+
+  /// No description provided for @impSplit.
+  ///
+  /// In en, this message translates to:
+  /// **'Separate income and expense columns'**
+  String get impSplit;
+
+  /// No description provided for @impColAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get impColAmount;
+
+  /// No description provided for @impColIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Income column'**
+  String get impColIncome;
+
+  /// No description provided for @impColExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Expense column'**
+  String get impColExpense;
+
+  /// No description provided for @impColType.
+  ///
+  /// In en, this message translates to:
+  /// **'Type'**
+  String get impColType;
+
+  /// No description provided for @impColCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Currency'**
+  String get impColCurrency;
+
+  /// No description provided for @impColCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get impColCategory;
+
+  /// No description provided for @impColWorkspace.
+  ///
+  /// In en, this message translates to:
+  /// **'Workspace'**
+  String get impColWorkspace;
+
+  /// No description provided for @impColAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get impColAccount;
+
+  /// No description provided for @impColDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get impColDescription;
+
+  /// No description provided for @impNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Not in the file'**
+  String get impNone;
+
+  /// No description provided for @impColumnLetter.
+  ///
+  /// In en, this message translates to:
+  /// **'Column {letter}'**
+  String impColumnLetter(String letter);
+
+  /// No description provided for @impNeedDateAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick the date and amount columns to go on.'**
+  String get impNeedDateAmount;
+
+  /// No description provided for @impDefaultsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Used for rows that do not say.'**
+  String get impDefaultsHint;
+
+  /// No description provided for @impNoValues.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing to match: the file has no type, category, workspace or account column.'**
+  String get impNoValues;
+
+  /// No description provided for @impCreateNew.
+  ///
+  /// In en, this message translates to:
+  /// **'Create new'**
+  String get impCreateNew;
+
+  /// No description provided for @impSkipRow.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip these rows'**
+  String get impSkipRow;
+
+  /// No description provided for @impLeaveEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave empty'**
+  String get impLeaveEmpty;
+
+  /// No description provided for @impUseDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the default'**
+  String get impUseDefault;
+
+  /// No description provided for @impReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready'**
+  String get impReady;
+
+  /// No description provided for @impDuplicates.
+  ///
+  /// In en, this message translates to:
+  /// **'Already in the app'**
+  String get impDuplicates;
+
+  /// No description provided for @impProblems.
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t read'**
+  String get impProblems;
+
+  /// No description provided for @impSkipDuplicates.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip rows already in the app'**
+  String get impSkipDuplicates;
+
+  /// No description provided for @impProblemDate.
+  ///
+  /// In en, this message translates to:
+  /// **'no date'**
+  String get impProblemDate;
+
+  /// No description provided for @impProblemAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'no amount'**
+  String get impProblemAmount;
+
+  /// No description provided for @impProblemType.
+  ///
+  /// In en, this message translates to:
+  /// **'unknown type'**
+  String get impProblemType;
+
+  /// No description provided for @impProblemAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'no account'**
+  String get impProblemAccount;
+
+  /// No description provided for @impDuplicateTag.
+  ///
+  /// In en, this message translates to:
+  /// **'already there'**
+  String get impDuplicateTag;
+
+  /// No description provided for @impFirstRows.
+  ///
+  /// In en, this message translates to:
+  /// **'First {count} rows'**
+  String impFirstRows(int count);
+
+  /// No description provided for @impImport.
+  ///
+  /// In en, this message translates to:
+  /// **'Import {count} rows'**
+  String impImport(int count);
+
+  /// No description provided for @impImported.
+  ///
+  /// In en, this message translates to:
+  /// **'Imported {count} rows'**
+  String impImported(int count);
+
+  /// No description provided for @impOpeningHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type what each account really holds today. A difference is saved as an adjustment.'**
+  String get impOpeningHint;
+
+  /// No description provided for @impComputed.
+  ///
+  /// In en, this message translates to:
+  /// **'In the app: {amount}'**
+  String impComputed(String amount);
+
+  /// No description provided for @impActual.
+  ///
+  /// In en, this message translates to:
+  /// **'Actual today'**
+  String get impActual;
+
+  /// No description provided for @impSaveBalances.
+  ///
+  /// In en, this message translates to:
+  /// **'Save balances'**
+  String get impSaveBalances;
+
+  /// No description provided for @impDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get impDone;
+
+  /// No description provided for @impNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get impNext;
+
+  /// No description provided for @impBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get impBack;
+
+  /// No description provided for @impPastImports.
+  ///
+  /// In en, this message translates to:
+  /// **'Past imports'**
+  String get impPastImports;
+
+  /// No description provided for @impUndo.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get impUndo;
+
+  /// No description provided for @impUndoConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove the {count} rows imported from {name}?'**
+  String impUndoConfirm(int count, String name);
+
+  /// No description provided for @impUndone.
+  ///
+  /// In en, this message translates to:
+  /// **'Undone'**
+  String get impUndone;
+
+  /// No description provided for @impBatchLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} rows · {date}'**
+  String impBatchLine(int count, String date);
 }
 
 class _AppLocalizationsDelegate

@@ -33,6 +33,7 @@ final kFinanceEntries = <FinanceEntry>[
   FinanceEntry('buckets', Icons.savings_outlined, (l) => l.finBuckets, '/finance/buckets'),
   FinanceEntry('budgets', Icons.donut_small_outlined, (l) => l.finBudgets, '/finance/budgets'),
   FinanceEntry('debts', Icons.handshake_outlined, (l) => l.finDebts, '/finance/debts'),
+  FinanceEntry('import', Icons.upload_file_rounded, (l) => l.impEntry, '/finance/import'),
 ];
 
 class FinanceOverviewScreen extends ConsumerWidget {
