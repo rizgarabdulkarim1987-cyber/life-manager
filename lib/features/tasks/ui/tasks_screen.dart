@@ -126,120 +126,125 @@ class _TasksScreenState extends ConsumerState<TasksScreen> with WidgetsBindingOb
           const SizedBox(width: 4),
         ],
       ),
-      body: Column(
-        children: [
-          if (hasReminders && status != null && (!status.notifications || !status.exactAlarms))
-            _ReminderBanner(status: status),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
-            child: TextField(
-              key: const ValueKey('task-quick'),
-              controller: _quick,
-              textInputAction: TextInputAction.done,
-              decoration: InputDecoration(
-                hintText: l.tskQuickHint,
-                suffixIcon: IconButton(
-                  key: const ValueKey('task-quick-add'),
-                  tooltip: l.tskAdd,
-                  icon: const Icon(Icons.keyboard_return_rounded),
-                  onPressed: _quickAdd,
-                ),
-              ),
-              onSubmitted: (_) => _quickAdd(),
-            ),
-          ),
-          SizedBox(
-            height: 52,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      // One scrolling list: at 2x text the header alone can fill a small phone.
+      body: ListView.builder(
+        key: const ValueKey('tasks-list'),
+        padding: const EdgeInsets.only(bottom: 112),
+        itemCount: 1 + (shown.isEmpty ? 1 : shown.length),
+        itemBuilder: (context, i) {
+          if (i == 0) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                for (final v in TaskView.values)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                    child: ChoiceChip(
-                      key: ValueKey('tasks-view-${v.name}'),
-                      label: Text(
-                        '${viewLabel(l, v)} ${scoped.where((t) => taskInView(t, v, now)).length}',
-                        maxLines: 1,
+                if (hasReminders && status != null && (!status.notifications || !status.exactAlarms))
+                  _ReminderBanner(status: status),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
+                  child: TextField(
+                    key: const ValueKey('task-quick'),
+                    controller: _quick,
+                    textInputAction: TextInputAction.done,
+                    decoration: InputDecoration(
+                      hintText: l.tskQuickHint,
+                      suffixIcon: IconButton(
+                        key: const ValueKey('task-quick-add'),
+                        tooltip: l.tskAdd,
+                        icon: const Icon(Icons.keyboard_return_rounded),
+                        onPressed: _quickAdd,
                       ),
-                      selected: _view == v,
-                      onSelected: (_) => setState(() => _view = v),
                     ),
+                    onSubmitted: (_) => _quickAdd(),
                   ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 0, 8, 0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: DropdownButtonHideUnderline(
-                    child: DropdownButton<int?>(
-                      key: const ValueKey('tasks-workspace'),
-                      isExpanded: true,
-                      value: names.containsKey(_workspaceId) ? _workspaceId : null,
-                      items: [
-                        DropdownMenuItem<int?>(
-                          value: null,
-                          child: Text(l.tskAllWorkspaces, maxLines: 1, overflow: TextOverflow.ellipsis),
-                        ),
-                        for (final w in workspaces)
-                          DropdownMenuItem<int?>(
-                            value: w.id,
-                            child: Text(w.name, maxLines: 1, overflow: TextOverflow.ellipsis),
+                ),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  child: Row(
+                    children: [
+                      for (final v in TaskView.values)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                          child: ChoiceChip(
+                            key: ValueKey('tasks-view-${v.name}'),
+                            label: Text(
+                              '${viewLabel(l, v)} ${scoped.where((t) => taskInView(t, v, now)).length}',
+                              maxLines: 1,
+                            ),
+                            selected: _view == v,
+                            onSelected: (_) => setState(() => _view = v),
                           ),
-                      ],
-                      onChanged: (v) => setState(() => _workspaceId = v),
-                    ),
+                        ),
+                    ],
                   ),
                 ),
-                PopupMenuButton<TaskSort>(
-                  key: const ValueKey('tasks-sort'),
-                  tooltip: l.tskSort,
-                  icon: const Icon(Icons.sort_rounded),
-                  initialValue: _sort,
-                  onSelected: (s) => setState(() => _sort = s),
-                  itemBuilder: (_) => [
-                    PopupMenuItem(value: TaskSort.due, child: Text(l.tskSortDue)),
-                    PopupMenuItem(value: TaskSort.priority, child: Text(l.tskSortPriority)),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 8, 0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton<int?>(
+                            key: const ValueKey('tasks-workspace'),
+                            isExpanded: true,
+                            value: names.containsKey(_workspaceId) ? _workspaceId : null,
+                            items: [
+                              DropdownMenuItem<int?>(
+                                value: null,
+                                child: Text(l.tskAllWorkspaces, maxLines: 1, overflow: TextOverflow.ellipsis),
+                              ),
+                              for (final w in workspaces)
+                                DropdownMenuItem<int?>(
+                                  value: w.id,
+                                  child: Text(w.name, maxLines: 1, overflow: TextOverflow.ellipsis),
+                                ),
+                            ],
+                            onChanged: (v) => setState(() => _workspaceId = v),
+                          ),
+                        ),
+                      ),
+                      PopupMenuButton<TaskSort>(
+                        key: const ValueKey('tasks-sort'),
+                        tooltip: l.tskSort,
+                        icon: const Icon(Icons.sort_rounded),
+                        initialValue: _sort,
+                        onSelected: (s) => setState(() => _sort = s),
+                        itemBuilder: (_) => [
+                          PopupMenuItem(value: TaskSort.due, child: Text(l.tskSortDue)),
+                          PopupMenuItem(value: TaskSort.priority, child: Text(l.tskSortPriority)),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ],
-            ),
-          ),
-          Expanded(
-            child: shown.isEmpty
-                ? Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(24),
-                      child: Text(
-                        l.tskEmpty,
-                        key: const ValueKey('tasks-empty'),
-                        textAlign: TextAlign.center,
-                        style: text.bodyLarge?.copyWith(color: k.textMuted),
-                      ),
-                    ),
-                  )
-                : ListView.separated(
-                    key: const ValueKey('tasks-list'),
-                    padding: const EdgeInsets.only(bottom: 112),
-                    itemCount: shown.length,
-                    separatorBuilder: (_, _) => Divider(color: k.border, height: 1, indent: 20, endIndent: 20),
-                    itemBuilder: (context, i) {
-                      final t = shown[i];
-                      return TaskTile(
-                        key: ValueKey('task-${t.id}'),
-                        task: t,
-                        workspaceName: names[t.workspaceId],
-                        onTap: () => context.push('/tasks/${t.id}'),
-                        onToggle: () => _toggle(t),
-                      );
-                    },
-                  ),
-          ),
-        ],
+            );
+          }
+          if (shown.isEmpty) {
+            return Padding(
+              padding: const EdgeInsets.all(24),
+              child: Text(
+                l.tskEmpty,
+                key: const ValueKey('tasks-empty'),
+                textAlign: TextAlign.center,
+                style: text.bodyLarge?.copyWith(color: k.textMuted),
+              ),
+            );
+          }
+          final t = shown[i - 1];
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TaskTile(
+                key: ValueKey('task-${t.id}'),
+                task: t,
+                workspaceName: names[t.workspaceId],
+                onTap: () => context.push('/tasks/${t.id}'),
+                onToggle: () => _toggle(t),
+              ),
+              Divider(color: k.border, height: 1, indent: 20, endIndent: 20),
+            ],
+          );
+        },
       ),
     );
   }

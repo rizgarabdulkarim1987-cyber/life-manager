@@ -16,7 +16,7 @@ final Provider<TaskReminderSync> taskReminderSyncProvider = Provider<TaskReminde
     tasks: () => ref.read(tasksRepositoryProvider),
     scheduler: ref.watch(reminderSchedulerProvider),
     texts: () async {
-      final s = await ref.read(settingsProvider.future);
+      final s = await ref.read(settingsRepositoryProvider).get();
       final l = lookupAppLocalizations(Locale(s.localeCode));
       return ReminderTexts(
         done: l.tskNotifDone,

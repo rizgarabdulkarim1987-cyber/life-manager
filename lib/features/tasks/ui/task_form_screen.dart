@@ -292,7 +292,6 @@ class _TaskFormScreenState extends ConsumerState<TaskFormScreen> {
                   TextField(
                     key: const ValueKey('task-title'),
                     controller: _title,
-                    autofocus: widget.editId == null,
                     maxLength: 200,
                     textInputAction: TextInputAction.next,
                     decoration: InputDecoration(labelText: l.tskFieldTitle, counterText: ''),

@@ -235,6 +235,9 @@ class _CaptureReviewScreenState extends ConsumerState<CaptureReviewScreen> {
   /// Bumped on every load so the fields rebuild with the new values.
   int _gen = 0;
 
+  /// Back to where the owner came from, or Home when the app was opened straight onto this review (a shared text).
+  void _leave() => context.canPop() ? context.pop() : context.go('/');
+
   CaptureRepository get _repo => CaptureRepository(ref.read(appDatabaseProvider));
 
   @override
@@ -301,10 +304,10 @@ class _CaptureReviewScreenState extends ConsumerState<CaptureReviewScreen> {
           if (e.keep) _commitItem(e),
       ]);
       messenger.showSnackBar(SnackBar(content: Text(l.capDone)));
-      if (mounted) context.pop();
+      if (mounted) _leave();
     } on CaptureAlreadyHandled {
       messenger.showSnackBar(SnackBar(content: Text(l.capAlreadyHandled)));
-      if (mounted) context.pop();
+      if (mounted) _leave();
     } on Exception catch (e) {
       AppLogger.warn('capture save failed', e);
       if (mounted) setState(() => _busy = false);
@@ -319,7 +322,7 @@ class _CaptureReviewScreenState extends ConsumerState<CaptureReviewScreen> {
       if (_items.isNotEmpty) {
         await _repo.setParsed(widget.captureId, [for (final e in _items) e.build()], by: _by ?? 'rules');
       }
-      if (mounted) context.pop();
+      if (mounted) _leave();
     } on Exception catch (e) {
       AppLogger.warn('keep in inbox failed', e);
       if (mounted) setState(() => _busy = false);

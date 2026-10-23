@@ -46,7 +46,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get biometrics => 'Unlock with fingerprint';
 
   @override
-  String get biometricsUnavailable => 'No fingerprint or face unlock is set up on this phone';
+  String get biometricsUnavailable =>
+      'No fingerprint or face unlock is set up on this phone';
 
   @override
   String get changePin => 'Change PIN';
@@ -159,7 +160,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setupWelcome => 'Welcome';
 
   @override
-  String get setupWelcomeBody => 'Everything stays on this phone, under your lock.';
+  String get setupWelcomeBody =>
+      'Everything stays on this phone, under your lock.';
 
   @override
   String get setupChooseLanguage => 'Choose your language';
@@ -177,7 +179,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setupEnableBiometrics => 'Unlock with fingerprint too?';
 
   @override
-  String get setupEnableBiometricsBody => 'Your PIN always works as a fallback.';
+  String get setupEnableBiometricsBody =>
+      'Your PIN always works as a fallback.';
 
   @override
   String get enable => 'Enable';
@@ -243,19 +246,22 @@ class AppLocalizationsEn extends AppLocalizations {
       'Your data stays on this phone. Only if you turn on online AI and agree is a capture\'s voice or text sent to Groq. The vault never leaves the phone.';
 
   @override
-  String get restoreTooNew => 'This backup was made by a newer version of the app. Update the app first.';
+  String get restoreTooNew =>
+      'This backup was made by a newer version of the app. Update the app first.';
 
   @override
   String get restoreWrongPassword => 'Wrong password, or the file is damaged.';
 
   @override
-  String get restoreCorrupt => 'This file is damaged or isn\'t a backup from this app.';
+  String get restoreCorrupt =>
+      'This file is damaged or isn\'t a backup from this app.';
 
   @override
   String get restoreSuccess => 'Restored. Restarting…';
 
   @override
-  String get passwordStrengthWeak => 'Weak: make it longer, or mix letters, numbers and symbols';
+  String get passwordStrengthWeak =>
+      'Weak: make it longer, or mix letters, numbers and symbols';
 
   @override
   String get passwordStrengthFair => 'Fair';
@@ -271,10 +277,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get somethingWentWrong => 'Something went wrong. Please try again.';
 
   @override
-  String get backupFailed => 'The backup couldn\'t be created. Your data is unchanged.';
+  String get backupFailed =>
+      'The backup couldn\'t be created. Your data is unchanged.';
 
   @override
-  String get startupFailed => 'Your data couldn\'t be opened. Nothing was deleted.';
+  String get startupFailed =>
+      'Your data couldn\'t be opened. Nothing was deleted.';
 
   @override
   String get retry => 'Try again';
@@ -479,7 +487,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get finAdjustBalance => 'Adjust balance';
 
   @override
-  String get finAdjustHint => 'Type what is actually in this account. The difference is saved as an adjustment.';
+  String get finAdjustHint =>
+      'Type what is actually in this account. The difference is saved as an adjustment.';
 
   @override
   String get finActualAmount => 'Actual amount';
@@ -657,7 +666,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get finOwnerDraw => 'Owner draw (salary)';
 
   @override
-  String get finOwnerDrawHint => 'Counts as an expense of the business and income of the person';
+  String get finOwnerDrawHint =>
+      'Counts as an expense of the business and income of the person';
 
   @override
   String get finSameAccount => 'Choose two different accounts';
@@ -696,7 +706,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get finEditPercentages => 'Edit percentages';
 
   @override
-  String get finPercentagesNote => 'Must add up to 100%. Only income you split after saving uses the new percentages.';
+  String get finPercentagesNote =>
+      'Must add up to 100%. Only income you split after saving uses the new percentages.';
 
   @override
   String finPercentTotal(String percent) {
@@ -704,7 +715,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get finBucketsUnconfirmed => 'Set your own percentages before splitting income into buckets.';
+  String get finBucketsUnconfirmed =>
+      'Set your own percentages before splitting income into buckets.';
 
   @override
   String get finExpensesMonthly => 'Resets every month';
@@ -918,7 +930,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get repExportPdf => 'Report as PDF';
 
   @override
-  String get repNotEncrypted => 'This file is not encrypted. Anyone who gets it can read it.';
+  String get repNotEncrypted =>
+      'This file is not encrypted. Anyone who gets it can read it.';
 
   @override
   String get repExportFailed => 'Could not save the file';
@@ -948,7 +961,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setBaseCurrency => 'Base currency';
 
   @override
-  String get setBaseCurrencyHint => 'Totals, buckets and reports use it unless you pick another.';
+  String get setBaseCurrencyHint =>
+      'Totals, buckets and reports use it unless you pick another.';
 
   @override
   String setRateDate(String date) {
@@ -959,7 +973,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setRateHistory => 'Rate history';
 
   @override
-  String get setNoRates => 'No rate yet. USD and IQD stay apart until you add one.';
+  String get setNoRates =>
+      'No rate yet. USD and IQD stay apart until you add one.';
 
   @override
   String get setRateSaved => 'Rate saved';
@@ -968,7 +983,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setAlerts => 'Alerts';
 
   @override
-  String get setUnallocatedAlert => 'Remind me about income not split into buckets';
+  String get setUnallocatedAlert =>
+      'Remind me about income not split into buckets';
 
   @override
   String get setUnallocatedAlertHint => 'Shows on the Finance screen';
@@ -1032,7 +1048,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setCountsInBuckets => 'Counts in buckets';
 
   @override
-  String get setCountsInBucketsHint => 'Its expenses come out of the Expenses bucket';
+  String get setCountsInBucketsHint =>
+      'Its expenses come out of the Expenses bucket';
 
   @override
   String setArchiveWorkspace(String name) {
@@ -1080,7 +1097,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get impPickHint => 'An .xlsx or .csv from your bank or an old sheet. Nothing is saved until you tap Import.';
+  String get impPickHint =>
+      'An .xlsx or .csv from your bank or an old sheet. Nothing is saved until you tap Import.';
 
   @override
   String get impPick => 'Choose a file';
@@ -1089,7 +1107,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get impPickAnother => 'Choose another file';
 
   @override
-  String get impTooLarge => 'This file is too big: over 50,000 rows or 64 columns.';
+  String get impTooLarge =>
+      'This file is too big: over 50,000 rows or 64 columns.';
 
   @override
   String get impUnreadable => 'This file could not be read as .xlsx or .csv.';
@@ -1174,7 +1193,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get impDefaultsHint => 'Used for rows that do not say.';
 
   @override
-  String get impNoValues => 'Nothing to match: the file has no type, category, workspace or account column.';
+  String get impNoValues =>
+      'Nothing to match: the file has no type, category, workspace or account column.';
 
   @override
   String get impCreateNew => 'Create new';
@@ -1231,7 +1251,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get impOpeningHint => 'Type what each account really holds today. A difference is saved as an adjustment.';
+  String get impOpeningHint =>
+      'Type what each account really holds today. A difference is saved as an adjustment.';
 
   @override
   String impComputed(String amount) {
@@ -1282,13 +1303,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aiOnline => 'Use online AI';
 
   @override
-  String get aiOnlineHint => 'When off, everything is understood on the phone, a little less accurately.';
+  String get aiOnlineHint =>
+      'When off, everything is understood on the phone, a little less accurately.';
 
   @override
   String get aiKey => 'Groq API key';
 
   @override
-  String get aiKeyHint => 'Free from console.groq.com. Kept encrypted on this phone only.';
+  String get aiKeyHint =>
+      'Free from console.groq.com. Kept encrypted on this phone only.';
 
   @override
   String aiKeySaved(String last4) {
@@ -1311,7 +1334,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aiTestOk => 'The key works.';
 
   @override
-  String get aiTestUnauthorized => 'Groq refused this key. Check it and save it again.';
+  String get aiTestUnauthorized =>
+      'Groq refused this key. Check it and save it again.';
 
   @override
   String get aiTestOffline => 'Could not reach Groq. Check the internet.';
@@ -1347,7 +1371,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aiConsentParseTitle => 'Filling in the form';
 
   @override
-  String get aiConsentVoice => 'Your voice recording is sent to Groq to turn it into text.';
+  String get aiConsentVoice =>
+      'Your voice recording is sent to Groq to turn it into text.';
 
   @override
   String get aiConsentParse =>
@@ -1369,19 +1394,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aiOfflineModel => 'Offline speech model';
 
   @override
-  String get aiOfflineModelHint => 'Turns speech into text on the phone when online AI is off or unreachable.';
+  String get aiOfflineModelHint =>
+      'Turns speech into text on the phone when online AI is off or unreachable.';
 
   @override
   String get consentTitle => 'Send this to Groq?';
 
   @override
-  String get consentWho => 'Groq, Inc. processes it on servers in the United States.';
+  String get consentWho =>
+      'Groq, Inc. processes it on servers in the United States.';
 
   @override
-  String get consentNever => 'Never sent: your balances, past transactions, PIN, backups or the vault.';
+  String get consentNever =>
+      'Never sent: your balances, past transactions, PIN, backups or the vault.';
 
   @override
-  String get consentOff => 'You can turn this off any time in Settings → Online AI.';
+  String get consentOff =>
+      'You can turn this off any time in Settings → Online AI.';
 
   @override
   String get consentAllow => 'Allow';
@@ -1426,13 +1455,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aiModelVerifying => 'Checking the file…';
 
   @override
-  String get aiModelFailed => 'The download stopped. Try again, ideally on Wi-Fi.';
+  String get aiModelFailed =>
+      'The download stopped. Try again, ideally on Wi-Fi.';
 
   @override
-  String get aiModelMismatch => 'The file did not match and was deleted. Try again.';
+  String get aiModelMismatch =>
+      'The file did not match and was deleted. Try again.';
 
   @override
-  String get aiModelSorani => 'Offline, Kurdish (Sorani) is recognised less accurately than Arabic and English.';
+  String get aiModelSorani =>
+      'Offline, Kurdish (Sorani) is recognised less accurately than Arabic and English.';
 
   @override
   String get capMicTooltip => 'Capture by voice (hold to type)';
@@ -1450,7 +1482,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get capProcessing => 'Working it out…';
 
   @override
-  String get capMicDenied => 'Microphone access is off. Allow it in Android settings.';
+  String get capMicDenied =>
+      'Microphone access is off. Allow it in Android settings.';
 
   @override
   String get capTypeHint => 'Type what happened';
@@ -1478,13 +1511,15 @@ class AppLocalizationsEn extends AppLocalizations {
       'No speech engine yet. Turn on online AI or install an offline model in Settings.';
 
   @override
-  String get capReason_sttFailed => 'Couldn\'t turn the recording into text. It is kept in the Inbox.';
+  String get capReason_sttFailed =>
+      'Couldn\'t turn the recording into text. It is kept in the Inbox.';
 
   @override
   String get capReason_empty => 'Nothing was heard.';
 
   @override
-  String get capReason_lowConfidence => 'Not sure what you meant. It is kept in the Inbox.';
+  String get capReason_lowConfidence =>
+      'Not sure what you meant. It is kept in the Inbox.';
 
   @override
   String get capReviewTitle => 'Review';
@@ -1508,7 +1543,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get capCheckThis => 'Check this one';
 
   @override
-  String get capMissingFields => 'Fill in the highlighted fields or turn this one off';
+  String get capMissingFields =>
+      'Fill in the highlighted fields or turn this one off';
 
   @override
   String get capKeepInInbox => 'Keep in Inbox';
@@ -1531,10 +1567,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get capDrop => 'Dropped';
 
   @override
-  String get capNothingFound => 'Nothing to save was found. Edit the text and read it again.';
+  String get capNothingFound =>
+      'Nothing to save was found. Edit the text and read it again.';
 
   @override
-  String get capAlreadyHandled => 'This capture was already saved or discarded.';
+  String get capAlreadyHandled =>
+      'This capture was already saved or discarded.';
 
   @override
   String get capDone => 'Saved';
@@ -1543,7 +1581,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get capInbox => 'Inbox';
 
   @override
-  String get capInboxEmpty => 'Nothing waiting. Anything you say or type and don\'t save lands here.';
+  String get capInboxEmpty =>
+      'Nothing waiting. Anything you say or type and don\'t save lands here.';
 
   @override
   String get capNotTranscribed => 'Voice, not transcribed yet';
@@ -1572,7 +1611,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get capDiscardTitle => 'Discard this capture?';
 
   @override
-  String get capDiscardBody => 'Its text and recording are deleted. Nothing saved from it changes.';
+  String get capDiscardBody =>
+      'Its text and recording are deleted. Nothing saved from it changes.';
 
   @override
   String capWillBecomeTask(int phase) {
@@ -1600,7 +1640,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get vltUnlocking => 'Opening the vault…';
 
   @override
-  String get vltWrongSecret => 'That doesn\'t open the vault. Check it and try again.';
+  String get vltWrongSecret =>
+      'That doesn\'t open the vault. Check it and try again.';
 
   @override
   String vltAttemptsLeft(int count) {
@@ -1621,7 +1662,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get vltRecoveryKey => 'Recovery key';
 
   @override
-  String get vltRecoveryKeyHint => '32 letters and digits; dashes and spaces don\'t matter';
+  String get vltRecoveryKeyHint =>
+      '32 letters and digits; dashes and spaces don\'t matter';
 
   @override
   String get vltUseFingerprint => 'Unlock with fingerprint';
@@ -1662,7 +1704,8 @@ class AppLocalizationsEn extends AppLocalizations {
       'The vault keeps passwords encrypted on this phone only. It has its own master password, separate from the app PIN, and a recovery key in case you forget it. Without one of the two, nobody can open it, not even you.';
 
   @override
-  String get vltSetupTestFirst => 'Use test passwords until you have read the vault security review.';
+  String get vltSetupTestFirst =>
+      'Use test passwords until you have read the vault security review.';
 
   @override
   String get vltSetupStart => 'Get started';
@@ -1682,7 +1725,8 @@ class AppLocalizationsEn extends AppLocalizations {
       'Write this key on paper and keep it somewhere safe. It is the only way back in if you forget the master password. It won\'t be shown again.';
 
   @override
-  String get vltCopied => 'Copied. Cleared from the clipboard after 30 seconds where Android allows it.';
+  String get vltCopied =>
+      'Copied. Cleared from the clipboard after 30 seconds where Android allows it.';
 
   @override
   String get vltCopiedPlain => 'Copied';
@@ -1694,7 +1738,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get vltRecoveryConfirmTitle => 'Type the recovery key back';
 
   @override
-  String get vltRecoveryConfirmBody => 'This checks that you wrote it down correctly.';
+  String get vltRecoveryConfirmBody =>
+      'This checks that you wrote it down correctly.';
 
   @override
   String get vltRecoveryMismatch => 'That doesn\'t match the key shown before.';
@@ -1746,7 +1791,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get vltSettings => 'Vault settings';
 
   @override
-  String get vltSettingsHint => 'Auto-lock, fingerprint, master password, recovery key';
+  String get vltSettingsHint =>
+      'Auto-lock, fingerprint, master password, recovery key';
 
   @override
   String get vltMore => 'More';
@@ -1850,13 +1896,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get vltDeleteTitle => 'Delete this password?';
 
   @override
-  String get vltDeleteBody => 'It can\'t be brought back, except from a backup.';
+  String get vltDeleteBody =>
+      'It can\'t be brought back, except from a backup.';
 
   @override
   String get vltConfirmIdentity => 'Confirm it\'s you';
 
   @override
-  String get vltConfirmIdentityBody => 'Enter the master password to show or copy secrets.';
+  String get vltConfirmIdentityBody =>
+      'Enter the master password to show or copy secrets.';
 
   @override
   String get vltConfirm => 'Confirm';
@@ -1950,13 +1998,15 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get vltAutoLockNote => 'The vault also locks whenever you leave the app or the app locks.';
+  String get vltAutoLockNote =>
+      'The vault also locks whenever you leave the app or the app locks.';
 
   @override
   String get vltFingerprint => 'Unlock with fingerprint';
 
   @override
-  String get vltFingerprintUnavailable => 'No strong fingerprint is set up on this phone.';
+  String get vltFingerprintUnavailable =>
+      'No strong fingerprint is set up on this phone.';
 
   @override
   String get vltChangePassword => 'Change master password';
@@ -1971,7 +2021,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get vltNewRecoveryKey => 'New recovery key';
 
   @override
-  String get vltNewRecoveryKeyBody => 'The old recovery key stops working once you confirm the new one.';
+  String get vltNewRecoveryKeyBody =>
+      'The old recovery key stops working once you confirm the new one.';
 
   @override
   String get vltRecoveryReplaced => 'New recovery key saved';
@@ -2192,7 +2243,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tskAddStep => 'Add a step';
 
   @override
-  String get tskWarnNotifications => 'Notifications are off, so reminders cannot show. Allow them to be reminded.';
+  String get tskWarnNotifications =>
+      'Notifications are off, so reminders cannot show. Allow them to be reminded.';
 
   @override
   String get tskWarnExact =>
@@ -2214,7 +2266,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tskMeetingBody => 'What was said';
 
   @override
-  String get tskMeetingEmpty => 'No meeting notes yet. Write one, then pull its action points out as tasks.';
+  String get tskMeetingEmpty =>
+      'No meeting notes yet. Write one, then pull its action points out as tasks.';
 
   @override
   String get tskExtract => 'Extract action points';

@@ -81,6 +81,19 @@ flutter test integration_test -d <device-id>
 
 ---
 
+## المرحلة 4: المهام والتذكيرات
+
+- **التحديث فوق المرحلة 3:** ثبّت الـ APK الجديد (الإصدار 1.3.0) فوق القديم؛ بياناتك تبقى. أنشئ نسخة احتياطية قبل التحديث. تُضاف جداول المهام فارغة تلقائياً.
+- **المهام:** تبويب **المهام**: أضف مهمة بسرعة من الحقل العلوي، أو من زر «+» لنموذج كامل (الأولوية، مساحة العمل، الموعد والوقت، التذكير، التكرار، الوسوم، الخطوات). العروض: الوارد، اليوم، غداً، هذا الأسبوع، القادمة، المتأخرة، المكتملة، الكل، مع تصفية حسب مساحة العمل وترتيب حسب الموعد أو الأولوية. زر التقويم يعرض الشهر وعدد المهام في كل يوم.
+- **التكرار:** عند إتمام مهمة متكررة تُنشأ المهمة التالية تلقائياً بموعد في المستقبل، وتُنسخ خطواتها مفتوحة.
+- **التذكيرات:** منبهات أندرويد المحلية بدون أي خدمة من Google. عند أول تذكير يطلب التطبيق إذن الإشعارات. إذا لم يُسمح بالمنبهات الدقيقة فقد يتأخر التذكير بضع دقائق، وتظهر في شاشة المهام ملاحظة بزر لفتح إعداداتها. على الإشعار: **تمّت** و**تأجيل 10 دقائق** و**تأجيل ساعة**، ولمس الإشعار يفتح المهمة. يتكرر الإشعار كل ساعة حتى تنهي المهمة أو تؤجلها (حتى 72 مرة). **«ذكّرني غداً 9 صباحاً»** زر داخل شاشة المهمة. تُعاد جدولة التذكيرات بعد إعادة تشغيل الهاتف أو تغيير الوقت أو المنطقة الزمنية أو تحديث التطبيق.
+- **المشاركة من واتساب وغيره:** شارك نصاً إلى «مدير حياتي» فيُفتح في مراجعة الالتقاط مقسّماً إلى مهام (سطر أو جملة لكل مهمة) تُبقي منها ما تريد. لا يُرسل شيء إلى الإنترنت في هذه الخطوة.
+- **ملاحظات الاجتماعات:** من المهام ← أيقونة الاجتماعات: اكتب الملاحظة ثم «استخراج نقاط العمل» لتحويل ما تريد منها إلى مهام مرتبطة بالملاحظة.
+- **أذونات جديدة:** الإشعارات، والمنبهات الدقيقة، وبدء التشغيل لإعادة جدولة التذكيرات.
+- **اختبارات الجهاز:** المنبهات والإشعارات وأزرارها وإعادة الجدولة بعد التشغيل والمشاركة من تطبيقات أخرى لم تُجرَّب بعد على هاتف حقيقي (لا هاتف موصول أثناء البناء). جرّبها بمهمة تذكيرها بعد دقيقتين قبل أن تعتمد عليها.
+
+---
+
 ---
 
 # Install and build — My Life Manager
@@ -163,3 +176,14 @@ Status: not yet run on a real phone (no phone was connected while Phase 1 was bu
 - **Backups:** the vault travels encrypted inside the backup and opens on any phone with the master password or the recovery key.
 - **⚠️ Use test passwords only** until you have read the security review (`docs/superpowers/specs/2026-10-23-phase-3-vault-security-review.md`) and run the on-phone checks it lists. Moving real passwords in is your decision.
 - **On-device checks:** the Keystore fingerprint key, its invalidation on a new fingerprint, clipboard clearing on Android 13+ and Argon2id timing on the phone have not been run on a real phone yet (none was connected while Phase 3 was built).
+
+## Phase 4: Tasks and reminders
+
+- **Updating over Phase 3:** install the new APK (version 1.3.0) over the old one; your data stays. Take a backup first. The task tables are added empty.
+- **Tasks:** the **Tasks** tab. Add one fast from the field at the top, or with "+" for the full form (priority, workspace, due date and time, reminder, repeat, tags, steps). Views: Inbox, Today, Tomorrow, This week, Upcoming, Overdue, Completed, All, with a workspace filter and a sort by due date or priority. The calendar button shows the month with the number of tasks on each day.
+- **Repeating:** finishing a repeating task creates the next one, always dated in the future, with its steps copied as open.
+- **Reminders:** local Android alarms, no Google service. The first reminder asks for the notification permission. If exact alarms are not allowed a reminder can be a few minutes late, and the Tasks screen shows a note with a button to those settings. The notification has **Done**, **Snooze 10 min** and **Snooze 1 h**; tapping it opens the task. It repeats every hour until you finish or snooze the task (up to 72 times). *Remind tomorrow 9:00* is a button inside the task. Reminders are rescheduled after a reboot, a time or time-zone change, and an app update.
+- **Sharing from WhatsApp and others:** share text to My Life Manager and it opens in Capture Review split into tasks (one per line or sentence); keep, edit or drop each. Nothing is sent to the internet in this step.
+- **Meeting notes:** Tasks → the meetings icon: write the note, then *Extract action points* to turn the ones you want into tasks linked to the note.
+- **New permissions:** notifications, exact alarms, and run-at-boot (to reschedule reminders).
+- **On-device checks:** alarms, notifications and their buttons, rescheduling after a reboot and sharing from other apps have not been run on a real phone yet (none was connected while Phase 4 was built). Try a task with a reminder two minutes away before relying on it.
