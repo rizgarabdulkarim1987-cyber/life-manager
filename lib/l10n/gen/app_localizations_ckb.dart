@@ -1586,4 +1586,405 @@ class AppLocalizationsCkb extends AppLocalizations {
   String capWillBecomeNote(int phase) {
     return 'دەبێتە تێبینی لە قۆناغی $phase';
   }
+
+  @override
+  String get vltLocked => 'گەنجینە داخراوە';
+
+  @override
+  String get vltLockedBody => 'وشەی نهێنیی سەرەکی بنووسە بۆ کردنەوەی.';
+
+  @override
+  String get vltMasterPassword => 'وشەی نهێنیی سەرەکی';
+
+  @override
+  String get vltUnlock => 'کردنەوە';
+
+  @override
+  String get vltUnlocking => 'گەنجینە دەکرێتەوە…';
+
+  @override
+  String get vltWrongSecret => 'ئەمە گەنجینەکە ناکاتەوە. بیپشکنە و دووبارە هەوڵ بدەرەوە.';
+
+  @override
+  String vltAttemptsLeft(int count) {
+    return '$count هەوڵ ماوە پێش وەستان';
+  }
+
+  @override
+  String get vltCorrupt => 'داتای گەنجینە تێکچووە. هیچ نەسڕایەوە؛ ئەگەر دووبارە بووەوە، باکئەپێک بگەڕێنەوە.';
+
+  @override
+  String get vltUseRecoveryKey => 'کلیلی گەڕاندنەوە بەکاربهێنە';
+
+  @override
+  String get vltUsePassword => 'وشەی نهێنیی سەرەکی بەکاربهێنە';
+
+  @override
+  String get vltRecoveryKey => 'کلیلی گەڕاندنەوە';
+
+  @override
+  String get vltRecoveryKeyHint => '32 پیت و ژمارە؛ هێڵ و بۆشایی گرنگ نین';
+
+  @override
+  String get vltUseFingerprint => 'بە پەنجەمۆر بیکەرەوە';
+
+  @override
+  String get vltBioTitle => 'کردنەوەی گەنجینە';
+
+  @override
+  String get vltBioSubtitle => 'دەست لە هەستەوەری پەنجەمۆر بدە';
+
+  @override
+  String get vltBioInvalidated =>
+      'کردنەوە بە پەنجەمۆر ناچالاک کرا چونکە پەنجەمۆرەکانی مۆبایل گۆڕان یان باکئەپێک گەڕێندرایەوە. بە وشەی نهێنیی سەرەکی بیکەرەوە، پاشان لە ڕێکخستنەکانی گەنجینە دووبارە چالاکی بکە.';
+
+  @override
+  String get vltNewPasswordTitle => 'وشەی نهێنیی سەرەکیی نوێ دابنێ';
+
+  @override
+  String get vltNewPasswordBody =>
+      'گەنجینەکەت بە کلیلی گەڕاندنەوە کردەوە. پێش بەردەوامبوون وشەی نهێنیی سەرەکیی نوێ هەڵبژێرە.';
+
+  @override
+  String get vltNewPassword => 'وشەی نهێنیی سەرەکیی نوێ';
+
+  @override
+  String vltPasswordTooShort(int min) {
+    return 'لانیکەم $min پیت';
+  }
+
+  @override
+  String get vltStrengthVeryStrong => 'زۆر بەهێز';
+
+  @override
+  String get vltSetupTitle => 'گەنجینەکەت ئامادە بکە';
+
+  @override
+  String get vltSetupIntro =>
+      'گەنجینە وشە نهێنییەکان بە شێوەی کۆدکراو تەنها لەسەر ئەم مۆبایلە هەڵدەگرێت. وشەی نهێنیی سەرەکیی تایبەتی خۆی هەیە، جیا لە PINی ئەپەکە، و کلیلی گەڕاندنەوە بۆ کاتی لەبیرچوون. بەبێ یەکێکیان کەس ناتوانێت بیکاتەوە، تەنانەت خۆشت.';
+
+  @override
+  String get vltSetupTestFirst => 'تا پێداچوونەوەی ئاسایشی گەنجینە نەخوێنیتەوە، وشەی نهێنیی تاقیکاری بەکاربهێنە.';
+
+  @override
+  String get vltSetupStart => 'دەست پێبکە';
+
+  @override
+  String get vltSetupPasswordBody =>
+      'لانیکەم 10 پیت. چەند وشەیەکی هەڕەمەکی ئاسانترن بۆ لەبەرکردن و قورسترن بۆ مەزەندەکردن لە وشەیەکی نهێنیی کورتی ئاڵۆز.';
+
+  @override
+  String get vltPreparing => 'کۆدکردن ئامادە دەکرێت… چەند چرکەیەک دەخایەنێت.';
+
+  @override
+  String get vltRecoveryTitle => 'کلیلی گەڕاندنەوەکەت';
+
+  @override
+  String get vltRecoveryBody =>
+      'ئەم کلیلە لەسەر کاغەز بنووسە و لە شوێنێکی پارێزراو دایبنێ. تاکە ڕێگەیە بۆ چوونەژوورەوە ئەگەر وشەی نهێنیی سەرەکیت لەبیرچوو. جارێکی تر پیشان نادرێتەوە.';
+
+  @override
+  String get vltCopied => 'کۆپی کرا. دوای 30 چرکە لە کلیپبۆرد دەسڕدرێتەوە ئەگەر ئەندرۆید ڕێگە بدات.';
+
+  @override
+  String get vltCopiedPlain => 'کۆپی کرا';
+
+  @override
+  String get vltCopyFailed => 'کۆپی نەکرا';
+
+  @override
+  String get vltRecoveryConfirmTitle => 'کلیلی گەڕاندنەوە دووبارە بنووسە';
+
+  @override
+  String get vltRecoveryConfirmBody => 'ئەمە دڵنیا دەبێتەوە کە بە دروستی نووسیوتە.';
+
+  @override
+  String get vltRecoveryMismatch => 'ئەمە لەگەڵ ئەو کلیلەی پێشتر پیشاندرا یەک ناگرێتەوە.';
+
+  @override
+  String get vltSetupBioTitle => 'کردنەوە بە پەنجەمۆر؟';
+
+  @override
+  String get vltSetupBioBody =>
+      'پەنجەمۆرەکەت دەتوانێت گەنجینە لەسەر ئەم مۆبایلە بکاتەوە. وشەی نهێنیی سەرەکی هەر کار دەکات، و PINی مۆبایل هەرگیز قبوڵ ناکرێت.';
+
+  @override
+  String get vltSetupDone => 'تەواو';
+
+  @override
+  String get vltNotNow => 'ئێستا نا';
+
+  @override
+  String get vltSearch => 'گەڕان لە ناونیشان، ماڵپەڕ و ناوی بەکارهێنەر';
+
+  @override
+  String get vltAll => 'هەموو';
+
+  @override
+  String get vltFavorites => 'دڵخوازەکان';
+
+  @override
+  String get vltEmpty => 'هێشتا هیچ وشەیەکی نهێنی نییە';
+
+  @override
+  String get vltEmptyBody => 'یەکێک زیاد بکە، یان لە تێبینییەکانتەوە هاوردەیان بکە.';
+
+  @override
+  String get vltNoMatches => 'هیچ شتێک نەدۆزرایەوە';
+
+  @override
+  String get vltAdd => 'زیادکردنی وشەی نهێنی';
+
+  @override
+  String get vltLock => 'داخستنی گەنجینە';
+
+  @override
+  String get vltGenerator => 'دروستکەری وشەی نهێنی';
+
+  @override
+  String get vltImport => 'هاوردەکردن لە تێبینییەکان';
+
+  @override
+  String get vltSettings => 'ڕێکخستنەکانی گەنجینە';
+
+  @override
+  String get vltSettingsHint => 'داخستنی خۆکار، پەنجەمۆر، وشەی نهێنیی سەرەکی، کلیلی گەڕاندنەوە';
+
+  @override
+  String get vltMore => 'زیاتر';
+
+  @override
+  String get vltSort => 'ڕیزکردن';
+
+  @override
+  String get vltSortTitle => 'بەپێی ناو';
+
+  @override
+  String get vltSortUpdated => 'دوایین گۆڕاو';
+
+  @override
+  String get vltSortCreated => 'دوایین زیادکراو';
+
+  @override
+  String get vltCatPersonal => 'کەسی';
+
+  @override
+  String get vltCatBusiness => 'بازرگانی';
+
+  @override
+  String get vltCatSocial => 'تۆڕی کۆمەڵایەتی';
+
+  @override
+  String get vltCatBanking => 'بانک';
+
+  @override
+  String get vltCatHosting => 'هۆستینگ';
+
+  @override
+  String get vltCatDomain => 'دۆمەین';
+
+  @override
+  String get vltCatEmail => 'ئیمەیڵ';
+
+  @override
+  String get vltCatMarketing => 'بازاڕکردن';
+
+  @override
+  String get vltCatDev => 'پەرەپێدان';
+
+  @override
+  String get vltCatOther => 'هیتر';
+
+  @override
+  String get vltTitle => 'ناونیشان';
+
+  @override
+  String get vltUrl => 'ماڵپەڕ';
+
+  @override
+  String get vltUsername => 'ناوی بەکارهێنەر';
+
+  @override
+  String get vltEmail => 'ئیمەیڵ';
+
+  @override
+  String get vltPassword => 'وشەی نهێنی';
+
+  @override
+  String get vltNotes => 'تێبینی';
+
+  @override
+  String get vltRecoveryCodes => 'کۆدەکانی گەڕاندنەوە';
+
+  @override
+  String get vltCategory => 'پۆل';
+
+  @override
+  String get vltWorkspace => 'شوێنی کار';
+
+  @override
+  String get vltNoWorkspace => 'هیچ';
+
+  @override
+  String get vltFavorite => 'دڵخواز';
+
+  @override
+  String get vltReveal => 'پیشاندان';
+
+  @override
+  String get vltHide => 'شاردنەوە';
+
+  @override
+  String get vltCopy => 'کۆپی';
+
+  @override
+  String vltPasswordChanged(String date) {
+    return 'وشەی نهێنی گۆڕدرا $date';
+  }
+
+  @override
+  String get vltEdit => 'دەستکاری';
+
+  @override
+  String get vltDelete => 'سڕینەوە';
+
+  @override
+  String get vltDeleteTitle => 'ئەم وشە نهێنییە بسڕیتەوە؟';
+
+  @override
+  String get vltDeleteBody => 'ناگەڕێتەوە، تەنها لە باکئەپەوە نەبێت.';
+
+  @override
+  String get vltConfirmIdentity => 'پشتڕاستی بکەرەوە کە خۆتی';
+
+  @override
+  String get vltConfirmIdentityBody => 'وشەی نهێنیی سەرەکی بنووسە بۆ پیشاندان یان کۆپیکردنی نهێنییەکان.';
+
+  @override
+  String get vltConfirm => 'پشتڕاستکردنەوە';
+
+  @override
+  String get vltNewItem => 'وشەی نهێنیی نوێ';
+
+  @override
+  String get vltEditItem => 'دەستکاریی وشەی نهێنی';
+
+  @override
+  String get vltGenerate => 'دروستکردن';
+
+  @override
+  String get vltDiscardTitle => 'گۆڕانکارییەکان فڕێبدرێن؟';
+
+  @override
+  String get vltDiscard => 'فڕێدان';
+
+  @override
+  String get vltKeepEditing => 'بەردەوامبوون لە دەستکاری';
+
+  @override
+  String vltLength(int n) {
+    return 'درێژی: $n';
+  }
+
+  @override
+  String get vltLower => 'پیتی بچووک (a–z)';
+
+  @override
+  String get vltUpper => 'پیتی گەورە (A–Z)';
+
+  @override
+  String get vltDigits => 'ژمارە (0–9)';
+
+  @override
+  String get vltSymbols => 'هێما (!@#)';
+
+  @override
+  String get vltAvoidLookAlikes => 'دوورکەوتنەوە لە هاوشێوەکان (I l 1 O 0)';
+
+  @override
+  String vltEntropy(int bits) {
+    return 'نزیکەی $bits بیت هەڕەمەکی';
+  }
+
+  @override
+  String get vltRegenerate => 'وشەیەکی تر';
+
+  @override
+  String get vltUseThis => 'ئەم وشە نهێنییە بەکاربهێنە';
+
+  @override
+  String get vltImportBody =>
+      'دەقەکە لە تێبینییەکانتەوە بلکێنە. تەنها لەسەر ئەم مۆبایلە دەخوێندرێتەوە؛ بۆ هیچ شوێنێک نانێردرێت.';
+
+  @override
+  String get vltImportHint => 'تێبینییەکانت لێرە بلکێنە';
+
+  @override
+  String get vltFindItems => 'دۆزینەوەی بڕگەکان';
+
+  @override
+  String get vltFoundNone => 'هیچ وشەیەکی نهێنی لەم دەقەدا نەدۆزرایەوە.';
+
+  @override
+  String get vltImportTooLong => 'دەقەکە زۆر درێژە. بەشێکی بچووکتر بلکێنە.';
+
+  @override
+  String get vltKeep => 'هەڵگرتن';
+
+  @override
+  String vltSaveN(int count) {
+    return 'پاشەکەوتکردنی $count';
+  }
+
+  @override
+  String get vltImportDoneTitle => 'ئێستا تێبینییە ڕەسەنەکە بسڕەوە';
+
+  @override
+  String get vltImportDoneBody =>
+      'وشە نهێنییەکان لە گەنجینەدان. ئەو تێبینییەی لێیەوە کۆپیت کردن هێشتا وەک دەقی ئاسایی لە ئەپی تێبینییەکاندایە؛ خۆت بیسڕەوە.';
+
+  @override
+  String get vltAutoLock => 'داخستنی خۆکار';
+
+  @override
+  String vltAutoLockAfter(int minutes) {
+    return 'دوای $minutes خولەک بێ بەکارهێنان';
+  }
+
+  @override
+  String get vltAutoLockNote => 'گەنجینە هەروەها دادەخرێت هەر کاتێک لە ئەپەکە دەرچیت یان ئەپەکە دابخرێت.';
+
+  @override
+  String get vltFingerprint => 'کردنەوە بە پەنجەمۆر';
+
+  @override
+  String get vltFingerprintUnavailable => 'هیچ پەنجەمۆرێکی بەهێز لەسەر ئەم مۆبایلە ڕێک نەخراوە.';
+
+  @override
+  String get vltChangePassword => 'گۆڕینی وشەی نهێنیی سەرەکی';
+
+  @override
+  String get vltCurrentPassword => 'وشەی نهێنیی سەرەکیی ئێستا';
+
+  @override
+  String get vltPasswordChangedOk => 'وشەی نهێنیی سەرەکی گۆڕدرا';
+
+  @override
+  String get vltNewRecoveryKey => 'کلیلی گەڕاندنەوەی نوێ';
+
+  @override
+  String get vltNewRecoveryKeyBody => 'کلیلی گەڕاندنەوەی کۆن کار ناکات کاتێک نوێکە پشتڕاست دەکەیتەوە.';
+
+  @override
+  String get vltRecoveryReplaced => 'کلیلی گەڕاندنەوەی نوێ پاشەکەوت کرا';
+
+  @override
+  String get vltHowProtected => 'گەنجینەکەت چۆن دەپارێزرێت';
+
+  @override
+  String get vltHowProtectedBody =>
+      'هەر وشەیەکی نهێنی، تێبینی و کۆدی گەڕاندنەوە بە AES-256-GCM و کلیلێکی هەڕەمەکیی گەنجینە کۆد دەکرێت. ئەو کلیلە بە وشەی نهێنیی سەرەکیت (Argon2id)، بە کلیلی گەڕاندنەوە، و ئەگەر چالاکی بکەیت، بە کلیلێکی تەنها-پەنجەمۆر لەناو ڕەقەکاڵای پارێزراوی مۆبایل قفڵ دەکرێت. ناونیشان، ماڵپەڕ و ناوی بەکارهێنەر لە داتابەیسی کۆدکراوی ئەپەکەدا هەڵدەگیرێن بۆ ئەوەی بتوانیت تێیاندا بگەڕێیت. هیچ شتێکی گەنجینە بۆ ئینتەرنێت یان AI نانێردرێت. باکئەپەکان گەنجینە بە کۆدکراوی هەڵدەگرن؛ دوای گەڕاندنەوە دەبێت کردنەوە بە پەنجەمۆر دووبارە چالاک بکرێتەوە. نهێنییە کۆپیکراوەکان وەک هەستیار نیشانە دەکرێن و دوای 30 چرکە دەسڕدرێنەوە ئەگەر ئەندرۆید ڕێگە بدات.';
+
+  @override
+  String get vltFillIn => 'ئەم خانەیە پڕ بکەرەوە';
 }

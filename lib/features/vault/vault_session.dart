@@ -27,7 +27,10 @@ final class VaultLocked extends VaultState {
 }
 
 final class VaultUnlocked extends VaultState {
-  const VaultUnlocked();
+  const VaultUnlocked({this.mustChangePassword = false});
+
+  /// Opened with the recovery key: a new master password comes first (plan Decision 9).
+  final bool mustChangePassword;
 }
 
 /// Holds the vault key while the vault is open, and nothing else. Locking
@@ -53,12 +56,17 @@ class VaultSession extends Notifier<VaultState> {
     state = setUp ? const VaultLocked() : const VaultNotSetUp();
   }
 
-  void unlocked(VaultKey k) {
+  void unlocked(VaultKey k, {bool mustChangePassword = false}) {
     _wipe();
     _key = k;
     _lastAuthAt = _now();
-    state = const VaultUnlocked();
+    state = VaultUnlocked(mustChangePassword: mustChangePassword);
     _armIdle();
+  }
+
+  /// The forced new master password was saved.
+  void passwordReplaced() {
+    if (_key != null) state = const VaultUnlocked();
   }
 
   VaultKey requireKey() {

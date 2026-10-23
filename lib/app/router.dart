@@ -29,6 +29,12 @@ import '../features/setup/splash_screen.dart';
 import '../features/shell/home_screen.dart';
 import '../features/shell/placeholder_screen.dart';
 import '../features/shell/shell_scaffold.dart';
+import '../features/vault/ui/vault_gate.dart';
+import '../features/vault/ui/vault_import_screen.dart';
+import '../features/vault/ui/vault_item_form_screen.dart';
+import '../features/vault/ui/vault_item_screen.dart';
+import '../features/vault/ui/vault_list_screen.dart';
+import '../features/vault/ui/vault_settings_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final router = buildRouter();
@@ -151,10 +157,42 @@ GoRouter buildRouter() => GoRouter(
         ),
         StatefulShellBranch(
           routes: [
+            // Every vault route renders through VaultGate; forms and details cover the shell.
             GoRoute(
               path: '/vault',
-              builder: (context, _) =>
-                  PlaceholderScreen(title: context.l10n.navVault, phase: 3, icon: Icons.shield_outlined),
+              builder: (_, _) => VaultGate(builder: (_) => const VaultListScreen()),
+              routes: [
+                GoRoute(
+                  path: 'new',
+                  parentNavigatorKey: _rootKey,
+                  builder: (_, _) => VaultGate(builder: (_) => const VaultItemFormScreen()),
+                ),
+                GoRoute(
+                  path: 'item/:id',
+                  parentNavigatorKey: _rootKey,
+                  builder: (_, state) =>
+                      VaultGate(builder: (_) => VaultItemScreen(itemId: int.parse(state.pathParameters['id']!))),
+                  routes: [
+                    GoRoute(
+                      path: 'edit',
+                      parentNavigatorKey: _rootKey,
+                      builder: (_, state) => VaultGate(
+                        builder: (_) => VaultItemFormScreen(editId: int.parse(state.pathParameters['id']!)),
+                      ),
+                    ),
+                  ],
+                ),
+                GoRoute(
+                  path: 'import',
+                  parentNavigatorKey: _rootKey,
+                  builder: (_, _) => VaultGate(builder: (_) => const VaultImportScreen()),
+                ),
+                GoRoute(
+                  path: 'settings',
+                  parentNavigatorKey: _rootKey,
+                  builder: (_, _) => VaultGate(builder: (_) => const VaultSettingsScreen()),
+                ),
+              ],
             ),
           ],
         ),

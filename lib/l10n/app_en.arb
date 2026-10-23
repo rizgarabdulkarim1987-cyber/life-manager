@@ -860,5 +860,180 @@
         "type": "int"
       }
     }
-  }
+  },
+  "vltLocked": "Vault locked",
+  "vltLockedBody": "Enter your master password to open it.",
+  "vltMasterPassword": "Master password",
+  "vltUnlock": "Unlock",
+  "vltUnlocking": "Opening the vault…",
+  "vltWrongSecret": "That doesn't open the vault. Check it and try again.",
+  "vltAttemptsLeft": "{count} tries left before a pause",
+  "@vltAttemptsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "vltCorrupt": "The vault data looks damaged. Nothing was deleted; if this keeps happening, restore a backup.",
+  "vltUseRecoveryKey": "Use recovery key",
+  "vltUsePassword": "Use master password",
+  "vltRecoveryKey": "Recovery key",
+  "vltRecoveryKeyHint": "32 letters and digits; dashes and spaces don't matter",
+  "vltUseFingerprint": "Unlock with fingerprint",
+  "vltBioTitle": "Open the vault",
+  "vltBioSubtitle": "Touch the fingerprint sensor",
+  "vltBioInvalidated": "Fingerprint unlock was turned off because the phone's fingerprints changed or a backup was restored. Unlock with your master password, then turn it on again in vault settings.",
+  "vltNewPasswordTitle": "Set a new master password",
+  "vltNewPasswordBody": "You opened the vault with the recovery key. Choose a new master password before you continue.",
+  "vltNewPassword": "New master password",
+  "vltPasswordTooShort": "At least {min} characters",
+  "@vltPasswordTooShort": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      }
+    }
+  },
+  "vltStrengthVeryStrong": "Very strong",
+  "vltSetupTitle": "Set up your vault",
+  "vltSetupIntro": "The vault keeps passwords encrypted on this phone only. It has its own master password, separate from the app PIN, and a recovery key in case you forget it. Without one of the two, nobody can open it, not even you.",
+  "vltSetupTestFirst": "Use test passwords until you have read the vault security review.",
+  "vltSetupStart": "Get started",
+  "vltSetupPasswordBody": "At least 10 characters. A few random words are easier to remember and harder to guess than a short complicated password.",
+  "vltPreparing": "Preparing encryption… this takes a few seconds.",
+  "vltRecoveryTitle": "Your recovery key",
+  "vltRecoveryBody": "Write this key on paper and keep it somewhere safe. It is the only way back in if you forget the master password. It won't be shown again.",
+  "vltCopied": "Copied. Cleared from the clipboard after 30 seconds where Android allows it.",
+  "vltCopiedPlain": "Copied",
+  "vltCopyFailed": "Couldn't copy",
+  "vltRecoveryConfirmTitle": "Type the recovery key back",
+  "vltRecoveryConfirmBody": "This checks that you wrote it down correctly.",
+  "vltRecoveryMismatch": "That doesn't match the key shown before.",
+  "vltSetupBioTitle": "Unlock with fingerprint?",
+  "vltSetupBioBody": "Your fingerprint can open the vault on this phone. The master password still works, and the phone's PIN is never accepted.",
+  "vltSetupDone": "Finish",
+  "vltNotNow": "Not now",
+  "vltSearch": "Search titles, sites and usernames",
+  "vltAll": "All",
+  "vltFavorites": "Favourites",
+  "vltEmpty": "No passwords yet",
+  "vltEmptyBody": "Add one, or import them from your notes.",
+  "vltNoMatches": "Nothing matches",
+  "vltAdd": "Add password",
+  "vltLock": "Lock vault",
+  "vltGenerator": "Password generator",
+  "vltImport": "Import from notes",
+  "vltSettings": "Vault settings",
+  "vltSettingsHint": "Auto-lock, fingerprint, master password, recovery key",
+  "vltMore": "More",
+  "vltSort": "Sort",
+  "vltSortTitle": "By name",
+  "vltSortUpdated": "Recently changed",
+  "vltSortCreated": "Recently added",
+  "vltCatPersonal": "Personal",
+  "vltCatBusiness": "Business",
+  "vltCatSocial": "Social",
+  "vltCatBanking": "Banking",
+  "vltCatHosting": "Hosting",
+  "vltCatDomain": "Domains",
+  "vltCatEmail": "Email",
+  "vltCatMarketing": "Marketing",
+  "vltCatDev": "Development",
+  "vltCatOther": "Other",
+  "vltTitle": "Title",
+  "vltUrl": "Website",
+  "vltUsername": "Username",
+  "vltEmail": "Email",
+  "vltPassword": "Password",
+  "vltNotes": "Notes",
+  "vltRecoveryCodes": "Recovery codes",
+  "vltCategory": "Category",
+  "vltWorkspace": "Workspace",
+  "vltNoWorkspace": "None",
+  "vltFavorite": "Favourite",
+  "vltReveal": "Show",
+  "vltHide": "Hide",
+  "vltCopy": "Copy",
+  "vltPasswordChanged": "Password changed {date}",
+  "@vltPasswordChanged": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "vltEdit": "Edit",
+  "vltDelete": "Delete",
+  "vltDeleteTitle": "Delete this password?",
+  "vltDeleteBody": "It can't be brought back, except from a backup.",
+  "vltConfirmIdentity": "Confirm it's you",
+  "vltConfirmIdentityBody": "Enter the master password to show or copy secrets.",
+  "vltConfirm": "Confirm",
+  "vltNewItem": "New password",
+  "vltEditItem": "Edit password",
+  "vltGenerate": "Generate",
+  "vltDiscardTitle": "Discard changes?",
+  "vltDiscard": "Discard",
+  "vltKeepEditing": "Keep editing",
+  "vltLength": "Length: {n}",
+  "@vltLength": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "vltLower": "Lowercase (a–z)",
+  "vltUpper": "Uppercase (A–Z)",
+  "vltDigits": "Digits (0–9)",
+  "vltSymbols": "Symbols (!@#)",
+  "vltAvoidLookAlikes": "Avoid look-alikes (I l 1 O 0)",
+  "vltEntropy": "About {bits} bits of entropy",
+  "@vltEntropy": {
+    "placeholders": {
+      "bits": {
+        "type": "int"
+      }
+    }
+  },
+  "vltRegenerate": "New password",
+  "vltUseThis": "Use this password",
+  "vltImportBody": "Paste the text from your notes. It is read on this phone only; nothing is sent anywhere.",
+  "vltImportHint": "Paste your notes here",
+  "vltFindItems": "Find items",
+  "vltFoundNone": "No passwords found in this text.",
+  "vltImportTooLong": "That text is too long. Paste a smaller part.",
+  "vltKeep": "Keep",
+  "vltSaveN": "Save {count}",
+  "@vltSaveN": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "vltImportDoneTitle": "Now delete the original note",
+  "vltImportDoneBody": "The passwords are in the vault. The note you copied them from is still in your notes app as plain text; delete it yourself.",
+  "vltAutoLock": "Auto-lock",
+  "vltAutoLockAfter": "After {minutes} min without use",
+  "@vltAutoLockAfter": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "vltAutoLockNote": "The vault also locks whenever you leave the app or the app locks.",
+  "vltFingerprint": "Unlock with fingerprint",
+  "vltFingerprintUnavailable": "No strong fingerprint is set up on this phone.",
+  "vltChangePassword": "Change master password",
+  "vltCurrentPassword": "Current master password",
+  "vltPasswordChangedOk": "Master password changed",
+  "vltNewRecoveryKey": "New recovery key",
+  "vltNewRecoveryKeyBody": "The old recovery key stops working once you confirm the new one.",
+  "vltRecoveryReplaced": "New recovery key saved",
+  "vltHowProtected": "How your vault is protected",
+  "vltHowProtectedBody": "Each password, note and recovery code is encrypted with AES-256-GCM using a random vault key. That key is locked by your master password (Argon2id), by your recovery key, and, if you turn it on, by a fingerprint-only key inside the phone's secure hardware. Titles, sites and usernames are stored in the app's encrypted database so you can search them. Nothing in the vault is sent to the internet or to the AI. Backups carry the vault still encrypted; fingerprint unlock must be turned on again after a restore. Copied secrets are marked sensitive and cleared after 30 seconds where Android allows it.",
+  "vltFillIn": "Fill in this field"
 }

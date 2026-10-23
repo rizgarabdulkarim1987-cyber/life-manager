@@ -1,9 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../app/providers.dart';
+import '../../../core/db/app_database.dart';
 import '../crypto/field_cipher.dart';
 import '../crypto/key_wrap.dart';
 import '../platform/biometric_key_store.dart';
+import '../platform/secret_clipboard.dart';
 import 'unlock_throttle.dart';
 import 'vault_items_repository.dart';
 import 'vault_key_service.dart';
@@ -38,4 +40,20 @@ final vaultItemsRepositoryProvider = Provider<VaultItemsRepository>(
 /// Whether this phone has fingerprint unlock on for the vault; invalidate after changing it.
 final vaultBiometricEnabledProvider = FutureProvider<bool>(
   (ref) => ref.watch(vaultKeyServiceProvider).biometricEnabled(),
+);
+
+final secretClipboardProvider = Provider<SecretClipboard>((ref) => PlatformSecretClipboard());
+
+/// The list screen's items for one query (plain fields only).
+final vaultItemsProvider = StreamProvider.family<List<VaultItem>, VaultQuery>(
+  (ref, q) => ref.watch(vaultItemsRepositoryProvider).watch(q),
+);
+
+final vaultItemProvider = StreamProvider.family<VaultItem?, int>(
+  (ref, id) => ref.watch(vaultItemsRepositoryProvider).watchOne(id),
+);
+
+/// Whether this phone has a strong biometric the vault key can be bound to.
+final vaultBiometricAvailableProvider = FutureProvider<bool>(
+  (ref) => ref.watch(vaultKeyServiceProvider).biometricAvailable(),
 );

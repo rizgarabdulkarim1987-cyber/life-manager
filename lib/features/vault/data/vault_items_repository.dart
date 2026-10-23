@@ -69,6 +69,24 @@ class VaultQuery {
   final String? category;
   final bool favoritesOnly;
   final VaultSort sort;
+
+  VaultQuery copyWith({String? text, String? Function()? category, bool? favoritesOnly, VaultSort? sort}) => VaultQuery(
+    text: text ?? this.text,
+    category: category == null ? this.category : category(),
+    favoritesOnly: favoritesOnly ?? this.favoritesOnly,
+    sort: sort ?? this.sort,
+  );
+
+  @override
+  bool operator ==(Object other) =>
+      other is VaultQuery &&
+      other.text == text &&
+      other.category == category &&
+      other.favoritesOnly == favoritesOnly &&
+      other.sort == sort;
+
+  @override
+  int get hashCode => Object.hash(text, category, favoritesOnly, sort);
 }
 
 /// Vault items in the database. Secret fields are sealed per field with the
