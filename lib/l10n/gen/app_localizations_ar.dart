@@ -1876,4 +1876,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get homeExpense => 'صرف';
+
+  @override
+  String get setupAccountTitle => 'أول حساب إلك';
+
+  @override
+  String get setupAccountBody => 'وين فلوسك؟ جزدان، مصرف، كارت. تگدر تضيف غيره بعدين، أو بس گول للمساعد.';
+
+  @override
+  String get setupAccountName => 'اسم الحساب';
+
+  @override
+  String get setupAccountHint => 'مثلاً: جزدان كاش';
+
+  @override
+  String get setupAccountCurrency => 'العملة';
 }

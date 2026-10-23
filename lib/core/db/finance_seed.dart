@@ -104,9 +104,31 @@ const Map<String, List<String>> kDefaultCategoryKeywords = {
   'other_income': ['هدية', 'عيدية', 'دخل', 'دیاری', 'gift', 'income'],
 };
 
-/// Seeds the categories and buckets. Idempotent; runs on create, on the v1→v2
-/// upgrade, and from [seedInitialData].
+/// Seeds the categories and buckets. Idempotent; runs on the v1→v2 upgrade
+/// (v3 then drops the unused ones) and in the demo seed.
 Future<void> seedFinanceDefaults(AppDatabase db) async {
+  await seedDefaultCategories(db);
+  await seedBuckets(db);
+}
+
+/// The three buckets (Expenses, Emergency, Investment). A fresh install has
+/// these and nothing else: categories and accounts are the owner's to make.
+Future<void> seedBuckets(AppDatabase db) async {
+  await db.transaction(() async {
+    final buckets = (await db.select(db.buckets).get()).map((b) => b.systemKey).toSet();
+    for (var i = 0; i < kBucketKeys.length; i++) {
+      if (buckets.contains(kBucketKeys[i])) continue;
+      await db
+          .into(db.buckets)
+          .insert(
+            BucketsCompanion.insert(systemKey: Value(kBucketKeys[i]), percentBp: _bucketPlaceholderBp[i], sortOrder: i),
+          );
+    }
+  });
+}
+
+/// The phase 2 default categories, for the demo seed and old upgrades only.
+Future<void> seedDefaultCategories(AppDatabase db) async {
   await db.transaction(() async {
     final existing = (await db.select(db.categories).get()).map((c) => c.systemKey).toSet();
     var order = 0;
@@ -127,15 +149,6 @@ Future<void> seedFinanceDefaults(AppDatabase db) async {
         }
         order++;
       }
-    }
-    final buckets = (await db.select(db.buckets).get()).map((b) => b.systemKey).toSet();
-    for (var i = 0; i < kBucketKeys.length; i++) {
-      if (buckets.contains(kBucketKeys[i])) continue;
-      await db
-          .into(db.buckets)
-          .insert(
-            BucketsCompanion.insert(systemKey: Value(kBucketKeys[i]), percentBp: _bucketPlaceholderBp[i], sortOrder: i),
-          );
     }
   });
 }

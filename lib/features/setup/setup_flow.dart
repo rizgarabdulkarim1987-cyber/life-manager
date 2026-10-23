@@ -7,11 +7,12 @@ import '../../core/l10n/ckb_fallback_localizations.dart';
 import '../../core/logging/app_logger.dart';
 import '../../core/theme/motion.dart';
 import '../../core/theme/tokens.dart';
+import '../finance/data/accounts_repository.dart';
 import '../lock/lock_controller.dart';
 
-enum _Step { language, warning }
+enum _Step { language, warning, account }
 
-/// First run: language, backup warning, then seed. Unlocking uses the phone's
+/// First run: language, backup warning, then the first account (redesign §11.1). Unlocking uses the phone's
 /// own face, fingerprint or screen lock, so there is no PIN to choose.
 /// Steps advance only through their own buttons, so validation can't be swiped past.
 class SetupFlow extends ConsumerStatefulWidget {
@@ -27,6 +28,20 @@ class _SetupFlowState extends ConsumerState<SetupFlow> {
   _Step _step = _Step.language;
   bool _acknowledged = false;
   bool _busy = false;
+  final _accountName = TextEditingController();
+  String _currency = 'IQD';
+
+  @override
+  void initState() {
+    super.initState();
+    _accountName.addListener(() => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _accountName.dispose();
+    super.dispose();
+  }
 
   List<_Step> get _steps => _Step.values;
 
@@ -53,6 +68,12 @@ class _SetupFlowState extends ConsumerState<SetupFlow> {
           cashUsd: l10n.seedCashUsd,
         ),
       );
+      final personal = (await (db.select(db.workspaces)..where((w) => w.sortOrder.equals(0))).getSingle()).id;
+      // Setup may run again after a crash; the account is only added once.
+      if ((await (db.select(db.accounts)..limit(1)).get()).isEmpty) {
+        await AccountsRepository(db)
+            .create(workspaceId: personal, name: _accountName.text.trim(), kind: 'cash', currencyCode: _currency);
+      }
       // Unlock before setup counts as done, so the lock screen never flashes
       // over the first home screen.
       ref.read(lockControllerProvider.notifier).unlock();
@@ -110,7 +131,59 @@ class _SetupFlowState extends ConsumerState<SetupFlow> {
   Widget _buildStep(BuildContext context) => switch (_step) {
     _Step.language => _languageStep(context),
     _Step.warning => _warningStep(context),
+    _Step.account => _accountStep(context),
   };
+
+  Widget _accountStep(BuildContext context) {
+    final l10n = context.l10n;
+    final text = Theme.of(context).textTheme;
+    final k = context.tokens;
+    final ready = _accountName.text.trim().isNotEmpty && !_busy;
+    return _StepBody(
+      top: [
+        Icon(Icons.account_balance_wallet_outlined, size: 40, color: k.accent),
+        const SizedBox(height: 16),
+        Text(l10n.setupAccountTitle, style: text.headlineSmall?.copyWith(color: k.text)),
+        const SizedBox(height: 12),
+        Text(l10n.setupAccountBody, style: text.bodyLarge?.copyWith(color: k.textMuted, height: 1.5)),
+        const SizedBox(height: 24),
+        TextField(
+          key: const ValueKey('setup-account-name'),
+          controller: _accountName,
+          maxLength: 80,
+          textInputAction: TextInputAction.done,
+          decoration: InputDecoration(
+            labelText: l10n.setupAccountName,
+            hintText: l10n.setupAccountHint,
+            counterText: '',
+          ),
+        ),
+        const SizedBox(height: 20),
+        Text(l10n.setupAccountCurrency, style: text.labelLarge?.copyWith(color: k.textMuted)),
+        const SizedBox(height: 8),
+        Wrap(
+          key: const ValueKey('setup-account-currency'),
+          spacing: 8,
+          children: [
+            for (final c in const ['IQD', 'USD'])
+              ChoiceChip(
+                key: ValueKey('setup-currency-$c'),
+                label: Text(c),
+                selected: _currency == c,
+                onSelected: (_) => setState(() => _currency = c),
+              ),
+          ],
+        ),
+      ],
+      bottom: FilledButton(
+        key: const ValueKey('setup-account-save'),
+        onPressed: ready ? _finish : null,
+        child: _busy
+            ? const SizedBox.square(dimension: 20, child: CircularProgressIndicator(strokeWidth: 2))
+            : Text(l10n.finish),
+      ),
+    );
+  }
 
   Widget _languageStep(BuildContext context) {
     final l10n = context.l10n;
@@ -171,10 +244,8 @@ class _SetupFlowState extends ConsumerState<SetupFlow> {
       ],
       bottom: FilledButton(
         key: const ValueKey('setup-finish'),
-        onPressed: _acknowledged && !_busy ? _finish : null,
-        child: _busy
-            ? const SizedBox.square(dimension: 20, child: CircularProgressIndicator(strokeWidth: 2))
-            : Text(l10n.finish),
+        onPressed: _acknowledged ? _next : null,
+        child: Text(l10n.continueLabel),
       ),
     );
   }

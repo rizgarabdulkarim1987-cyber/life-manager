@@ -1115,5 +1115,10 @@
   "homeProjects": "Active projects",
   "homeProjectsEmpty": "No projects yet. Tell me about one and I'll help you plan it.",
   "homeIncome": "Income",
-  "homeExpense": "Expense"
+  "homeExpense": "Expense",
+  "setupAccountTitle": "Your first account",
+  "setupAccountBody": "Where does your money sit? A wallet, a bank, a card. You can add more later, or just tell the assistant.",
+  "setupAccountName": "Account name",
+  "setupAccountHint": "e.g. Cash wallet",
+  "setupAccountCurrency": "Currency"
 }

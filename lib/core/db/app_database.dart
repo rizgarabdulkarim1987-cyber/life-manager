@@ -1,9 +1,12 @@
 import 'dart:io';
+import 'dart:ui' show Locale;
 
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:path/path.dart' as p;
 
+import '../../features/finance/data/categories_repository.dart' show systemLabel;
+import '../../l10n/gen/app_localizations.dart';
 import '../security/sensitive.dart';
 import 'capture_tables.dart';
 import 'finance_seed.dart';
@@ -44,7 +47,7 @@ class AppDatabase extends _$AppDatabase {
   MigrationStrategy get migration => MigrationStrategy(
     onCreate: (m) async {
       await m.createAll();
-      await seedFinanceDefaults(this);
+      await seedBuckets(this);
     },
     onUpgrade: (m, from, to) async {
       if (from < 2) {
@@ -106,6 +109,43 @@ class AppDatabase extends _$AppDatabase {
     await _addColumnOnce(m, captures, captures.undoJson);
     await customStatement("UPDATE app_settings SET theme_mode = 'light' WHERE theme_mode = 'dark'");
     await customStatement('UPDATE app_settings SET lock_timeout_seconds = 60 WHERE lock_timeout_seconds = 300');
+    await _dropUnusedSeeds();
+    await seedBuckets(this);
+  }
+
+  /// Redesign §11.1: the owner makes their own categories and accounts. Seeded
+  /// rows nothing points at go; seeded categories still in use keep their
+  /// shown name and default keywords and stop being system rows.
+  Future<void> _dropUnusedSeeds() async {
+    const used =
+        'id IN (SELECT category_id FROM transactions WHERE category_id IS NOT NULL) '
+        'OR id IN (SELECT category_id FROM budgets WHERE category_id IS NOT NULL)';
+    await customStatement('DELETE FROM categories WHERE system_key IS NOT NULL AND NOT ($used)');
+    final settings = await customSelect('SELECT locale_code FROM app_settings WHERE id = 1').getSingleOrNull();
+    final l = lookupAppLocalizations(Locale(settings?.read<String>('locale_code') ?? 'ar'));
+    for (final c in await customSelect('SELECT id, system_key FROM categories WHERE system_key IS NOT NULL').get()) {
+      final key = c.read<String>('system_key');
+      await customStatement(
+        "UPDATE categories SET name = COALESCE(name, ?), extra_keywords = ?, system_key = NULL WHERE id = ?",
+        [systemLabel(key, l) ?? key, (kDefaultCategoryKeywords[key] ?? const []).join(','), c.read<int>('id')],
+      );
+    }
+    // Seeded cash accounts are named «<workspace> · <label>» with no opening balance.
+    await customStatement(
+      "DELETE FROM accounts WHERE kind = 'cash' AND opening_balance_minor = 0 AND name LIKE '% · %' "
+      'AND id NOT IN (SELECT account_id FROM transactions) '
+      'AND id NOT IN (SELECT to_account_id FROM transactions WHERE to_account_id IS NOT NULL) '
+      'AND (SELECT COUNT(*) FROM accounts) > 1',
+    );
+    await customStatement(
+      "DELETE FROM workspaces WHERE icon_key IN ('campaign', 'handshake', 'folder') "
+      'AND sort_order > (SELECT MIN(sort_order) FROM workspaces) '
+      'AND id NOT IN (SELECT workspace_id FROM accounts) '
+      'AND id NOT IN (SELECT workspace_id FROM transactions) '
+      'AND id NOT IN (SELECT workspace_id FROM debts) '
+      'AND id NOT IN (SELECT workspace_id FROM budgets WHERE workspace_id IS NOT NULL) '
+      'AND id NOT IN (SELECT workspace_id FROM categories WHERE workspace_id IS NOT NULL)',
+    );
   }
 }
 

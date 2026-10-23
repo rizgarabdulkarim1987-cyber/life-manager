@@ -58,8 +58,9 @@ void main() {
     await verifier.migrateAndValidate(db, db.schemaVersion);
 
     final ws = await (db.select(db.workspaces)..orderBy([(w) => OrderingTerm.asc(w.sortOrder)])).get();
-    expect(ws.map((w) => w.name), names);
-    expect(ws.map((w) => w.countsInBuckets), [true, false, false, false]);
+    // v3 drops seeded workspaces nobody used; v1 account names have no « · », so they look owner-made and stay.
+    expect(ws.map((w) => w.name), ['Personal', 'Buzzify', 'EO']);
+    expect(ws.first.countsInBuckets, isTrue);
     expect(ws.every((w) => w.aliases == ''), isTrue);
     expect(await db.select(db.accounts).get(), hasLength(6));
     final s = await db.select(db.appSettingsTable).getSingle();
@@ -69,7 +70,7 @@ void main() {
     );
     expect(s.groqSttModel, 'whisper-large-v3-turbo');
     expect(await db.select(db.backupMetadata).get(), hasLength(1));
-    expect(await db.select(db.categories).get(), hasLength(16));
+    expect(await db.select(db.categories).get(), isEmpty, reason: 'unused seeded categories go in v3');
     expect(await db.select(db.buckets).get(), hasLength(3));
     await db.close();
   });
@@ -91,6 +92,53 @@ void main() {
     final db = AppDatabase(NativeDatabase.memory());
     final s = await db.select(db.appSettingsTable).getSingle();
     expect((s.themeMode, s.lockTimeoutSeconds), ('light', 60));
+    await db.close();
+  });
+
+  test('v2 → v3 keeps used seeded rows (named) and removes the unused ones', () async {
+    final schema = await verifier.schemaAt(2);
+    final raw = schema.rawDatabase;
+    const at = 1761177600;
+    raw.execute(
+      "INSERT INTO app_settings (id, locale_code, theme_mode, lock_timeout_seconds, biometric_enabled, base_currency, setup_completed) "
+      "VALUES (1, 'en', 'light', 60, 1, 'IQD', 1)",
+    );
+    for (final (i, name, icon) in [(0, 'Personal', 'person'), (1, 'Buzzify', 'campaign'), (2, 'EO', 'handshake')]) {
+      raw.execute(
+        'INSERT INTO workspaces (name, icon_key, color_argb, sort_order, is_archived, created_at, aliases, counts_in_buckets) '
+        "VALUES (?, ?, 0, ?, 0, ?, '', ?)",
+        [name, icon, i, at, i == 0 ? 1 : 0],
+      );
+    }
+    void account(int ws, String name, String currency) => raw.execute(
+      'INSERT INTO accounts (workspace_id, name, kind, currency_code, opening_balance_minor, sort_order, is_archived, created_at) '
+      "VALUES (?, ?, 'cash', ?, 0, 0, 0, ?)",
+      [ws, name, currency, at],
+    );
+    account(1, 'Personal · Cash IQD', 'IQD'); // 1, used
+    account(1, 'Personal · Cash USD', 'USD'); // 2, empty seed
+    account(2, 'Buzzify · Cash IQD', 'IQD'); // 3, empty seed
+    account(1, 'My bank', 'IQD'); // 4, empty but owner-made
+    for (final (i, key, kind) in [(0, 'food', 'expense'), (1, 'transport', 'expense'), (2, 'salary', 'income')]) {
+      raw.execute(
+        'INSERT INTO categories (kind, system_key, icon_key, color_argb, sort_order) VALUES (?, ?, ?, 0, ?)',
+        [kind, key, 'tag', i],
+      );
+    }
+    raw.execute(
+      'INSERT INTO transactions (type, account_id, workspace_id, amount_minor, currency_code, category_id, occurred_at, created_at, updated_at) '
+      "VALUES ('expense', 1, 1, 5000, 'IQD', 1, ?, ?, ?)",
+      [at, at, at],
+    );
+
+    final db = AppDatabase(schema.newConnection());
+    await verifier.migrateAndValidate(db, 3);
+    expect((await db.select(db.accounts).get()).map((a) => a.name).toSet(), {'Personal · Cash IQD', 'My bank'});
+    expect((await db.select(db.workspaces).get()).map((w) => w.name), ['Personal']);
+    final cats = await db.select(db.categories).get();
+    expect(cats.map((c) => (c.name, c.systemKey)), [('Food', null)]);
+    expect(cats.single.extraKeywords, contains('food'), reason: 'its default keywords stay with it');
+    expect(await db.select(db.buckets).get(), hasLength(3));
     await db.close();
   });
 }

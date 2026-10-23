@@ -940,5 +940,10 @@
   "homeProjects": "پڕۆژە چالاکەکان",
   "homeProjectsEmpty": "هێشتا پڕۆژە نییە. باسی یەکێکم بۆ بکە یارمەتیت دەدەم پلانی بۆ دابنێیت.",
   "homeIncome": "داهات",
-  "homeExpense": "خەرجی"
+  "homeExpense": "خەرجی",
+  "setupAccountTitle": "یەکەم هەژمارت",
+  "setupAccountBody": "پارەکەت لە کوێیە؟ جزدان، بانک، کارت. دواتر دەتوانیت زیاتر زیاد بکەیت، یان تەنها بە یاریدەدەر بڵێ.",
+  "setupAccountName": "ناوی هەژمار",
+  "setupAccountHint": "بۆ نموونە: جزدانی نەختینە",
+  "setupAccountCurrency": "دراو"
 }

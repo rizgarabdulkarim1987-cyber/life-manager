@@ -1873,4 +1873,20 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeExpense => 'Expense';
+
+  @override
+  String get setupAccountTitle => 'Your first account';
+
+  @override
+  String get setupAccountBody =>
+      'Where does your money sit? A wallet, a bank, a card. You can add more later, or just tell the assistant.';
+
+  @override
+  String get setupAccountName => 'Account name';
+
+  @override
+  String get setupAccountHint => 'e.g. Cash wallet';
+
+  @override
+  String get setupAccountCurrency => 'Currency';
 }

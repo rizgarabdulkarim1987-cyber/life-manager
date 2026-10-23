@@ -940,5 +940,10 @@
   "homeProjects": "المشاريع الفعالة",
   "homeProjectsEmpty": "ماكو مشاريع بعد. احچيلي عن مشروع وأساعدك تخطط إله.",
   "homeIncome": "دخل",
-  "homeExpense": "صرف"
+  "homeExpense": "صرف",
+  "setupAccountTitle": "أول حساب إلك",
+  "setupAccountBody": "وين فلوسك؟ جزدان، مصرف، كارت. تگدر تضيف غيره بعدين، أو بس گول للمساعد.",
+  "setupAccountName": "اسم الحساب",
+  "setupAccountHint": "مثلاً: جزدان كاش",
+  "setupAccountCurrency": "العملة"
 }

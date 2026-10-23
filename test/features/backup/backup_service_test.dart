@@ -57,6 +57,7 @@ void main() {
     paths = RestorePaths(dir);
     db = await openAppDatabase(file: appDatabaseFile(dir), hexKey: _key);
     await seedInitialData(db, _names);
+    await seedDemoData(db, _names);
   });
 
   tearDown(() async {
@@ -291,9 +292,10 @@ void main() {
     await BackupService.recoverInterruptedRestore(dir, _key);
     db = await openAppDatabase(file: appDatabaseFile(dir), hexKey: _key);
     expect(db.schemaVersion, 3);
-    expect(await db.select(db.workspaces).get(), hasLength(4));
+    // v3 drops the empty workspace and the unused default categories.
+    expect(await db.select(db.workspaces).get(), hasLength(3));
     expect(await db.select(db.accounts).get(), hasLength(6));
-    expect(await db.select(db.categories).get(), hasLength(16));
+    expect(await db.select(db.categories).get(), isEmpty);
     final st = await db.select(db.appSettingsTable).getSingle();
     expect((st.localeCode, st.themeMode, st.lockTimeoutSeconds), ('ckb', 'light', 60));
   });

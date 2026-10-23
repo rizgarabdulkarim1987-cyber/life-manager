@@ -32,6 +32,7 @@ Future<ProviderContainer> pumpApp(
   // Widget tests fail on drift's deferred stream close; close synchronously instead.
   final db = AppDatabase(DatabaseConnection(NativeDatabase.memory(), closeStreamsSynchronously: true));
   await seedInitialData(db, _names);
+  await seedDemoData(db, _names);
   await db
       .update(db.appSettingsTable)
       .write(AppSettingsTableCompanion(setupCompleted: const Value(true), localeCode: Value(locale)));

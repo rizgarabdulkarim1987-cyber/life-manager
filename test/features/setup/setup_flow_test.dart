@@ -53,10 +53,14 @@ void main() {
     await t.pumpAndSettle();
   }
 
-  Future<void> finish(WidgetTester t) async {
+  Future<void> finish(WidgetTester t, {String name = 'Wallet', String currency = 'IQD'}) async {
     await tapKey(t, 'ack-checkbox');
+    await tapKey(t, 'setup-finish');
+    expect(find.byKey(const ValueKey('step-account')), findsOneWidget);
+    await t.enterText(find.byKey(const ValueKey('setup-account-name')), name);
+    await tapKey(t, 'setup-currency-$currency');
     // The button shows a spinner while finishing, so pump frames instead of settling.
-    await t.tap(find.byKey(const ValueKey('setup-finish')));
+    await t.tap(find.byKey(const ValueKey('setup-account-save')));
     for (var i = 0; i < 50 && doneCalls == 0; i++) {
       await t.pump(const Duration(milliseconds: 20));
     }
@@ -69,12 +73,14 @@ void main() {
     await tapKey(t, 'setup-next');
     expect(find.byKey(const ValueKey('pin-key-1')), findsNothing);
     expect(find.byKey(const ValueKey('step-warning')), findsOneWidget);
-    await finish(t);
+    await finish(t, name: 'Cash', currency: 'USD');
 
     final s = await db.select(db.appSettingsTable).getSingle();
     expect(s.setupCompleted, isTrue);
     expect(s.localeCode, 'en');
-    expect(await db.select(db.accounts).get(), hasLength(6));
+    final acc = (await db.select(db.accounts).get()).single;
+    expect((acc.name, acc.currencyCode), ('Cash', 'USD'));
+    expect(await db.select(db.categories).get(), isEmpty, reason: 'the owner makes the categories');
     expect(container.read(lockControllerProvider), LockStatus.unlocked);
     expect(doneCalls, 1);
   });
@@ -102,5 +108,16 @@ void main() {
     bool? result;
     await pump(t, SplashScreen(onResolved: (v) => result = v), bio: FakeBiometric());
     expect(result, isFalse);
+  });
+
+  testWidgets('the first account needs a name', (t) async {
+    await pump(t, flow(), bio: FakeBiometric());
+    await tapKey(t, 'setup-next');
+    await tapKey(t, 'ack-checkbox');
+    await tapKey(t, 'setup-finish');
+    await t.enterText(find.byKey(const ValueKey('setup-account-name')), '  ');
+    await t.pump();
+    expect(t.widget<FilledButton>(find.byKey(const ValueKey('setup-account-save'))).onPressed, isNull);
+    expect(doneCalls, 0);
   });
 }

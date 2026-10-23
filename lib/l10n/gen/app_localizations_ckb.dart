@@ -1876,4 +1876,20 @@ class AppLocalizationsCkb extends AppLocalizations {
 
   @override
   String get homeExpense => 'خەرجی';
+
+  @override
+  String get setupAccountTitle => 'یەکەم هەژمارت';
+
+  @override
+  String get setupAccountBody =>
+      'پارەکەت لە کوێیە؟ جزدان، بانک، کارت. دواتر دەتوانیت زیاتر زیاد بکەیت، یان تەنها بە یاریدەدەر بڵێ.';
+
+  @override
+  String get setupAccountName => 'ناوی هەژمار';
+
+  @override
+  String get setupAccountHint => 'بۆ نموونە: جزدانی نەختینە';
+
+  @override
+  String get setupAccountCurrency => 'دراو';
 }

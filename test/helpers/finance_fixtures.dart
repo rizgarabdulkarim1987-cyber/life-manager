@@ -45,6 +45,7 @@ class FinanceFixture {
 Future<FinanceFixture> financeFixture() async {
   final db = AppDatabase(NativeDatabase.memory());
   await seedInitialData(db, fixtureNames);
+  await seedDemoData(db, fixtureNames);
   final ws = await (db.select(db.workspaces)..orderBy([(w) => OrderingTerm.asc(w.sortOrder)])).get();
   return FinanceFixture._(db, await db.select(db.accounts).get(), ws, await db.select(db.categories).get());
 }

@@ -3482,6 +3482,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Expense'**
   String get homeExpense;
+
+  /// No description provided for @setupAccountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first account'**
+  String get setupAccountTitle;
+
+  /// No description provided for @setupAccountBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Where does your money sit? A wallet, a bank, a card. You can add more later, or just tell the assistant.'**
+  String get setupAccountBody;
+
+  /// No description provided for @setupAccountName.
+  ///
+  /// In en, this message translates to:
+  /// **'Account name'**
+  String get setupAccountName;
+
+  /// No description provided for @setupAccountHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Cash wallet'**
+  String get setupAccountHint;
+
+  /// No description provided for @setupAccountCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Currency'**
+  String get setupAccountCurrency;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
