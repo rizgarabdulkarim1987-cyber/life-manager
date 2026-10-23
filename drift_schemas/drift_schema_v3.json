@@ -2334,6 +2334,16 @@
             "default_dart": null,
             "default_client_dart": null,
             "dsl_features": []
+          },
+          {
+            "name": "undo_json",
+            "getter_name": "undoJson",
+            "moor_type": "string",
+            "nullable": true,
+            "customConstraints": null,
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
           }
         ],
         "is_virtual": false,
@@ -2526,7 +2536,7 @@
       "sql": [
         {
           "dialect": "sqlite",
-          "sql": "CREATE TABLE IF NOT EXISTS \"captures\" (\"id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, \"source\" TEXT NOT NULL CHECK(\"source\" IN ('voice', 'text')), \"status\" TEXT NOT NULL CHECK(\"status\" IN ('pending', 'done', 'discarded')), \"audio\" BLOB NULL, \"transcript\" TEXT NULL, \"parsed_json\" TEXT NULL, \"parsed_by\" TEXT NULL CHECK(\"parsed_by\" IN ('ai', 'rules')), \"failure_type\" TEXT NULL, \"created_at\" INTEGER NOT NULL, \"updated_at\" INTEGER NOT NULL);"
+          "sql": "CREATE TABLE IF NOT EXISTS \"captures\" (\"id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, \"source\" TEXT NOT NULL CHECK(\"source\" IN ('voice', 'text')), \"status\" TEXT NOT NULL CHECK(\"status\" IN ('pending', 'done', 'discarded')), \"audio\" BLOB NULL, \"transcript\" TEXT NULL, \"parsed_json\" TEXT NULL, \"parsed_by\" TEXT NULL CHECK(\"parsed_by\" IN ('ai', 'rules')), \"failure_type\" TEXT NULL, \"created_at\" INTEGER NOT NULL, \"updated_at\" INTEGER NOT NULL, \"undo_json\" TEXT NULL);"
         }
       ]
     },

@@ -91,10 +91,19 @@ class AppDatabase extends _$AppDatabase {
     },
   );
 
+  /// A v1 database gets the v2 tables in their current shape, so a column added
+  /// to them later may already be there.
+  Future<void> _addColumnOnce(Migrator m, TableInfo table, GeneratedColumn column) async {
+    final cols = await customSelect('PRAGMA table_info("${table.actualTableName}")').get();
+    if (cols.any((r) => r.read<String>('name') == column.name)) return;
+    await m.addColumn(table, column);
+  }
+
   /// Redesign (spec 2026-10-23): light and minimal by default, relock after a minute.
   Future<void> _toV3(Migrator m) async {
     // Rebuilt so the column defaults change too.
     await m.alterTable(TableMigration(appSettingsTable));
+    await _addColumnOnce(m, captures, captures.undoJson);
     await customStatement("UPDATE app_settings SET theme_mode = 'light' WHERE theme_mode = 'dark'");
     await customStatement('UPDATE app_settings SET lock_timeout_seconds = 60 WHERE lock_timeout_seconds = 300');
   }

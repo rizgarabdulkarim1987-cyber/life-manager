@@ -1628,6 +1628,14 @@ class Captures extends Table with TableInfo {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
+  late final GeneratedColumn<String> undoJson = GeneratedColumn<String>(
+    'undo_json',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    $customConstraints: 'NULL',
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -1640,6 +1648,7 @@ class Captures extends Table with TableInfo {
     failureType,
     createdAt,
     updatedAt,
+    undoJson,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;

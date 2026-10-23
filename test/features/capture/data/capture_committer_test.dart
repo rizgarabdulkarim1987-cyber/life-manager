@@ -183,4 +183,61 @@ void main() {
     expect(await f.db.select(f.db.transactions).get(), hasLength(1));
     expect((await repo.get(other))!.status, 'discarded');
   });
+
+  test('undo removes everything one capture wrote, including a new debt, and discards it', () async {
+    final id = await voiceCapture();
+    await committer.commit(id, [
+      MoneyCommit(expense(), null),
+      DebtCommit(
+        DebtProposal(
+          confidence: 100,
+          counterparty: 'Ahmed',
+          direction: 'owed_to_me',
+          leg: 'principal',
+          amountMinor: 50000,
+          accountId: f.personalIqd,
+          occurredAt: at,
+        ),
+        null,
+      ),
+    ]);
+    expect(await f.db.select(f.db.transactions).get(), hasLength(2));
+    expect(await f.db.select(f.db.debts).get(), hasLength(1));
+    await committer.undo(id);
+    expect(await f.db.select(f.db.transactions).get(), isEmpty);
+    expect(await f.db.select(f.db.debts).get(), isEmpty);
+    expect((await repo.get(id))!.status, 'discarded');
+  });
+
+  test('undo of a repayment that closed a debt opens it again', () async {
+    final debts = DebtsRepository(f.db);
+    final debtId = await debts.create(
+      direction: 'owed_by_me',
+      counterparty: 'Sara',
+      workspaceId: f.personalWs,
+      principalMinor: 20000,
+      currencyCode: 'IQD',
+      startDate: at.toUtc(),
+    );
+    final id = await voiceCapture();
+    await committer.commit(id, [
+      DebtCommit(
+        DebtProposal(confidence: 100, leg: 'repayment', amountMinor: 20000, accountId: f.personalIqd, occurredAt: at),
+        debtId,
+      ),
+    ]);
+    expect((await (f.db.select(f.db.debts)..where((d) => d.id.equals(debtId))).getSingle()).closedAt, isNotNull);
+    await committer.undo(id);
+    final d = await (f.db.select(f.db.debts)..where((d) => d.id.equals(debtId))).getSingle();
+    expect(d.closedAt, isNull);
+    expect(await f.db.select(f.db.transactions).get(), isEmpty);
+  });
+
+  test('undo twice is harmless', () async {
+    final id = await voiceCapture();
+    await committer.commit(id, [MoneyCommit(expense(), null)]);
+    await committer.undo(id);
+    await committer.undo(id);
+    expect(await f.db.select(f.db.transactions).get(), isEmpty);
+  });
 }

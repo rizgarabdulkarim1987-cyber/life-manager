@@ -19,4 +19,7 @@ class Captures extends Table {
   TextColumn get failureType => text().nullable()();
   DateTimeColumn get createdAt => dateTime()();
   DateTimeColumn get updatedAt => dateTime()();
+
+  /// What saving this capture wrote, so Undo can take it back (schema v3).
+  TextColumn get undoJson => text().nullable()();
 }

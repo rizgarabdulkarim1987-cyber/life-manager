@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:drift/drift.dart' show Value;
+
 import '../../../core/db/app_database.dart';
 import '../../finance/data/buckets_repository.dart';
 import '../../finance/data/debts_repository.dart';
@@ -45,6 +49,26 @@ class CaptureAlreadyHandled implements Exception {
   const CaptureAlreadyHandled();
 }
 
+/// Rows one commit wrote, kept on the capture so Undo can remove them.
+class _UndoLog {
+  final transactions = <int>[];
+  final debts = <int>[];
+  final closedDebts = <int>[];
+
+  bool get isEmpty => transactions.isEmpty && debts.isEmpty && closedDebts.isEmpty;
+
+  String encode() => jsonEncode({'tx': transactions, 'debts': debts, 'closed': closedDebts});
+
+  static _UndoLog decode(String s) {
+    final j = jsonDecode(s) as Map<String, Object?>;
+    List<int> ints(String k) => [for (final v in (j[k] as List? ?? const [])) v as int];
+    return _UndoLog()
+      ..transactions.addAll(ints('tx'))
+      ..debts.addAll(ints('debts'))
+      ..closedDebts.addAll(ints('closed'));
+  }
+}
+
 class CaptureCommitter {
   CaptureCommitter(this._db)
     : _tx = TransactionsRepository(_db),
@@ -68,8 +92,14 @@ class CaptureCommitter {
     await _db.transaction(() async {
       // First, so a second Save (or a Save after Discard) writes nothing and the whole thing rolls back.
       if (!await _captures.markDoneIfPending(captureId)) throw const CaptureAlreadyHandled();
+      final log = _UndoLog();
       for (final item in items) {
-        await _write(captureId, item);
+        await _write(captureId, item, log);
+      }
+      if (!log.isEmpty) {
+        await (_db.update(
+          _db.captures,
+        )..where((c) => c.id.equals(captureId))).write(CapturesCompanion(undoJson: Value(log.encode())));
       }
       final kept = [for (final i in items.whereType<KeepInInbox>()) i.p];
       if (kept.isNotEmpty) await _captures.createKept(capture.transcript, kept, by: capture.parsedBy);
@@ -95,7 +125,34 @@ class CaptureCommitter {
     }
   }
 
-  Future<void> _write(int captureId, CommitItem item) async {
+  /// Takes back everything [commit] wrote for this capture, in one
+  /// transaction, and marks it discarded. A second call does nothing.
+  Future<void> undo(int captureId) => _db.transaction(() async {
+    final c = await _captures.get(captureId);
+    if (c == null || c.status != 'done') return;
+    final log = c.undoJson == null ? _UndoLog() : _UndoLog.decode(c.undoJson!);
+    if (log.transactions.isNotEmpty) {
+      await (_db.delete(_db.transactions)..where((t) => t.id.isIn(log.transactions))).go();
+    }
+    if (log.debts.isNotEmpty) {
+      await (_db.delete(_db.transactions)..where((t) => t.debtId.isIn(log.debts))).go();
+      await (_db.delete(_db.debts)..where((d) => d.id.isIn(log.debts))).go();
+    }
+    if (log.closedDebts.isNotEmpty) {
+      await (_db.update(
+        _db.debts,
+      )..where((d) => d.id.isIn(log.closedDebts))).write(const DebtsCompanion(closedAt: Value(null)));
+    }
+    await (_db.update(_db.captures)..where((x) => x.id.equals(captureId))).write(
+      CapturesCompanion(
+        status: const Value('discarded'),
+        undoJson: const Value(null),
+        updatedAt: Value(DateTime.now().toUtc()),
+      ),
+    );
+  });
+
+  Future<void> _write(int captureId, CommitItem item, _UndoLog log) async {
     final now = DateTime.now();
     switch (item) {
       case MoneyCommit(:final p, :final allocation):
@@ -109,11 +166,12 @@ class CaptureCommitter {
           bucketTag: p.type == IntentType.expense ? p.bucketTag : null,
           captureId: captureId,
         );
+        log.transactions.add(id);
         if (p.type == IntentType.income && allocation != null && allocation.isNotEmpty) {
           await _buckets.allocate(id, allocation);
         }
       case TransferCommit(:final p):
-        await _tx.addTransfer(
+        final id = await _tx.addTransfer(
           fromAccountId: p.fromAccountId!,
           toAccountId: p.toAccountId!,
           amountMinor: p.amountMinor!,
@@ -123,18 +181,26 @@ class CaptureCommitter {
           transferKind: p.transferKind ?? 'transfer',
           captureId: captureId,
         );
+        log.transactions.add(id);
       case DebtCommit(:final p, :final debtId):
         final at = (p.occurredAt ?? now).toUtc();
         if (debtId != null) {
-          await _debts.recordRepayment(
-            debtId: debtId,
-            accountId: p.accountId!,
-            amountMinor: p.amountMinor!,
-            occurredAt: at,
+          final wasOpen =
+              (await (_db.select(_db.debts)..where((d) => d.id.equals(debtId))).getSingle()).closedAt == null;
+          log.transactions.add(
+            await _debts.recordRepayment(
+              debtId: debtId,
+              accountId: p.accountId!,
+              amountMinor: p.amountMinor!,
+              occurredAt: at,
+            ),
           );
+          final closed =
+              (await (_db.select(_db.debts)..where((d) => d.id.equals(debtId))).getSingle()).closedAt != null;
+          if (wasOpen && closed) log.closedDebts.add(debtId);
         } else {
           final account = await (_db.select(_db.accounts)..where((a) => a.id.equals(p.accountId!))).getSingle();
-          await _debts.create(
+          final newDebt = await _debts.create(
             direction: p.direction!,
             counterparty: p.counterparty!,
             workspaceId: account.workspaceId,
@@ -143,6 +209,7 @@ class CaptureCommitter {
             startDate: at,
             recordPrincipalFromAccountId: account.id,
           );
+          log.debts.add(newDebt);
         }
       case KeepInInbox():
         break;
