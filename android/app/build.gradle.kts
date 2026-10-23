@@ -45,6 +45,14 @@ android {
     }
 
     buildTypes {
+        // Debug and profile builds (integration tests) install beside the
+        // release app instead of replacing it, so its data is never wiped.
+        debug {
+            applicationIdSuffix = ".debug"
+        }
+        getByName("profile") {
+            applicationIdSuffix = ".debug"
+        }
         release {
             signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = true
