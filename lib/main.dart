@@ -25,7 +25,7 @@ import 'features/capture/speech/recorder.dart';
 import 'features/settings/settings_repository.dart';
 
 /// Keep in step with `version:` in pubspec.yaml; it is written into every backup.
-const kAppVersion = '1.1.0';
+const kAppVersion = '2.0.0';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
