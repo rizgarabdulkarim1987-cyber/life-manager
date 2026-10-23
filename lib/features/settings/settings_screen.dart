@@ -78,6 +78,18 @@ class SettingsScreen extends ConsumerWidget {
                   ],
                 ),
                 SettingsSection(
+                  title: l10n.navVault,
+                  children: [
+                    _Link(
+                      'settings-vault',
+                      Icons.shield_outlined,
+                      l10n.vltSettings,
+                      l10n.vltSettingsHint,
+                      '/vault/settings',
+                    ),
+                  ],
+                ),
+                SettingsSection(
                   title: l10n.backupRestore,
                   children: [_BackupLink(lastBackupAt: settings.lastBackupAt)],
                 ),

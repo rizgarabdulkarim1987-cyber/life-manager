@@ -380,7 +380,12 @@ class _CaptureTextSheetState extends ConsumerState<CaptureTextSheet> {
                     onPressed: _busy ? null : () => _manual('/finance/transfer/new'),
                   ),
                   soon('cap-manual-task', Icons.task_alt_outlined, l.navTasks, 4),
-                  soon('cap-manual-vault', Icons.shield_outlined, l.capVaultItem, 3),
+                  ActionChip(
+                    key: const ValueKey('cap-manual-vault'),
+                    avatar: const Icon(Icons.shield_outlined, size: 18),
+                    label: Text(l.capVaultItem),
+                    onPressed: _busy ? null : () => _manual('/vault/new'),
+                  ),
                   soon('cap-manual-note', Icons.sticky_note_2_outlined, l.capNote, 4),
                 ],
               ),
