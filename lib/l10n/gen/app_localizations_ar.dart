@@ -1959,4 +1959,115 @@ class AppLocalizationsAr extends AppLocalizations {
   String chatReceiptKept(String reason) {
     return 'خزنت صورة الوصل بالوارد. $reason';
   }
+
+  @override
+  String get tasksToday => 'اليوم';
+
+  @override
+  String get tasksUpcoming => 'الجاي';
+
+  @override
+  String get tasksOverdue => 'متأخرة';
+
+  @override
+  String get tasksNoDate => 'بدون تاريخ';
+
+  @override
+  String get tasksDone => 'منجزة';
+
+  @override
+  String get tasksCalendar => 'التقويم';
+
+  @override
+  String get tasksNotes => 'الملاحظات';
+
+  @override
+  String get tasksEmpty => 'ماكو شي هنا لحد الان.';
+
+  @override
+  String get tasksAdd => 'أضف مهمة';
+
+  @override
+  String get taskNew => 'مهمة جديدة';
+
+  @override
+  String get taskEdit => 'تعديل المهمة';
+
+  @override
+  String get taskTitleLabel => 'العنوان';
+
+  @override
+  String get taskKindTask => 'مهمة';
+
+  @override
+  String get taskKindAppointment => 'موعد';
+
+  @override
+  String get taskKindReminder => 'تذكير';
+
+  @override
+  String get taskDate => 'التاريخ';
+
+  @override
+  String get taskTime => 'الوقت';
+
+  @override
+  String get taskNoDate => 'بدون تاريخ';
+
+  @override
+  String get taskNoTime => 'بدون وقت';
+
+  @override
+  String get taskPlace => 'المكان';
+
+  @override
+  String get taskNotesLabel => 'ملاحظات';
+
+  @override
+  String get taskPriority => 'الأهمية';
+
+  @override
+  String get taskPrioLow => 'منخفضة';
+
+  @override
+  String get taskPrioNormal => 'عادية';
+
+  @override
+  String get taskPrioHigh => 'عالية';
+
+  @override
+  String get taskRepeat => 'التكرار';
+
+  @override
+  String get taskRepeatNone => 'بدون';
+
+  @override
+  String get taskRepeatDaily => 'يومي';
+
+  @override
+  String get taskRepeatWeekly => 'أسبوعي';
+
+  @override
+  String get taskRepeatMonthly => 'شهري';
+
+  @override
+  String get taskDeleted => 'انحذفت المهمة';
+
+  @override
+  String get taskCompleted => 'تمت';
+
+  @override
+  String get noteDeleted => 'انحذفت الملاحظة';
+
+  @override
+  String get noteNew => 'ملاحظة جديدة';
+
+  @override
+  String get noteEdit => 'تعديل الملاحظة';
+
+  @override
+  String get noteHint => 'اكتب الملاحظة';
+
+  @override
+  String get calendarNoTasks => 'ماكو شي بهذا اليوم.';
 }

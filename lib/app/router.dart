@@ -29,6 +29,8 @@ import '../features/settings/workspaces_screen.dart';
 import '../features/setup/setup_flow.dart';
 import '../features/setup/splash_screen.dart';
 import '../features/shell/home_screen.dart';
+import '../features/tasks/ui/task_form_screen.dart';
+import '../features/tasks/ui/tasks_screen.dart';
 import '../features/shell/placeholder_screen.dart';
 import '../features/shell/shell_scaffold.dart';
 
@@ -151,8 +153,15 @@ GoRouter buildRouter({void Function()? onNavigate}) => GoRouter(
           routes: [
             GoRoute(
               path: '/tasks',
-              builder: (context, _) =>
-                  PlaceholderScreen(title: context.l10n.navTasks, phase: 4, icon: Icons.task_alt_outlined),
+              builder: (_, _) => const TasksScreen(),
+              routes: [
+                GoRoute(path: 'new', parentNavigatorKey: _rootKey, builder: (_, _) => const TaskFormScreen()),
+                GoRoute(
+                  path: ':id',
+                  parentNavigatorKey: _rootKey,
+                  builder: (_, state) => TaskFormScreen(editId: int.parse(state.pathParameters['id']!)),
+                ),
+              ],
             ),
           ],
         ),

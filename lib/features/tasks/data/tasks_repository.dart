@@ -103,6 +103,8 @@ class TasksRepository {
 
   Future<void> restore(Task t) => _db.into(_db.tasks).insert(t, mode: InsertMode.insertOrReplace);
 
+  Stream<List<Task>> watchOpen() => (_db.select(_db.tasks)..where((t) => t.status.equals('open'))).watch();
+
   Future<List<Task>> open() => (_db.select(_db.tasks)..where((t) => t.status.equals('open'))).get();
 
   /// Boundaries are local midnights: due at 00:00 today is Today, due at 23:59 yesterday is Overdue.

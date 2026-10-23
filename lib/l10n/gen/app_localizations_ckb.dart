@@ -1961,4 +1961,115 @@ class AppLocalizationsCkb extends AppLocalizations {
   String chatReceiptKept(String reason) {
     return 'وێنەی پسوولەکەم لە بەشی هاتووەکان هێشتەوە. $reason';
   }
+
+  @override
+  String get tasksToday => 'ئەمڕۆ';
+
+  @override
+  String get tasksUpcoming => 'داهاتوو';
+
+  @override
+  String get tasksOverdue => 'دواکەوتوو';
+
+  @override
+  String get tasksNoDate => 'بێ بەروار';
+
+  @override
+  String get tasksDone => 'تەواوبوو';
+
+  @override
+  String get tasksCalendar => 'ساڵنامە';
+
+  @override
+  String get tasksNotes => 'تێبینییەکان';
+
+  @override
+  String get tasksEmpty => 'هێشتا هیچ لێرە نییە.';
+
+  @override
+  String get tasksAdd => 'ئەرکێک زیاد بکە';
+
+  @override
+  String get taskNew => 'ئەرکی نوێ';
+
+  @override
+  String get taskEdit => 'دەستکاری ئەرک';
+
+  @override
+  String get taskTitleLabel => 'ناونیشان';
+
+  @override
+  String get taskKindTask => 'ئەرک';
+
+  @override
+  String get taskKindAppointment => 'کاتی دیاریکراو';
+
+  @override
+  String get taskKindReminder => 'بیرخستنەوە';
+
+  @override
+  String get taskDate => 'بەروار';
+
+  @override
+  String get taskTime => 'کات';
+
+  @override
+  String get taskNoDate => 'بێ بەروار';
+
+  @override
+  String get taskNoTime => 'بێ کات';
+
+  @override
+  String get taskPlace => 'شوێن';
+
+  @override
+  String get taskNotesLabel => 'تێبینی';
+
+  @override
+  String get taskPriority => 'گرنگی';
+
+  @override
+  String get taskPrioLow => 'نزم';
+
+  @override
+  String get taskPrioNormal => 'ئاسایی';
+
+  @override
+  String get taskPrioHigh => 'بەرز';
+
+  @override
+  String get taskRepeat => 'دووبارەبوونەوە';
+
+  @override
+  String get taskRepeatNone => 'هیچ کات';
+
+  @override
+  String get taskRepeatDaily => 'ڕۆژانە';
+
+  @override
+  String get taskRepeatWeekly => 'هەفتانە';
+
+  @override
+  String get taskRepeatMonthly => 'مانگانە';
+
+  @override
+  String get taskDeleted => 'ئەرکەکە سڕایەوە';
+
+  @override
+  String get taskCompleted => 'تەواو کرا';
+
+  @override
+  String get noteDeleted => 'تێبینییەکە سڕایەوە';
+
+  @override
+  String get noteNew => 'تێبینی نوێ';
+
+  @override
+  String get noteEdit => 'دەستکاری تێبینی';
+
+  @override
+  String get noteHint => 'تێبینییەکە بنووسە';
+
+  @override
+  String get calendarNoTasks => 'هیچ نییە لەم ڕۆژەدا.';
 }

@@ -3626,6 +3626,228 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'I kept the receipt photo in the Inbox. {reason}'**
   String chatReceiptKept(String reason);
+
+  /// No description provided for @tasksToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get tasksToday;
+
+  /// No description provided for @tasksUpcoming.
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming'**
+  String get tasksUpcoming;
+
+  /// No description provided for @tasksOverdue.
+  ///
+  /// In en, this message translates to:
+  /// **'Overdue'**
+  String get tasksOverdue;
+
+  /// No description provided for @tasksNoDate.
+  ///
+  /// In en, this message translates to:
+  /// **'No date'**
+  String get tasksNoDate;
+
+  /// No description provided for @tasksDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get tasksDone;
+
+  /// No description provided for @tasksCalendar.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar'**
+  String get tasksCalendar;
+
+  /// No description provided for @tasksNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get tasksNotes;
+
+  /// No description provided for @tasksEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing here yet.'**
+  String get tasksEmpty;
+
+  /// No description provided for @tasksAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a task'**
+  String get tasksAdd;
+
+  /// No description provided for @taskNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New task'**
+  String get taskNew;
+
+  /// No description provided for @taskEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit task'**
+  String get taskEdit;
+
+  /// No description provided for @taskTitleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get taskTitleLabel;
+
+  /// No description provided for @taskKindTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Task'**
+  String get taskKindTask;
+
+  /// No description provided for @taskKindAppointment.
+  ///
+  /// In en, this message translates to:
+  /// **'Appointment'**
+  String get taskKindAppointment;
+
+  /// No description provided for @taskKindReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder'**
+  String get taskKindReminder;
+
+  /// No description provided for @taskDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get taskDate;
+
+  /// No description provided for @taskTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get taskTime;
+
+  /// No description provided for @taskNoDate.
+  ///
+  /// In en, this message translates to:
+  /// **'No date'**
+  String get taskNoDate;
+
+  /// No description provided for @taskNoTime.
+  ///
+  /// In en, this message translates to:
+  /// **'No time'**
+  String get taskNoTime;
+
+  /// No description provided for @taskPlace.
+  ///
+  /// In en, this message translates to:
+  /// **'Place'**
+  String get taskPlace;
+
+  /// No description provided for @taskNotesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get taskNotesLabel;
+
+  /// No description provided for @taskPriority.
+  ///
+  /// In en, this message translates to:
+  /// **'Priority'**
+  String get taskPriority;
+
+  /// No description provided for @taskPrioLow.
+  ///
+  /// In en, this message translates to:
+  /// **'Low'**
+  String get taskPrioLow;
+
+  /// No description provided for @taskPrioNormal.
+  ///
+  /// In en, this message translates to:
+  /// **'Normal'**
+  String get taskPrioNormal;
+
+  /// No description provided for @taskPrioHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'High'**
+  String get taskPrioHigh;
+
+  /// No description provided for @taskRepeat.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat'**
+  String get taskRepeat;
+
+  /// No description provided for @taskRepeatNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Never'**
+  String get taskRepeatNone;
+
+  /// No description provided for @taskRepeatDaily.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily'**
+  String get taskRepeatDaily;
+
+  /// No description provided for @taskRepeatWeekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly'**
+  String get taskRepeatWeekly;
+
+  /// No description provided for @taskRepeatMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get taskRepeatMonthly;
+
+  /// No description provided for @taskDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Task deleted'**
+  String get taskDeleted;
+
+  /// No description provided for @taskCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Marked done'**
+  String get taskCompleted;
+
+  /// No description provided for @noteDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Note deleted'**
+  String get noteDeleted;
+
+  /// No description provided for @noteNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New note'**
+  String get noteNew;
+
+  /// No description provided for @noteEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit note'**
+  String get noteEdit;
+
+  /// No description provided for @noteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write the note'**
+  String get noteHint;
+
+  /// No description provided for @calendarNoTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing on this day.'**
+  String get calendarNoTasks;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

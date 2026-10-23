@@ -1958,4 +1958,115 @@ class AppLocalizationsEn extends AppLocalizations {
   String chatReceiptKept(String reason) {
     return 'I kept the receipt photo in the Inbox. $reason';
   }
+
+  @override
+  String get tasksToday => 'Today';
+
+  @override
+  String get tasksUpcoming => 'Upcoming';
+
+  @override
+  String get tasksOverdue => 'Overdue';
+
+  @override
+  String get tasksNoDate => 'No date';
+
+  @override
+  String get tasksDone => 'Done';
+
+  @override
+  String get tasksCalendar => 'Calendar';
+
+  @override
+  String get tasksNotes => 'Notes';
+
+  @override
+  String get tasksEmpty => 'Nothing here yet.';
+
+  @override
+  String get tasksAdd => 'Add a task';
+
+  @override
+  String get taskNew => 'New task';
+
+  @override
+  String get taskEdit => 'Edit task';
+
+  @override
+  String get taskTitleLabel => 'Title';
+
+  @override
+  String get taskKindTask => 'Task';
+
+  @override
+  String get taskKindAppointment => 'Appointment';
+
+  @override
+  String get taskKindReminder => 'Reminder';
+
+  @override
+  String get taskDate => 'Date';
+
+  @override
+  String get taskTime => 'Time';
+
+  @override
+  String get taskNoDate => 'No date';
+
+  @override
+  String get taskNoTime => 'No time';
+
+  @override
+  String get taskPlace => 'Place';
+
+  @override
+  String get taskNotesLabel => 'Notes';
+
+  @override
+  String get taskPriority => 'Priority';
+
+  @override
+  String get taskPrioLow => 'Low';
+
+  @override
+  String get taskPrioNormal => 'Normal';
+
+  @override
+  String get taskPrioHigh => 'High';
+
+  @override
+  String get taskRepeat => 'Repeat';
+
+  @override
+  String get taskRepeatNone => 'Never';
+
+  @override
+  String get taskRepeatDaily => 'Daily';
+
+  @override
+  String get taskRepeatWeekly => 'Weekly';
+
+  @override
+  String get taskRepeatMonthly => 'Monthly';
+
+  @override
+  String get taskDeleted => 'Task deleted';
+
+  @override
+  String get taskCompleted => 'Marked done';
+
+  @override
+  String get noteDeleted => 'Note deleted';
+
+  @override
+  String get noteNew => 'New note';
+
+  @override
+  String get noteEdit => 'Edit note';
+
+  @override
+  String get noteHint => 'Write the note';
+
+  @override
+  String get calendarNoTasks => 'Nothing on this day.';
 }
