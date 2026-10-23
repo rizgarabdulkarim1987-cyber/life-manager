@@ -926,5 +926,19 @@
   "chatEditDescription": "وەسفی «{entry}» دەگۆڕم بۆ «{text}».",
   "chatEntryLabel": "{what} لە {date}",
   "chatNoEntry": "ئەو تۆمارەم نەدۆزیەوە. دارایی بکەرەوە و خۆت هەڵیبژێرە.",
-  "chatAskNewAmount": "بڕە نوێیەکە چەند بێت؟"
+  "chatAskNewAmount": "بڕە نوێیەکە چەند بێت؟",
+  "tipAllClear": "ئەمڕۆ هەموو شت باشە. هەرچی لە سەرەوە بنووسە ڕێکی دەخەم.",
+  "tipBudgetNear": "بودجەی «{name}» ئەم مانگە خەریکە تەواو دەبێت.",
+  "tipEmergencyLow": "سندوقی فریاکەوتن لە ئامانجەکەی کەمترە. بڕێکی بچووکیش سوودی هەیە.",
+  "tipOverdue": "{count, plural, =1{1 ئەرک دواکەوتووە.} other{{count} ئەرک دواکەوتوون.}}",
+  "tipProjectStepSoon": "هەنگاوی «{step}» لە «{project}» ئەم هەفتەیە کاتیەتی.",
+  "homeGreeting": "چی لە مێشکتە؟",
+  "homeToday": "ئەمڕۆ",
+  "homeTodayEmpty": "ئەمڕۆ هیچ شتێک نییە.",
+  "homeRecent": "دوایین تۆمارەکان",
+  "homeRecentEmpty": "هێشتا هیچ تۆمار نەکراوە.",
+  "homeProjects": "پڕۆژە چالاکەکان",
+  "homeProjectsEmpty": "هێشتا پڕۆژە نییە. باسی یەکێکم بۆ بکە یارمەتیت دەدەم پلانی بۆ دابنێیت.",
+  "homeIncome": "داهات",
+  "homeExpense": "خەرجی"
 }

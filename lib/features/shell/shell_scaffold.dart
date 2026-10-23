@@ -45,7 +45,9 @@ class ShellScaffold extends StatelessWidget {
       body: Column(
         children: [
           Expanded(child: shell),
-          Padding(padding: const EdgeInsets.fromLTRB(12, 6, 12, 8), child: const Composer()),
+          // Home has its own, larger box.
+          if (shell.currentIndex != 0)
+            Padding(padding: const EdgeInsets.fromLTRB(12, 6, 12, 8), child: const Composer()),
         ],
       ),
       bottomNavigationBar: Material(

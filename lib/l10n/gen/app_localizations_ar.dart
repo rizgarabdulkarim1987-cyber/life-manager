@@ -1822,4 +1822,58 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get chatAskNewAmount => 'شكد يصير المبلغ الجديد؟';
+
+  @override
+  String get tipAllClear => 'كلشي تمام اليوم. اكتب أي شي فوك وآني أرتبه.';
+
+  @override
+  String tipBudgetNear(String name) {
+    return 'ميزانية «$name» قربت تخلص هذا الشهر.';
+  }
+
+  @override
+  String get tipEmergencyLow => 'صندوق الطوارئ أقل من هدفه. حتى مبلغ صغير يفيد.';
+
+  @override
+  String tipOverdue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'عندك $count مهام متأخرة.',
+      one: 'عندك مهمة متأخرة.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String tipProjectStepSoon(String step, String project) {
+    return 'خطوة «$step» بمشروع «$project» موعدها هذا الأسبوع.';
+  }
+
+  @override
+  String get homeGreeting => 'شنو ببالك؟';
+
+  @override
+  String get homeToday => 'اليوم';
+
+  @override
+  String get homeTodayEmpty => 'ماكو شي مطلوب اليوم.';
+
+  @override
+  String get homeRecent => 'آخر القيود';
+
+  @override
+  String get homeRecentEmpty => 'بعد ما مسجل شي.';
+
+  @override
+  String get homeProjects => 'المشاريع الفعالة';
+
+  @override
+  String get homeProjectsEmpty => 'ماكو مشاريع بعد. احچيلي عن مشروع وأساعدك تخطط إله.';
+
+  @override
+  String get homeIncome => 'دخل';
+
+  @override
+  String get homeExpense => 'صرف';
 }

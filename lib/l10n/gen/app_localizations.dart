@@ -3398,6 +3398,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'What should the new amount be?'**
   String get chatAskNewAmount;
+
+  /// No description provided for @tipAllClear.
+  ///
+  /// In en, this message translates to:
+  /// **'All clear today. Write anything above and I\'ll sort it.'**
+  String get tipAllClear;
+
+  /// No description provided for @tipBudgetNear.
+  ///
+  /// In en, this message translates to:
+  /// **'The «{name}» budget is almost used up this month.'**
+  String tipBudgetNear(String name);
+
+  /// No description provided for @tipEmergencyLow.
+  ///
+  /// In en, this message translates to:
+  /// **'The Emergency fund is below its target. A small top-up helps.'**
+  String get tipEmergencyLow;
+
+  /// No description provided for @tipOverdue.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 task is overdue.} other{{count} tasks are overdue.}}'**
+  String tipOverdue(int count);
+
+  /// No description provided for @tipProjectStepSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'«{step}» in «{project}» is due this week.'**
+  String tipProjectStepSoon(String step, String project);
+
+  /// No description provided for @homeGreeting.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s on your mind?'**
+  String get homeGreeting;
+
+  /// No description provided for @homeToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get homeToday;
+
+  /// No description provided for @homeTodayEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing due today.'**
+  String get homeTodayEmpty;
+
+  /// No description provided for @homeRecent.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent entries'**
+  String get homeRecent;
+
+  /// No description provided for @homeRecentEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing recorded yet.'**
+  String get homeRecentEmpty;
+
+  /// No description provided for @homeProjects.
+  ///
+  /// In en, this message translates to:
+  /// **'Active projects'**
+  String get homeProjects;
+
+  /// No description provided for @homeProjectsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No projects yet. Tell me about one and I\'ll help you plan it.'**
+  String get homeProjectsEmpty;
+
+  /// No description provided for @homeIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Income'**
+  String get homeIncome;
+
+  /// No description provided for @homeExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Expense'**
+  String get homeExpense;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -1822,4 +1822,58 @@ class AppLocalizationsCkb extends AppLocalizations {
 
   @override
   String get chatAskNewAmount => 'بڕە نوێیەکە چەند بێت؟';
+
+  @override
+  String get tipAllClear => 'ئەمڕۆ هەموو شت باشە. هەرچی لە سەرەوە بنووسە ڕێکی دەخەم.';
+
+  @override
+  String tipBudgetNear(String name) {
+    return 'بودجەی «$name» ئەم مانگە خەریکە تەواو دەبێت.';
+  }
+
+  @override
+  String get tipEmergencyLow => 'سندوقی فریاکەوتن لە ئامانجەکەی کەمترە. بڕێکی بچووکیش سوودی هەیە.';
+
+  @override
+  String tipOverdue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ئەرک دواکەوتوون.',
+      one: '1 ئەرک دواکەوتووە.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String tipProjectStepSoon(String step, String project) {
+    return 'هەنگاوی «$step» لە «$project» ئەم هەفتەیە کاتیەتی.';
+  }
+
+  @override
+  String get homeGreeting => 'چی لە مێشکتە؟';
+
+  @override
+  String get homeToday => 'ئەمڕۆ';
+
+  @override
+  String get homeTodayEmpty => 'ئەمڕۆ هیچ شتێک نییە.';
+
+  @override
+  String get homeRecent => 'دوایین تۆمارەکان';
+
+  @override
+  String get homeRecentEmpty => 'هێشتا هیچ تۆمار نەکراوە.';
+
+  @override
+  String get homeProjects => 'پڕۆژە چالاکەکان';
+
+  @override
+  String get homeProjectsEmpty => 'هێشتا پڕۆژە نییە. باسی یەکێکم بۆ بکە یارمەتیت دەدەم پلانی بۆ دابنێیت.';
+
+  @override
+  String get homeIncome => 'داهات';
+
+  @override
+  String get homeExpense => 'خەرجی';
 }

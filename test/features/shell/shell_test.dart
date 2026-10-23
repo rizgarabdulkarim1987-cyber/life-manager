@@ -21,21 +21,6 @@ void main() {
     expect(home.dx, greaterThan(projects.dx));
   });
 
-  testWidgets('home lists the six seeded accounts', (t) async {
-    await pumpApp(t, locale: 'en');
-    await t.scrollUntilVisible(
-      find.byKey(const ValueKey('accounts-card')),
-      200,
-      scrollable: find.byType(Scrollable).first,
-    );
-    expect(
-      find.byWidgetPredicate(
-        (w) => w.key is ValueKey<String> && (w.key! as ValueKey<String>).value.startsWith('account-'),
-      ),
-      findsNWidgets(6),
-    );
-  });
-
   testWidgets('tabs switch to placeholder screens', (t) async {
     await pumpApp(t, locale: 'en');
     await t.tap(find.byKey(const ValueKey('nav-3')));

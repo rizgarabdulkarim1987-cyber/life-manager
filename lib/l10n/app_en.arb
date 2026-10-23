@@ -1077,5 +1077,43 @@
     }
   },
   "chatNoEntry": "I couldn't find that entry. Open Finance to pick it yourself.",
-  "chatAskNewAmount": "What should the new amount be?"
+  "chatAskNewAmount": "What should the new amount be?",
+  "tipAllClear": "All clear today. Write anything above and I'll sort it.",
+  "tipBudgetNear": "The «{name}» budget is almost used up this month.",
+  "@tipBudgetNear": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "tipEmergencyLow": "The Emergency fund is below its target. A small top-up helps.",
+  "tipOverdue": "{count, plural, =1{1 task is overdue.} other{{count} tasks are overdue.}}",
+  "@tipOverdue": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "tipProjectStepSoon": "«{step}» in «{project}» is due this week.",
+  "@tipProjectStepSoon": {
+    "placeholders": {
+      "step": {
+        "type": "String"
+      },
+      "project": {
+        "type": "String"
+      }
+    }
+  },
+  "homeGreeting": "What's on your mind?",
+  "homeToday": "Today",
+  "homeTodayEmpty": "Nothing due today.",
+  "homeRecent": "Recent entries",
+  "homeRecentEmpty": "Nothing recorded yet.",
+  "homeProjects": "Active projects",
+  "homeProjectsEmpty": "No projects yet. Tell me about one and I'll help you plan it.",
+  "homeIncome": "Income",
+  "homeExpense": "Expense"
 }

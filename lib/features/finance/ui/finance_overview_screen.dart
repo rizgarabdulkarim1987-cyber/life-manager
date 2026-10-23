@@ -8,6 +8,7 @@ import '../../../core/l10n/ckb_fallback_localizations.dart';
 import '../../../core/money/money.dart';
 import '../../../core/theme/tokens.dart';
 import '../../capture/data/capture_providers.dart';
+import '../../shell/home_cards.dart' show HomeBucketsCard, HomeChartCard;
 import '../data/finance_providers.dart';
 import 'ui_format.dart';
 import 'widgets/alerts_banner.dart';
@@ -54,6 +55,8 @@ class FinanceOverviewScreen extends ConsumerWidget {
           const _MonthPanel(),
           const _AddActions(),
           const _ConsolidatedPanel(),
+          const HomeChartCard(),
+          const HomeBucketsCard(),
           AlertsBanner(alerts),
           const _Entries(),
           const _AccountsPanel(),

@@ -926,5 +926,19 @@
   "chatEditDescription": "أغيّر وصف «{entry}» إلى «{text}».",
   "chatEntryLabel": "{what} بتاريخ {date}",
   "chatNoEntry": "ما لگيت هذا القيد. افتح المالية واختاره بنفسك.",
-  "chatAskNewAmount": "شكد يصير المبلغ الجديد؟"
+  "chatAskNewAmount": "شكد يصير المبلغ الجديد؟",
+  "tipAllClear": "كلشي تمام اليوم. اكتب أي شي فوك وآني أرتبه.",
+  "tipBudgetNear": "ميزانية «{name}» قربت تخلص هذا الشهر.",
+  "tipEmergencyLow": "صندوق الطوارئ أقل من هدفه. حتى مبلغ صغير يفيد.",
+  "tipOverdue": "{count, plural, =1{عندك مهمة متأخرة.} other{عندك {count} مهام متأخرة.}}",
+  "tipProjectStepSoon": "خطوة «{step}» بمشروع «{project}» موعدها هذا الأسبوع.",
+  "homeGreeting": "شنو ببالك؟",
+  "homeToday": "اليوم",
+  "homeTodayEmpty": "ماكو شي مطلوب اليوم.",
+  "homeRecent": "آخر القيود",
+  "homeRecentEmpty": "بعد ما مسجل شي.",
+  "homeProjects": "المشاريع الفعالة",
+  "homeProjectsEmpty": "ماكو مشاريع بعد. احچيلي عن مشروع وأساعدك تخطط إله.",
+  "homeIncome": "دخل",
+  "homeExpense": "صرف"
 }

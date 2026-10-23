@@ -1819,4 +1819,58 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get chatAskNewAmount => 'What should the new amount be?';
+
+  @override
+  String get tipAllClear => 'All clear today. Write anything above and I\'ll sort it.';
+
+  @override
+  String tipBudgetNear(String name) {
+    return 'The «$name» budget is almost used up this month.';
+  }
+
+  @override
+  String get tipEmergencyLow => 'The Emergency fund is below its target. A small top-up helps.';
+
+  @override
+  String tipOverdue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tasks are overdue.',
+      one: '1 task is overdue.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String tipProjectStepSoon(String step, String project) {
+    return '«$step» in «$project» is due this week.';
+  }
+
+  @override
+  String get homeGreeting => 'What\'s on your mind?';
+
+  @override
+  String get homeToday => 'Today';
+
+  @override
+  String get homeTodayEmpty => 'Nothing due today.';
+
+  @override
+  String get homeRecent => 'Recent entries';
+
+  @override
+  String get homeRecentEmpty => 'Nothing recorded yet.';
+
+  @override
+  String get homeProjects => 'Active projects';
+
+  @override
+  String get homeProjectsEmpty => 'No projects yet. Tell me about one and I\'ll help you plan it.';
+
+  @override
+  String get homeIncome => 'Income';
+
+  @override
+  String get homeExpense => 'Expense';
 }
