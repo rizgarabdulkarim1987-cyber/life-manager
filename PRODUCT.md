@@ -35,6 +35,7 @@ A private, single-owner life manager. Voice-first capture comes with a review st
 - Tasks shared in from WhatsApp; meeting notes turned into tasks.
 - Backups are files the owner moves to a laptop, a USB stick or a messenger.
 - Phase 2 is done: finance (accounts, transactions, transfers, buckets, budgets, debts, reports, Excel import) and voice or text capture with an offline rule parser, optional Groq online AI (key stored on the phone, carried inside encrypted backups) and on-device Whisper. Captures wait in an Inbox until reviewed.
+- Phase 3 is done: the vault (version 1.2.0). Passwords, notes and recovery codes are sealed per field with AES-256-GCM under a vault key that is wrapped by an Argon2id master password, a one-time recovery key and an optional fingerprint-bound Keystore key. It auto-locks, throttles wrong attempts, copies to a self-clearing sensitive clipboard, imports from pasted notes with a local parser, and travels encrypted in backups. A written security review lists the limits and the on-phone checks still to do; real passwords move in only when the owner decides, after reading it.
 
 ## Capabilities and Constraints
 

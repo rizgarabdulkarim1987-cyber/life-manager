@@ -65,6 +65,22 @@ flutter test integration_test -d <device-id>
 - **الأذونات:** الإنترنت، والميكروفون، والبصمة فقط.
 - **اختبارات الجهاز:** `whisper_device_test` وبقية اختبارات `integration_test` لم تُشغّل بعد على هاتف حقيقي: كان هاتف موصولاً أثناء بناء المرحلة 2 لكن لم تُشغَّل عليه لأن الاختبار يثبّت نسخة debug بتوقيع مختلف فوق تطبيقك المثبّت. شغّلها على هاتف اختبار.
 
+## المرحلة 3: الخزنة
+
+- **التحديث فوق المرحلة 2:** ثبّت الـ APK الجديد (الإصدار 1.2.0) فوق القديم؛ بياناتك تبقى. أنشئ نسخة احتياطية قبل التحديث. تتحوّل قاعدة البيانات إلى الإصدار 3 تلقائياً وتُضاف إليها جداول خزنة فارغة.
+- **إنشاء الخزنة:** افتح تبويب **الخزنة** ← «ابدأ». اختر **كلمة مرور رئيسية** (10 أحرف على الأقل؛ الجملة الطويلة أفضل). هي غير الـ PIN، ولا يمكن استرجاعها.
+- **مفتاح الاسترداد:** يظهر مرة واحدة (8 مجموعات من 4 أحرف). **اكتبه على ورقة واحفظها في مكان آمن خارج الهاتف**، ثم اكتبه في التطبيق لتأكيده. إذا نسيت كلمة المرور الرئيسية فهو الطريقة الوحيدة لفتح الخزنة، وعندها يُطلب منك اختيار كلمة مرور جديدة. إذا فقدت الاثنين معاً فالخزنة تبقى مقفلة إلى الأبد: لا يوجد حذف ولا استرجاع في هذه المرحلة.
+- **الفتح بالبصمة (اختياري):** من آخر خطوة في الإعداد أو من **إعدادات الخزنة**. يتوقف تلقائياً عند إضافة بصمة جديدة للهاتف وبعد استرجاع نسخة احتياطية؛ افتح بكلمة المرور الرئيسية ثم فعّله من جديد. رمز قفل الجهاز وحده لا يفتح الخزنة.
+- **القفل:** تُقفل الخزنة بعد دقيقتين بلا لمس (يمكن تغييرها: 1 أو 2 أو 5 أو 10 دقائق)، وفور الخروج من التطبيق، وعند قفل التطبيق. عرض كلمة المرور أو نسخها يطلب منك التأكيد من جديد (بصمة أو كلمة المرور الرئيسية) إن مرّت أكثر من 30 ثانية على آخر تأكيد، وتختفي القيمة المعروضة بعد 30 ثانية.
+- **الحافظة:** عند نسخ كلمة مرور يعلّمها التطبيق «حساسة» ويمسحها بعد 30 ثانية حيثما يسمح أندرويد. إذا أُغلق التطبيق قسراً خلال هذه الثواني فلن تُمسح.
+- **كلمة مرور خاطئة:** 5 محاولات مجانية، ثم انتظار 30 ثانية يتضاعف حتى ساعة. لا تُحذف أي بيانات أبداً.
+- **استيراد من الملاحظات:** من قائمة الخزنة ← «استيراد من الملاحظات»: ألصق نص ملاحظاتك، يقترح التطبيق عناصر (محلياً بلا إنترنت)، تراجعها ثم تحفظ ما تريد. **احذف الملاحظة الأصلية بنفسك بعد ذلك**.
+- **النسخ الاحتياطي:** الخزنة تدخل مشفّرة في النسخة الاحتياطية وتُفتح على أي هاتف بكلمة المرور الرئيسية أو مفتاح الاسترداد.
+- **⚠️ استخدم كلمات مرور تجريبية فقط** إلى أن تقرأ مراجعة الأمان (`docs/superpowers/specs/2026-10-23-phase-3-vault-security-review.md`) وتنفّذ فحوص الهاتف المذكورة فيها. نقل كلمات المرور الحقيقية قرارك أنت.
+- **اختبارات الجهاز:** مفتاح البصمة في Keystore، وإبطاله عند إضافة بصمة، ومسح الحافظة في أندرويد 13 وما بعده، وتوقيت Argon2id على الهاتف: كلها لم تُجرَّب بعد على هاتف حقيقي (لا هاتف موصول أثناء البناء).
+
+---
+
 ---
 
 # Install and build — My Life Manager
@@ -133,3 +149,17 @@ Status: not yet run on a real phone (no phone was connected while Phase 1 was bu
 - **Turning online AI off:** in **Settings → AI** switch off "Use online AI". The on-phone parser and speech model keep working, and the "Finish with AI" buttons disappear.
 - **Permissions:** internet, microphone and biometrics only.
 - **On-device tests:** `whisper_device_test` and the rest of `integration_test` have not been run on a real phone yet. A phone was connected while Phase 2 was built, but the run installs a debug-signed build that would clash with an installed release app, so run them on a test phone.
+
+## Phase 3: Vault
+
+- **Updating over Phase 2:** install the new APK (version 1.2.0) over the old one; your data stays. Take a backup first. The database moves to schema 3 on its own and gains empty vault tables.
+- **Setting up:** open the **Vault** tab and tap Start. Choose a **master password** (at least 10 characters; a long passphrase is better). It is separate from your PIN and cannot be recovered.
+- **Recovery key:** shown once (8 groups of 4 characters). **Write it on paper and keep the paper somewhere safe, away from the phone**, then type it back to confirm. It is the only way in if you forget the master password, and unlocking with it makes you choose a new one. If you lose both, the vault stays locked for good: this phase has no erase and no recovery.
+- **Fingerprint unlock (optional):** the last setup step, or **Vault settings**. It turns itself off when a fingerprint is added to the phone and after a backup is restored; unlock with the master password and turn it on again. The phone's PIN alone never opens the vault.
+- **Locking:** after 2 minutes without a touch (choose 1, 2, 5 or 10), as soon as you leave the app, and whenever the app locks. Revealing or copying a password asks you to confirm again (fingerprint or master password) if the last confirmation is older than 30 seconds; a revealed value hides after 30 seconds.
+- **Clipboard:** a copied password is marked sensitive and cleared after 30 seconds where Android allows it. If the app is killed during those seconds, it is not cleared.
+- **Wrong password:** 5 free tries, then a 30-second wait that doubles up to an hour. Nothing is ever deleted.
+- **Import from notes:** Vault menu → Import from notes. Paste your notes; the app proposes items (on the phone, no internet), you review them and save the ones you want. **Delete the original note yourself afterwards.**
+- **Backups:** the vault travels encrypted inside the backup and opens on any phone with the master password or the recovery key.
+- **⚠️ Use test passwords only** until you have read the security review (`docs/superpowers/specs/2026-10-23-phase-3-vault-security-review.md`) and run the on-phone checks it lists. Moving real passwords in is your decision.
+- **On-device checks:** the Keystore fingerprint key, its invalidation on a new fingerprint, clipboard clearing on Android 13+ and Argon2id timing on the phone have not been run on a real phone yet (none was connected while Phase 3 was built).

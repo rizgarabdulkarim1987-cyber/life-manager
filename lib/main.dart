@@ -27,7 +27,7 @@ import 'features/vault/data/vault_key_service.dart';
 import 'features/vault/platform/biometric_key_store.dart';
 
 /// Keep in step with `version:` in pubspec.yaml; it is written into every backup.
-const kAppVersion = '1.1.0';
+const kAppVersion = '1.2.0';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
