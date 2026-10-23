@@ -3284,6 +3284,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No'**
   String get chatDrop;
+
+  /// No description provided for @navProjects.
+  ///
+  /// In en, this message translates to:
+  /// **'Projects'**
+  String get navProjects;
+
+  /// No description provided for @composerHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write anything… an expense, a task, an idea'**
+  String get composerHint;
+
+  /// No description provided for @composerSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get composerSend;
+
+  /// No description provided for @composerMic.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold to talk, or tap to start and stop'**
+  String get composerMic;
+
+  /// No description provided for @chatTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Assistant'**
+  String get chatTitle;
+
+  /// No description provided for @chatUndo.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get chatUndo;
+
+  /// No description provided for @chatVoiceKept.
+  ///
+  /// In en, this message translates to:
+  /// **'I kept your voice note in the Inbox. {reason}'**
+  String chatVoiceKept(String reason);
+
+  /// No description provided for @chatEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell me what happened, in your own words. I\'ll show you what I understood before saving anything.'**
+  String get chatEmpty;
+
+  /// No description provided for @chatStateSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get chatStateSaved;
+
+  /// No description provided for @chatStateDropped.
+  ///
+  /// In en, this message translates to:
+  /// **'Not saved'**
+  String get chatStateDropped;
+
+  /// No description provided for @chatStateUndone.
+  ///
+  /// In en, this message translates to:
+  /// **'Undone'**
+  String get chatStateUndone;
+
+  /// No description provided for @chatStateEdited.
+  ///
+  /// In en, this message translates to:
+  /// **'Opened in the form'**
+  String get chatStateEdited;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -16,7 +16,8 @@ import '../capture_pipeline.dart';
 import '../data/capture_providers.dart';
 import '../data/capture_repository.dart';
 import '../domain/proposal.dart';
-import 'capture_sheet.dart' show inboxReason, showCaptureOutcome;
+import 'capture_sheet.dart' show showCaptureOutcome;
+import '../chat/describe.dart' show inboxReason;
 
 bool _hasAudio(Capture c) => c.audio != null && c.audio!.isNotEmpty;
 bool _hasText(Capture c) => (c.transcript ?? '').trim().isNotEmpty;

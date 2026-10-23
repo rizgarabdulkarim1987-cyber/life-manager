@@ -1753,4 +1753,42 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get chatDrop => 'لا';
+
+  @override
+  String get navProjects => 'المشاريع';
+
+  @override
+  String get composerHint => 'اكتب أي شي… صرفية، مهمة، فكرة';
+
+  @override
+  String get composerSend => 'إرسال';
+
+  @override
+  String get composerMic => 'دوس وطوّل حتى تحچي، أو دوس مرة للبدء ومرة للإيقاف';
+
+  @override
+  String get chatTitle => 'المساعد';
+
+  @override
+  String get chatUndo => 'تراجع';
+
+  @override
+  String chatVoiceKept(String reason) {
+    return 'حفظت التسجيل بالوارد. $reason';
+  }
+
+  @override
+  String get chatEmpty => 'گلّي شنو صار بكلامك. راح أراويك شنو فهمت قبل ما أحفظ أي شي.';
+
+  @override
+  String get chatStateSaved => 'انحفظت';
+
+  @override
+  String get chatStateDropped => 'ما انحفظت';
+
+  @override
+  String get chatStateUndone => 'انلغت';
+
+  @override
+  String get chatStateEdited => 'انفتحت بالفورم';
 }

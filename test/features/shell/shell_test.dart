@@ -6,24 +6,28 @@ import '../../helpers/app_harness.dart';
 import '../../helpers/fakes.dart';
 
 void main() {
-  testWidgets('shell shows four destinations and the mic button', (t) async {
+  testWidgets('shell shows four destinations and the composer', (t) async {
     await pumpApp(t);
     for (var i = 0; i < 4; i++) {
       expect(find.byKey(ValueKey('nav-$i')), findsOneWidget);
     }
-    expect(find.byKey(const ValueKey('mic-fab')), findsOneWidget);
+    expect(find.byKey(const ValueKey('composer-field')), findsWidgets);
   });
 
   testWidgets('in Arabic, Home is the rightmost destination', (t) async {
     await pumpApp(t);
     final home = t.getCenter(find.byKey(const ValueKey('nav-0')));
-    final vault = t.getCenter(find.byKey(const ValueKey('nav-3')));
-    expect(home.dx, greaterThan(vault.dx));
+    final projects = t.getCenter(find.byKey(const ValueKey('nav-3')));
+    expect(home.dx, greaterThan(projects.dx));
   });
 
   testWidgets('home lists the six seeded accounts', (t) async {
     await pumpApp(t, locale: 'en');
-    await t.scrollUntilVisible(find.byKey(const ValueKey('accounts-card')), 200);
+    await t.scrollUntilVisible(
+      find.byKey(const ValueKey('accounts-card')),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
     expect(
       find.byWidgetPredicate(
         (w) => w.key is ValueKey<String> && (w.key! as ValueKey<String>).value.startsWith('account-'),

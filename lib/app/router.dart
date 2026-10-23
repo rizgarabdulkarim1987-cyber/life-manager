@@ -160,9 +160,9 @@ GoRouter buildRouter({void Function()? onNavigate}) => GoRouter(
           observers: [if (onNavigate != null) MoneyHideObserver(onNavigate)],
           routes: [
             GoRoute(
-              path: '/vault',
+              path: '/projects',
               builder: (context, _) =>
-                  PlaceholderScreen(title: context.l10n.navVault, phase: 3, icon: Icons.shield_outlined),
+                  PlaceholderScreen(title: context.l10n.navProjects, phase: 3, icon: Icons.rocket_launch_outlined),
             ),
           ],
         ),

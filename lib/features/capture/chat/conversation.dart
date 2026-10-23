@@ -16,7 +16,7 @@ import '../domain/proposal.dart';
 import 'clarify.dart';
 import 'describe.dart';
 
-enum CardState { open, accepted, dropped, saved, undone }
+enum CardState { open, accepted, dropped, saved, undone, edited }
 
 /// One proposal the owner says OK or No to. The cards of one message are saved together.
 class ProposalCard {
@@ -119,7 +119,25 @@ class Conversation extends Notifier<List<ChatMessage>> {
       // An answer that doesn't fit is a new message.
       if (filled != null) return _continue(pending, filled);
     }
-    final outcome = await ref.read(capturePipelineProvider).fromText(t);
+    await _handle(await ref.read(capturePipelineProvider).fromText(t));
+  }
+
+  /// A voice note: the transcript shows as the owner's bubble, then the same flow as text.
+  Future<void> sendVoice(Uint8List wav) async {
+    _pending = null;
+    final outcome = await ref.read(capturePipelineProvider).fromVoice(wav);
+    final capture = await CaptureRepository(_db).get(outcome.captureId);
+    final heard = capture?.transcript?.trim() ?? '';
+    if (heard.isNotEmpty) _add(UserMessage(heard));
+    if (outcome is SavedToInbox && heard.isEmpty) {
+      final (l, _) = await _context();
+      _add(AssistantMessage(l.chatVoiceKept(inboxReason(l, outcome.reasonKey))));
+      return;
+    }
+    await _handle(outcome);
+  }
+
+  Future<void> _handle(CaptureOutcome outcome) async {
     final capture = await CaptureRepository(_db).get(outcome.captureId);
     final json = capture?.parsedJson;
     final (l, lex) = await _context();
@@ -246,6 +264,21 @@ class Conversation extends Notifier<List<ChatMessage>> {
       case TaskProposal() || NoteProposal():
         return KeepInInbox(p);
     }
+  }
+
+  /// Hands the message's cards to the full review form: what the chat filled
+  /// in is written to the capture first. Returns the capture to open.
+  Future<int?> edit(ProposalCard card) async {
+    final i = state.indexWhere((m) => m is AssistantMessage && m.cards.any((c) => c.id == card.id));
+    if (i < 0) return null;
+    final msg = state[i] as AssistantMessage;
+    if (msg.cards.any((c) => c.state != CardState.open && c.state != CardState.accepted)) return null;
+    final capture = await CaptureRepository(_db).get(card.captureId);
+    if (capture == null || capture.status != 'pending') return null;
+    await CaptureRepository(_db)
+        .setParsed(card.captureId, [for (final c in msg.cards) c.proposal], by: capture.parsedBy ?? 'rules');
+    _replace(i, msg.copyWith(cards: [for (final c in msg.cards) c.copyWith(state: CardState.edited)]));
+    return card.captureId;
   }
 
   Future<void> undo(int captureId) async {

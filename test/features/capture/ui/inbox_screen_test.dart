@@ -179,9 +179,14 @@ void main() {
     await t.pageBack();
     await settle(t);
     await openFinance(t);
-    await t.scrollUntilVisible(find.byKey(const ValueKey('open-inbox-tile')), 200);
-    // The tile can end up behind the mic button, so tap its start edge.
-    await t.tapAt(t.getTopLeft(find.byKey(const ValueKey('open-inbox-tile'))) + const Offset(24, 16));
+    await t.scrollUntilVisible(
+      find.byKey(const ValueKey('open-inbox-tile')),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await t.drag(find.byType(Scrollable).first, const Offset(0, -200));
+    await settle(t);
+    await t.tap(find.byKey(const ValueKey('open-inbox-tile')));
     await settle(t);
     expect(find.byKey(const ValueKey('inbox-screen')), findsOneWidget);
   });

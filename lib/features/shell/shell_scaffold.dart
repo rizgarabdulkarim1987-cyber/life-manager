@@ -4,15 +4,17 @@ import 'package:go_router/go_router.dart';
 import '../../core/l10n/ckb_fallback_localizations.dart';
 import '../../core/theme/motion.dart';
 import '../../core/theme/tokens.dart';
-import '../capture/ui/capture_sheet.dart';
 
-/// Bottom bar with four destinations around a notched, centred mic button.
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../core/security/money_privacy.dart';
+import '../capture/ui/composer.dart';
+
+/// Four destinations, with the composer above the bar on every tab (redesign §9.1).
 class ShellScaffold extends StatelessWidget {
   const ShellScaffold({super.key, required this.shell});
 
   final StatefulNavigationShell shell;
-
-  static const double _fabSize = 64;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class ShellScaffold extends StatelessWidget {
       (Icons.home_outlined, Icons.home_rounded, l10n.navHome),
       (Icons.account_balance_wallet_outlined, Icons.account_balance_wallet_rounded, l10n.navFinance),
       (Icons.task_alt_outlined, Icons.task_alt_rounded, l10n.navTasks),
-      (Icons.shield_outlined, Icons.shield_rounded, l10n.navVault),
+      (Icons.rocket_launch_outlined, Icons.rocket_launch_rounded, l10n.navProjects),
     ];
     Widget item(int i) => Expanded(
       child: _NavItem(
@@ -31,48 +33,26 @@ class ShellScaffold extends StatelessWidget {
         selectedIcon: items[i].$2,
         label: items[i].$3,
         selected: shell.currentIndex == i,
-        onTap: () => shell.goBranch(i, initialLocation: i == shell.currentIndex),
+        onTap: () {
+          // Amounts hide again whenever the owner changes tab.
+          ProviderScope.containerOf(context, listen: false).read(moneyRevealedProvider.notifier).hide();
+          shell.goBranch(i, initialLocation: i == shell.currentIndex);
+        },
       ),
     );
 
     return Scaffold(
-      body: shell,
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // No tooltip: a long press types instead of speaking.
-      floatingActionButton: Semantics(
-        label: l10n.capMicTooltip,
-        onLongPressHint: l10n.capTypeHint,
-        child: GestureDetector(
-          onLongPress: () => startTextCapture(context),
-          child: SizedBox.square(
-            dimension: _fabSize,
-            child: FloatingActionButton(
-              key: const ValueKey('mic-fab'),
-              onPressed: () => startVoiceCapture(context),
-              shape: const CircleBorder(),
-              backgroundColor: k.accent,
-              foregroundColor: k.onAccent,
-              elevation: 2,
-              child: const Icon(Icons.mic_rounded, size: 30),
-            ),
-          ),
-        ),
+      body: Column(
+        children: [
+          Expanded(child: shell),
+          Padding(padding: const EdgeInsets.fromLTRB(12, 6, 12, 8), child: const Composer()),
+        ],
       ),
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 6,
+      bottomNavigationBar: Material(
         color: k.surface,
-        surfaceTintColor: Colors.transparent,
-        padding: EdgeInsets.zero,
-        height: 72,
-        child: Row(
-          children: [
-            item(0),
-            item(1),
-            const SizedBox(width: _fabSize + 16),
-            item(2),
-            item(3),
-          ],
+        child: SafeArea(
+          top: false,
+          child: SizedBox(height: 68, child: Row(children: [for (var i = 0; i < items.length; i++) item(i)])),
         ),
       ),
     );

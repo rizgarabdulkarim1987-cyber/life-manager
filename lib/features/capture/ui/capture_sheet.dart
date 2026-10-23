@@ -12,6 +12,7 @@ import '../../../core/theme/tokens.dart';
 import '../ai/ai_config.dart';
 import '../ai/consent.dart';
 import '../capture_pipeline.dart';
+import '../chat/describe.dart';
 import '../speech/recorder.dart';
 
 /// Asks for each undecided [features] that could go online right now (online
@@ -50,18 +51,6 @@ Future<void> startTextCapture(BuildContext context) async {
   );
   if (outcome != null && context.mounted) showCaptureOutcome(context, outcome);
 }
-
-String inboxReason(AppLocalizations l, String key) => switch (key) {
-  'noSpeechEngine' => l.capReason_noSpeechEngine,
-  'noSpeechOnlineOff' => l.capReason_noSpeechOnlineOff,
-  'noSpeechNoKey' => l.capReason_noSpeechNoKey,
-  'noSpeechNotAsked' => l.capReason_noSpeechNotAsked,
-  'noSpeechDeclined' => l.capReason_noSpeechDeclined,
-  'noSpeechOffline' => l.capReason_noSpeechOffline,
-  'sttFailed' => l.capReason_sttFailed,
-  'empty' => l.capReason_empty,
-  _ => l.capReason_lowConfidence,
-};
 
 void showCaptureOutcome(BuildContext context, CaptureOutcome outcome) {
   final router = GoRouter.of(context);

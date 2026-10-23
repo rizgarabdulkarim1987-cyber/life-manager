@@ -1004,5 +1004,24 @@
   "chatHandedToForm": "Opened in the full form.",
   "chatOk": "OK",
   "chatEdit": "Edit",
-  "chatDrop": "No"
+  "chatDrop": "No",
+  "navProjects": "Projects",
+  "composerHint": "Write anything… an expense, a task, an idea",
+  "composerSend": "Send",
+  "composerMic": "Hold to talk, or tap to start and stop",
+  "chatTitle": "Assistant",
+  "chatUndo": "Undo",
+  "chatVoiceKept": "I kept your voice note in the Inbox. {reason}",
+  "@chatVoiceKept": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "chatEmpty": "Tell me what happened, in your own words. I'll show you what I understood before saving anything.",
+  "chatStateSaved": "Saved",
+  "chatStateDropped": "Not saved",
+  "chatStateUndone": "Undone",
+  "chatStateEdited": "Opened in the form"
 }

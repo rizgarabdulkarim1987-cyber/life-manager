@@ -907,5 +907,17 @@
   "chatHandedToForm": "لە فۆرمی تەواودا کرایەوە.",
   "chatOk": "باشە",
   "chatEdit": "دەستکاری",
-  "chatDrop": "نەخێر"
+  "chatDrop": "نەخێر",
+  "navProjects": "پڕۆژەکان",
+  "composerHint": "هەرچی بنووسە… خەرجی، ئەرک، بیرۆکە",
+  "composerSend": "ناردن",
+  "composerMic": "پەنجە دابگرە بۆ قسەکردن، یان جارێک بۆ دەستپێک و جارێک بۆ وەستان",
+  "chatTitle": "یاریدەدەر",
+  "chatUndo": "گەڕاندنەوە",
+  "chatVoiceKept": "دەنگەکەتم لە هاتووەکان هەڵگرت. {reason}",
+  "chatEmpty": "بە قسەی خۆت بڵێ چی ڕوویدا. پێش پاشەکەوتکردن پیشانت دەدەم چیم تێگەیشت.",
+  "chatStateSaved": "پاشەکەوت کرا",
+  "chatStateDropped": "پاشەکەوت نەکرا",
+  "chatStateUndone": "گەڕێندرایەوە",
+  "chatStateEdited": "لە فۆرم کرایەوە"
 }

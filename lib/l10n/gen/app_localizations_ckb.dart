@@ -1753,4 +1753,42 @@ class AppLocalizationsCkb extends AppLocalizations {
 
   @override
   String get chatDrop => 'نەخێر';
+
+  @override
+  String get navProjects => 'پڕۆژەکان';
+
+  @override
+  String get composerHint => 'هەرچی بنووسە… خەرجی، ئەرک، بیرۆکە';
+
+  @override
+  String get composerSend => 'ناردن';
+
+  @override
+  String get composerMic => 'پەنجە دابگرە بۆ قسەکردن، یان جارێک بۆ دەستپێک و جارێک بۆ وەستان';
+
+  @override
+  String get chatTitle => 'یاریدەدەر';
+
+  @override
+  String get chatUndo => 'گەڕاندنەوە';
+
+  @override
+  String chatVoiceKept(String reason) {
+    return 'دەنگەکەتم لە هاتووەکان هەڵگرت. $reason';
+  }
+
+  @override
+  String get chatEmpty => 'بە قسەی خۆت بڵێ چی ڕوویدا. پێش پاشەکەوتکردن پیشانت دەدەم چیم تێگەیشت.';
+
+  @override
+  String get chatStateSaved => 'پاشەکەوت کرا';
+
+  @override
+  String get chatStateDropped => 'پاشەکەوت نەکرا';
+
+  @override
+  String get chatStateUndone => 'گەڕێندرایەوە';
+
+  @override
+  String get chatStateEdited => 'لە فۆرم کرایەوە';
 }

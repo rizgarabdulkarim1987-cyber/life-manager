@@ -1749,4 +1749,43 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get chatDrop => 'No';
+
+  @override
+  String get navProjects => 'Projects';
+
+  @override
+  String get composerHint => 'Write anything… an expense, a task, an idea';
+
+  @override
+  String get composerSend => 'Send';
+
+  @override
+  String get composerMic => 'Hold to talk, or tap to start and stop';
+
+  @override
+  String get chatTitle => 'Assistant';
+
+  @override
+  String get chatUndo => 'Undo';
+
+  @override
+  String chatVoiceKept(String reason) {
+    return 'I kept your voice note in the Inbox. $reason';
+  }
+
+  @override
+  String get chatEmpty =>
+      'Tell me what happened, in your own words. I\'ll show you what I understood before saving anything.';
+
+  @override
+  String get chatStateSaved => 'Saved';
+
+  @override
+  String get chatStateDropped => 'Not saved';
+
+  @override
+  String get chatStateUndone => 'Undone';
+
+  @override
+  String get chatStateEdited => 'Opened in the form';
 }

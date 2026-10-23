@@ -907,5 +907,17 @@
   "chatHandedToForm": "فتحتها بالفورم الكامل.",
   "chatOk": "تمام",
   "chatEdit": "عدّل",
-  "chatDrop": "لا"
+  "chatDrop": "لا",
+  "navProjects": "المشاريع",
+  "composerHint": "اكتب أي شي… صرفية، مهمة، فكرة",
+  "composerSend": "إرسال",
+  "composerMic": "دوس وطوّل حتى تحچي، أو دوس مرة للبدء ومرة للإيقاف",
+  "chatTitle": "المساعد",
+  "chatUndo": "تراجع",
+  "chatVoiceKept": "حفظت التسجيل بالوارد. {reason}",
+  "chatEmpty": "گلّي شنو صار بكلامك. راح أراويك شنو فهمت قبل ما أحفظ أي شي.",
+  "chatStateSaved": "انحفظت",
+  "chatStateDropped": "ما انحفظت",
+  "chatStateUndone": "انلغت",
+  "chatStateEdited": "انفتحت بالفورم"
 }

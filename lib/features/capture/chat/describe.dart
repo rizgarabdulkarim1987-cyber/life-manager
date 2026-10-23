@@ -36,3 +36,16 @@ String describeProposal(Proposal p, Lexicon lex, AppLocalizations l) {
       return l.chatLater(text);
   }
 }
+
+/// Why a capture waits in the Inbox, for [SavedToInbox.reasonKey].
+String inboxReason(AppLocalizations l, String key) => switch (key) {
+  'noSpeechEngine' => l.capReason_noSpeechEngine,
+  'noSpeechOnlineOff' => l.capReason_noSpeechOnlineOff,
+  'noSpeechNoKey' => l.capReason_noSpeechNoKey,
+  'noSpeechNotAsked' => l.capReason_noSpeechNotAsked,
+  'noSpeechDeclined' => l.capReason_noSpeechDeclined,
+  'noSpeechOffline' => l.capReason_noSpeechOffline,
+  'sttFailed' => l.capReason_sttFailed,
+  'empty' => l.capReason_empty,
+  _ => l.capReason_lowConfidence,
+};
