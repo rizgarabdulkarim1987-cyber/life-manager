@@ -51,6 +51,9 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
   String? _bucketTag;
 
   bool _allocate = false;
+
+  /// The owner flipped the split switch; the default no longer applies.
+  bool _allocTouched = false;
   Map<int, int> _allocation = const {};
 
   /// The amount in the base currency, or null when it has no rate.
@@ -134,7 +137,12 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
     setState(() {
       _baseTotal = total;
       _rateMissing = missing;
-      if (missing || total == null) _allocate = false;
+      if (missing || total == null) {
+        _allocate = false;
+      } else if (!_allocTouched && widget.editId == null && _type == 'income' && !_hasAllocations) {
+        // Redesign §11.2: a new income is split by the percentages unless the owner says no.
+        _allocate = ref.read(settingsProvider).value?.bucketsConfirmed ?? false;
+      }
     });
   }
 
@@ -404,7 +412,12 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
                 onChanged: !_canAllocate
                     ? null
                     // Until the owner has set their own percentages, the toggle asks for them first.
-                    : (v) => confirmed ? setState(() => _allocate = v) : showPercentagesSheet(context, ref),
+                    : (v) => confirmed
+                          ? setState(() {
+                              _allocTouched = true;
+                              _allocate = v;
+                            })
+                          : showPercentagesSheet(context, ref),
               ),
             if (_allocate && _canAllocate) ...[
               const SizedBox(height: 8),

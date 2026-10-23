@@ -5,6 +5,7 @@ import 'package:life_manager/features/capture/data/capture_committer.dart';
 import 'package:life_manager/features/capture/data/capture_repository.dart';
 import 'package:life_manager/features/capture/domain/proposal.dart';
 import 'package:life_manager/features/finance/data/debts_repository.dart';
+import 'package:life_manager/features/finance/data/rates_repository.dart';
 
 import '../../../helpers/finance_fixtures.dart';
 
@@ -268,5 +269,44 @@ void main() {
 
     await committer.undo(id);
     expect((await f.db.select(f.db.transactions).get()).single.amountMinor, 40000);
+  });
+
+  test('income via chat is auto allocated by percents', () async {
+    final id = await repo.createText('استلمت راتب مليون');
+    await committer.commit(id, [
+      MoneyCommit(
+        MoneyProposal(type: IntentType.income, confidence: 100, amountMinor: 1000000, accountId: f.personalIqd),
+        null,
+      ),
+    ]);
+    final allocations = await f.db.select(f.db.bucketAllocations).get();
+    expect(allocations.fold<int>(0, (s, a) => s + a.amountBaseMinor), 1000000);
+    final buckets = {for (final b in await f.db.select(f.db.buckets).get()) b.id: b};
+    for (final a in allocations) {
+      expect(a.amountBaseMinor, 1000000 * buckets[a.bucketId]!.percentBp ~/ 10000);
+    }
+  });
+
+  test('USD income with a rate saved first allocates; without one it waits unallocated', () async {
+    final noRate = await repo.createText('500 دولار');
+    await committer.commit(noRate, [
+      MoneyCommit(
+        MoneyProposal(type: IntentType.income, confidence: 100, amountMinor: 50000, accountId: f.personalUsd),
+        null,
+      ),
+    ]);
+    expect(await f.db.select(f.db.bucketAllocations).get(), isEmpty, reason: 'no rate: saved, not allocated');
+
+    await RatesRepository(f.db)
+        .setRate(base: 'USD', quote: 'IQD', rateE6: 1310000000, effectiveFrom: DateTime.utc(2026, 1, 1));
+    final withRate = await repo.createText('500 دولار');
+    await committer.commit(withRate, [
+      MoneyCommit(
+        MoneyProposal(type: IntentType.income, confidence: 100, amountMinor: 50000, accountId: f.personalUsd),
+        null,
+      ),
+    ]);
+    final total = (await f.db.select(f.db.bucketAllocations).get()).fold<int>(0, (s, a) => s + a.amountBaseMinor);
+    expect(total, 655000);
   });
 }

@@ -195,8 +195,12 @@ class CaptureCommitter {
           captureId: captureId,
         );
         log.transactions.add(id);
-        if (p.type == IntentType.income && allocation != null && allocation.isNotEmpty) {
-          await _buckets.allocate(id, allocation);
+        if (p.type == IntentType.income) {
+          if (allocation != null && allocation.isNotEmpty) {
+            await _buckets.allocate(id, allocation);
+          } else if (allocation == null) {
+            await _autoAllocate(id);
+          }
         }
       case TransferCommit(:final p):
         final id = await _tx.addTransfer(
@@ -255,6 +259,19 @@ class CaptureCommitter {
         await _tx.delete(p.txId!);
       case KeepInInbox():
         break;
+    }
+  }
+
+  /// Redesign §11.2: an income is split by the bucket percentages as it is
+  /// saved. Without a rate for its currency it stays unallocated (and the
+  /// Finance alert says so) rather than failing the save.
+  Future<void> _autoAllocate(int incomeTxId) async {
+    try {
+      final total = await _buckets.incomeInBase(incomeTxId);
+      if (total <= 0) return;
+      await _buckets.allocate(incomeTxId, splitByPercents(total, await _db.select(_db.buckets).get()));
+    } on MissingRate {
+      return;
     }
   }
 

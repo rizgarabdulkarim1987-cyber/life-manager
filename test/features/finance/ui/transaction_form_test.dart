@@ -38,9 +38,19 @@ void main() {
     await t.enterText(find.byKey(const ValueKey('amount')), '100.00');
     await settle(t);
     await revealInForm(t, find.byKey(const ValueKey('tx-allocate')));
+    // On by default for a new income once the percentages are confirmed.
+    expect(t.widget<SwitchListTile>(find.byKey(const ValueKey('tx-allocate'))).value, isTrue);
+  }
+
+  testWidgets('switching the split off keeps it off', (t) async {
+    final c = await pumpApp(t, locale: 'en');
+    await usdIncomeWithAllocation(t, c);
     await t.tap(find.byKey(const ValueKey('tx-allocate')));
     await settle(t);
-  }
+    await t.enterText(find.byKey(const ValueKey('amount')), '120.00');
+    await settle(t);
+    expect(t.widget<SwitchListTile>(find.byKey(const ValueKey('tx-allocate'))).value, isFalse);
+  });
 
   testWidgets('USD income with allocation pre-fills 91700 / 26200 / 13100 IQD and saves three rows', (t) async {
     final c = await pumpApp(t, locale: 'en');
