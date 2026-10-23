@@ -42,7 +42,7 @@ class TransferDraft {
   final String? transferKind;
 }
 
-enum IntentType { expense, income, transfer, task, debtPayment, note }
+enum IntentType { expense, income, transfer, task, debtPayment, note, edit, delete }
 
 /// Below this the review screen asks the owner to check the proposal.
 const kLowConfidence = 60;
@@ -217,4 +217,57 @@ class NoteProposal extends Proposal {
   int get confidence => 100;
   final String text;
   final int? workspaceId;
+}
+
+/// Which saved entry «edit» and «delete» mean: `last`, `last_expense`,
+/// `last_income`, or words found in its description or category.
+const kTargetLast = 'last';
+
+/// «غير المبلغ لـ 30 الف»: changes one saved income or expense. [txId] is
+/// picked by the chat from [target] before the card is shown.
+class EditProposal extends Proposal {
+  const EditProposal({
+    required this.confidence,
+    this.target = kTargetLast,
+    this.txId,
+    this.newAmountMinor,
+    this.newCategoryId,
+    this.newDescription,
+  });
+
+  @override
+  IntentType get type => IntentType.edit;
+  @override
+  final int confidence;
+  final String target;
+  final int? txId;
+  final int? newAmountMinor;
+  final int? newCategoryId;
+  final String? newDescription;
+
+  bool get changesNothing => newAmountMinor == null && newCategoryId == null && newDescription == null;
+
+  EditProposal copyWith({int? txId, int? newAmountMinor}) => EditProposal(
+    confidence: confidence,
+    target: target,
+    txId: txId ?? this.txId,
+    newAmountMinor: newAmountMinor ?? this.newAmountMinor,
+    newCategoryId: newCategoryId,
+    newDescription: newDescription,
+  );
+}
+
+/// «احذف آخر مصروف»: deletes one saved income or expense.
+class DeleteProposal extends Proposal {
+  const DeleteProposal({required this.confidence, this.target = kTargetLast, this.txId});
+
+  @override
+  IntentType get type => IntentType.delete;
+  @override
+  final int confidence;
+  final String target;
+  final int? txId;
+
+  DeleteProposal copyWith({int? txId}) =>
+      DeleteProposal(confidence: confidence, target: target, txId: txId ?? this.txId);
 }

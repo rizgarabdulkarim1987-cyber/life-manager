@@ -1023,5 +1023,59 @@
   "chatStateSaved": "Saved",
   "chatStateDropped": "Not saved",
   "chatStateUndone": "Undone",
-  "chatStateEdited": "Opened in the form"
+  "chatStateEdited": "Opened in the form",
+  "chatDeleteEntry": "I'll delete «{entry}».",
+  "@chatDeleteEntry": {
+    "placeholders": {
+      "entry": {
+        "type": "String"
+      }
+    }
+  },
+  "chatEditAmount": "I'll change the amount of «{entry}» to {amount}.",
+  "@chatEditAmount": {
+    "placeholders": {
+      "entry": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "chatEditCategory": "I'll move «{entry}» to «{category}».",
+  "@chatEditCategory": {
+    "placeholders": {
+      "entry": {
+        "type": "String"
+      },
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "chatEditDescription": "I'll rename «{entry}» to «{text}».",
+  "@chatEditDescription": {
+    "placeholders": {
+      "entry": {
+        "type": "String"
+      },
+      "text": {
+        "type": "String"
+      }
+    }
+  },
+  "chatEntryLabel": "{what} on {date}",
+  "@chatEntryLabel": {
+    "placeholders": {
+      "what": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "chatNoEntry": "I couldn't find that entry. Open Finance to pick it yourself.",
+  "chatAskNewAmount": "What should the new amount be?"
 }

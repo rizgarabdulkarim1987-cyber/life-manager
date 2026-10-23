@@ -919,5 +919,12 @@
   "chatStateSaved": "انحفظت",
   "chatStateDropped": "ما انحفظت",
   "chatStateUndone": "انلغت",
-  "chatStateEdited": "انفتحت بالفورم"
+  "chatStateEdited": "انفتحت بالفورم",
+  "chatDeleteEntry": "أحذف «{entry}».",
+  "chatEditAmount": "أغيّر مبلغ «{entry}» إلى {amount}.",
+  "chatEditCategory": "أنقل «{entry}» إلى «{category}».",
+  "chatEditDescription": "أغيّر وصف «{entry}» إلى «{text}».",
+  "chatEntryLabel": "{what} بتاريخ {date}",
+  "chatNoEntry": "ما لگيت هذا القيد. افتح المالية واختاره بنفسك.",
+  "chatAskNewAmount": "شكد يصير المبلغ الجديد؟"
 }

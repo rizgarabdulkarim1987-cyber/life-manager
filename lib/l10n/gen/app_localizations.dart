@@ -3356,6 +3356,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Opened in the form'**
   String get chatStateEdited;
+
+  /// No description provided for @chatDeleteEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll delete «{entry}».'**
+  String chatDeleteEntry(String entry);
+
+  /// No description provided for @chatEditAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll change the amount of «{entry}» to {amount}.'**
+  String chatEditAmount(String entry, String amount);
+
+  /// No description provided for @chatEditCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll move «{entry}» to «{category}».'**
+  String chatEditCategory(String entry, String category);
+
+  /// No description provided for @chatEditDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll rename «{entry}» to «{text}».'**
+  String chatEditDescription(String entry, String text);
+
+  /// No description provided for @chatEntryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{what} on {date}'**
+  String chatEntryLabel(String what, String date);
+
+  /// No description provided for @chatNoEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'I couldn\'t find that entry. Open Finance to pick it yourself.'**
+  String get chatNoEntry;
+
+  /// No description provided for @chatAskNewAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'What should the new amount be?'**
+  String get chatAskNewAmount;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

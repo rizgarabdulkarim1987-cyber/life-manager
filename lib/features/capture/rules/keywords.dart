@@ -89,6 +89,17 @@ final kTaskCues = phrases([
 ]);
 final kNoteCues = phrases(['ملاحظه', 'ملاحظات', 'note', 'تێبینی']);
 
+// Changing or removing something already saved.
+final kDeleteCues = phrases(['احذف', 'احذفلي', 'امسح', 'امسحلي', 'شيل', 'delete', 'remove', 'بسڕەوە', 'بسرەوە']);
+final kEditCues = phrases(['غير', 'غيرلي', 'عدل', 'عدللي', 'صحح', 'change', 'edit', 'fix', 'بگۆڕە', 'چاکی بکە']);
+final kExpenseNouns = phrases(['مصروف', 'صرفيه', 'مصرف', 'مصاريف', 'expense', 'خەرجی']);
+final kIncomeNouns = phrases(['دخل', 'مدخول', 'وارد', 'income', 'داهات']);
+
+/// Filler around a target: «آخر», «المبلغ», «لـ».
+final kTargetFiller = phrases([
+  'اخر', 'last', 'المبلغ', 'مبلغ', 'amount', 'the', 'to', 'الى', 'لـ', 'ل', 'من', 'دواین', 'بڕەکە', //
+]);
+
 /// Reminder framing dropped from a task's title ("remind me to …").
 final kTaskFraming = phrases(['ذكرني', 'ذكريني', 'remind me to', 'remind me', 'بیرم بخەرەوە']);
 

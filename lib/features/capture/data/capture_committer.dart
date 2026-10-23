@@ -37,6 +37,18 @@ class DebtCommit extends CommitItem {
   final int? debtId;
 }
 
+class EditCommit extends CommitItem {
+  const EditCommit(this.p);
+
+  final EditProposal p;
+}
+
+class DeleteCommit extends CommitItem {
+  const DeleteCommit(this.p);
+
+  final DeleteProposal p;
+}
+
 /// Not saved now: moved to a new pending capture so nothing is lost (Decision 3).
 class KeepInInbox extends CommitItem {
   const KeepInInbox(this.p);
@@ -55,9 +67,12 @@ class _UndoLog {
   final debts = <int>[];
   final closedDebts = <int>[];
 
-  bool get isEmpty => transactions.isEmpty && debts.isEmpty && closedDebts.isEmpty;
+  /// Rows as they were before an edit or delete, with their bucket allocations.
+  final restore = <Map<String, Object?>>[];
 
-  String encode() => jsonEncode({'tx': transactions, 'debts': debts, 'closed': closedDebts});
+  bool get isEmpty => transactions.isEmpty && debts.isEmpty && closedDebts.isEmpty && restore.isEmpty;
+
+  String encode() => jsonEncode({'tx': transactions, 'debts': debts, 'closed': closedDebts, 'restore': restore});
 
   static _UndoLog decode(String s) {
     final j = jsonDecode(s) as Map<String, Object?>;
@@ -65,7 +80,8 @@ class _UndoLog {
     return _UndoLog()
       ..transactions.addAll(ints('tx'))
       ..debts.addAll(ints('debts'))
-      ..closedDebts.addAll(ints('closed'));
+      ..closedDebts.addAll(ints('closed'))
+      ..restore.addAll([for (final r in (j['restore'] as List? ?? const [])) (r as Map).cast<String, Object?>()]);
   }
 }
 
@@ -120,6 +136,10 @@ class CaptureCommitter {
           throw ArgumentError('a new debt needs its direction, counterparty and principal');
         }
         if (debtId != null && p.leg != 'repayment') throw ArgumentError('only repayments go on an existing debt');
+      case EditCommit(:final p):
+        if (p.txId == null || p.changesNothing) throw ArgumentError('an edit needs its entry and a change');
+      case DeleteCommit(:final p):
+        if (p.txId == null) throw ArgumentError('a delete needs its entry');
       case KeepInInbox():
         break;
     }
@@ -137,6 +157,14 @@ class CaptureCommitter {
     if (log.debts.isNotEmpty) {
       await (_db.delete(_db.transactions)..where((t) => t.debtId.isIn(log.debts))).go();
       await (_db.delete(_db.debts)..where((d) => d.id.isIn(log.debts))).go();
+    }
+    for (final r in log.restore.reversed) {
+      final old = Transaction.fromJson((r['tx']! as Map).cast<String, Object?>());
+      final allocations = [
+        for (final a in r['allocations']! as List) BucketAllocation.fromJson((a as Map).cast<String, Object?>()),
+      ];
+      await (_db.delete(_db.transactions)..where((t) => t.id.equals(old.id))).go();
+      await _tx.restore(old, allocations);
     }
     if (log.closedDebts.isNotEmpty) {
       await (_db.update(
@@ -211,8 +239,32 @@ class CaptureCommitter {
           );
           log.debts.add(newDebt);
         }
+      case EditCommit(:final p):
+        await _remember(p.txId!, log);
+        await _tx.update(
+          p.txId!,
+          TransactionsCompanion(
+            amountMinor: p.newAmountMinor == null ? const Value.absent() : Value(p.newAmountMinor!),
+            categoryId: p.newCategoryId == null ? const Value.absent() : Value(p.newCategoryId),
+            description: p.newDescription == null ? const Value.absent() : Value(p.newDescription),
+          ),
+          clearAllocations: true,
+        );
+      case DeleteCommit(:final p):
+        await _remember(p.txId!, log);
+        await _tx.delete(p.txId!);
       case KeepInInbox():
         break;
     }
+  }
+
+  Future<void> _remember(int txId, _UndoLog log) async {
+    final old = await _tx.get(txId);
+    if (old == null) throw StateError('transaction not found');
+    final allocations = await (_db.select(_db.bucketAllocations)..where((a) => a.transactionId.equals(txId))).get();
+    log.restore.add({
+      'tx': old.toJson(),
+      'allocations': [for (final a in allocations) a.toJson()],
+    });
   }
 }

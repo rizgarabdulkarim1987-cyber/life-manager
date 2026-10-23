@@ -1791,4 +1791,35 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get chatStateEdited => 'انفتحت بالفورم';
+
+  @override
+  String chatDeleteEntry(String entry) {
+    return 'أحذف «$entry».';
+  }
+
+  @override
+  String chatEditAmount(String entry, String amount) {
+    return 'أغيّر مبلغ «$entry» إلى $amount.';
+  }
+
+  @override
+  String chatEditCategory(String entry, String category) {
+    return 'أنقل «$entry» إلى «$category».';
+  }
+
+  @override
+  String chatEditDescription(String entry, String text) {
+    return 'أغيّر وصف «$entry» إلى «$text».';
+  }
+
+  @override
+  String chatEntryLabel(String what, String date) {
+    return '$what بتاريخ $date';
+  }
+
+  @override
+  String get chatNoEntry => 'ما لگيت هذا القيد. افتح المالية واختاره بنفسك.';
+
+  @override
+  String get chatAskNewAmount => 'شكد يصير المبلغ الجديد؟';
 }

@@ -1,11 +1,13 @@
+import '../../../core/db/app_database.dart';
 import '../../../core/money/money.dart';
 import '../../../core/money/money_format.dart';
 import '../../../l10n/gen/app_localizations.dart';
 import '../domain/lexicon.dart';
 import '../domain/proposal.dart';
 
-/// One plain sentence saying what saving [p] would do.
-String describeProposal(Proposal p, Lexicon lex, AppLocalizations l) {
+/// One plain sentence saying what saving [p] would do. [entry] is the saved
+/// row an edit or delete acts on; it is named without its amount.
+String describeProposal(Proposal p, Lexicon lex, AppLocalizations l, {Transaction? entry}) {
   String account(int? id) => lex.accounts.where((a) => a.id == id).firstOrNull?.name ?? '—';
   String currencyOf(int? accountId) =>
       lex.accounts.where((a) => a.id == accountId).firstOrNull?.currency ?? lex.baseCurrency;
@@ -34,7 +36,31 @@ String describeProposal(Proposal p, Lexicon lex, AppLocalizations l) {
       return l.chatLater(title);
     case NoteProposal(:final text):
       return l.chatLater(text);
+    case DeleteProposal():
+      return l.chatDeleteEntry(entryLabel(entry, lex, l));
+    case EditProposal():
+      final name = entryLabel(entry, lex, l);
+      if (p.newAmountMinor != null) {
+        return l.chatEditAmount(name, money(p.newAmountMinor, entry?.currencyCode ?? lex.baseCurrency));
+      }
+      if (p.newCategoryId != null) {
+        return l.chatEditCategory(
+          name,
+          lex.categories.where((c) => c.id == p.newCategoryId).firstOrNull?.name ?? l.chatNoCategory,
+        );
+      }
+      return l.chatEditDescription(name, p.newDescription ?? '');
   }
+}
+
+/// «تكسي on 22/10»: what the owner wrote, else its category.
+String entryLabel(Transaction? t, Lexicon lex, AppLocalizations l) {
+  if (t == null) return '—';
+  final what = (t.description ?? '').trim().isNotEmpty
+      ? t.description!.trim()
+      : lex.categories.where((c) => c.id == t.categoryId).firstOrNull?.name ?? l.chatNoCategory;
+  final d = t.occurredAt.toLocal();
+  return l.chatEntryLabel(what, '${d.day}/${d.month}');
 }
 
 /// Why a capture waits in the Inbox, for [SavedToInbox.reasonKey].

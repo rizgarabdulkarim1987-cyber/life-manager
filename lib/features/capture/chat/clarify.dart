@@ -4,7 +4,7 @@ import '../domain/lexicon.dart';
 import '../domain/proposal.dart';
 
 /// The one thing the chat asks before a proposal can be saved.
-enum AskField { amount, account, toAccount, counterparty, direction, leg }
+enum AskField { amount, account, toAccount, counterparty, direction, leg, newAmount }
 
 /// A tappable answer. [value] is an id, a code or a sentinel the controller understands.
 class QuickReply {
@@ -56,7 +56,9 @@ Clarification? nextClarification(Proposal p, Lexicon lex) {
       }
       if (p.amountMinor == null) return const Clarification(AskField.amount);
       if (p.accountId == null) return Clarification(AskField.account, accounts(currency: p.currency));
-    case TaskProposal() || NoteProposal():
+    case EditProposal():
+      if (p.changesNothing) return const Clarification(AskField.newAmount);
+    case TaskProposal() || NoteProposal() || DeleteProposal():
       break;
   }
   return null;
@@ -86,6 +88,10 @@ Proposal? applyAnswer(Proposal p, AskField field, {Object? value, String? text})
         DebtProposal() => p.copyWith(amountMinor: minor),
         _ => p,
       };
+    case AskField.newAmount:
+      if (p is! EditProposal) return null;
+      final minor = value is int ? value : amount('IQD');
+      return minor == null ? null : p.copyWith(newAmountMinor: minor);
     case AskField.account || AskField.toAccount:
       if (value is! int) return null;
       return switch (p) {

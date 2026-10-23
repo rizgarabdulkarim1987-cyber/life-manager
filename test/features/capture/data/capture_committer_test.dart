@@ -240,4 +240,33 @@ void main() {
     await committer.undo(id);
     expect(await f.db.select(f.db.transactions).get(), isEmpty);
   });
+
+  test('commit deletes, undo restores', () async {
+    final first = await repo.createText('دفعت 40 الف تكسي');
+    await committer.commit(first, [MoneyCommit(expense(), null)]);
+    final tx = (await f.db.select(f.db.transactions).get()).single;
+
+    final id = await repo.createText('احذف آخر مصروف');
+    await committer.commit(id, [DeleteCommit(DeleteProposal(confidence: 100, target: 'last_expense', txId: tx.id))]);
+    expect(await f.db.select(f.db.transactions).get(), isEmpty);
+
+    await committer.undo(id);
+    final back = (await f.db.select(f.db.transactions).get()).single;
+    expect((back.id, back.amountMinor, back.description), (tx.id, 40000, 'تكسي'));
+  });
+
+  test('commit edits, undo puts the old amount back', () async {
+    final first = await repo.createText('دفعت 40 الف تكسي');
+    await committer.commit(first, [MoneyCommit(expense(), null)]);
+    final tx = (await f.db.select(f.db.transactions).get()).single;
+
+    final id = await repo.createText('غير المبلغ لـ 30 الف');
+    await committer.commit(id, [
+      EditCommit(EditProposal(confidence: 100, target: 'last', txId: tx.id, newAmountMinor: 30000)),
+    ]);
+    expect((await f.db.select(f.db.transactions).get()).single.amountMinor, 30000);
+
+    await committer.undo(id);
+    expect((await f.db.select(f.db.transactions).get()).single.amountMinor, 40000);
+  });
 }

@@ -153,6 +153,16 @@ Map<String, Object?> _toJson(Proposal p) => _clean(switch (p) {
     'workspaceId': p.workspaceId,
   },
   NoteProposal() => {'kind': 'note', 'text': p.text, 'workspaceId': p.workspaceId},
+  EditProposal() => {
+    'kind': 'edit',
+    'confidence': p.confidence,
+    'target': p.target,
+    'txId': p.txId,
+    'newAmountMinor': p.newAmountMinor,
+    'newCategoryId': p.newCategoryId,
+    'newDescription': p.newDescription,
+  },
+  DeleteProposal() => {'kind': 'delete', 'confidence': p.confidence, 'target': p.target, 'txId': p.txId},
 });
 
 Proposal _fromJson(Map<String, Object?> j) {
@@ -198,6 +208,15 @@ Proposal _fromJson(Map<String, Object?> j) {
       workspaceId: i('workspaceId'),
     ),
     'note' => NoteProposal(text: s('text')!, workspaceId: i('workspaceId')),
+    'edit' => EditProposal(
+      confidence: i('confidence')!,
+      target: s('target') ?? kTargetLast,
+      txId: i('txId'),
+      newAmountMinor: i('newAmountMinor'),
+      newCategoryId: i('newCategoryId'),
+      newDescription: s('newDescription'),
+    ),
+    'delete' => DeleteProposal(confidence: i('confidence')!, target: s('target') ?? kTargetLast, txId: i('txId')),
     _ => throw const FormatException('unknown proposal kind'),
   };
 }

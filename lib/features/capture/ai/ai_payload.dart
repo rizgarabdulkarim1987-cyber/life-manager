@@ -40,5 +40,7 @@ const kParseSystemPrompt =
     'otherwise use null. Never invent a name.\n'
     '- Dates as YYYY-MM-DD and times as HH:MM, relative to "now". Use null when not said.\n'
     '- Use null for anything not said. Do not guess amounts.\n'
+    '- "edit" and "delete" change or remove something already saved: set "target" to "last", '
+    '"last_expense", "last_income" or a few words naming the entry, and for "edit" give only the new values.\n'
     '- Never give financial or investment advice, opinions or commentary.\n'
     '- Output only JSON.';

@@ -1791,4 +1791,35 @@ class AppLocalizationsCkb extends AppLocalizations {
 
   @override
   String get chatStateEdited => 'لە فۆرم کرایەوە';
+
+  @override
+  String chatDeleteEntry(String entry) {
+    return '«$entry» دەسڕمەوە.';
+  }
+
+  @override
+  String chatEditAmount(String entry, String amount) {
+    return 'بڕی «$entry» دەگۆڕم بۆ $amount.';
+  }
+
+  @override
+  String chatEditCategory(String entry, String category) {
+    return '«$entry» دەگوازمەوە بۆ «$category».';
+  }
+
+  @override
+  String chatEditDescription(String entry, String text) {
+    return 'وەسفی «$entry» دەگۆڕم بۆ «$text».';
+  }
+
+  @override
+  String chatEntryLabel(String what, String date) {
+    return '$what لە $date';
+  }
+
+  @override
+  String get chatNoEntry => 'ئەو تۆمارەم نەدۆزیەوە. دارایی بکەرەوە و خۆت هەڵیبژێرە.';
+
+  @override
+  String get chatAskNewAmount => 'بڕە نوێیەکە چەند بێت؟';
 }

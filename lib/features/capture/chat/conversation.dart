@@ -7,6 +7,7 @@ import '../../../app/providers.dart';
 import '../../../core/db/app_database.dart';
 import '../../../l10n/gen/app_localizations.dart';
 import '../../../core/text/digits.dart';
+import '../../finance/data/transactions_repository.dart';
 import '../../settings/settings_repository.dart';
 import '../capture_pipeline.dart';
 import '../data/capture_committer.dart';
@@ -15,6 +16,7 @@ import '../domain/lexicon.dart';
 import '../domain/proposal.dart';
 import 'clarify.dart';
 import 'describe.dart';
+import 'targets.dart';
 
 enum CardState { open, accepted, dropped, saved, undone, edited }
 
@@ -141,12 +143,44 @@ class Conversation extends Notifier<List<ChatMessage>> {
     final capture = await CaptureRepository(_db).get(outcome.captureId);
     final json = capture?.parsedJson;
     final (l, lex) = await _context();
-    final proposals = [for (final p in json == null ? const <Proposal>[] : decodeProposals(json)) ?_readGuess(p, lex)];
+    final proposals = <Proposal>[];
+    for (final p in json == null ? const <Proposal>[] : decodeProposals(json)) {
+      final read = _readGuess(p, lex);
+      if (read == null) continue;
+      final found = await _withEntry(read, lex);
+      if (found == null) {
+        _add(AssistantMessage(l.chatNoEntry));
+        return;
+      }
+      proposals.add(found);
+    }
     if (proposals.isEmpty) {
       _add(AssistantMessage(l.chatNotUnderstood));
       return;
     }
     await _askOrShow(outcome.captureId, proposals);
+  }
+
+  /// Edits and deletes get the row they mean; null when there is none.
+  Future<Proposal?> _withEntry(Proposal p, Lexicon lex) async {
+    switch (p) {
+      case EditProposal(txId: null):
+        final t = await resolveTarget(_db, p.target, lex);
+        return t == null ? null : p.copyWith(txId: t.id);
+      case DeleteProposal(txId: null):
+        final t = await resolveTarget(_db, p.target, lex);
+        return t == null ? null : p.copyWith(txId: t.id);
+      default:
+        return p;
+    }
+  }
+
+  Future<Transaction?> _entryOf(Proposal p) async {
+    final id = switch (p) {
+      EditProposal(:final txId) || DeleteProposal(:final txId) => txId,
+      _ => null,
+    };
+    return id == null ? null : TransactionsRepository(_db).get(id);
   }
 
   /// A clause the rules could only guess was a task: an expense when it names
@@ -187,12 +221,13 @@ class Conversation extends Notifier<List<ChatMessage>> {
       );
       return;
     }
+    final texts = [for (final p in proposals) describeProposal(p, lex, l, entry: await _entryOf(p))];
     _add(
       AssistantMessage(
-        proposals.length == 1 ? '${describeProposal(proposals.single, lex, l)} ${l.chatConfirm}' : l.chatConfirm,
+        proposals.length == 1 ? '${texts.single} ${l.chatConfirm}' : l.chatConfirm,
         cards: [
-          for (final p in proposals)
-            ProposalCard(id: _nextCard++, captureId: captureId, proposal: p, text: describeProposal(p, lex, l)),
+          for (final (i, p) in proposals.indexed)
+            ProposalCard(id: _nextCard++, captureId: captureId, proposal: p, text: texts[i]),
         ],
       ),
     );
@@ -205,6 +240,7 @@ class Conversation extends Notifier<List<ChatMessage>> {
     AskField.counterparty => l.chatAskCounterparty,
     AskField.direction => l.chatAskDirection,
     AskField.leg => l.chatAskLeg,
+    AskField.newAmount => l.chatAskNewAmount,
   };
 
   String _chip(String label, AppLocalizations l) => switch (label) {
@@ -261,6 +297,10 @@ class Conversation extends Notifier<List<ChatMessage>> {
                   ..limit(1))
                 .getSingleOrNull();
         return debt == null ? KeepInInbox(p) : DebtCommit(p, debt.id);
+      case EditProposal():
+        return EditCommit(p);
+      case DeleteProposal():
+        return DeleteCommit(p);
       case TaskProposal() || NoteProposal():
         return KeepInInbox(p);
     }

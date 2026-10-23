@@ -134,4 +134,20 @@ void main() {
     final p = (await parse('دفعت 10 الف بانزين الساعة 5 العصر')).single as MoneyProposal;
     expect((p.amountMinor, p.occurredAt), (10000, DateTime(2026, 10, 23, 17)));
   });
+
+  test('«احذف آخر مصروف» → delete the latest expense', () async {
+    final d = (await parse('احذف آخر مصروف')).single as DeleteProposal;
+    expect(d.target, 'last_expense');
+    expect(d.txId, isNull, reason: 'the chat picks the row');
+  });
+
+  test('«غير المبلغ لـ 30 الف» → edit the last entry to 30000', () async {
+    final e = (await parse('غير المبلغ لـ 30 الف')).single as EditProposal;
+    expect((e.target, e.newAmountMinor), ('last', 30000));
+  });
+
+  test('«امسح التكسي» targets the entry by its words', () async {
+    final d = (await parse('امسح التكسي')).single as DeleteProposal;
+    expect(d.target, 'تكسي');
+  });
 }

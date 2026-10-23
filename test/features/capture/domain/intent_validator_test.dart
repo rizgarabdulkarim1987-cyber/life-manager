@@ -203,4 +203,18 @@ void main() {
       expect(e.toString(), isNot(contains('secret')));
     }
   });
+
+  test('edit and delete carry their target', () {
+    final ps = validateIntents(
+      root([
+        {'type': 'delete', 'target': 'last_expense'},
+        {'type': 'edit', 'target': 'last', 'amount': '30000', 'currency': 'IQD'},
+      ]),
+      lex,
+      now,
+    );
+    expect((ps[0] as DeleteProposal).target, 'last_expense');
+    final e = ps[1] as EditProposal;
+    expect((e.target, e.newAmountMinor), ('last', 30000));
+  });
 }

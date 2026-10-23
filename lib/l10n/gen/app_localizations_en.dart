@@ -1788,4 +1788,35 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get chatStateEdited => 'Opened in the form';
+
+  @override
+  String chatDeleteEntry(String entry) {
+    return 'I\'ll delete «$entry».';
+  }
+
+  @override
+  String chatEditAmount(String entry, String amount) {
+    return 'I\'ll change the amount of «$entry» to $amount.';
+  }
+
+  @override
+  String chatEditCategory(String entry, String category) {
+    return 'I\'ll move «$entry» to «$category».';
+  }
+
+  @override
+  String chatEditDescription(String entry, String text) {
+    return 'I\'ll rename «$entry» to «$text».';
+  }
+
+  @override
+  String chatEntryLabel(String what, String date) {
+    return '$what on $date';
+  }
+
+  @override
+  String get chatNoEntry => 'I couldn\'t find that entry. Open Finance to pick it yourself.';
+
+  @override
+  String get chatAskNewAmount => 'What should the new amount be?';
 }

@@ -166,4 +166,32 @@ void main() {
     expect(last().cards, isEmpty);
     expect(last().text, isNotEmpty);
   });
+
+  test('delete by text: the card names the entry, OK deletes, undo brings it back', () async {
+    await chat().send('دفعت 40 الف تكسي');
+    await chat().accept(last().cards.single);
+    await chat().send('احذف آخر مصروف');
+    final card = last().cards.single;
+    expect(card.proposal, isA<DeleteProposal>());
+    expect(card.text, contains('دفعت تكسي'));
+    expect(card.text, isNot(contains('40,000')), reason: 'an old entry is named without its amount');
+    await chat().accept(card);
+    expect(await f.db.select(f.db.transactions).get(), isEmpty);
+    await chat().undo(last().undoCaptureId!);
+    expect((await f.db.select(f.db.transactions).get()).single.amountMinor, 40000);
+  });
+
+  test('edit by text changes the amount of the last entry', () async {
+    await chat().send('دفعت 40 الف تكسي');
+    await chat().accept(last().cards.single);
+    await chat().send('غير المبلغ لـ 30 الف');
+    await chat().accept(last().cards.single);
+    expect((await f.db.select(f.db.transactions).get()).single.amountMinor, 30000);
+  });
+
+  test('nothing to delete says so', () async {
+    await chat().send('احذف آخر مصروف');
+    expect(last().cards, isEmpty);
+    expect(last().text, isNotEmpty);
+  });
 }

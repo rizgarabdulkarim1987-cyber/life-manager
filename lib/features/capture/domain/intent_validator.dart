@@ -17,19 +17,20 @@ class InvalidAiOutput implements Exception {
 
 /// The JSON the model must answer with (also quoted in the prompt).
 const kIntentSchema =
-    '{"intents":[{"type":"expense|income|transfer|task|debt_payment|note",'
+    '{"intents":[{"type":"expense|income|transfer|task|debt_payment|note|edit|delete",'
     '"amount":"<decimal string>|null","currency":"IQD|USD|null",'
     '"to_amount":"<decimal string>|null","to_currency":"IQD|USD|null",'
     '"workspace":"<name>|null","account":"<name>|null","to_account":"<name>|null",'
     '"category":"<name>|null","date":"YYYY-MM-DD|null","time":"HH:MM|null",'
     '"description":"<text>|null","title":"<text>|null",'
     '"counterparty":"<text>|null","debt_direction":"owed_to_me|owed_by_me|null",'
-    '"debt_leg":"principal|repayment|null"}]}';
+    '"debt_leg":"principal|repayment|null",'
+    '"target":"last|last_expense|last_income|<words of the saved entry>|null"}]}';
 
 const kMaxIntents = 10;
 const kMaxAiString = 300;
 
-const _types = {'expense', 'income', 'transfer', 'task', 'debt_payment', 'note'};
+const _types = {'expense', 'income', 'transfer', 'task', 'debt_payment', 'note', 'edit', 'delete'};
 const _currencies = {'IQD', 'USD'};
 const _keys = {
   'type',
@@ -48,6 +49,7 @@ const _keys = {
   'counterparty',
   'debt_direction',
   'debt_leg',
+  'target',
 };
 const _enums = {
   'type': _types,
@@ -148,6 +150,14 @@ class _Resolver {
     'transfer' => _transfer(),
     'debt_payment' => _debt(),
     'task' => _task(),
+    'edit' => EditProposal(
+      confidence: 90,
+      target: f['target'] ?? kTargetLast,
+      newAmountMinor: _minor(f['amount'], f['currency'] ?? lex.baseCurrency),
+      newCategoryId: _named(f['category'], lex.categories, (c) => c.terms)?.id,
+      newDescription: f['description'],
+    ),
+    'delete' => DeleteProposal(confidence: 90, target: f['target'] ?? kTargetLast),
     _ => NoteProposal(text: f['description'] ?? f['title'] ?? '', workspaceId: workspaceId),
   };
 

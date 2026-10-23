@@ -154,6 +154,8 @@ class _Clause {
     if (toks.isEmpty) return null;
     final note = findPhrases(toks, kNoteCues).firstOrNull;
     if (note != null) return NoteProposal(text: _after(text, toks[note.$1]), workspaceId: workspace?.id);
+    if (has(kDeleteCues)) return DeleteProposal(confidence: 90, target: _target(kDeleteCues));
+    if (has(kEditCues)) return _edit();
     if (has(kDebtCues)) return _debt();
     if (has(kExchangeCues) && amounts.length >= 2) {
       final x = _exchange();
@@ -165,6 +167,34 @@ class _Clause {
     if (has(kExpenseCues) || amounts.isNotEmpty) return _money(IntentType.expense);
     return _task(70);
   }
+
+  /// Which saved entry the owner means, from what is left once the cue and filler go.
+  String _target(List<List<String>> cue) {
+    if (has(kExpenseNouns)) return 'last_expense';
+    if (has(kIncomeNouns)) return 'last_income';
+    final drop = {...used, ...phraseIdx(cue), ...phraseIdx(kTargetFiller)};
+    final rest = [
+      for (var i = 0; i < toks.length; i++)
+        if (!drop.contains(i))
+          toks[i].text.startsWith('ال') && toks[i].text.length > 3 ? toks[i].text.substring(2) : toks[i].text,
+    ].join(' ');
+    return rest.isEmpty ? kTargetLast : rest;
+  }
+
+  EditProposal _edit() {
+    final amount = amounts.firstOrNull;
+    final category = _best(_hits(lex.categories, (c) => c.terms)).$1;
+    final newAmount = minor(amount, amount?.currency ?? lex.baseCurrency);
+    // «غير المبلغ لـ 30 الف»: an amount alone means the last entry.
+    final target = newAmount != null || category != null ? _kindTarget() : _target(kEditCues);
+    return EditProposal(confidence: 90, target: target, newAmountMinor: newAmount, newCategoryId: category?.id);
+  }
+
+  String _kindTarget() => has(kExpenseNouns)
+      ? 'last_expense'
+      : has(kIncomeNouns)
+      ? 'last_income'
+      : kTargetLast;
 
   MoneyProposal _money(IntentType type) {
     final amount = amounts.firstOrNull;

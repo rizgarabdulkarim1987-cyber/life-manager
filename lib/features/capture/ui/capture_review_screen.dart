@@ -197,7 +197,7 @@ _Edit _edit(Proposal p) => switch (p) {
   MoneyProposal() => _MoneyEdit(p),
   TransferProposal() => _TransferEdit(p),
   DebtProposal() => _DebtEdit(p),
-  TaskProposal() || NoteProposal() => _LaterEdit(p),
+  TaskProposal() || NoteProposal() || EditProposal() || DeleteProposal() => _LaterEdit(p),
 };
 
 class CaptureReviewScreen extends ConsumerStatefulWidget {

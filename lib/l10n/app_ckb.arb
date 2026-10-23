@@ -919,5 +919,12 @@
   "chatStateSaved": "پاشەکەوت کرا",
   "chatStateDropped": "پاشەکەوت نەکرا",
   "chatStateUndone": "گەڕێندرایەوە",
-  "chatStateEdited": "لە فۆرم کرایەوە"
+  "chatStateEdited": "لە فۆرم کرایەوە",
+  "chatDeleteEntry": "«{entry}» دەسڕمەوە.",
+  "chatEditAmount": "بڕی «{entry}» دەگۆڕم بۆ {amount}.",
+  "chatEditCategory": "«{entry}» دەگوازمەوە بۆ «{category}».",
+  "chatEditDescription": "وەسفی «{entry}» دەگۆڕم بۆ «{text}».",
+  "chatEntryLabel": "{what} لە {date}",
+  "chatNoEntry": "ئەو تۆمارەم نەدۆزیەوە. دارایی بکەرەوە و خۆت هەڵیبژێرە.",
+  "chatAskNewAmount": "بڕە نوێیەکە چەند بێت؟"
 }
