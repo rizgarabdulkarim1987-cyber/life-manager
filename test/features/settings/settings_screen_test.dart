@@ -27,13 +27,13 @@ void main() {
   testWidgets('theme choice changes brightness', (t) async {
     await pumpApp(t, locale: 'en');
     await openSettings(t);
-    expect(Theme.of(t.element(find.byKey(const ValueKey('settings-screen')))).brightness, Brightness.dark);
-    await t.scrollUntilVisible(find.byKey(const ValueKey('theme-light')), 100);
-    await t.ensureVisible(find.byKey(const ValueKey('theme-light')));
-    await t.pumpAndSettle();
-    await t.tap(find.byKey(const ValueKey('theme-light')));
-    await t.pumpAndSettle();
     expect(Theme.of(t.element(find.byKey(const ValueKey('settings-screen')))).brightness, Brightness.light);
+    await t.scrollUntilVisible(find.byKey(const ValueKey('theme-dark')), 100);
+    await t.ensureVisible(find.byKey(const ValueKey('theme-dark')));
+    await t.pumpAndSettle();
+    await t.tap(find.byKey(const ValueKey('theme-dark')));
+    await t.pumpAndSettle();
+    expect(Theme.of(t.element(find.byKey(const ValueKey('settings-screen')))).brightness, Brightness.dark);
   });
 
   testWidgets('biometric switch is disabled when unavailable', (t) async {

@@ -290,7 +290,7 @@ void main() {
     await service(db).restore(file, _pw);
     await BackupService.recoverInterruptedRestore(dir, _key);
     db = await openAppDatabase(file: appDatabaseFile(dir), hexKey: _key);
-    expect(db.schemaVersion, 2);
+    expect(db.schemaVersion, 3);
     expect(await db.select(db.workspaces).get(), hasLength(4));
     expect(await db.select(db.accounts).get(), hasLength(6));
     expect(await db.select(db.categories).get(), hasLength(16));

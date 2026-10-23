@@ -1070,7 +1070,7 @@ class $AppSettingsTableTable extends AppSettingsTable with TableInfo<$AppSetting
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
-    defaultValue: const Constant('dark'),
+    defaultValue: const Constant('light'),
   );
   static const VerificationMeta _lockTimeoutSecondsMeta = const VerificationMeta('lockTimeoutSeconds');
   @override
@@ -1080,7 +1080,7 @@ class $AppSettingsTableTable extends AppSettingsTable with TableInfo<$AppSetting
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    defaultValue: const Constant(300),
+    defaultValue: const Constant(60),
   );
   static const VerificationMeta _biometricEnabledMeta = const VerificationMeta('biometricEnabled');
   @override

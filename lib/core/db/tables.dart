@@ -45,8 +45,8 @@ class AppSettingsTable extends Table {
 
   IntColumn get id => integer().check(id.equals(1)).withDefault(const Constant(1))();
   TextColumn get localeCode => text().withDefault(const Constant('ar'))();
-  TextColumn get themeMode => text().withDefault(const Constant('dark'))();
-  IntColumn get lockTimeoutSeconds => integer().withDefault(const Constant(300))();
+  TextColumn get themeMode => text().withDefault(const Constant('light'))();
+  IntColumn get lockTimeoutSeconds => integer().withDefault(const Constant(60))();
   BoolColumn get biometricEnabled => boolean().withDefault(const Constant(false))();
   TextColumn get baseCurrency => text().withDefault(const Constant('IQD'))();
   BoolColumn get setupCompleted => boolean().withDefault(const Constant(false))();

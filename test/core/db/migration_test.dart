@@ -23,7 +23,7 @@ void main() {
     await db.close();
   });
 
-  test('v1 → v2 keeps workspaces, accounts, settings, backup rows and seeds finance defaults', () async {
+  test('v1 → current keeps workspaces, accounts, settings, backup rows and seeds finance defaults', () async {
     final schema = await verifier.schemaAt(1);
     final raw = schema.rawDatabase;
     const created = 1761177600; // drift stores DateTime as unix seconds by default
@@ -55,7 +55,7 @@ void main() {
     );
 
     final db = AppDatabase(schema.newConnection());
-    await verifier.migrateAndValidate(db, 2);
+    await verifier.migrateAndValidate(db, db.schemaVersion);
 
     final ws = await (db.select(db.workspaces)..orderBy([(w) => OrderingTerm.asc(w.sortOrder)])).get();
     expect(ws.map((w) => w.name), names);
@@ -71,6 +71,26 @@ void main() {
     expect(await db.select(db.backupMetadata).get(), hasLength(1));
     expect(await db.select(db.categories).get(), hasLength(16));
     expect(await db.select(db.buckets).get(), hasLength(3));
+    await db.close();
+  });
+
+  test('v2 → v3 switches to the light theme and the 60 s relock once', () async {
+    final schema = await verifier.schemaAt(2);
+    schema.rawDatabase.execute(
+      "INSERT INTO app_settings (id, locale_code, theme_mode, lock_timeout_seconds, biometric_enabled, base_currency, setup_completed) "
+      "VALUES (1, 'ar', 'dark', 300, 1, 'IQD', 1)",
+    );
+    final db = AppDatabase(schema.newConnection());
+    await verifier.migrateAndValidate(db, 3);
+    final s = await db.select(db.appSettingsTable).getSingle();
+    expect((s.themeMode, s.lockTimeoutSeconds), ('light', 60));
+    await db.close();
+  });
+
+  test('a fresh database defaults to light and 60 s', () async {
+    final db = AppDatabase(NativeDatabase.memory());
+    final s = await db.select(db.appSettingsTable).getSingle();
+    expect((s.themeMode, s.lockTimeoutSeconds), ('light', 60));
     await db.close();
   });
 }

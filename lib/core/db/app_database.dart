@@ -38,7 +38,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase(super.e);
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -82,6 +82,7 @@ class AppDatabase extends _$AppDatabase {
         await seedFinanceDefaults(this);
         await markPersonalCountsInBuckets(this);
       }
+      if (from < 3) await _toV3(m);
     },
     beforeOpen: (details) async {
       await customStatement('PRAGMA foreign_keys = ON');
@@ -89,6 +90,14 @@ class AppDatabase extends _$AppDatabase {
           .insert(const AppSettingsTableCompanion(id: Value(1)), mode: InsertMode.insertOrIgnore);
     },
   );
+
+  /// Redesign (spec 2026-10-23): light and minimal by default, relock after a minute.
+  Future<void> _toV3(Migrator m) async {
+    // Rebuilt so the column defaults change too.
+    await m.alterTable(TableMigration(appSettingsTable));
+    await customStatement("UPDATE app_settings SET theme_mode = 'light' WHERE theme_mode = 'dark'");
+    await customStatement('UPDATE app_settings SET lock_timeout_seconds = 60 WHERE lock_timeout_seconds = 300');
+  }
 }
 
 File appDatabaseFile(Directory supportDir) => File(p.join(supportDir.path, 'app.db'));

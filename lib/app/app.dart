@@ -46,7 +46,7 @@ class _AppState extends ConsumerState<App> {
   @override
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider).value;
-    if (settings == null) return ColoredBox(color: AppTokens.dark.bg);
+    if (settings == null) return ColoredBox(color: AppTokens.light.bg);
 
     final locked = settings.setupCompleted && ref.watch(lockControllerProvider) == LockStatus.locked;
     return MaterialApp.router(

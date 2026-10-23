@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'tokens.dart';
 
 ThemeData buildAppTheme(Brightness brightness) {
-  final k = brightness == Brightness.dark ? AppTokens.dark : AppTokens.light;
+  final dark = brightness == Brightness.dark;
+  final k = dark ? AppTokens.dark : AppTokens.light;
 
   final scheme = ColorScheme(
     brightness: brightness,
@@ -40,7 +41,8 @@ ThemeData buildAppTheme(Brightness brightness) {
       margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppTokens.radiusCard),
-        side: BorderSide(color: k.border),
+        // Light cards sit on the off-white page without an outline.
+        side: dark ? BorderSide(color: k.border) : BorderSide.none,
       ),
     ),
     appBarTheme: AppBarTheme(
@@ -76,8 +78,9 @@ ThemeData buildAppTheme(Brightness brightness) {
     ),
     snackBarTheme: SnackBarThemeData(
       behavior: SnackBarBehavior.floating,
-      backgroundColor: k.surfaceHigh,
-      contentTextStyle: TextStyle(color: k.text, fontFamily: kAppFont),
+      backgroundColor: dark ? k.surfaceHigh : k.text,
+      contentTextStyle: TextStyle(color: dark ? k.text : k.surface, fontFamily: kAppFont),
+      actionTextColor: dark ? k.accent : const Color(0xFF9DB5FF),
     ),
   );
 }
