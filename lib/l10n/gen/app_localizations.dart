@@ -3512,6 +3512,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Currency'**
   String get setupAccountCurrency;
+
+  /// No description provided for @chatAskCreateCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'There is no «{name}» category yet. Shall I create it?'**
+  String chatAskCreateCategory(String name);
+
+  /// No description provided for @chatAskCreateAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'You don\'t have an account yet. Which currency should the first one use?'**
+  String get chatAskCreateAccount;
+
+  /// No description provided for @chatDefaultAccountName.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash {currency}'**
+  String chatDefaultAccountName(String currency);
+
+  /// No description provided for @chatYesCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, create it'**
+  String get chatYesCreate;
+
+  /// No description provided for @chatNoThanks.
+  ///
+  /// In en, this message translates to:
+  /// **'No, leave it'**
+  String get chatNoThanks;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

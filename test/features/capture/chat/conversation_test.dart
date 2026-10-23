@@ -194,4 +194,39 @@ void main() {
     expect(last().cards, isEmpty);
     expect(last().text, isNotEmpty);
   });
+
+  test('unknown category asks to create it; yes creates it and fills the card', () async {
+    await online([
+      {'type': 'expense', 'amount': '5000', 'currency': 'IQD', 'category': 'Gym', 'account': 'Personal · Cash IQD'},
+    ]);
+    await chat().send('gym 5000');
+    final ask = last();
+    expect(ask.cards, isEmpty);
+    expect(ask.text, contains('Gym'));
+    await chat().answer(ask.replies.firstWhere((r) => r.value == true));
+    final gym = await (f.db.select(f.db.categories)..where((c) => c.name.equals('Gym'))).getSingle();
+    expect(gym.kind, 'expense');
+    expect((last().cards.single.proposal as MoneyProposal).categoryId, gym.id);
+  });
+
+  test('saying no to a new category leaves it empty', () async {
+    await online([
+      {'type': 'expense', 'amount': '5000', 'currency': 'IQD', 'category': 'Gym', 'account': 'Personal · Cash IQD'},
+    ]);
+    await chat().send('gym 5000');
+    await chat().answer(last().replies.firstWhere((r) => r.value == false));
+    expect((last().cards.single.proposal as MoneyProposal).categoryId, isNull);
+    expect(await (f.db.select(f.db.categories)..where((c) => c.name.equals('Gym'))).get(), isEmpty);
+  });
+
+  test('no accounts at all asks to create one with currency chips', () async {
+    await f.db.delete(f.db.accounts).go();
+    await chat().send('دفعت 40 الف تكسي');
+    final ask = last();
+    expect(ask.replies.map((r) => r.value), containsAll(['IQD', 'USD']));
+    await chat().answer(ask.replies.firstWhere((r) => r.value == 'IQD'));
+    final account = (await f.db.select(f.db.accounts).get()).single;
+    expect((account.currencyCode, account.workspaceId), ('IQD', f.personalWs));
+    expect((last().cards.single.proposal as MoneyProposal).accountId, account.id);
+  });
 }

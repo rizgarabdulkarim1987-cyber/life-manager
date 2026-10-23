@@ -1892,4 +1892,23 @@ class AppLocalizationsCkb extends AppLocalizations {
 
   @override
   String get setupAccountCurrency => 'دراو';
+
+  @override
+  String chatAskCreateCategory(String name) {
+    return 'هێشتا پۆلی «$name» نییە. دروستی بکەم؟';
+  }
+
+  @override
+  String get chatAskCreateAccount => 'هێشتا هەژمارت نییە. یەکەم هەژمار بە کام دراو بێت؟';
+
+  @override
+  String chatDefaultAccountName(String currency) {
+    return 'نەختینە $currency';
+  }
+
+  @override
+  String get chatYesCreate => 'بەڵێ، دروستی بکە';
+
+  @override
+  String get chatNoThanks => 'نەخێر، وازی لێ بهێنە';
 }

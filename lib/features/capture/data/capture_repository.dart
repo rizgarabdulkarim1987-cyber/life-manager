@@ -122,6 +122,8 @@ Map<String, Object?> _toJson(Proposal p) => _clean(switch (p) {
     'occurredAt': _date(p.occurredAt),
     'description': p.description,
     'bucketTag': p.bucketTag,
+    'newCategoryName': p.newCategoryName,
+    'newAccountName': p.newAccountName,
   },
   TransferProposal() => {
     'kind': 'transfer',
@@ -180,6 +182,8 @@ Proposal _fromJson(Map<String, Object?> j) {
       occurredAt: _parse(j['occurredAt']),
       description: s('description'),
       bucketTag: s('bucketTag'),
+      newCategoryName: s('newCategoryName'),
+      newAccountName: s('newAccountName'),
     ),
     'transfer' => TransferProposal(
       confidence: i('confidence')!,

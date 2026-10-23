@@ -1120,5 +1120,24 @@
   "setupAccountBody": "Where does your money sit? A wallet, a bank, a card. You can add more later, or just tell the assistant.",
   "setupAccountName": "Account name",
   "setupAccountHint": "e.g. Cash wallet",
-  "setupAccountCurrency": "Currency"
+  "setupAccountCurrency": "Currency",
+  "chatAskCreateCategory": "There is no «{name}» category yet. Shall I create it?",
+  "@chatAskCreateCategory": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "chatAskCreateAccount": "You don't have an account yet. Which currency should the first one use?",
+  "chatDefaultAccountName": "Cash {currency}",
+  "@chatDefaultAccountName": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "chatYesCreate": "Yes, create it",
+  "chatNoThanks": "No, leave it"
 }

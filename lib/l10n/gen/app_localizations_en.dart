@@ -1889,4 +1889,23 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get setupAccountCurrency => 'Currency';
+
+  @override
+  String chatAskCreateCategory(String name) {
+    return 'There is no «$name» category yet. Shall I create it?';
+  }
+
+  @override
+  String get chatAskCreateAccount => 'You don\'t have an account yet. Which currency should the first one use?';
+
+  @override
+  String chatDefaultAccountName(String currency) {
+    return 'Cash $currency';
+  }
+
+  @override
+  String get chatYesCreate => 'Yes, create it';
+
+  @override
+  String get chatNoThanks => 'No, leave it';
 }

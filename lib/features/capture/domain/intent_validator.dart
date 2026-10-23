@@ -181,6 +181,9 @@ class _Resolver {
       categoryId: category?.id,
       occurredAt: at,
       description: f['description'],
+      // Said but unknown: kept so the chat can offer to create it.
+      newCategoryName: category == null ? f['category']?.trim() : null,
+      newAccountName: account == null ? f['account']?.trim() : null,
     );
   }
 

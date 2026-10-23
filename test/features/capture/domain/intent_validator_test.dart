@@ -217,4 +217,10 @@ void main() {
     final e = ps[1] as EditProposal;
     expect((e.target, e.newAmountMinor), ('last', 30000));
   });
+
+  test('an unknown category name is kept for the chat to offer', () {
+    final p = validateIntents(root([intent({'amount': '5000', 'currency': 'IQD', 'category': 'Gym'})]), lex, now).single
+        as MoneyProposal;
+    expect((p.categoryId, p.newCategoryName), (null, 'Gym'));
+  });
 }

@@ -945,5 +945,10 @@
   "setupAccountBody": "پارەکەت لە کوێیە؟ جزدان، بانک، کارت. دواتر دەتوانیت زیاتر زیاد بکەیت، یان تەنها بە یاریدەدەر بڵێ.",
   "setupAccountName": "ناوی هەژمار",
   "setupAccountHint": "بۆ نموونە: جزدانی نەختینە",
-  "setupAccountCurrency": "دراو"
+  "setupAccountCurrency": "دراو",
+  "chatAskCreateCategory": "هێشتا پۆلی «{name}» نییە. دروستی بکەم؟",
+  "chatAskCreateAccount": "هێشتا هەژمارت نییە. یەکەم هەژمار بە کام دراو بێت؟",
+  "chatDefaultAccountName": "نەختینە {currency}",
+  "chatYesCreate": "بەڵێ، دروستی بکە",
+  "chatNoThanks": "نەخێر، وازی لێ بهێنە"
 }

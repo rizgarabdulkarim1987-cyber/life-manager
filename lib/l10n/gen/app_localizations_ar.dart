@@ -1891,4 +1891,23 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get setupAccountCurrency => 'العملة';
+
+  @override
+  String chatAskCreateCategory(String name) {
+    return 'ماكو فئة «$name» بعد. أسوي فئة جديدة؟';
+  }
+
+  @override
+  String get chatAskCreateAccount => 'بعد ما عندك حساب. أول حساب بأي عملة؟';
+
+  @override
+  String chatDefaultAccountName(String currency) {
+    return 'كاش $currency';
+  }
+
+  @override
+  String get chatYesCreate => 'إي، سوّيها';
+
+  @override
+  String get chatNoThanks => 'لا، خليها';
 }

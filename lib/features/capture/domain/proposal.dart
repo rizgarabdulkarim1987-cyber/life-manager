@@ -70,6 +70,8 @@ class MoneyProposal extends Proposal {
     this.occurredAt,
     this.description,
     this.bucketTag,
+    this.newCategoryName,
+    this.newAccountName,
   });
 
   /// [IntentType.expense] or [IntentType.income].
@@ -86,7 +88,18 @@ class MoneyProposal extends Proposal {
   final String? description;
   final String? bucketTag;
 
-  MoneyProposal copyWith({int? amountMinor, String? currency, int? accountId, int? categoryId}) => MoneyProposal(
+  /// A category or account the owner named that does not exist yet; the chat offers to make it.
+  final String? newCategoryName;
+  final String? newAccountName;
+
+  MoneyProposal copyWith({
+    int? amountMinor,
+    String? currency,
+    int? accountId,
+    int? categoryId,
+    bool dropNewCategory = false,
+    bool dropNewAccount = false,
+  }) => MoneyProposal(
     type: type,
     confidence: confidence,
     amountMinor: amountMinor ?? this.amountMinor,
@@ -97,6 +110,8 @@ class MoneyProposal extends Proposal {
     occurredAt: occurredAt,
     description: description,
     bucketTag: bucketTag,
+    newCategoryName: dropNewCategory || categoryId != null ? null : newCategoryName,
+    newAccountName: dropNewAccount || accountId != null ? null : newAccountName,
   );
 
   TransactionDraft toTransactionDraft() => TransactionDraft(

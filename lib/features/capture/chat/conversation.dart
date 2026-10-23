@@ -7,6 +7,8 @@ import '../../../app/providers.dart';
 import '../../../core/db/app_database.dart';
 import '../../../l10n/gen/app_localizations.dart';
 import '../../../core/text/digits.dart';
+import '../../finance/data/accounts_repository.dart';
+import '../../finance/data/categories_repository.dart';
 import '../../finance/data/transactions_repository.dart';
 import '../../settings/settings_repository.dart';
 import '../capture_pipeline.dart';
@@ -112,12 +114,7 @@ class Conversation extends Notifier<List<ChatMessage>> {
       _pending = null;
       final asked = state.whereType<AssistantMessage>().lastOrNull;
       final chip = asked == null ? null : matchReply(asked.replies, t);
-      final filled = applyAnswer(
-        pending.proposals[pending.index],
-        pending.field,
-        value: chip?.value,
-        text: chip == null ? t : null,
-      );
+      final filled = await _apply(pending, value: chip?.value, text: chip == null ? t : null);
       // An answer that doesn't fit is a new message.
       if (filled != null) return _continue(pending, filled);
     }
@@ -198,8 +195,36 @@ class Conversation extends Notifier<List<ChatMessage>> {
     if (pending == null) return;
     _pending = null;
     _add(UserMessage(reply.label));
-    final filled = applyAnswer(pending.proposals[pending.index], pending.field, value: reply.value);
+    final filled = await _apply(pending, value: reply.value);
     if (filled != null) await _continue(pending, filled);
+  }
+
+  /// Fills the pending question. Making a category or account happens here,
+  /// on the owner's yes; everything else is [applyAnswer].
+  Future<Proposal?> _apply(_Pending pending, {Object? value, String? text}) async {
+    final p = pending.proposals[pending.index];
+    switch ((pending.field, p)) {
+      case (AskField.createCategory, final MoneyProposal m) when value == true:
+        final id = await CategoriesRepository(_db)
+            .create(kind: m.type == IntentType.income ? 'income' : 'expense', name: m.newCategoryName!);
+        return m.copyWith(categoryId: id);
+      case (AskField.createAccount, _) when value is String:
+        final (l, lex) = await _context();
+        final named = p is MoneyProposal ? p.newAccountName : null;
+        final id = await AccountsRepository(_db).create(
+          workspaceId: lex.personalWorkspaceId,
+          name: (named ?? '').isNotEmpty ? named! : l.chatDefaultAccountName(value),
+          kind: 'cash',
+          currencyCode: value,
+        );
+        return switch (p) {
+          MoneyProposal() => p.copyWith(accountId: id, currency: value),
+          DebtProposal() => p.copyWith(accountId: id),
+          _ => p,
+        };
+      default:
+        return applyAnswer(p, pending.field, value: value, text: text);
+    }
   }
 
   Future<void> _continue(_Pending pending, Proposal filled) =>
@@ -214,7 +239,7 @@ class Conversation extends Notifier<List<ChatMessage>> {
       _pending = _Pending(captureId, proposals, i, c.field);
       _add(
         AssistantMessage(
-          _question(c.field, l),
+          _question(c.field, l, proposals[i]),
           asksFor: c.field,
           replies: [for (final (label, value) in c.options) QuickReply(_chip(label, l), value)],
         ),
@@ -233,7 +258,7 @@ class Conversation extends Notifier<List<ChatMessage>> {
     );
   }
 
-  String _question(AskField f, AppLocalizations l) => switch (f) {
+  String _question(AskField f, AppLocalizations l, Proposal proposal) => switch (f) {
     AskField.amount => l.chatAskAmount,
     AskField.account => l.chatAskAccount,
     AskField.toAccount => l.chatAskToAccount,
@@ -241,6 +266,11 @@ class Conversation extends Notifier<List<ChatMessage>> {
     AskField.direction => l.chatAskDirection,
     AskField.leg => l.chatAskLeg,
     AskField.newAmount => l.chatAskNewAmount,
+    AskField.createAccount => l.chatAskCreateAccount,
+    AskField.createCategory => l.chatAskCreateCategory(switch (proposal) {
+      MoneyProposal(:final newCategoryName) => newCategoryName ?? '',
+      _ => '',
+    }),
   };
 
   String _chip(String label, AppLocalizations l) => switch (label) {
@@ -248,6 +278,8 @@ class Conversation extends Notifier<List<ChatMessage>> {
     'owed_by_me' => l.chatOwedByMe,
     'principal' => l.chatNewDebt,
     'repayment' => l.chatRepayment,
+    'yes' => l.chatYesCreate,
+    'no' => l.chatNoThanks,
     _ => label,
   };
 

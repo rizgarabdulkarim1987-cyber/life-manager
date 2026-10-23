@@ -945,5 +945,10 @@
   "setupAccountBody": "وين فلوسك؟ جزدان، مصرف، كارت. تگدر تضيف غيره بعدين، أو بس گول للمساعد.",
   "setupAccountName": "اسم الحساب",
   "setupAccountHint": "مثلاً: جزدان كاش",
-  "setupAccountCurrency": "العملة"
+  "setupAccountCurrency": "العملة",
+  "chatAskCreateCategory": "ماكو فئة «{name}» بعد. أسوي فئة جديدة؟",
+  "chatAskCreateAccount": "بعد ما عندك حساب. أول حساب بأي عملة؟",
+  "chatDefaultAccountName": "كاش {currency}",
+  "chatYesCreate": "إي، سوّيها",
+  "chatNoThanks": "لا، خليها"
 }
