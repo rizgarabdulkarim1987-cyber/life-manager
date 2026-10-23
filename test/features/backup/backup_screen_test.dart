@@ -161,6 +161,11 @@ void main() {
 
   testWidgets('restore confirm shows date and version; wrong password is reported', (t) async {
     await pump(t);
+    await t.scrollUntilVisible(
+      find.byKey(const ValueKey('restore-backup')),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
     await t.tap(find.byKey(const ValueKey('restore-backup')));
     await t.pumpAndSettle();
     expect(find.text('Replace all current data?'), findsOneWidget);
@@ -179,6 +184,11 @@ void main() {
   testWidgets('a newer backup is reported as too new', (t) async {
     await pump(t);
     service.restoreError = const BackupTooNewException(2, 1);
+    await t.scrollUntilVisible(
+      find.byKey(const ValueKey('restore-backup')),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
     await t.tap(find.byKey(const ValueKey('restore-backup')));
     await t.pumpAndSettle();
     await t.tap(find.byKey(const ValueKey('restore-confirm')));
