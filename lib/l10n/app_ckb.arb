@@ -950,5 +950,8 @@
   "chatAskCreateAccount": "هێشتا هەژمارت نییە. یەکەم هەژمار بە کام دراو بێت؟",
   "chatDefaultAccountName": "نەختینە {currency}",
   "chatYesCreate": "بەڵێ، دروستی بکە",
-  "chatNoThanks": "نەخێر، وازی لێ بهێنە"
+  "chatNoThanks": "نەخێر، وازی لێ بهێنە",
+  "chatAskRate": "نرخی {currency} ئەمڕۆ چەندە؟ (بە دینار بۆ 1 {currency} یان بۆ 100)",
+  "finRateToday": "نرخی 1 {currency} ئەمڕۆ",
+  "finRateSave": "پاشەکەوتی نرخ"
 }

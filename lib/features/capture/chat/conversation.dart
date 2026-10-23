@@ -9,6 +9,8 @@ import '../../../l10n/gen/app_localizations.dart';
 import '../../../core/text/digits.dart';
 import '../../finance/data/accounts_repository.dart';
 import '../../finance/data/categories_repository.dart';
+import '../../finance/data/rates_repository.dart';
+import '../../finance/ui/ui_format.dart' show formatRateE6;
 import '../../finance/data/transactions_repository.dart';
 import '../../settings/settings_repository.dart';
 import '../capture_pipeline.dart';
@@ -222,6 +224,14 @@ class Conversation extends Notifier<List<ChatMessage>> {
           DebtProposal() => p.copyWith(accountId: id),
           _ => p,
         };
+      case (AskField.rate, final MoneyProposal m):
+        var rate = value is int ? value : (text == null ? null : parseRateE6(text));
+        if (rate == null) return null;
+        // «132000» is what 100 dollars cost, as the exchange shops quote it.
+        if (rate > 10000 * 1000000) rate ~/= 100;
+        final (from, base) = await _currencies(m);
+        await RatesRepository(_db).setRate(base: from, quote: base, rateE6: rate, effectiveFrom: _today());
+        return m;
       default:
         return applyAnswer(p, pending.field, value: value, text: text);
     }
@@ -234,7 +244,7 @@ class Conversation extends Notifier<List<ChatMessage>> {
   Future<void> _askOrShow(int captureId, List<Proposal> proposals) async {
     final (l, lex) = await _context();
     for (var i = 0; i < proposals.length; i++) {
-      final c = nextClarification(proposals[i], lex);
+      final c = nextClarification(proposals[i], lex) ?? await _rateQuestion(proposals[i]);
       if (c == null) continue;
       _pending = _Pending(captureId, proposals, i, c.field);
       _add(
@@ -258,6 +268,32 @@ class Conversation extends Notifier<List<ChatMessage>> {
     );
   }
 
+  static DateTime _today() {
+    final now = DateTime.now();
+    return DateTime.utc(now.year, now.month, now.day);
+  }
+
+  /// The proposal's account currency and the base currency.
+  Future<(String, String)> _currencies(MoneyProposal p) async {
+    final base = (await SettingsRepository(_db).get()).baseCurrency;
+    final from = p.accountId == null
+        ? (p.currency ?? base)
+        : (await AccountsRepository(_db).get(p.accountId!)).currencyCode;
+    return (from, base);
+  }
+
+  /// Redesign §11.2: an income in another currency asks today's rate once a
+  /// day, offering the last one, so the split into buckets can be made.
+  Future<Clarification?> _rateQuestion(Proposal p) async {
+    if (p is! MoneyProposal || p.type != IntentType.income || p.accountId == null) return null;
+    final (from, base) = await _currencies(p);
+    if (from == base) return null;
+    final last = await RatesRepository(_db).rateOn(from, base, _today());
+    if (last != null && last.effectiveFrom.isAtSameMomentAs(_today())) return null;
+    final offer = last != null && last.base == from ? last.rateE6 : null;
+    return Clarification(AskField.rate, [if (offer != null) (formatRateE6(offer), offer)]);
+  }
+
   String _question(AskField f, AppLocalizations l, Proposal proposal) => switch (f) {
     AskField.amount => l.chatAskAmount,
     AskField.account => l.chatAskAccount,
@@ -267,6 +303,10 @@ class Conversation extends Notifier<List<ChatMessage>> {
     AskField.leg => l.chatAskLeg,
     AskField.newAmount => l.chatAskNewAmount,
     AskField.createAccount => l.chatAskCreateAccount,
+    AskField.rate => l.chatAskRate(switch (proposal) {
+      MoneyProposal(:final currency) => currency ?? 'USD',
+      _ => 'USD',
+    }),
     AskField.createCategory => l.chatAskCreateCategory(switch (proposal) {
       MoneyProposal(:final newCategoryName) => newCategoryName ?? '',
       _ => '',

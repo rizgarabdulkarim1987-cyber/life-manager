@@ -1139,5 +1139,22 @@
     }
   },
   "chatYesCreate": "Yes, create it",
-  "chatNoThanks": "No, leave it"
+  "chatNoThanks": "No, leave it",
+  "chatAskRate": "What's the {currency} rate today? (IQD for 1 {currency}, or for 100)",
+  "@chatAskRate": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "finRateToday": "Today's rate for 1 {currency}",
+  "@finRateToday": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "finRateSave": "Save rate"
 }

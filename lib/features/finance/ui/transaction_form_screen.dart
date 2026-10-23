@@ -13,6 +13,7 @@ import '../../../core/theme/tokens.dart';
 import '../../capture/domain/proposal.dart';
 import '../data/categories_repository.dart';
 import '../data/finance_providers.dart';
+import '../data/rates_repository.dart' show parseRateE6;
 import '../data/transactions_repository.dart';
 import 'buckets_screen.dart' show showPercentagesSheet;
 import 'ui_format.dart';
@@ -47,6 +48,7 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
   int? _categoryId;
   late DateTime _at;
   final _description = TextEditingController();
+  final _rateToday = TextEditingController();
   bool _pending = false;
   String? _bucketTag;
 
@@ -106,6 +108,7 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
   @override
   void dispose() {
     _description.dispose();
+    _rateToday.dispose();
     super.dispose();
   }
 
@@ -144,6 +147,24 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
         _allocate = ref.read(settingsProvider).value?.bucketsConfirmed ?? false;
       }
     });
+  }
+
+  /// Redesign §11.2: a foreign income with no rate asks for one on the spot.
+  Future<void> _saveRateToday() async {
+    final rate = parseRateE6(_rateToday.text);
+    final account = _account;
+    if (rate == null || account == null) return;
+    final base = ref.read(settingsProvider).value?.baseCurrency ?? 'IQD';
+    await ref
+        .read(ratesRepositoryProvider)
+        .setRate(
+          base: account.currencyCode,
+          quote: base,
+          rateE6: rate > 10000 * 1000000 ? rate ~/ 100 : rate,
+          effectiveFrom: _at,
+        );
+    _rateToday.clear();
+    await _refreshBase();
   }
 
   bool get _canAllocate =>
@@ -396,6 +417,25 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
                 if (v) _allocate = false;
               }),
             ),
+            if (_rateMissing && !_pending)
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      key: const ValueKey('tx-rate-today'),
+                      controller: _rateToday,
+                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                      decoration: InputDecoration(labelText: l.finRateToday(currency)),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  FilledButton.tonal(
+                    key: const ValueKey('tx-rate-save'),
+                    onPressed: _saveRateToday,
+                    child: Text(l.finRateSave),
+                  ),
+                ],
+              ),
             if (!_hasAllocations)
               SwitchListTile(
                 key: const ValueKey('tx-allocate'),

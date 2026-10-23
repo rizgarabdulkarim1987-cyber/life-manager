@@ -4,7 +4,18 @@ import '../domain/lexicon.dart';
 import '../domain/proposal.dart';
 
 /// The one thing the chat asks before a proposal can be saved.
-enum AskField { amount, account, toAccount, counterparty, direction, leg, newAmount, createAccount, createCategory }
+enum AskField {
+  amount,
+  account,
+  toAccount,
+  counterparty,
+  direction,
+  leg,
+  newAmount,
+  createAccount,
+  createCategory,
+  rate,
+}
 
 /// A tappable answer. [value] is an id, a code or a sentinel the controller understands.
 class QuickReply {
@@ -109,7 +120,7 @@ Proposal? applyAnswer(Proposal p, AskField field, {Object? value, String? text})
     case AskField.createCategory:
       if (value != false || p is! MoneyProposal) return null;
       return p.copyWith(dropNewCategory: true);
-    case AskField.createAccount:
+    case AskField.createAccount || AskField.rate:
       return null;
     case AskField.newAmount:
       if (p is! EditProposal) return null;

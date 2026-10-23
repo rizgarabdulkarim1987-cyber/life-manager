@@ -85,6 +85,24 @@ void main() {
     expect(sw.onChanged, isNull);
   });
 
+  testWidgets('a foreign income with no rate asks today\'s rate in the form, which enables the split', (t) async {
+    final c = await pumpApp(t, locale: 'en');
+    await SettingsRepository(dbOf(c)).setBucketsConfirmed();
+    await pushRoute(t, c, '/finance/tx/new?type=income');
+    await pickAccount(t, 'tx-account', await accountId(c, 'Personal', 'USD'));
+    await t.enterText(find.byKey(const ValueKey('amount')), '10');
+    await settle(t);
+    await revealInForm(t, find.byKey(const ValueKey('tx-rate-today')));
+    await t.enterText(find.byKey(const ValueKey('tx-rate-today')), '1320');
+    await t.tap(find.byKey(const ValueKey('tx-rate-save')));
+    await settle(t);
+    final rates = await RatesRepository(dbOf(c)).all();
+    expect(rates.single.rateE6, 1320000000);
+    expect(find.byKey(const ValueKey('tx-rate-today')), findsNothing);
+    await revealInForm(t, find.byKey(const ValueKey('tx-allocate')));
+    expect(t.widget<SwitchListTile>(find.byKey(const ValueKey('tx-allocate'))).value, isTrue);
+  });
+
   testWidgets('editing an allocated income asks to clear its allocations', (t) async {
     final c = await pumpApp(t, locale: 'en');
     final p = await accountId(c, 'Personal', 'IQD');

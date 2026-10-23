@@ -950,5 +950,8 @@
   "chatAskCreateAccount": "بعد ما عندك حساب. أول حساب بأي عملة؟",
   "chatDefaultAccountName": "كاش {currency}",
   "chatYesCreate": "إي، سوّيها",
-  "chatNoThanks": "لا، خليها"
+  "chatNoThanks": "لا، خليها",
+  "chatAskRate": "شكد سعر {currency} اليوم؟ (بالدينار لـ 1 {currency} أو لـ 100)",
+  "finRateToday": "سعر 1 {currency} اليوم",
+  "finRateSave": "احفظ السعر"
 }
