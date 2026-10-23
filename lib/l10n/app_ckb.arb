@@ -953,5 +953,9 @@
   "chatNoThanks": "نەخێر، وازی لێ بهێنە",
   "chatAskRate": "نرخی {currency} ئەمڕۆ چەندە؟ (بە دینار بۆ 1 {currency} یان بۆ 100)",
   "finRateToday": "نرخی 1 {currency} ئەمڕۆ",
-  "finRateSave": "پاشەکەوتی نرخ"
+  "finRateSave": "پاشەکەوتی نرخ",
+  "finSuggestGoal": "ئامانجەکەت (ئارەزوومەندانە)",
+  "finSuggestGoalHint": "بۆ نموونە ئۆتۆمبێل لە دوو ساڵدا، دوکانێکی بچووک",
+  "finSuggestSplit": "دابەشکردنێک پێشنیار بکە",
+  "finSuggestFailed": "نەمتوانی پێشنیارێک بهێنم. دووبارە هەوڵ بدەوە."
 }

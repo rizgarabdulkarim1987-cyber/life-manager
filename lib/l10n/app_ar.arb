@@ -953,5 +953,9 @@
   "chatNoThanks": "لا، خليها",
   "chatAskRate": "شكد سعر {currency} اليوم؟ (بالدينار لـ 1 {currency} أو لـ 100)",
   "finRateToday": "سعر 1 {currency} اليوم",
-  "finRateSave": "احفظ السعر"
+  "finRateSave": "احفظ السعر",
+  "finSuggestGoal": "هدفك (اختياري)",
+  "finSuggestGoalHint": "مثلاً سيارة خلال سنتين، محل صغير",
+  "finSuggestSplit": "اقترح لي تقسيم",
+  "finSuggestFailed": "ما گدرت أجيب اقتراح. جرب مرة ثانية."
 }

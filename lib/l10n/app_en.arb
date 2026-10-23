@@ -1156,5 +1156,9 @@
       }
     }
   },
-  "finRateSave": "Save rate"
+  "finRateSave": "Save rate",
+  "finSuggestGoal": "Your goal (optional)",
+  "finSuggestGoalHint": "e.g. a car in two years, a small shop",
+  "finSuggestSplit": "Suggest a split",
+  "finSuggestFailed": "Couldn't get a suggestion. Try again."
 }
