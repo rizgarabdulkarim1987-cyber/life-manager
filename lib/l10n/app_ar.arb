@@ -1001,5 +1001,12 @@
   "noteNew": "ملاحظة جديدة",
   "noteEdit": "تعديل الملاحظة",
   "noteHint": "اكتب الملاحظة",
-  "calendarNoTasks": "ماكو شي بهذا اليوم."
+  "calendarNoTasks": "ماكو شي بهذا اليوم.",
+  "notifChannelName": "التذكيرات",
+  "notifChannelDesc": "تذكيرات مهامك ومواعيدك",
+  "notifDone": "تمت",
+  "notifSnooze1h": "بعد ساعة",
+  "notifTomorrow": "باجر 9:00",
+  "exactAlarmWarning": "المنبّهات الدقيقة مطفية، فالتذكيرات ممكن توصل متأخرة دقايق.",
+  "exactAlarmAllow": "اسمح"
 }

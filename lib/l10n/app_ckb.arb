@@ -1001,5 +1001,12 @@
   "noteNew": "تێبینی نوێ",
   "noteEdit": "دەستکاری تێبینی",
   "noteHint": "تێبینییەکە بنووسە",
-  "calendarNoTasks": "هیچ نییە لەم ڕۆژەدا."
+  "calendarNoTasks": "هیچ نییە لەم ڕۆژەدا.",
+  "notifChannelName": "بیرخستنەوەکان",
+  "notifChannelDesc": "بیرخستنەوەی ئەرک و کاتەکانت",
+  "notifDone": "تەواو",
+  "notifSnooze1h": "دوای کاتژمێرێک",
+  "notifTomorrow": "سبەینێ 9:00",
+  "exactAlarmWarning": "زەنگە ورد‌ەکان کوژاونەتەوە، بۆیە بیرخستنەوەکان لەوانەیە چەند خولەکێک دوا بکەون.",
+  "exactAlarmAllow": "ڕێگە بدە"
 }

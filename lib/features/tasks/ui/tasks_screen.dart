@@ -9,6 +9,7 @@ import '../../../core/theme/tokens.dart';
 import '../../finance/ui/ui_format.dart';
 import '../../finance/ui/widgets/undo_snack.dart';
 import '../data/tasks_providers.dart';
+import '../reminders/reminder_service.dart';
 import '../data/tasks_repository.dart';
 import 'calendar_view.dart';
 import 'notes_screen.dart';
@@ -86,6 +87,29 @@ class _TasksScreenState extends ConsumerState<TasksScreen> {
               ),
             ),
           ),
+          if (ref.watch(exactAlarmsAllowedProvider).value == false)
+            Container(
+              key: const ValueKey('exact-alarm-warning'),
+              margin: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+              padding: const EdgeInsetsDirectional.fromSTEB(14, 6, 6, 6),
+              decoration: BoxDecoration(
+                color: k.warning.withValues(alpha: 0.14),
+                borderRadius: BorderRadius.circular(AppTokens.radiusSmall),
+              ),
+              child: Row(
+                children: [
+                  Expanded(child: Text(l.exactAlarmWarning, style: Theme.of(context).textTheme.bodySmall)),
+                  TextButton(
+                    key: const ValueKey('exact-alarm-allow'),
+                    onPressed: () async {
+                      await ref.read(notificationPortProvider).requestExact();
+                      ref.invalidate(exactAlarmsAllowedProvider);
+                    },
+                    child: Text(l.exactAlarmAllow),
+                  ),
+                ],
+              ),
+            ),
           Expanded(
             child: switch (_segment) {
               _Segment.calendar => const CalendarView(),

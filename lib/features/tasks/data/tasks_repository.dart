@@ -92,6 +92,9 @@ class TasksRepository {
     );
   });
 
+  Future<void> setDue(int id, DateTime? due, {bool hasTime = false}) =>
+      update(id, TasksCompanion(dueAt: Value(due), hasTime: Value(due != null && hasTime)));
+
   Future<void> reopen(int id) => update(id, const TasksCompanion(status: Value('open'), completedAt: Value(null)));
 
   /// Deletes and returns the row, so Undo can [restore] it.

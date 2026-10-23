@@ -2070,4 +2070,25 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get calendarNoTasks => 'ماكو شي بهذا اليوم.';
+
+  @override
+  String get notifChannelName => 'التذكيرات';
+
+  @override
+  String get notifChannelDesc => 'تذكيرات مهامك ومواعيدك';
+
+  @override
+  String get notifDone => 'تمت';
+
+  @override
+  String get notifSnooze1h => 'بعد ساعة';
+
+  @override
+  String get notifTomorrow => 'باجر 9:00';
+
+  @override
+  String get exactAlarmWarning => 'المنبّهات الدقيقة مطفية، فالتذكيرات ممكن توصل متأخرة دقايق.';
+
+  @override
+  String get exactAlarmAllow => 'اسمح';
 }

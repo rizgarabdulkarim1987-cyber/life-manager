@@ -13,3 +13,6 @@
 -keepclasseswithmembernames class * {
     native <methods>;
 }
+
+# flutter_local_notifications stores scheduled notifications as Gson JSON and reads them back on boot.
+-keep class com.dexterous.flutterlocalnotifications.** { *; }

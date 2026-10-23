@@ -1211,5 +1211,12 @@
   "noteNew": "New note",
   "noteEdit": "Edit note",
   "noteHint": "Write the note",
-  "calendarNoTasks": "Nothing on this day."
+  "calendarNoTasks": "Nothing on this day.",
+  "notifChannelName": "Reminders",
+  "notifChannelDesc": "Reminders for your tasks and appointments",
+  "notifDone": "Done",
+  "notifSnooze1h": "In 1 hour",
+  "notifTomorrow": "Tomorrow 9:00",
+  "exactAlarmWarning": "Exact alarms are off, so reminders may come a few minutes late.",
+  "exactAlarmAllow": "Allow"
 }

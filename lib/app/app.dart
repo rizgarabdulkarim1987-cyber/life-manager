@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -8,6 +10,7 @@ import '../core/theme/tokens.dart';
 import '../features/lock/lock_controller.dart';
 import '../features/lock/lock_screen.dart';
 import '../features/settings/settings_repository.dart';
+import '../features/tasks/reminders/reminder_service.dart';
 import 'providers.dart';
 import 'router.dart';
 
@@ -24,6 +27,7 @@ class _AppState extends ConsumerState<App> {
   @override
   void initState() {
     super.initState();
+    unawaited(ref.read(reminderServiceProvider).start());
     // Relock after the configured time in the background (spec §15).
     _lifecycle = AppLifecycleListener(
       onHide: () {

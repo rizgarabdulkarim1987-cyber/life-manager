@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:life_manager/features/tasks/data/notes_repository.dart';
+import 'package:life_manager/features/tasks/reminders/reminder_service.dart';
 import 'package:life_manager/features/tasks/data/tasks_repository.dart';
 
 import '../../../helpers/app_harness.dart';
+import '../../../helpers/fake_notifications.dart';
 import '../../../helpers/finance_ui.dart';
 
 void main() {
@@ -129,5 +131,28 @@ void main() {
     await t.tap(find.text('Undo'));
     await settle(t);
     expect(find.text('Idea for the shop'), findsOneWidget);
+  });
+
+  testWidgets('a banner warns when exact alarms are off, and Allow asks for them', (t) async {
+    final port = FakeNotificationPort()..exact = false;
+    await pumpApp(t, locale: 'en', overrides: [notificationPortProvider.overrideWithValue(port)]);
+    await t.tap(find.byKey(const ValueKey('nav-2')));
+    await settle(t);
+    expect(find.byKey(const ValueKey('exact-alarm-warning')), findsOneWidget);
+    await t.tap(find.byKey(const ValueKey('exact-alarm-allow')));
+    await settle(t);
+    expect(find.byKey(const ValueKey('exact-alarm-warning')), findsNothing);
+  });
+
+  testWidgets('saving a task schedules its reminder', (t) async {
+    final port = FakeNotificationPort();
+    final c = await pumpApp(t, locale: 'en', overrides: [notificationPortProvider.overrideWithValue(port)]);
+    await t.tap(find.byKey(const ValueKey('nav-2')));
+    await settle(t);
+    final tomorrow = DateTime.now().add(const Duration(days: 1));
+    final id = await TasksRepository(dbOf(c))
+        .add(title: 'Soon', dueAt: DateTime(tomorrow.year, tomorrow.month, tomorrow.day, 10), hasTime: true);
+    await settle(t);
+    expect(port.scheduled.keys, contains(id));
   });
 }

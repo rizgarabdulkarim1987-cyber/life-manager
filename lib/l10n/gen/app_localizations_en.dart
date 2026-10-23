@@ -2069,4 +2069,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get calendarNoTasks => 'Nothing on this day.';
+
+  @override
+  String get notifChannelName => 'Reminders';
+
+  @override
+  String get notifChannelDesc => 'Reminders for your tasks and appointments';
+
+  @override
+  String get notifDone => 'Done';
+
+  @override
+  String get notifSnooze1h => 'In 1 hour';
+
+  @override
+  String get notifTomorrow => 'Tomorrow 9:00';
+
+  @override
+  String get exactAlarmWarning => 'Exact alarms are off, so reminders may come a few minutes late.';
+
+  @override
+  String get exactAlarmAllow => 'Allow';
 }

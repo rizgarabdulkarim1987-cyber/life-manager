@@ -2072,4 +2072,25 @@ class AppLocalizationsCkb extends AppLocalizations {
 
   @override
   String get calendarNoTasks => 'هیچ نییە لەم ڕۆژەدا.';
+
+  @override
+  String get notifChannelName => 'بیرخستنەوەکان';
+
+  @override
+  String get notifChannelDesc => 'بیرخستنەوەی ئەرک و کاتەکانت';
+
+  @override
+  String get notifDone => 'تەواو';
+
+  @override
+  String get notifSnooze1h => 'دوای کاتژمێرێک';
+
+  @override
+  String get notifTomorrow => 'سبەینێ 9:00';
+
+  @override
+  String get exactAlarmWarning => 'زەنگە ورد‌ەکان کوژاونەتەوە، بۆیە بیرخستنەوەکان لەوانەیە چەند خولەکێک دوا بکەون.';
+
+  @override
+  String get exactAlarmAllow => 'ڕێگە بدە';
 }

@@ -3848,6 +3848,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Nothing on this day.'**
   String get calendarNoTasks;
+
+  /// No description provided for @notifChannelName.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders'**
+  String get notifChannelName;
+
+  /// No description provided for @notifChannelDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders for your tasks and appointments'**
+  String get notifChannelDesc;
+
+  /// No description provided for @notifDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get notifDone;
+
+  /// No description provided for @notifSnooze1h.
+  ///
+  /// In en, this message translates to:
+  /// **'In 1 hour'**
+  String get notifSnooze1h;
+
+  /// No description provided for @notifTomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow 9:00'**
+  String get notifTomorrow;
+
+  /// No description provided for @exactAlarmWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Exact alarms are off, so reminders may come a few minutes late.'**
+  String get exactAlarmWarning;
+
+  /// No description provided for @exactAlarmAllow.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow'**
+  String get exactAlarmAllow;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
