@@ -413,7 +413,7 @@ test('restores a schema-1 backup', () async { /* build payload from a v1 db via 
 - The Accounts screen groups accounts by workspace, with a balance per account. It supports add/edit/archive, and turns a delete of an account that has transactions into an archive offer.
 
 - [ ] **Step 1: Write the failing tests**
-  - `consolidate with rate`: 100000 IQD plus 10000 USD at 1310 gives a total of 1410000 IQD, with both `byCurrency` entries.
+  - `consolidate with rate`: 100000 IQD plus `Money(10000, 'USD')` (100.00 USD) at 1310 gives a total of 231000 IQD, with both `byCurrency` entries.
   - `consolidate missing rate → total null, missingRates {'USD'}`.
   - Widget test: `overview shows rate-missing prompt instead of a total`. The seeded db has a USD income and no rate.
   - Widget test: `overview total after setting rate`.
