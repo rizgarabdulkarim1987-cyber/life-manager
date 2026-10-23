@@ -63,8 +63,7 @@ import 'app_localizations_en.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale)
-    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -72,8 +71,7 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations)!;
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate =
-      _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -85,20 +83,15 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
-        delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('ar'),
-    Locale('ckb'),
-    Locale('en'),
-  ];
+  static const List<Locale> supportedLocales = <Locale>[Locale('ar'), Locale('ckb'), Locale('en')];
 
   /// No description provided for @appTitle.
   ///
@@ -3129,10 +3122,171 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count} selected'**
   String selectedCount(int count);
+
+  /// No description provided for @chatExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll record {amount} spent on «{category}» from «{account}».'**
+  String chatExpense(String amount, String category, String account);
+
+  /// No description provided for @chatIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll record {amount} income «{category}» into «{account}».'**
+  String chatIncome(String amount, String category, String account);
+
+  /// No description provided for @chatTransfer.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll move {amount} from «{from}» to «{to}».'**
+  String chatTransfer(String amount, String from, String to);
+
+  /// No description provided for @chatDebtOwedToMe.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll record that {who} owes you {amount}.'**
+  String chatDebtOwedToMe(String who, String amount);
+
+  /// No description provided for @chatDebtOwedByMe.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll record that you owe {who} {amount}.'**
+  String chatDebtOwedByMe(String who, String amount);
+
+  /// No description provided for @chatDebtRepay.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll record a repayment of {amount} with {who}.'**
+  String chatDebtRepay(String who, String amount);
+
+  /// No description provided for @chatLater.
+  ///
+  /// In en, this message translates to:
+  /// **'«{text}» — I\'ll keep this in the Inbox until that part of the app is ready.'**
+  String chatLater(String text);
+
+  /// No description provided for @chatNoCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'no category'**
+  String get chatNoCategory;
+
+  /// No description provided for @chatConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'OK?'**
+  String get chatConfirm;
+
+  /// No description provided for @chatSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved.'**
+  String get chatSaved;
+
+  /// No description provided for @chatDroppedAll.
+  ///
+  /// In en, this message translates to:
+  /// **'OK, nothing saved.'**
+  String get chatDroppedAll;
+
+  /// No description provided for @chatUndone.
+  ///
+  /// In en, this message translates to:
+  /// **'Undone. Nothing from that message is saved now.'**
+  String get chatUndone;
+
+  /// No description provided for @chatNotUnderstood.
+  ///
+  /// In en, this message translates to:
+  /// **'I didn\'t get that. I\'ve kept it in the Inbox so you can come back to it.'**
+  String get chatNotUnderstood;
+
+  /// No description provided for @chatAskAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'How much?'**
+  String get chatAskAmount;
+
+  /// No description provided for @chatAskAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'From which account?'**
+  String get chatAskAccount;
+
+  /// No description provided for @chatAskToAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'To which account?'**
+  String get chatAskToAccount;
+
+  /// No description provided for @chatAskCounterparty.
+  ///
+  /// In en, this message translates to:
+  /// **'Who is it with?'**
+  String get chatAskCounterparty;
+
+  /// No description provided for @chatAskDirection.
+  ///
+  /// In en, this message translates to:
+  /// **'Do they owe you, or do you owe them?'**
+  String get chatAskDirection;
+
+  /// No description provided for @chatAskLeg.
+  ///
+  /// In en, this message translates to:
+  /// **'Is this a new debt or a repayment?'**
+  String get chatAskLeg;
+
+  /// No description provided for @chatOwedToMe.
+  ///
+  /// In en, this message translates to:
+  /// **'They owe me'**
+  String get chatOwedToMe;
+
+  /// No description provided for @chatOwedByMe.
+  ///
+  /// In en, this message translates to:
+  /// **'I owe them'**
+  String get chatOwedByMe;
+
+  /// No description provided for @chatNewDebt.
+  ///
+  /// In en, this message translates to:
+  /// **'New debt'**
+  String get chatNewDebt;
+
+  /// No description provided for @chatRepayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Repayment'**
+  String get chatRepayment;
+
+  /// No description provided for @chatHandedToForm.
+  ///
+  /// In en, this message translates to:
+  /// **'Opened in the full form.'**
+  String get chatHandedToForm;
+
+  /// No description provided for @chatOk.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get chatOk;
+
+  /// No description provided for @chatEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get chatEdit;
+
+  /// No description provided for @chatDrop.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get chatDrop;
 }
 
-class _AppLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -3141,8 +3295,7 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['ar', 'ckb', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['ar', 'ckb', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;

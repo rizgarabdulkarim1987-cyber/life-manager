@@ -86,6 +86,19 @@ class MoneyProposal extends Proposal {
   final String? description;
   final String? bucketTag;
 
+  MoneyProposal copyWith({int? amountMinor, String? currency, int? accountId, int? categoryId}) => MoneyProposal(
+    type: type,
+    confidence: confidence,
+    amountMinor: amountMinor ?? this.amountMinor,
+    currency: currency ?? this.currency,
+    accountId: accountId ?? this.accountId,
+    workspaceId: workspaceId,
+    categoryId: categoryId ?? this.categoryId,
+    occurredAt: occurredAt,
+    description: description,
+    bucketTag: bucketTag,
+  );
+
   TransactionDraft toTransactionDraft() => TransactionDraft(
     type: type == IntentType.income ? 'income' : 'expense',
     accountId: accountId,
@@ -120,6 +133,17 @@ class TransferProposal extends Proposal {
   final int? rateE6;
   final String? transferKind;
   final DateTime? occurredAt;
+
+  TransferProposal copyWith({int? fromAccountId, int? toAccountId, int? amountMinor}) => TransferProposal(
+    confidence: confidence,
+    fromAccountId: fromAccountId ?? this.fromAccountId,
+    toAccountId: toAccountId ?? this.toAccountId,
+    amountMinor: amountMinor ?? this.amountMinor,
+    toAmountMinor: toAmountMinor ?? (amountMinor ?? this.amountMinor),
+    rateE6: rateE6,
+    transferKind: transferKind,
+    occurredAt: occurredAt,
+  );
 
   TransferDraft toTransferDraft() => TransferDraft(
     fromAccountId: fromAccountId,
@@ -158,6 +182,18 @@ class DebtProposal extends Proposal {
   final String? currency;
   final int? accountId;
   final DateTime? occurredAt;
+
+  DebtProposal copyWith({String? counterparty, String? direction, String? leg, int? amountMinor, int? accountId}) =>
+      DebtProposal(
+        confidence: confidence,
+        counterparty: counterparty ?? this.counterparty,
+        direction: direction ?? this.direction,
+        leg: leg ?? this.leg,
+        amountMinor: amountMinor ?? this.amountMinor,
+        currency: currency,
+        accountId: accountId ?? this.accountId,
+        occurredAt: occurredAt,
+      );
 }
 
 class TaskProposal extends Proposal {

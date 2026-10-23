@@ -901,5 +901,108 @@
         "type": "int"
       }
     }
-  }
+  },
+  "chatExpense": "I'll record {amount} spent on «{category}» from «{account}».",
+  "@chatExpense": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "category": {
+        "type": "String"
+      },
+      "account": {
+        "type": "String"
+      }
+    }
+  },
+  "chatIncome": "I'll record {amount} income «{category}» into «{account}».",
+  "@chatIncome": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "category": {
+        "type": "String"
+      },
+      "account": {
+        "type": "String"
+      }
+    }
+  },
+  "chatTransfer": "I'll move {amount} from «{from}» to «{to}».",
+  "@chatTransfer": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "chatDebtOwedToMe": "I'll record that {who} owes you {amount}.",
+  "@chatDebtOwedToMe": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "chatDebtOwedByMe": "I'll record that you owe {who} {amount}.",
+  "@chatDebtOwedByMe": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "chatDebtRepay": "I'll record a repayment of {amount} with {who}.",
+  "@chatDebtRepay": {
+    "placeholders": {
+      "who": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "chatLater": "«{text}» — I'll keep this in the Inbox until that part of the app is ready.",
+  "@chatLater": {
+    "placeholders": {
+      "text": {
+        "type": "String"
+      }
+    }
+  },
+  "chatNoCategory": "no category",
+  "chatConfirm": "OK?",
+  "chatSaved": "Saved.",
+  "chatDroppedAll": "OK, nothing saved.",
+  "chatUndone": "Undone. Nothing from that message is saved now.",
+  "chatNotUnderstood": "I didn't get that. I've kept it in the Inbox so you can come back to it.",
+  "chatAskAmount": "How much?",
+  "chatAskAccount": "From which account?",
+  "chatAskToAccount": "To which account?",
+  "chatAskCounterparty": "Who is it with?",
+  "chatAskDirection": "Do they owe you, or do you owe them?",
+  "chatAskLeg": "Is this a new debt or a repayment?",
+  "chatOwedToMe": "They owe me",
+  "chatOwedByMe": "I owe them",
+  "chatNewDebt": "New debt",
+  "chatRepayment": "Repayment",
+  "chatHandedToForm": "Opened in the full form.",
+  "chatOk": "OK",
+  "chatEdit": "Edit",
+  "chatDrop": "No"
 }
