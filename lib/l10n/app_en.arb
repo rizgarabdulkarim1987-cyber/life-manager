@@ -20,10 +20,22 @@
   "lockTimeout": "Lock after leaving the app",
   "lockImmediately": "Immediately",
   "lockAfterMinutes": "{minutes, plural, =1{After 1 minute} other{After {minutes} minutes}}",
-  "@lockAfterMinutes": {"placeholders": {"minutes": {"type": "int"}}},
+  "@lockAfterMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "backupRestore": "Backup & restore",
   "lastBackup": "Last backup: {date}",
-  "@lastBackup": {"placeholders": {"date": {"type": "String"}}},
+  "@lastBackup": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "neverBackedUp": "Never backed up",
   "createBackup": "Create backup",
   "restoreBackup": "Restore from backup",
@@ -35,15 +47,36 @@
   "backupCreated": "Backup saved",
   "restoreConfirmTitle": "Replace all current data?",
   "restoreConfirmBody": "Backup from {date}, app version {version}. Everything currently in the app will be replaced.",
-  "@restoreConfirmBody": {"placeholders": {"date": {"type": "String"}, "version": {"type": "String"}}},
+  "@restoreConfirmBody": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "replace": "Replace",
   "cancel": "Cancel",
   "enterPin": "Enter your PIN",
   "wrongPin": "Wrong PIN",
   "attemptsLeft": "{count, plural, =1{1 attempt left before a pause} other{{count} attempts left before a pause}}",
-  "@attemptsLeft": {"placeholders": {"count": {"type": "int"}}},
+  "@attemptsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "tryAgainIn": "Too many attempts. Try again in {time}",
-  "@tryAgainIn": {"placeholders": {"time": {"type": "String"}}},
+  "@tryAgainIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "unlockReason": "Unlock My Life Manager",
   "useFingerprint": "Use fingerprint",
   "setupWelcome": "Welcome",
@@ -61,7 +94,13 @@
   "skip": "Skip",
   "finish": "Start",
   "comingInPhase": "Arrives in phase {phase}",
-  "@comingInPhase": {"placeholders": {"phase": {"type": "int"}}},
+  "@comingInPhase": {
+    "placeholders": {
+      "phase": {
+        "type": "int"
+      }
+    }
+  },
   "seedPersonal": "Personal",
   "seedBuzzify": "Buzzify",
   "seedEo": "Related / EO",
@@ -74,18 +113,752 @@
   "homeBuckets": "Buckets",
   "homeTasks": "Tasks",
   "privacy": "Privacy",
-  "privacyPhase1": "Nothing leaves this phone. The app has no internet access yet.",
+  "privacyPhase1": "Your data stays on this phone. Only if you turn on online AI and agree is a capture's voice or text sent to Groq. The vault never leaves the phone.",
   "restoreTooNew": "This backup was made by a newer version of the app. Update the app first.",
   "restoreWrongPassword": "Wrong password, or the file is damaged.",
   "restoreCorrupt": "This file is damaged or isn't a backup from this app.",
   "restoreSuccess": "Restored. Restarting…",
-  "micSoon": "Voice capture arrives in phase 2",
   "passwordStrengthWeak": "Weak: make it longer, or mix letters, numbers and symbols",
   "passwordStrengthFair": "Fair",
   "passwordStrengthStrong": "Strong",
-  "backupPasswordHint": "You will need this password to restore. If you forget it, it cannot be recovered.",
+  "backupPasswordHint": "You will need this password to restore. If you forget it, it cannot be recovered. A saved Groq key is kept inside the encrypted backup too.",
   "somethingWentWrong": "Something went wrong. Please try again.",
   "backupFailed": "The backup couldn't be created. Your data is unchanged.",
   "startupFailed": "Your data couldn't be opened. Nothing was deleted.",
-  "retry": "Try again"
+  "retry": "Try again",
+  "cat_food": "Food",
+  "cat_transport": "Transport",
+  "cat_rent": "Rent",
+  "cat_bills": "Bills",
+  "cat_family": "Family",
+  "cat_shopping": "Shopping",
+  "cat_health": "Health",
+  "cat_business": "Business",
+  "cat_marketing": "Marketing",
+  "cat_subscriptions": "Subscriptions",
+  "cat_other_expense": "Other expense",
+  "cat_salary": "Salary",
+  "cat_business_income": "Business income",
+  "cat_freelance": "Freelance",
+  "cat_client_payment": "Client payment",
+  "cat_other_income": "Other income",
+  "bucket_expenses": "Expenses",
+  "bucket_emergency": "Emergency",
+  "bucket_investment": "Investment",
+  "finIncome": "Income",
+  "finExpense": "Expenses",
+  "finSurplus": "Surplus",
+  "finAllAccounts": "All accounts",
+  "finHowConvertedHint": "Tap to see how it was converted",
+  "finNoTotal": "No rate for {currencies} yet, so there is no single total",
+  "@finNoTotal": {
+    "placeholders": {
+      "currencies": {
+        "type": "String"
+      }
+    }
+  },
+  "finSetRate": "Set a rate",
+  "finRateTitle": "Exchange rate",
+  "finRateLabel": "1 USD in IQD",
+  "finRateInvalid": "Type a rate like 1310",
+  "save": "Save",
+  "finHowConverted": "How it was converted",
+  "finSameCurrency": "Same currency",
+  "finNoRate": "No rate",
+  "finRateLine": "1 {base} = {rate} {quote} · from {date}",
+  "@finRateLine": {
+    "placeholders": {
+      "base": {
+        "type": "String"
+      },
+      "rate": {
+        "type": "String"
+      },
+      "quote": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "finPerCurrency": "Per currency",
+  "finTotal": "Total",
+  "alertExpensesBucket": "Expenses bucket at {percent}% this month",
+  "@alertExpensesBucket": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "alertEmergencyReached": "Emergency fund reached its target",
+  "alertEmergencyBelow": "Emergency fund is below its target",
+  "alertUnallocated": "{count, plural, =1{1 income not split into buckets} other{{count} incomes not split into buckets}}",
+  "@alertUnallocated": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "alertBudget": "{name} budget at {percent}%",
+  "@alertBudget": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "alertDebtSoon": "{name}: payment due {date}",
+  "@alertDebtSoon": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "alertDebtOverdue": "{name}: payment overdue",
+  "@alertDebtOverdue": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "finHistory": "History",
+  "finAddAccount": "Add account",
+  "finAccountName": "Name",
+  "finNameRequired": "Type a name",
+  "finWorkspace": "Workspace",
+  "finCurrency": "Currency",
+  "finKind": "Type",
+  "kindCash": "Cash",
+  "kindBank": "Bank",
+  "kindSavings": "Savings",
+  "kindCustom": "Other",
+  "rename": "Rename",
+  "archive": "Archive",
+  "finArchiveAccount": "Archive {name}? Its history stays.",
+  "@finArchiveAccount": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "finBalance": "Balance",
+  "finAdjustBalance": "Adjust balance",
+  "finAdjustHint": "Type what is actually in this account. The difference is saved as an adjustment.",
+  "@finAdjustHint": {},
+  "finActualAmount": "Actual amount",
+  "finAmountInvalid": "Type an amount like 25000",
+  "finSearch": "Search descriptions",
+  "filterAll": "All",
+  "filterDates": "Dates",
+  "filterAccount": "Account",
+  "filterCategory": "Category",
+  "filterType": "Type",
+  "clearFilters": "Clear filters",
+  "typeIncome": "Income",
+  "typeExpense": "Expense",
+  "typeRefund": "Refund",
+  "typeAdjustment": "Adjustment",
+  "typeTransfer": "Transfer",
+  "typeOwnerDraw": "Owner draw",
+  "typeDebtPayment": "Debt payment",
+  "finPending": "Pending",
+  "finUncategorised": "Uncategorised",
+  "finNoTransactions": "No transactions yet",
+  "finNoMatches": "No transactions match these filters",
+  "finDeleted": "Transaction deleted",
+  "undo": "Undo",
+  "finToday": "Today",
+  "finAddExpense": "Add expense",
+  "finAddIncome": "Add income",
+  "finAddRefund": "Add refund",
+  "finAddTransfer": "Transfer",
+  "finEditTransaction": "Edit transaction",
+  "finEditTransfer": "Edit transfer",
+  "finAmount": "Amount",
+  "finAmountRounded": "Rounded to what {currency} allows",
+  "@finAmountRounded": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "finAccount": "Account",
+  "finChooseAccount": "Choose an account",
+  "finCategory": "Category",
+  "finNoCategory": "No category",
+  "finDate": "Date",
+  "finTime": "Time",
+  "finDescription": "Description",
+  "finNotReceived": "Not received yet",
+  "finNotReceivedHint": "Pending income doesn't count in balances",
+  "finAllocate": "Split into buckets",
+  "finAllocateNoRate": "Set a {currency} rate first to split this income",
+  "@finAllocateNoRate": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "finAllocatePending": "Only received income can be split",
+  "finUnallocated": "Not split",
+  "finOverAllocated": "Over by",
+  "finBucketTag": "Paid from bucket",
+  "finBucketNone": "Normal spending",
+  "finClearAllocationsTitle": "Clear the bucket split?",
+  "finClearAllocationsBody": "This income is split into buckets. Changing its money clears the split; you can split it again afterwards.",
+  "finClearAndSave": "Clear and save",
+  "finFrom": "From",
+  "finTo": "To",
+  "finToAmount": "Amount received",
+  "finRateField": "{quote} per 1 {base}",
+  "@finRateField": {
+    "placeholders": {
+      "quote": {
+        "type": "String"
+      },
+      "base": {
+        "type": "String"
+      }
+    }
+  },
+  "finTwoOfThree": "Type any two; the third is worked out",
+  "finOwnerDraw": "Owner draw (salary)",
+  "finOwnerDrawHint": "Counts as an expense of the business and income of the person",
+  "finSameAccount": "Choose two different accounts",
+  "finSaved": "Saved",
+  "finBuckets": "Buckets",
+  "finBudgets": "Budgets",
+  "finDebts": "Debts",
+  "finAvailable": "Available",
+  "finAllocated": "Split in",
+  "finSpent": "Spent",
+  "finTarget": "Target",
+  "finSetTarget": "Set target",
+  "finTargetHint": "Leave empty for no target",
+  "finEditPercentages": "Edit percentages",
+  "finPercentagesNote": "Must add up to 100%. Only income you split after saving uses the new percentages.",
+  "finPercentTotal": "Total {percent}%",
+  "@finPercentTotal": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "finBucketsUnconfirmed": "Set your own percentages before splitting income into buckets.",
+  "finExpensesMonthly": "Resets every month",
+  "finCarriesOver": "Carries over",
+  "finAddBudget": "Add budget",
+  "finEditBudget": "Edit budget",
+  "finBudgetNeedsScope": "Choose a category, a workspace or both",
+  "finAnyWorkspace": "All workspaces",
+  "finAnyCategory": "All categories",
+  "finRemaining": "Remaining",
+  "finOfBudget": "of {amount}",
+  "@finOfBudget": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "finMissingRatesNote": "Left out: {currencies} (no rate on those dates)",
+  "@finMissingRatesNote": {
+    "placeholders": {
+      "currencies": {
+        "type": "String"
+      }
+    }
+  },
+  "finNoBudgets": "No budgets yet",
+  "finOwedToMe": "Owed to me",
+  "finOwedByMe": "I owe",
+  "finAddDebt": "Add debt",
+  "finCounterparty": "Person or company",
+  "finStartDate": "Started",
+  "finRecordMoveNow": "Record the money now",
+  "finRecordMoveGiven": "Money left this account",
+  "finRecordMoveReceived": "Money came into this account",
+  "finInstallments": "Installments",
+  "finInstallmentCount": "Number of monthly installments (optional)",
+  "finFirstDue": "First due",
+  "finNextDue": "Next due {date}",
+  "@finNextDue": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "finOverdue": "Overdue",
+  "finPaid": "Paid",
+  "finNoDebts": "Nothing here",
+  "finRecordRepayment": "Record repayment",
+  "finRepaymentTooBig": "Up to {amount}",
+  "@finRepaymentTooBig": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "finWrongCurrency": "Choose an account in {currency}",
+  "@finWrongCurrency": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "finPayments": "Payments",
+  "finPrincipal": "Principal",
+  "finRepayment": "Repayment",
+  "finClosed": "Settled",
+  "finNotes": "Notes",
+  "finReports": "Reports",
+  "repRange": "Range",
+  "repThisMonth": "This month",
+  "repLastMonth": "Last month",
+  "repLastMonths": "Last {count} months",
+  "@repLastMonths": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "repCustom": "Custom dates",
+  "repGroupBy": "Group by",
+  "repDaily": "Daily",
+  "repWeekly": "Weekly",
+  "repMonthly": "Monthly",
+  "repAllWorkspaces": "All workspaces",
+  "repTabIncomeExpense": "Income vs expenses",
+  "repTabCategory": "By category",
+  "repTabWorkspace": "By workspace",
+  "repTabCashFlow": "Cash flow",
+  "repTabBalance": "Balance over time",
+  "repTabDebts": "Outstanding debts",
+  "repShowTable": "Show as table",
+  "repShowChart": "Show as chart",
+  "repSkipped": "{count} left out: no {currencies} rate on their dates",
+  "@repSkipped": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "currencies": {
+        "type": "String"
+      }
+    }
+  },
+  "repMoneyIn": "Money in",
+  "repMoneyOut": "Money out",
+  "repNet": "Net",
+  "repOther": "Other",
+  "repPeriodColumn": "Period",
+  "repBalance": "Balance",
+  "repNothing": "Nothing in this range",
+  "repBucketsMonth": "{month}, in {currency}",
+  "@repBucketsMonth": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      },
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "repExport": "Export",
+  "repExportCsv": "Transactions as CSV",
+  "repExportPdf": "Report as PDF",
+  "repNotEncrypted": "This file is not encrypted. Anyone who gets it can read it.",
+  "repExportFailed": "Could not save the file",
+  "setFinance": "Finance",
+  "setFinanceSettings": "Currency and rates",
+  "setFinanceSettingsHint": "Base currency, USD rate, alerts",
+  "setCategories": "Categories",
+  "setCategoriesHint": "Names and the words that pick them",
+  "setWorkspaces": "Workspaces",
+  "setWorkspacesHint": "Names, aliases, buckets",
+  "setBaseCurrency": "Base currency",
+  "setBaseCurrencyHint": "Totals, buckets and reports use it unless you pick another.",
+  "setRateDate": "From {date}",
+  "@setRateDate": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "setRateHistory": "Rate history",
+  "setNoRates": "No rate yet. USD and IQD stay apart until you add one.",
+  "setRateSaved": "Rate saved",
+  "setAlerts": "Alerts",
+  "setUnallocatedAlert": "Remind me about income not split into buckets",
+  "setUnallocatedAlertHint": "Shows on the Finance screen",
+  "setIncomeCategories": "Income",
+  "setExpenseCategories": "Expenses",
+  "setAddCategory": "Add category",
+  "setEditCategory": "Edit category",
+  "setKeywords": "Words that pick this category",
+  "setBuiltInWords": "Built in",
+  "setYourWords": "Your words",
+  "setAddWord": "Add a word",
+  "setRemoveWord": "Remove {word}",
+  "@setRemoveWord": {
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "setArchiveCategory": "Archive {name}? Old entries keep it.",
+  "@setArchiveCategory": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "setAddWorkspace": "Add workspace",
+  "setEditWorkspace": "Edit workspace",
+  "setIcon": "Icon",
+  "setColour": "Colour",
+  "setAliases": "Other names you say",
+  "setAliasesHint": "Voice and quick capture match these too",
+  "setAddAlias": "Add a name",
+  "setCountsInBuckets": "Counts in buckets",
+  "setCountsInBucketsHint": "Its expenses come out of the Expenses bucket",
+  "setArchiveWorkspace": "Archive {name}? Its history stays.",
+  "@setArchiveWorkspace": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "setArchiveBlocked": "Archive or move its accounts first. {name} still has accounts in use.",
+  "@setArchiveBlocked": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "setArchived": "Archived",
+  "ok": "OK",
+  "impTitle": "Import",
+  "impEntry": "Import a sheet",
+  "impStepFile": "Choose a file",
+  "impStepColumns": "Columns",
+  "impStepDefaults": "Defaults",
+  "impStepValues": "Match values",
+  "impStepPreview": "Check and import",
+  "impStepOpening": "Balances today",
+  "impStepOf": "Step {n} of {total}",
+  "@impStepOf": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "impPickHint": "An .xlsx or .csv from your bank or an old sheet. Nothing is saved until you tap Import.",
+  "impPick": "Choose a file",
+  "impPickAnother": "Choose another file",
+  "impTooLarge": "This file is too big: over 50,000 rows or 64 columns.",
+  "impUnreadable": "This file could not be read as .xlsx or .csv.",
+  "impSheet": "Sheet",
+  "impHeaderRow": "Which row has the column names?",
+  "impRowN": "Row {n}",
+  "@impRowN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "impColDate": "Date",
+  "impDateOrder": "Date order",
+  "impDayFirst": "Day first (31/12)",
+  "impMonthFirst": "Month first (12/31)",
+  "impYearFirst": "Year first (2025-12-31)",
+  "impAmountMode": "How amounts are written",
+  "impSigned": "One column, minus means expense",
+  "impTypeColumn": "One column plus a type column",
+  "impSplit": "Separate income and expense columns",
+  "impColAmount": "Amount",
+  "impColIncome": "Income column",
+  "impColExpense": "Expense column",
+  "impColType": "Type",
+  "impColCurrency": "Currency",
+  "impColCategory": "Category",
+  "impColWorkspace": "Workspace",
+  "impColAccount": "Account",
+  "impColDescription": "Description",
+  "impNone": "Not in the file",
+  "impColumnLetter": "Column {letter}",
+  "@impColumnLetter": {
+    "placeholders": {
+      "letter": {
+        "type": "String"
+      }
+    }
+  },
+  "impNeedDateAmount": "Pick the date and amount columns to go on.",
+  "impDefaultsHint": "Used for rows that do not say.",
+  "impNoValues": "Nothing to match: the file has no type, category, workspace or account column.",
+  "impCreateNew": "Create new",
+  "impSkipRow": "Skip these rows",
+  "impLeaveEmpty": "Leave empty",
+  "impUseDefault": "Use the default",
+  "impReady": "Ready",
+  "impDuplicates": "Already in the app",
+  "impProblems": "Can't read",
+  "impSkipDuplicates": "Skip rows already in the app",
+  "impProblemDate": "no date",
+  "impProblemAmount": "no amount",
+  "impProblemType": "unknown type",
+  "impProblemAccount": "no account",
+  "impDuplicateTag": "already there",
+  "impFirstRows": "First {count} rows",
+  "@impFirstRows": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "impImport": "Import {count} rows",
+  "@impImport": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "impImported": "Imported {count} rows",
+  "@impImported": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "impOpeningHint": "Type what each account really holds today. A difference is saved as an adjustment.",
+  "impComputed": "In the app: {amount}",
+  "@impComputed": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "impActual": "Actual today",
+  "impSaveBalances": "Save balances",
+  "impDone": "Done",
+  "impNext": "Next",
+  "impBack": "Back",
+  "impPastImports": "Past imports",
+  "impUndo": "Undo",
+  "impUndoConfirm": "Remove the {count} rows imported from {name}?",
+  "@impUndoConfirm": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "impUndone": "Undone",
+  "impBatchLine": "{count} rows · {date}",
+  "@impBatchLine": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "setAi": "Online AI",
+  "setAiHint": "Groq key, models and what is sent",
+  "aiOnline": "Use online AI",
+  "aiOnlineHint": "When off, everything is understood on the phone, a little less accurately.",
+  "aiKey": "Groq API key",
+  "aiKeyHint": "Free from console.groq.com. Kept encrypted on this phone only.",
+  "aiKeySaved": "Saved key ••••{last4}",
+  "@aiKeySaved": {
+    "placeholders": {
+      "last4": {
+        "type": "String"
+      }
+    }
+  },
+  "aiKeyRemove": "Remove",
+  "aiKeyPaste": "Paste",
+  "aiKeySave": "Save key",
+  "aiTest": "Test key",
+  "aiTestOk": "The key works.",
+  "aiTestUnauthorized": "Groq refused this key. Check it and save it again.",
+  "aiTestOffline": "Could not reach Groq. Check the internet.",
+  "aiTestBusy": "Groq is busy. Try again in a minute.",
+  "aiTestOther": "Groq did not answer as expected. Try again later.",
+  "aiModels": "Models",
+  "aiSttModel": "Speech-to-text model",
+  "aiLlmModel": "Understanding model",
+  "aiModelsSave": "Save models",
+  "aiModelsSaved": "Models saved",
+  "aiConsents": "What is sent to Groq",
+  "aiConsentVoiceTitle": "Voice to text",
+  "aiConsentParseTitle": "Filling in the form",
+  "aiConsentVoice": "Your voice recording is sent to Groq to turn it into text.",
+  "aiConsentParse": "The text of what you said, today's date and time, and the names of your accounts, workspaces, categories and buckets are sent to Groq to fill in the form. Balances, past transactions and the vault are never sent.",
+  "aiConsentGranted": "Allowed",
+  "aiConsentDeclined": "Not allowed",
+  "aiConsentUnset": "Not asked yet",
+  "aiConsentReset": "Ask again",
+  "aiOfflineModel": "Offline speech model",
+  "aiOfflineModelHint": "Turns speech into text on the phone when online AI is off or unreachable.",
+  "consentTitle": "Send this to Groq?",
+  "consentWho": "Groq, Inc. processes it on servers in the United States.",
+  "consentNever": "Never sent: your balances, past transactions, PIN, backups or the vault.",
+  "consentOff": "You can turn this off any time in Settings → Online AI.",
+  "consentAllow": "Allow",
+  "consentDecline": "No, keep it on the phone",
+  "aiModelSmall": "Small: more accurate",
+  "aiModelBase": "Base: faster",
+  "aiModelSize": "{mb} MB",
+  "@aiModelSize": {
+    "placeholders": {
+      "mb": {
+        "type": "int"
+      }
+    }
+  },
+  "aiModelInstall": "Download ({mb} MB)",
+  "@aiModelInstall": {
+    "placeholders": {
+      "mb": {
+        "type": "int"
+      }
+    }
+  },
+  "aiModelInstalled": "Downloaded and checked",
+  "aiModelNotInstalled": "Not downloaded",
+  "aiModelDelete": "Delete",
+  "aiModelCancel": "Stop",
+  "aiModelProgress": "Downloading… {percent}%",
+  "@aiModelProgress": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "aiModelVerifying": "Checking the file…",
+  "aiModelFailed": "The download stopped. Try again, ideally on Wi-Fi.",
+  "aiModelMismatch": "The file did not match and was deleted. Try again.",
+  "aiModelSorani": "Offline, Kurdish (Sorani) is recognised less accurately than Arabic and English.",
+  "capMicTooltip": "Capture by voice (hold to type)",
+  "capListening": "Listening…",
+  "capCapHint": "Up to 2 minutes",
+  "capStop": "Done",
+  "capProcessing": "Working it out…",
+  "capMicDenied": "Microphone access is off. Allow it in Android settings.",
+  "capTypeHint": "Type what happened",
+  "capSend": "Send",
+  "capManual": "Or add by hand",
+  "capNote": "Note",
+  "capVaultItem": "Vault item",
+  "capSavedToInbox": "Saved to Inbox",
+  "capOpen": "Open",
+  "capReason_noSpeechEngine": "No speech engine yet. Turn on online AI or install an offline model in Settings.",
+  "capReason_sttFailed": "Couldn't turn the recording into text. It is kept in the Inbox.",
+  "capReason_empty": "Nothing was heard.",
+  "capReason_lowConfidence": "Not sure what you meant. It is kept in the Inbox.",
+  "capReviewTitle": "Review",
+  "capTranscript": "What you said",
+  "capParseAgain": "Read again",
+  "capByAi": "Filled by online AI",
+  "capByRules": "Filled offline on this phone",
+  "capKeepCard": "Save this",
+  "capCheckThis": "Check this one",
+  "capMissingFields": "Fill in the highlighted fields or turn this one off",
+  "capKeepInInbox": "Keep in Inbox",
+  "capInboxUntil": "Kept in the Inbox until phase {phase}",
+  "@capInboxUntil": {
+    "placeholders": {
+      "phase": {
+        "type": "int"
+      }
+    }
+  },
+  "capDebt": "Debt",
+  "capNewDebt": "New debt",
+  "capWhichDebt": "Which debt",
+  "capDrop": "Dropped",
+  "capNothingFound": "Nothing to save was found. Edit the text and read it again.",
+  "capAlreadyHandled": "This capture was already saved or discarded.",
+  "capDone": "Saved",
+  "capInbox": "Inbox",
+  "capInboxEmpty": "Nothing waiting. Anything you say or type and don't save lands here.",
+  "capNotTranscribed": "Voice, not transcribed yet",
+  "capTranscribe": "Transcribe",
+  "capFinishAi": "Finish with AI",
+  "capFinishAllAi": "Finish all with AI",
+  "capFinishing": "Finishing {n} of {total}…",
+  "@capFinishing": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "capOpenReview": "Review",
+  "capDiscard": "Discard",
+  "capDiscardTitle": "Discard this capture?",
+  "capDiscardBody": "Its text and recording are deleted. Nothing saved from it changes.",
+  "capWillBecomeTask": "Will become a task in phase {phase}",
+  "@capWillBecomeTask": {
+    "placeholders": {
+      "phase": {
+        "type": "int"
+      }
+    }
+  },
+  "capWillBecomeNote": "Will become a note in phase {phase}",
+  "@capWillBecomeNote": {
+    "placeholders": {
+      "phase": {
+        "type": "int"
+      }
+    }
+  }
 }

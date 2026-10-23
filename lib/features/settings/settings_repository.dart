@@ -6,6 +6,12 @@ import '../../core/db/app_database.dart';
 const kSupportedLocaleCodes = {'ar', 'en', 'ckb'};
 const kMaxLockTimeout = Duration(hours: 1);
 
+enum AiFeature { voice, parse }
+
+enum ConsentState { granted, declined }
+
+final _isoCode = RegExp(r'^[A-Z]{3}$');
+
 ThemeMode themeModeOf(String stored) => stored == 'light' ? ThemeMode.light : ThemeMode.dark;
 
 class SettingsRepository {
@@ -41,4 +47,45 @@ class SettingsRepository {
   Future<void> markSetupCompleted() => _write(const AppSettingsTableCompanion(setupCompleted: Value(true)));
 
   Future<void> setLastBackupAt(DateTime t) => _write(AppSettingsTableCompanion(lastBackupAt: Value(t)));
+
+  Future<void> setBaseCurrency(String code) {
+    if (!_isoCode.hasMatch(code)) throw ArgumentError.value(code, 'code', 'not an ISO 4217 code');
+    return _write(AppSettingsTableCompanion(baseCurrency: Value(code)));
+  }
+
+  Future<void> setAiOnlineEnabled(bool v) => _write(AppSettingsTableCompanion(aiOnlineEnabled: Value(v)));
+
+  /// `null` resets the consent so the sheet shows again.
+  Future<void> setConsent(AiFeature f, ConsentState? s) {
+    final v = Value(s?.name);
+    return _write(
+      f == AiFeature.voice
+          ? AppSettingsTableCompanion(aiVoiceConsent: v)
+          : AppSettingsTableCompanion(aiParseConsent: v),
+    );
+  }
+
+  Future<void> setGroqModels({String? stt, String? llm}) {
+    String check(String m) {
+      final t = m.trim();
+      if (t.isEmpty || t.length > 100) throw ArgumentError.value(m, 'model');
+      return t;
+    }
+
+    return _write(
+      AppSettingsTableCompanion(
+        groqSttModel: stt == null ? const Value.absent() : Value(check(stt)),
+        groqLlmModel: llm == null ? const Value.absent() : Value(check(llm)),
+      ),
+    );
+  }
+
+  Future<void> setLocalWhisperModel(String m) {
+    if (m != 'small' && m != 'base') throw ArgumentError.value(m, 'model');
+    return _write(AppSettingsTableCompanion(localWhisperModel: Value(m)));
+  }
+
+  Future<void> setUnallocatedIncomeAlert(bool v) => _write(AppSettingsTableCompanion(unallocatedIncomeAlert: Value(v)));
+
+  Future<void> setBucketsConfirmed() => _write(const AppSettingsTableCompanion(bucketsConfirmed: Value(true)));
 }

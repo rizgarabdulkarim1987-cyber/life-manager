@@ -12,13 +12,16 @@ void main() {
     expect(activity, contains('WindowManager.LayoutParams.FLAG_SECURE'));
   });
 
-  test('manifest: no internet, no auto-backup, localized label, biometric permission', () {
+  test('manifest: internet over TLS only, no auto-backup, localized label, biometric permission', () {
     final manifest = read('android/app/src/main/AndroidManifest.xml');
-    expect(manifest, isNot(contains('android.permission.INTERNET')));
+    // Phase 2: online AI (Groq) needs the network; plain HTTP stays off.
+    expect(manifest, contains('android.permission.INTERNET'));
+    expect(manifest, isNot(contains('android:usesCleartextTraffic="true"')));
     expect(manifest, contains('android:allowBackup="false"'));
     expect(manifest, contains('android:fullBackupContent="false"'));
     expect(manifest, contains('android:label="@string/app_name"'));
     expect(manifest, contains('android.permission.USE_BIOMETRIC'));
+    expect(manifest, contains('android.permission.RECORD_AUDIO'));
   });
 
   test('app name resources exist in Arabic and English', () {

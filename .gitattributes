@@ -3,3 +3,5 @@
 *.png binary
 *.jar binary
 *.bat text eol=crlf
+test/fixtures/import/*.csv -text
+test/fixtures/import/*.xlsx binary

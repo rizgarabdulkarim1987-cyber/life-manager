@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:drift/drift.dart' show Value;
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +12,12 @@ import 'package:life_manager/core/storage/secure_store.dart';
 import 'package:life_manager/features/lock/lock_controller.dart';
 import 'package:life_manager/features/lock/pin_service.dart';
 
+import 'package:life_manager/features/capture/data/capture_repository.dart';
+import 'package:life_manager/features/capture/domain/proposal.dart';
+
+import '../helpers/app_harness.dart';
 import '../helpers/fakes.dart';
+import '../helpers/finance_ui.dart';
 
 /// Worst realistic data at the boundary the app reads from (the database):
 /// names at the 80-character schema limit, Kurdish and Latin mixed, a long
@@ -54,6 +61,7 @@ Future<void> seedWorstCase(AppDatabase db) async {
 void main() {
   late AppDatabase db;
   late ProviderContainer container;
+  var worstOpen = false;
 
   Future<void> pumpWorst(WidgetTester t, {required double scale, String locale = 'ckb'}) async {
     t.view.physicalSize = const Size(320 * 3, 640 * 3);
@@ -63,6 +71,7 @@ void main() {
       t.view.reset();
       t.platformDispatcher.clearTextScaleFactorTestValue();
     });
+    worstOpen = true;
     db = AppDatabase(NativeDatabase.memory());
     await seedWorstCase(db);
     await db
@@ -83,6 +92,8 @@ void main() {
   }
 
   tearDown(() async {
+    if (!worstOpen) return;
+    worstOpen = false;
     container.dispose();
     await db.close();
   });
@@ -144,4 +155,85 @@ void main() {
       expect(t.takeException(), isNull);
     });
   }
+
+  group('phase 2 screens at 320 px, Sorani, 2x text', () {
+    final longText = 'تێبینی درێژ ' * 6; // past 70 characters
+    const huge = 999999999999;
+
+    Future<ProviderContainer> open(WidgetTester t) async {
+      t.view.physicalSize = const Size(320, 640);
+      t.view.devicePixelRatio = 1;
+      t.platformDispatcher.textScaleFactorTestValue = 2.0;
+      addTearDown(() {
+        t.view.reset();
+        t.platformDispatcher.clearTextScaleFactorTestValue();
+      });
+      final c = await pumpApp(
+        t,
+        locale: 'ckb',
+        overrides: [secureStoreProvider.overrideWithValue(InMemorySecureStore())],
+      );
+      final acc = await accountId(c, 'Personal', 'IQD');
+      for (var i = 0; i < 1500; i++) {
+        await txRepo(c).addSimple(
+          type: i.isEven ? 'expense' : 'income',
+          accountId: acc,
+          amountMinor: i == 0 ? huge : 1000 + i,
+          occurredAt: DateTime.now().toUtc().subtract(Duration(hours: i)),
+          description: i % 7 == 0 ? longText : null,
+        );
+      }
+      return c;
+    }
+
+    for (final route in ['/finance', '/finance/history', '/finance/tx/new?type=expense', '/finance/reports']) {
+      testWidgets(route, (t) async {
+        final c = await open(t);
+        await pushRoute(t, c, route);
+        await t.drag(find.byType(Scrollable).first, const Offset(0, -2000));
+        await t.pump(const Duration(milliseconds: 300));
+        expect(t.takeException(), isNull);
+      });
+    }
+
+    testWidgets('inbox with long text, voice rows and an empty transcript', (t) async {
+      final c = await open(t);
+      final repo = CaptureRepository(dbOf(c));
+      for (var i = 0; i < 20; i++) {
+        await dbWrite(t, () => repo.createText(longText));
+        await dbWrite(t, () => repo.createVoice(Uint8List.fromList(List.filled(32, 3))));
+      }
+      await pushRoute(t, c, '/inbox');
+      expect(t.takeException(), isNull);
+      await t.drag(find.byType(Scrollable).first, const Offset(0, -3000));
+      await t.pump(const Duration(milliseconds: 300));
+      expect(t.takeException(), isNull);
+    });
+
+    testWidgets('capture review with long descriptions and a huge amount', (t) async {
+      final c = await open(t);
+      final acc = await accountId(c, 'Personal', 'IQD');
+      final repo = CaptureRepository(dbOf(c));
+      final id = await dbWrite(t, () => repo.createText(longText));
+      await dbWrite(
+        t,
+        () => repo.setParsed(id, [
+          for (var i = 0; i < 6; i++)
+            MoneyProposal(
+              type: IntentType.expense,
+              confidence: 90,
+              amountMinor: huge,
+              currency: 'IQD',
+              accountId: acc,
+              description: longText,
+            ),
+          TaskProposal(title: longText, confidence: 100),
+        ], by: 'ai'),
+      );
+      await pushRoute(t, c, '/capture/$id');
+      await t.drag(find.byType(Scrollable).first, const Offset(0, -3000));
+      await t.pump(const Duration(milliseconds: 300));
+      expect(t.takeException(), isNull);
+    });
+  });
 }

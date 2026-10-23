@@ -52,4 +52,32 @@ void main() {
     expect(s.setupCompleted, isTrue);
     expect(s.lastBackupAt!.toUtc(), t);
   });
+
+  test('setBaseCurrency accepts ISO codes and rejects "iq"', () async {
+    await repo.setBaseCurrency('USD');
+    expect((await repo.get()).baseCurrency, 'USD');
+    expect(() => repo.setBaseCurrency('iq'), throwsArgumentError);
+  });
+
+  test('AI settings persist', () async {
+    await repo.setAiOnlineEnabled(false);
+    await repo.setConsent(AiFeature.voice, ConsentState.granted);
+    await repo.setConsent(AiFeature.parse, ConsentState.declined);
+    await repo.setGroqModels(stt: 'whisper-large-v3', llm: 'some-llm');
+    await repo.setLocalWhisperModel('base');
+    await repo.setUnallocatedIncomeAlert(true);
+    await repo.setBucketsConfirmed();
+    final s = await repo.get();
+    expect((s.aiOnlineEnabled, s.aiVoiceConsent, s.aiParseConsent), (false, 'granted', 'declined'));
+    expect((s.groqSttModel, s.groqLlmModel, s.localWhisperModel), ('whisper-large-v3', 'some-llm', 'base'));
+    expect((s.unallocatedIncomeAlert, s.bucketsConfirmed), (true, true));
+    await repo.setConsent(AiFeature.voice, null);
+    expect((await repo.get()).aiVoiceConsent, isNull);
+  });
+
+  test('model names must be non-empty and short', () {
+    expect(() => repo.setGroqModels(stt: '  '), throwsArgumentError);
+    expect(() => repo.setGroqModels(llm: 'x' * 101), throwsArgumentError);
+    expect(() => repo.setLocalWhisperModel('large'), throwsArgumentError);
+  });
 }

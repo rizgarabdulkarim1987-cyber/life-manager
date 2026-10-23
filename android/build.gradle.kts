@@ -15,6 +15,17 @@ subprojects {
     val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
     project.layout.buildDirectory.value(newSubprojectBuildDir)
 }
+// whisper_ggml pins NDK 29; build it with the NDK the app already uses so no
+// second NDK (and its licence) is needed.
+subprojects {
+    if (project.name == "whisper_ggml") {
+        afterEvaluate {
+            extensions.configure<com.android.build.gradle.LibraryExtension>("android") {
+                ndkVersion = "28.2.13676358"
+            }
+        }
+    }
+}
 subprojects {
     project.evaluationDependsOn(":app")
 }
