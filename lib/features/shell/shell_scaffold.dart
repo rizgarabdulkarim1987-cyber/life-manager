@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/l10n/ckb_fallback_localizations.dart';
 import '../../core/theme/motion.dart';
 import '../../core/theme/tokens.dart';
+import '../capture/ui/capture_sheet.dart';
 
 /// Bottom bar with four destinations around a notched, centred mic button.
 class ShellScaffold extends StatelessWidget {
@@ -12,26 +13,6 @@ class ShellScaffold extends StatelessWidget {
   final StatefulNavigationShell shell;
 
   static const double _fabSize = 64;
-
-  void _openCapture(BuildContext context) {
-    final k = context.tokens;
-    showModalBottomSheet<void>(
-      context: context,
-      showDragHandle: true,
-      builder: (context) => SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(24, 0, 24, 32),
-          child: Row(
-            children: [
-              Icon(Icons.mic_none_rounded, color: k.accent, size: 28),
-              const SizedBox(width: 16),
-              Expanded(child: Text(context.l10n.micSoon, style: Theme.of(context).textTheme.titleMedium)),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,17 +38,24 @@ class ShellScaffold extends StatelessWidget {
     return Scaffold(
       body: shell,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: SizedBox.square(
-        dimension: _fabSize,
-        child: FloatingActionButton(
-          key: const ValueKey('mic-fab'),
-          onPressed: () => _openCapture(context),
-          shape: const CircleBorder(),
-          backgroundColor: k.accent,
-          foregroundColor: k.onAccent,
-          elevation: 2,
-          tooltip: l10n.micSoon,
-          child: const Icon(Icons.mic_rounded, size: 30),
+      // No tooltip: a long press types instead of speaking.
+      floatingActionButton: Semantics(
+        label: l10n.capMicTooltip,
+        onLongPressHint: l10n.capTypeHint,
+        child: GestureDetector(
+          onLongPress: () => startTextCapture(context),
+          child: SizedBox.square(
+            dimension: _fabSize,
+            child: FloatingActionButton(
+              key: const ValueKey('mic-fab'),
+              onPressed: () => startVoiceCapture(context),
+              shape: const CircleBorder(),
+              backgroundColor: k.accent,
+              foregroundColor: k.onAccent,
+              elevation: 2,
+              child: const Icon(Icons.mic_rounded, size: 30),
+            ),
+          ),
         ),
       ),
       bottomNavigationBar: BottomAppBar(

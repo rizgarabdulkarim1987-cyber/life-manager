@@ -118,7 +118,6 @@
   "restoreWrongPassword": "كلمة المرور خاطئة، أو الملف تالف.",
   "restoreCorrupt": "الملف تالف أو ليس نسخة احتياطية من هذا التطبيق.",
   "restoreSuccess": "تم الاسترجاع. جارٍ إعادة التشغيل…",
-  "micSoon": "الإدخال الصوتي يأتي في المرحلة 2",
   "passwordStrengthWeak": "ضعيفة: اجعلها أطول، أو امزج حروفاً وأرقاماً ورموزاً",
   "passwordStrengthFair": "متوسطة",
   "passwordStrengthStrong": "قوية",
@@ -783,5 +782,45 @@
   "aiModelVerifying": "دا نفحص الملف…",
   "aiModelFailed": "التنزيل توقف. جرّب مرة ثانية، والأحسن على الواي فاي.",
   "aiModelMismatch": "الملف ما طابق وانحذف. جرّب مرة ثانية.",
-  "aiModelSorani": "بدون إنترنت، الكردي (السوراني) يتعرّف بدقة أقل من العربي والإنگليزي."
+  "aiModelSorani": "بدون إنترنت، الكردي (السوراني) يتعرّف بدقة أقل من العربي والإنگليزي.",
+  "capMicTooltip": "سجّل بصوتك (اضغط مطوّلاً للكتابة)",
+  "capListening": "دا أسمعك…",
+  "capCapHint": "لحد دقيقتين",
+  "capStop": "خلصت",
+  "capProcessing": "دا أفهم شنو گلت…",
+  "capMicDenied": "المايك مو مسموح. اسمح بيه من إعدادات أندرويد.",
+  "capTypeHint": "اكتب شنو صار",
+  "capSend": "إرسال",
+  "capManual": "أو أضف يدوياً",
+  "capNote": "ملاحظة",
+  "capVaultItem": "عنصر بالخزنة",
+  "capSavedToInbox": "انحفظ بالوارد",
+  "capOpen": "افتح",
+  "capReason_noSpeechEngine": "ماكو محرك صوت بعد. شغّل الذكاء الاصطناعي أو نزّل نموذج من الإعدادات.",
+  "capReason_sttFailed": "ما گدرت أحوّل التسجيل لنص. انحفظ بالوارد.",
+  "capReason_empty": "ما انسمع شي.",
+  "capReason_lowConfidence": "ما متأكد شنو قصدك. انحفظ بالوارد.",
+  "capReviewTitle": "مراجعة",
+  "capTranscript": "اللي گلته",
+  "capParseAgain": "اقرأه مرة ثانية",
+  "capByAi": "عبّاه الذكاء الاصطناعي",
+  "capByRules": "انعبّى على الموبايل بدون إنترنت",
+  "capKeepCard": "احفظ هذا",
+  "capCheckThis": "تأكد من هذا",
+  "capMissingFields": "عبّي الحقول المؤشّرة أو طفّي هذا",
+  "capKeepInInbox": "خلّيه بالوارد",
+  "capInboxUntil": "يبقى بالوارد لحد المرحلة {phase}",
+  "@capInboxUntil": {
+    "placeholders": {
+      "phase": {
+        "type": "int"
+      }
+    }
+  },
+  "capDebt": "دين",
+  "capNewDebt": "دين جديد",
+  "capWhichDebt": "أي دين",
+  "capDrop": "منشال",
+  "capNothingFound": "ما لگيت شي ينحفظ. عدّل النص واقرأه مرة ثانية.",
+  "capDone": "انحفظ"
 }

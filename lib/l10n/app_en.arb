@@ -118,7 +118,6 @@
   "restoreWrongPassword": "Wrong password, or the file is damaged.",
   "restoreCorrupt": "This file is damaged or isn't a backup from this app.",
   "restoreSuccess": "Restored. Restarting…",
-  "micSoon": "Voice capture arrives in phase 2",
   "passwordStrengthWeak": "Weak: make it longer, or mix letters, numbers and symbols",
   "passwordStrengthFair": "Fair",
   "passwordStrengthStrong": "Strong",
@@ -783,5 +782,45 @@
   "aiModelVerifying": "Checking the file…",
   "aiModelFailed": "The download stopped. Try again, ideally on Wi-Fi.",
   "aiModelMismatch": "The file did not match and was deleted. Try again.",
-  "aiModelSorani": "Offline, Kurdish (Sorani) is recognised less accurately than Arabic and English."
+  "aiModelSorani": "Offline, Kurdish (Sorani) is recognised less accurately than Arabic and English.",
+  "capMicTooltip": "Capture by voice (hold to type)",
+  "capListening": "Listening…",
+  "capCapHint": "Up to 2 minutes",
+  "capStop": "Done",
+  "capProcessing": "Working it out…",
+  "capMicDenied": "Microphone access is off. Allow it in Android settings.",
+  "capTypeHint": "Type what happened",
+  "capSend": "Send",
+  "capManual": "Or add by hand",
+  "capNote": "Note",
+  "capVaultItem": "Vault item",
+  "capSavedToInbox": "Saved to Inbox",
+  "capOpen": "Open",
+  "capReason_noSpeechEngine": "No speech engine yet. Turn on online AI or install an offline model in Settings.",
+  "capReason_sttFailed": "Couldn't turn the recording into text. It is kept in the Inbox.",
+  "capReason_empty": "Nothing was heard.",
+  "capReason_lowConfidence": "Not sure what you meant. It is kept in the Inbox.",
+  "capReviewTitle": "Review",
+  "capTranscript": "What you said",
+  "capParseAgain": "Read again",
+  "capByAi": "Filled by online AI",
+  "capByRules": "Filled offline on this phone",
+  "capKeepCard": "Save this",
+  "capCheckThis": "Check this one",
+  "capMissingFields": "Fill in the highlighted fields or turn this one off",
+  "capKeepInInbox": "Keep in Inbox",
+  "capInboxUntil": "Kept in the Inbox until phase {phase}",
+  "@capInboxUntil": {
+    "placeholders": {
+      "phase": {
+        "type": "int"
+      }
+    }
+  },
+  "capDebt": "Debt",
+  "capNewDebt": "New debt",
+  "capWhichDebt": "Which debt",
+  "capDrop": "Dropped",
+  "capNothingFound": "Nothing to save was found. Edit the text and read it again.",
+  "capDone": "Saved"
 }

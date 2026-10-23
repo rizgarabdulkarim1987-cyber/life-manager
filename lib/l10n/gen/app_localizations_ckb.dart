@@ -46,8 +46,7 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get biometrics => 'کردنەوە بە پەنجەمۆر';
 
   @override
-  String get biometricsUnavailable =>
-      'هیچ پەنجەمۆر یان ناسینەوەی ڕوو لەسەر ئەم مۆبایلە چالاک نییە';
+  String get biometricsUnavailable => 'هیچ پەنجەمۆر یان ناسینەوەی ڕوو لەسەر ئەم مۆبایلە چالاک نییە';
 
   @override
   String get changePin => 'گۆڕینی PIN';
@@ -160,8 +159,7 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get setupWelcome => 'بەخێربێیت';
 
   @override
-  String get setupWelcomeBody =>
-      'هەموو شتێک لەسەر ئەم مۆبایلە دەمێنێتەوە، لەژێر قوفڵی خۆت.';
+  String get setupWelcomeBody => 'هەموو شتێک لەسەر ئەم مۆبایلە دەمێنێتەوە، لەژێر قوفڵی خۆت.';
 
   @override
   String get setupChooseLanguage => 'زمانەکەت هەڵبژێرە';
@@ -245,8 +243,7 @@ class AppLocalizationsCkb extends AppLocalizations {
       'زانیارییەکانت لەسەر ئەم مۆبایلە دەمێننەوە. تەنها ئەگەر زیرەکی دەستکردی ئۆنلاین هەڵبکەیت و ڕازی بیت، دەنگ یان دەقی تۆمارەکە بۆ Groq دەنێردرێت. گەنجینەکە هەرگیز لە مۆبایلەکە دەرناچێت.';
 
   @override
-  String get restoreTooNew =>
-      'ئەم پاشەکەوتە لە وەشانێکی نوێتری ئەپەکە دروستکراوە. سەرەتا ئەپەکە نوێ بکەرەوە.';
+  String get restoreTooNew => 'ئەم پاشەکەوتە لە وەشانێکی نوێتری ئەپەکە دروستکراوە. سەرەتا ئەپەکە نوێ بکەرەوە.';
 
   @override
   String get restoreWrongPassword => 'وشەی نهێنی هەڵەیە، یان فایلەکە تێکچووە.';
@@ -258,11 +255,7 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get restoreSuccess => 'گەڕێندرایەوە. دووبارە دەستپێدەکاتەوە…';
 
   @override
-  String get micSoon => 'تۆمارکردنی دەنگی لە قۆناغی 2 دێت';
-
-  @override
-  String get passwordStrengthWeak =>
-      'لاواز: درێژتری بکە، یان پیت و ژمارە و هێما تێکەڵ بکە';
+  String get passwordStrengthWeak => 'لاواز: درێژتری بکە، یان پیت و ژمارە و هێما تێکەڵ بکە';
 
   @override
   String get passwordStrengthFair => 'مامناوەند';
@@ -271,8 +264,7 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get passwordStrengthStrong => 'بەهێز';
 
   @override
-  String get backupPasswordHint =>
-      'بۆ گەڕاندنەوە پێویستت بەم وشەی نهێنییە دەبێت. ئەگەر لەبیرت بچێت، ناگەڕێتەوە.';
+  String get backupPasswordHint => 'بۆ گەڕاندنەوە پێویستت بەم وشەی نهێنییە دەبێت. ئەگەر لەبیرت بچێت، ناگەڕێتەوە.';
 
   @override
   String get somethingWentWrong => 'هەڵەیەک ڕوویدا. دووبارە هەوڵ بدەرەوە.';
@@ -486,8 +478,7 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get finAdjustBalance => 'ڕێکخستنی باڵانس';
 
   @override
-  String get finAdjustHint =>
-      'بڕی ڕاستەقینەی ئەم هەژمارە بنووسە. جیاوازییەکە وەک ڕێکخستن پاشەکەوت دەکرێت.';
+  String get finAdjustHint => 'بڕی ڕاستەقینەی ئەم هەژمارە بنووسە. جیاوازییەکە وەک ڕێکخستن پاشەکەوت دەکرێت.';
 
   @override
   String get finActualAmount => 'بڕی ڕاستەقینە';
@@ -713,8 +704,7 @@ class AppLocalizationsCkb extends AppLocalizations {
   }
 
   @override
-  String get finBucketsUnconfirmed =>
-      'پێش دابەشکردنی داهات، ڕێژەکانی خۆت دابنێ.';
+  String get finBucketsUnconfirmed => 'پێش دابەشکردنی داهات، ڕێژەکانی خۆت دابنێ.';
 
   @override
   String get finExpensesMonthly => 'هەموو مانگێک سفر دەبێتەوە';
@@ -729,8 +719,7 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get finEditBudget => 'دەستکاری بودجە';
 
   @override
-  String get finBudgetNeedsScope =>
-      'پۆلێک یان شوێنی کارێک یان هەردووکیان هەڵبژێرە';
+  String get finBudgetNeedsScope => 'پۆلێک یان شوێنی کارێک یان هەردووکیان هەڵبژێرە';
 
   @override
   String get finAnyWorkspace => 'هەموو شوێنەکانی کار';
@@ -929,8 +918,7 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get repExportPdf => 'ڕاپۆرت وەک PDF';
 
   @override
-  String get repNotEncrypted =>
-      'ئەم فایلە نهێنی نەکراوە. هەر کەسێک دەستی بکەوێت دەتوانێت بیخوێنێتەوە.';
+  String get repNotEncrypted => 'ئەم فایلە نهێنی نەکراوە. هەر کەسێک دەستی بکەوێت دەتوانێت بیخوێنێتەوە.';
 
   @override
   String get repExportFailed => 'نەتوانرا فایلەکە پاشەکەوت بکرێت';
@@ -942,8 +930,7 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get setFinanceSettings => 'دراو و نرخەکان';
 
   @override
-  String get setFinanceSettingsHint =>
-      'دراوی بنەڕەت، نرخی دۆلار، ئاگادارکردنەوە';
+  String get setFinanceSettingsHint => 'دراوی بنەڕەت، نرخی دۆلار، ئاگادارکردنەوە';
 
   @override
   String get setCategories => 'پۆلەکان';
@@ -961,8 +948,7 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get setBaseCurrency => 'دراوی بنەڕەت';
 
   @override
-  String get setBaseCurrencyHint =>
-      'کۆکان و سندوقەکان و ڕاپۆرتەکان بەکاری دەهێنن مەگەر یەکێکی تر هەڵبژێریت.';
+  String get setBaseCurrencyHint => 'کۆکان و سندوقەکان و ڕاپۆرتەکان بەکاری دەهێنن مەگەر یەکێکی تر هەڵبژێریت.';
 
   @override
   String setRateDate(String date) {
@@ -973,8 +959,7 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get setRateHistory => 'مێژووی نرخەکان';
 
   @override
-  String get setNoRates =>
-      'هێشتا نرخ نییە. دۆلار و دینار جیا دەمێننەوە تا نرخێک زیاد دەکەیت.';
+  String get setNoRates => 'هێشتا نرخ نییە. دۆلار و دینار جیا دەمێننەوە تا نرخێک زیاد دەکەیت.';
 
   @override
   String get setRateSaved => 'نرخەکە پاشەکەوت کرا';
@@ -983,8 +968,7 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get setAlerts => 'ئاگادارکردنەوەکان';
 
   @override
-  String get setUnallocatedAlert =>
-      'بیرم بخەرەوە بە داهاتێک کە دابەش نەکراوە بۆ سندوقەکان';
+  String get setUnallocatedAlert => 'بیرم بخەرەوە بە داهاتێک کە دابەش نەکراوە بۆ سندوقەکان';
 
   @override
   String get setUnallocatedAlertHint => 'لە شاشەی دارایی دەردەکەوێت';
@@ -1106,12 +1090,10 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get impPickAnother => 'فایلێکی تر هەڵبژێرە';
 
   @override
-  String get impTooLarge =>
-      'فایلەکە زۆر گەورەیە: زیاتر لە 50,000 ڕیز یان 64 ستوون.';
+  String get impTooLarge => 'فایلەکە زۆر گەورەیە: زیاتر لە 50,000 ڕیز یان 64 ستوون.';
 
   @override
-  String get impUnreadable =>
-      'نەتوانرا فایلەکە وەک ‎.xlsx‎ یان ‎.csv‎ بخوێنرێتەوە.';
+  String get impUnreadable => 'نەتوانرا فایلەکە وەک ‎.xlsx‎ یان ‎.csv‎ بخوێنرێتەوە.';
 
   @override
   String get impSheet => 'پەڕە';
@@ -1187,15 +1169,13 @@ class AppLocalizationsCkb extends AppLocalizations {
   }
 
   @override
-  String get impNeedDateAmount =>
-      'ستوونی بەروار و بڕ هەڵبژێرە بۆ بەردەوامبوون.';
+  String get impNeedDateAmount => 'ستوونی بەروار و بڕ هەڵبژێرە بۆ بەردەوامبوون.';
 
   @override
   String get impDefaultsHint => 'بۆ ئەو ڕیزانە بەکاردێت کە ئەمەیان تێدا نییە.';
 
   @override
-  String get impNoValues =>
-      'هیچ بۆ گونجاندن نییە: فایلەکە ستوونی جۆر، پۆل، شوێن یان هەژماری تێدا نییە.';
+  String get impNoValues => 'هیچ بۆ گونجاندن نییە: فایلەکە ستوونی جۆر، پۆل، شوێن یان هەژماری تێدا نییە.';
 
   @override
   String get impCreateNew => 'نوێ دروست بکە';
@@ -1304,15 +1284,13 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get aiOnline => 'زیرەکی دەستکردی ئۆنلاین بەکاربهێنە';
 
   @override
-  String get aiOnlineHint =>
-      'کاتێک کوژاوەیە، هەموو شتێک لەسەر مۆبایلەکە تێدەگات، کەمێک بە وردی کەمتر.';
+  String get aiOnlineHint => 'کاتێک کوژاوەیە، هەموو شتێک لەسەر مۆبایلەکە تێدەگات، کەمێک بە وردی کەمتر.';
 
   @override
   String get aiKey => 'کلیلی Groq API';
 
   @override
-  String get aiKeyHint =>
-      'بەخۆڕایی لە console.groq.com. تەنها لەسەر ئەم مۆبایلە بە نهێنی هەڵدەگیرێت.';
+  String get aiKeyHint => 'بەخۆڕایی لە console.groq.com. تەنها لەسەر ئەم مۆبایلە بە نهێنی هەڵدەگیرێت.';
 
   @override
   String aiKeySaved(String last4) {
@@ -1335,8 +1313,7 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get aiTestOk => 'کلیلەکە کار دەکات.';
 
   @override
-  String get aiTestUnauthorized =>
-      'Groq ئەم کلیلەی ڕەتکردەوە. بیپشکنە و دووبارە هەڵیبگرەوە.';
+  String get aiTestUnauthorized => 'Groq ئەم کلیلەی ڕەتکردەوە. بیپشکنە و دووبارە هەڵیبگرەوە.';
 
   @override
   String get aiTestOffline => 'نەتوانرا بگەینە Groq. ئینتەرنێتەکە بپشکنە.';
@@ -1345,8 +1322,7 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get aiTestBusy => 'Groq سەرقاڵە. دوای خولەکێک دووبارە هەوڵ بدەرەوە.';
 
   @override
-  String get aiTestOther =>
-      'Groq وەک چاوەڕوانکراو وەڵامی نەدایەوە. دواتر هەوڵ بدەرەوە.';
+  String get aiTestOther => 'Groq وەک چاوەڕوانکراو وەڵامی نەدایەوە. دواتر هەوڵ بدەرەوە.';
 
   @override
   String get aiModels => 'مۆدێلەکان';
@@ -1373,8 +1349,7 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get aiConsentParseTitle => 'پڕکردنەوەی فۆرمەکە';
 
   @override
-  String get aiConsentVoice =>
-      'تۆماری دەنگەکەت بۆ Groq دەنێردرێت بۆ ئەوەی بکرێتە دەق.';
+  String get aiConsentVoice => 'تۆماری دەنگەکەت بۆ Groq دەنێردرێت بۆ ئەوەی بکرێتە دەق.';
 
   @override
   String get aiConsentParse =>
@@ -1396,23 +1371,19 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get aiOfflineModel => 'مۆدێلی قسەکردن بێ ئینتەرنێت';
 
   @override
-  String get aiOfflineModelHint =>
-      'قسە دەکاتە دەق لەسەر مۆبایلەکە کاتێک زیرەکی ئۆنلاین کوژاوەیە یان ناگات.';
+  String get aiOfflineModelHint => 'قسە دەکاتە دەق لەسەر مۆبایلەکە کاتێک زیرەکی ئۆنلاین کوژاوەیە یان ناگات.';
 
   @override
   String get consentTitle => 'ئەمە بنێرین بۆ Groq؟';
 
   @override
-  String get consentWho =>
-      'کۆمپانیای Groq لەسەر سێرڤەرەکانی ویلایەتە یەکگرتووەکان چارەسەری دەکات.';
+  String get consentWho => 'کۆمپانیای Groq لەسەر سێرڤەرەکانی ویلایەتە یەکگرتووەکان چارەسەری دەکات.';
 
   @override
-  String get consentNever =>
-      'هەرگیز نانێردرێت: باڵانسەکانت، مامەڵە کۆنەکان، PIN، پاشەکەوتەکان یان گەنجینەکە.';
+  String get consentNever => 'هەرگیز نانێردرێت: باڵانسەکانت، مامەڵە کۆنەکان، PIN، پاشەکەوتەکان یان گەنجینەکە.';
 
   @override
-  String get consentOff =>
-      'هەر کاتێک دەتوانیت لە ڕێکخستنەکان ← زیرەکی دەستکردی ئۆنلاین بیکوژێنیتەوە.';
+  String get consentOff => 'هەر کاتێک دەتوانیت لە ڕێکخستنەکان ← زیرەکی دەستکردی ئۆنلاین بیکوژێنیتەوە.';
 
   @override
   String get consentAllow => 'ڕێگە بدە';
@@ -1457,14 +1428,113 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get aiModelVerifying => 'فایلەکە دەپشکنرێت…';
 
   @override
-  String get aiModelFailed =>
-      'دابەزاندنەکە وەستا. دووبارە هەوڵ بدەرەوە، باشترە لەسەر Wi-Fi.';
+  String get aiModelFailed => 'دابەزاندنەکە وەستا. دووبارە هەوڵ بدەرەوە، باشترە لەسەر Wi-Fi.';
 
   @override
-  String get aiModelMismatch =>
-      'فایلەکە یەکی نەگرتەوە و سڕایەوە. دووبارە هەوڵ بدەرەوە.';
+  String get aiModelMismatch => 'فایلەکە یەکی نەگرتەوە و سڕایەوە. دووبارە هەوڵ بدەرەوە.';
 
   @override
-  String get aiModelSorani =>
-      'بێ ئینتەرنێت، کوردی (سۆرانی) بە وردی کەمتر لە عەرەبی و ئینگلیزی دەناسرێتەوە.';
+  String get aiModelSorani => 'بێ ئینتەرنێت، کوردی (سۆرانی) بە وردی کەمتر لە عەرەبی و ئینگلیزی دەناسرێتەوە.';
+
+  @override
+  String get capMicTooltip => 'بە دەنگ تۆمار بکە (بۆ نووسین دابگرە)';
+
+  @override
+  String get capListening => 'گوێ دەگرم…';
+
+  @override
+  String get capCapHint => 'تا دوو خولەک';
+
+  @override
+  String get capStop => 'تەواو';
+
+  @override
+  String get capProcessing => 'تێدەگەم…';
+
+  @override
+  String get capMicDenied => 'مایکرۆفۆن ڕێگەپێنەدراوە. لە ڕێکخستنەکانی ئەندرۆید ڕێگەی پێبدە.';
+
+  @override
+  String get capTypeHint => 'بنووسە چی ڕوویدا';
+
+  @override
+  String get capSend => 'ناردن';
+
+  @override
+  String get capManual => 'یان بە دەست زیاد بکە';
+
+  @override
+  String get capNote => 'تێبینی';
+
+  @override
+  String get capVaultItem => 'شتێک لە گەنجینە';
+
+  @override
+  String get capSavedToInbox => 'لە سندوقی هاتوو پاشەکەوت کرا';
+
+  @override
+  String get capOpen => 'بیکەرەوە';
+
+  @override
+  String get capReason_noSpeechEngine =>
+      'هێشتا بزوێنەری دەنگ نییە. AI ی ئۆنلاین هەڵبکە یان مۆدێلێکی ئۆفلاین لە ڕێکخستنەکان دابەزێنە.';
+
+  @override
+  String get capReason_sttFailed => 'نەمتوانی تۆمارەکە بکەمە دەق. لە سندوقی هاتوو هەڵگیرا.';
+
+  @override
+  String get capReason_empty => 'هیچ نەبیسترا.';
+
+  @override
+  String get capReason_lowConfidence => 'دڵنیا نیم مەبەستت چییە. لە سندوقی هاتوو هەڵگیرا.';
+
+  @override
+  String get capReviewTitle => 'پێداچوونەوە';
+
+  @override
+  String get capTranscript => 'ئەوەی وتت';
+
+  @override
+  String get capParseAgain => 'دووبارە بیخوێنەوە';
+
+  @override
+  String get capByAi => 'AI ی ئۆنلاین پڕی کردەوە';
+
+  @override
+  String get capByRules => 'لەسەر ئەم مۆبایلە بەبێ ئینتەرنێت پڕکرایەوە';
+
+  @override
+  String get capKeepCard => 'ئەمە پاشەکەوت بکە';
+
+  @override
+  String get capCheckThis => 'ئەمە بپشکنە';
+
+  @override
+  String get capMissingFields => 'خانە دیاریکراوەکان پڕبکەوە یان ئەمە بکوژێنەوە';
+
+  @override
+  String get capKeepInInbox => 'لە سندوقی هاتوو بیهێڵەوە';
+
+  @override
+  String capInboxUntil(int phase) {
+    return 'لە سندوقی هاتوو دەمێنێتەوە تا قۆناغی $phase';
+  }
+
+  @override
+  String get capDebt => 'قەرز';
+
+  @override
+  String get capNewDebt => 'قەرزی نوێ';
+
+  @override
+  String get capWhichDebt => 'کام قەرز';
+
+  @override
+  String get capDrop => 'لابرا';
+
+  @override
+  String get capNothingFound => 'هیچ شتێک بۆ پاشەکەوتکردن نەدۆزرایەوە. دەقەکە دەستکاری بکە و دووبارە بیخوێنەوە.';
+
+  @override
+  String get capDone => 'پاشەکەوت کرا';
 }

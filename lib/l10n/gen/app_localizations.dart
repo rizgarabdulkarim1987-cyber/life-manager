@@ -63,8 +63,7 @@ import 'app_localizations_en.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale)
-    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -72,8 +71,7 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations)!;
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate =
-      _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -85,20 +83,15 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
-        delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('ar'),
-    Locale('ckb'),
-    Locale('en'),
-  ];
+  static const List<Locale> supportedLocales = <Locale>[Locale('ar'), Locale('ckb'), Locale('en')];
 
   /// No description provided for @appTitle.
   ///
@@ -537,12 +530,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Restored. Restarting…'**
   String get restoreSuccess;
-
-  /// No description provided for @micSoon.
-  ///
-  /// In en, this message translates to:
-  /// **'Voice capture arrives in phase 2'**
-  String get micSoon;
 
   /// No description provided for @passwordStrengthWeak.
   ///
@@ -2733,10 +2720,207 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Offline, Kurdish (Sorani) is recognised less accurately than Arabic and English.'**
   String get aiModelSorani;
+
+  /// No description provided for @capMicTooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'Capture by voice (hold to type)'**
+  String get capMicTooltip;
+
+  /// No description provided for @capListening.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening…'**
+  String get capListening;
+
+  /// No description provided for @capCapHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Up to 2 minutes'**
+  String get capCapHint;
+
+  /// No description provided for @capStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get capStop;
+
+  /// No description provided for @capProcessing.
+  ///
+  /// In en, this message translates to:
+  /// **'Working it out…'**
+  String get capProcessing;
+
+  /// No description provided for @capMicDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone access is off. Allow it in Android settings.'**
+  String get capMicDenied;
+
+  /// No description provided for @capTypeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type what happened'**
+  String get capTypeHint;
+
+  /// No description provided for @capSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get capSend;
+
+  /// No description provided for @capManual.
+  ///
+  /// In en, this message translates to:
+  /// **'Or add by hand'**
+  String get capManual;
+
+  /// No description provided for @capNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Note'**
+  String get capNote;
+
+  /// No description provided for @capVaultItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Vault item'**
+  String get capVaultItem;
+
+  /// No description provided for @capSavedToInbox.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved to Inbox'**
+  String get capSavedToInbox;
+
+  /// No description provided for @capOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get capOpen;
+
+  /// No description provided for @capReason_noSpeechEngine.
+  ///
+  /// In en, this message translates to:
+  /// **'No speech engine yet. Turn on online AI or install an offline model in Settings.'**
+  String get capReason_noSpeechEngine;
+
+  /// No description provided for @capReason_sttFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t turn the recording into text. It is kept in the Inbox.'**
+  String get capReason_sttFailed;
+
+  /// No description provided for @capReason_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing was heard.'**
+  String get capReason_empty;
+
+  /// No description provided for @capReason_lowConfidence.
+  ///
+  /// In en, this message translates to:
+  /// **'Not sure what you meant. It is kept in the Inbox.'**
+  String get capReason_lowConfidence;
+
+  /// No description provided for @capReviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get capReviewTitle;
+
+  /// No description provided for @capTranscript.
+  ///
+  /// In en, this message translates to:
+  /// **'What you said'**
+  String get capTranscript;
+
+  /// No description provided for @capParseAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Read again'**
+  String get capParseAgain;
+
+  /// No description provided for @capByAi.
+  ///
+  /// In en, this message translates to:
+  /// **'Filled by online AI'**
+  String get capByAi;
+
+  /// No description provided for @capByRules.
+  ///
+  /// In en, this message translates to:
+  /// **'Filled offline on this phone'**
+  String get capByRules;
+
+  /// No description provided for @capKeepCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Save this'**
+  String get capKeepCard;
+
+  /// No description provided for @capCheckThis.
+  ///
+  /// In en, this message translates to:
+  /// **'Check this one'**
+  String get capCheckThis;
+
+  /// No description provided for @capMissingFields.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill in the highlighted fields or turn this one off'**
+  String get capMissingFields;
+
+  /// No description provided for @capKeepInInbox.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep in Inbox'**
+  String get capKeepInInbox;
+
+  /// No description provided for @capInboxUntil.
+  ///
+  /// In en, this message translates to:
+  /// **'Kept in the Inbox until phase {phase}'**
+  String capInboxUntil(int phase);
+
+  /// No description provided for @capDebt.
+  ///
+  /// In en, this message translates to:
+  /// **'Debt'**
+  String get capDebt;
+
+  /// No description provided for @capNewDebt.
+  ///
+  /// In en, this message translates to:
+  /// **'New debt'**
+  String get capNewDebt;
+
+  /// No description provided for @capWhichDebt.
+  ///
+  /// In en, this message translates to:
+  /// **'Which debt'**
+  String get capWhichDebt;
+
+  /// No description provided for @capDrop.
+  ///
+  /// In en, this message translates to:
+  /// **'Dropped'**
+  String get capDrop;
+
+  /// No description provided for @capNothingFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing to save was found. Edit the text and read it again.'**
+  String get capNothingFound;
+
+  /// No description provided for @capDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get capDone;
 }
 
-class _AppLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -2745,8 +2929,7 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['ar', 'ckb', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['ar', 'ckb', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;

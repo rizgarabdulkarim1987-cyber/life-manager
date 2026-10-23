@@ -50,6 +50,9 @@ class FakeHttpPort implements HttpPort {
   HttpReply Function(FakeRequest r) reply;
   final requests = <FakeRequest>[];
 
+  /// Runs before [reply], so a test can look at the app's state at the moment of the request.
+  Future<void> Function(FakeRequest r)? before;
+
   /// Answers [getStream]; downloads fail when unset.
   Stream<List<int>> Function(Uri u)? stream;
   final streamed = <Uri>[];
@@ -58,6 +61,7 @@ class FakeHttpPort implements HttpPort {
   Future<HttpReply> postJson(Uri u, Map<String, String> headers, String body, Duration timeout) async {
     final r = FakeRequest(u, headers, body: body);
     requests.add(r);
+    await before?.call(r);
     return reply(r);
   }
 
@@ -73,6 +77,7 @@ class FakeHttpPort implements HttpPort {
   ) async {
     final r = FakeRequest(u, headers, fields: fields, fileField: fileField, fileName: fileName, file: file);
     requests.add(r);
+    await before?.call(r);
     return reply(r);
   }
 

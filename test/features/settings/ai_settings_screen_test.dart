@@ -53,7 +53,9 @@ void main() {
     await t.scrollUntilVisible(
       f,
       150,
-      scrollable: find.descendant(of: find.byKey(const ValueKey('ai-settings')), matching: find.byType(Scrollable)).first,
+      scrollable: find
+          .descendant(of: find.byKey(const ValueKey('ai-settings')), matching: find.byType(Scrollable))
+          .first,
     );
     await t.ensureVisible(f);
     await settle(t);

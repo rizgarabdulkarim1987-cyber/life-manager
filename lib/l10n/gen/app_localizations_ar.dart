@@ -46,8 +46,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get biometrics => 'الفتح بالبصمة';
 
   @override
-  String get biometricsUnavailable =>
-      'لا توجد بصمة أو فتح بالوجه مفعّل على هذا الهاتف';
+  String get biometricsUnavailable => 'لا توجد بصمة أو فتح بالوجه مفعّل على هذا الهاتف';
 
   @override
   String get changePin => 'تغيير رمز PIN';
@@ -248,25 +247,19 @@ class AppLocalizationsAr extends AppLocalizations {
       'بياناتك تبقى على هذا التلفون. بس إذا شغّلت الذكاء الاصطناعي عبر الإنترنت ووافقت، ينرسل صوت أو نص التسجيل إلى Groq. الخزنة ما تطلع من التلفون أبداً.';
 
   @override
-  String get restoreTooNew =>
-      'هذه النسخة من إصدار أحدث للتطبيق. حدّث التطبيق أولاً.';
+  String get restoreTooNew => 'هذه النسخة من إصدار أحدث للتطبيق. حدّث التطبيق أولاً.';
 
   @override
   String get restoreWrongPassword => 'كلمة المرور خاطئة، أو الملف تالف.';
 
   @override
-  String get restoreCorrupt =>
-      'الملف تالف أو ليس نسخة احتياطية من هذا التطبيق.';
+  String get restoreCorrupt => 'الملف تالف أو ليس نسخة احتياطية من هذا التطبيق.';
 
   @override
   String get restoreSuccess => 'تم الاسترجاع. جارٍ إعادة التشغيل…';
 
   @override
-  String get micSoon => 'الإدخال الصوتي يأتي في المرحلة 2';
-
-  @override
-  String get passwordStrengthWeak =>
-      'ضعيفة: اجعلها أطول، أو امزج حروفاً وأرقاماً ورموزاً';
+  String get passwordStrengthWeak => 'ضعيفة: اجعلها أطول، أو امزج حروفاً وأرقاماً ورموزاً';
 
   @override
   String get passwordStrengthFair => 'متوسطة';
@@ -275,8 +268,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get passwordStrengthStrong => 'قوية';
 
   @override
-  String get backupPasswordHint =>
-      'ستحتاج كلمة المرور هذه عند الاسترجاع. إذا نسيتها فلا يمكن استعادتها.';
+  String get backupPasswordHint => 'ستحتاج كلمة المرور هذه عند الاسترجاع. إذا نسيتها فلا يمكن استعادتها.';
 
   @override
   String get somethingWentWrong => 'حدث خطأ. حاول مرة أخرى.';
@@ -490,8 +482,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get finAdjustBalance => 'تعديل الرصيد';
 
   @override
-  String get finAdjustHint =>
-      'اكتب المبلغ الموجود فعلاً بالحساب. الفرق ينحفظ كتعديل.';
+  String get finAdjustHint => 'اكتب المبلغ الموجود فعلاً بالحساب. الفرق ينحفظ كتعديل.';
 
   @override
   String get finActualAmount => 'المبلغ الفعلي';
@@ -708,8 +699,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get finEditPercentages => 'تعديل النسب';
 
   @override
-  String get finPercentagesNote =>
-      'لازم مجموعها 100%. بس الدخل اللي توزعه بعد الحفظ ياخذ النسب الجديدة.';
+  String get finPercentagesNote => 'لازم مجموعها 100%. بس الدخل اللي توزعه بعد الحفظ ياخذ النسب الجديدة.';
 
   @override
   String finPercentTotal(String percent) {
@@ -943,8 +933,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get setFinanceSettings => 'العملة وأسعار الصرف';
 
   @override
-  String get setFinanceSettingsHint =>
-      'العملة الأساسية، سعر الدولار، التنبيهات';
+  String get setFinanceSettingsHint => 'العملة الأساسية، سعر الدولار، التنبيهات';
 
   @override
   String get setCategories => 'الفئات';
@@ -962,8 +951,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get setBaseCurrency => 'العملة الأساسية';
 
   @override
-  String get setBaseCurrencyHint =>
-      'المجاميع والصناديق والتقارير تستخدمها إلا إذا اخترت غيرها.';
+  String get setBaseCurrencyHint => 'المجاميع والصناديق والتقارير تستخدمها إلا إذا اخترت غيرها.';
 
   @override
   String setRateDate(String date) {
@@ -974,8 +962,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get setRateHistory => 'سجل الأسعار';
 
   @override
-  String get setNoRates =>
-      'ماكو سعر بعد. الدولار والدينار يبقون منفصلين لحد ما تضيف سعر.';
+  String get setNoRates => 'ماكو سعر بعد. الدولار والدينار يبقون منفصلين لحد ما تضيف سعر.';
 
   @override
   String get setRateSaved => 'انحفظ السعر';
@@ -1096,8 +1083,7 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get impPickHint =>
-      'ملف ‎.xlsx‎ أو ‎.csv‎ من البنك أو من جدول قديم. ما ينحفظ شي لحد ما تدوس استيراد.';
+  String get impPickHint => 'ملف ‎.xlsx‎ أو ‎.csv‎ من البنك أو من جدول قديم. ما ينحفظ شي لحد ما تدوس استيراد.';
 
   @override
   String get impPick => 'اختار ملف';
@@ -1191,8 +1177,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get impDefaultsHint => 'تنستخدم للأسطر اللي ما بيها هالمعلومة.';
 
   @override
-  String get impNoValues =>
-      'ماكو شي للمطابقة: الملف ما بيه عمود نوع أو فئة أو مساحة أو حساب.';
+  String get impNoValues => 'ماكو شي للمطابقة: الملف ما بيه عمود نوع أو فئة أو مساحة أو حساب.';
 
   @override
   String get impCreateNew => 'سوّي جديد';
@@ -1249,8 +1234,7 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get impOpeningHint =>
-      'اكتب شگد بكل حساب فعلاً اليوم. الفرق ينحفظ كتسوية.';
+  String get impOpeningHint => 'اكتب شگد بكل حساب فعلاً اليوم. الفرق ينحفظ كتسوية.';
 
   @override
   String impComputed(String amount) {
@@ -1301,15 +1285,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get aiOnline => 'استخدم الذكاء الاصطناعي عبر الإنترنت';
 
   @override
-  String get aiOnlineHint =>
-      'إذا طفيته، كلشي يتفهم على التلفون، بدقة أقل شوية.';
+  String get aiOnlineHint => 'إذا طفيته، كلشي يتفهم على التلفون، بدقة أقل شوية.';
 
   @override
   String get aiKey => 'مفتاح Groq API';
 
   @override
-  String get aiKeyHint =>
-      'مجاني من console.groq.com. ينحفظ مشفّر على هذا التلفون بس.';
+  String get aiKeyHint => 'مجاني من console.groq.com. ينحفظ مشفّر على هذا التلفون بس.';
 
   @override
   String aiKeySaved(String last4) {
@@ -1332,8 +1314,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get aiTestOk => 'المفتاح يشتغل.';
 
   @override
-  String get aiTestUnauthorized =>
-      'Groq رفض هذا المفتاح. تأكد منه واحفظه مرة ثانية.';
+  String get aiTestUnauthorized => 'Groq رفض هذا المفتاح. تأكد منه واحفظه مرة ثانية.';
 
   @override
   String get aiTestOffline => 'ما گدرنا نوصل لـ Groq. تأكد من الإنترنت.';
@@ -1391,8 +1372,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get aiOfflineModel => 'نموذج الكلام بدون إنترنت';
 
   @override
-  String get aiOfflineModelHint =>
-      'يحوّل الكلام لنص على التلفون إذا الذكاء الاصطناعي طافي أو ما يوصل.';
+  String get aiOfflineModelHint => 'يحوّل الكلام لنص على التلفون إذا الذكاء الاصطناعي طافي أو ما يوصل.';
 
   @override
   String get consentTitle => 'نرسل هذا إلى Groq؟';
@@ -1401,12 +1381,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get consentWho => 'شركة Groq تعالجه على سيرفرات بالولايات المتحدة.';
 
   @override
-  String get consentNever =>
-      'ما ينرسل أبداً: أرصدتك، معاملاتك السابقة، الرمز، النسخ الاحتياطية أو الخزنة.';
+  String get consentNever => 'ما ينرسل أبداً: أرصدتك، معاملاتك السابقة، الرمز، النسخ الاحتياطية أو الخزنة.';
 
   @override
-  String get consentOff =>
-      'تگدر تطفيه بأي وقت من الإعدادات ← الذكاء الاصطناعي عبر الإنترنت.';
+  String get consentOff => 'تگدر تطفيه بأي وقت من الإعدادات ← الذكاء الاصطناعي عبر الإنترنت.';
 
   @override
   String get consentAllow => 'اسمح';
@@ -1451,13 +1429,112 @@ class AppLocalizationsAr extends AppLocalizations {
   String get aiModelVerifying => 'دا نفحص الملف…';
 
   @override
-  String get aiModelFailed =>
-      'التنزيل توقف. جرّب مرة ثانية، والأحسن على الواي فاي.';
+  String get aiModelFailed => 'التنزيل توقف. جرّب مرة ثانية، والأحسن على الواي فاي.';
 
   @override
   String get aiModelMismatch => 'الملف ما طابق وانحذف. جرّب مرة ثانية.';
 
   @override
-  String get aiModelSorani =>
-      'بدون إنترنت، الكردي (السوراني) يتعرّف بدقة أقل من العربي والإنگليزي.';
+  String get aiModelSorani => 'بدون إنترنت، الكردي (السوراني) يتعرّف بدقة أقل من العربي والإنگليزي.';
+
+  @override
+  String get capMicTooltip => 'سجّل بصوتك (اضغط مطوّلاً للكتابة)';
+
+  @override
+  String get capListening => 'دا أسمعك…';
+
+  @override
+  String get capCapHint => 'لحد دقيقتين';
+
+  @override
+  String get capStop => 'خلصت';
+
+  @override
+  String get capProcessing => 'دا أفهم شنو گلت…';
+
+  @override
+  String get capMicDenied => 'المايك مو مسموح. اسمح بيه من إعدادات أندرويد.';
+
+  @override
+  String get capTypeHint => 'اكتب شنو صار';
+
+  @override
+  String get capSend => 'إرسال';
+
+  @override
+  String get capManual => 'أو أضف يدوياً';
+
+  @override
+  String get capNote => 'ملاحظة';
+
+  @override
+  String get capVaultItem => 'عنصر بالخزنة';
+
+  @override
+  String get capSavedToInbox => 'انحفظ بالوارد';
+
+  @override
+  String get capOpen => 'افتح';
+
+  @override
+  String get capReason_noSpeechEngine => 'ماكو محرك صوت بعد. شغّل الذكاء الاصطناعي أو نزّل نموذج من الإعدادات.';
+
+  @override
+  String get capReason_sttFailed => 'ما گدرت أحوّل التسجيل لنص. انحفظ بالوارد.';
+
+  @override
+  String get capReason_empty => 'ما انسمع شي.';
+
+  @override
+  String get capReason_lowConfidence => 'ما متأكد شنو قصدك. انحفظ بالوارد.';
+
+  @override
+  String get capReviewTitle => 'مراجعة';
+
+  @override
+  String get capTranscript => 'اللي گلته';
+
+  @override
+  String get capParseAgain => 'اقرأه مرة ثانية';
+
+  @override
+  String get capByAi => 'عبّاه الذكاء الاصطناعي';
+
+  @override
+  String get capByRules => 'انعبّى على الموبايل بدون إنترنت';
+
+  @override
+  String get capKeepCard => 'احفظ هذا';
+
+  @override
+  String get capCheckThis => 'تأكد من هذا';
+
+  @override
+  String get capMissingFields => 'عبّي الحقول المؤشّرة أو طفّي هذا';
+
+  @override
+  String get capKeepInInbox => 'خلّيه بالوارد';
+
+  @override
+  String capInboxUntil(int phase) {
+    return 'يبقى بالوارد لحد المرحلة $phase';
+  }
+
+  @override
+  String get capDebt => 'دين';
+
+  @override
+  String get capNewDebt => 'دين جديد';
+
+  @override
+  String get capWhichDebt => 'أي دين';
+
+  @override
+  String get capDrop => 'منشال';
+
+  @override
+  String get capNothingFound => 'ما لگيت شي ينحفظ. عدّل النص واقرأه مرة ثانية.';
+
+  @override
+  String get capDone => 'انحفظ';
 }

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../core/l10n/ckb_fallback_localizations.dart';
 import '../features/backup/backup_screen.dart';
 import '../features/capture/domain/proposal.dart';
+import '../features/capture/ui/capture_review_screen.dart';
 import '../features/finance/ui/account_detail_screen.dart';
 import '../features/finance/ui/accounts_screen.dart';
 import '../features/finance/ui/buckets_screen.dart';
@@ -157,6 +158,10 @@ GoRouter buildRouter() => GoRouter(
           ],
         ),
       ],
+    ),
+    GoRoute(
+      path: '/capture/:id',
+      builder: (_, state) => CaptureReviewScreen(captureId: int.parse(state.pathParameters['id']!)),
     ),
     GoRoute(
       path: '/settings',
