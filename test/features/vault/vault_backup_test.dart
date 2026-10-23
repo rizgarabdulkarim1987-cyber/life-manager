@@ -164,7 +164,7 @@ void main() {
     }
   });
 
-  test('restoring a v2 backup gives an empty vault on schema 3', () async {
+  test('restoring a v2 backup gives an empty vault on the current schema', () async {
     final schema = await SchemaVerifier(GeneratedHelper()).schemaAt(2);
     final raw = schema.rawDatabase;
     raw.execute(
@@ -184,7 +184,7 @@ void main() {
     );
 
     await restoreInto(file);
-    expect(db.schemaVersion, 3);
+    expect(db.schemaVersion, 4);
     expect(await keys(db).isSetUp(), isFalse);
     expect(await db.select(db.vaultItems).get(), isEmpty);
     expect((await db.select(db.appSettingsTable).getSingle()).vaultAutoLockSeconds, 120);

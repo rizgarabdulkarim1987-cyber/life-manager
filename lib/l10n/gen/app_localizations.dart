@@ -3764,6 +3764,516 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The vault goes into the backup still encrypted with your master password. After a restore, turn fingerprint unlock on again in vault settings.'**
   String get backupVaultNote;
+
+  /// No description provided for @tskAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add task'**
+  String get tskAdd;
+
+  /// No description provided for @tskNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New task'**
+  String get tskNew;
+
+  /// No description provided for @tskEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit task'**
+  String get tskEdit;
+
+  /// No description provided for @tskQuickHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a task…'**
+  String get tskQuickHint;
+
+  /// No description provided for @tskViewInbox.
+  ///
+  /// In en, this message translates to:
+  /// **'Inbox'**
+  String get tskViewInbox;
+
+  /// No description provided for @tskViewToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get tskViewToday;
+
+  /// No description provided for @tskViewTomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow'**
+  String get tskViewTomorrow;
+
+  /// No description provided for @tskViewWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'This week'**
+  String get tskViewWeek;
+
+  /// No description provided for @tskViewUpcoming.
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming'**
+  String get tskViewUpcoming;
+
+  /// No description provided for @tskViewOverdue.
+  ///
+  /// In en, this message translates to:
+  /// **'Overdue'**
+  String get tskViewOverdue;
+
+  /// No description provided for @tskViewCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get tskViewCompleted;
+
+  /// No description provided for @tskViewAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get tskViewAll;
+
+  /// No description provided for @tskEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing here.'**
+  String get tskEmpty;
+
+  /// No description provided for @tskAllWorkspaces.
+  ///
+  /// In en, this message translates to:
+  /// **'All workspaces'**
+  String get tskAllWorkspaces;
+
+  /// No description provided for @tskSort.
+  ///
+  /// In en, this message translates to:
+  /// **'Sort'**
+  String get tskSort;
+
+  /// No description provided for @tskSortDue.
+  ///
+  /// In en, this message translates to:
+  /// **'By due date'**
+  String get tskSortDue;
+
+  /// No description provided for @tskSortPriority.
+  ///
+  /// In en, this message translates to:
+  /// **'By priority'**
+  String get tskSortPriority;
+
+  /// No description provided for @tskCalendar.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar'**
+  String get tskCalendar;
+
+  /// No description provided for @tskCalendarEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No tasks on this day.'**
+  String get tskCalendarEmpty;
+
+  /// No description provided for @tskMeetings.
+  ///
+  /// In en, this message translates to:
+  /// **'Meeting notes'**
+  String get tskMeetings;
+
+  /// No description provided for @tskFieldTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get tskFieldTitle;
+
+  /// No description provided for @tskFieldNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get tskFieldNotes;
+
+  /// No description provided for @tskFieldWorkspace.
+  ///
+  /// In en, this message translates to:
+  /// **'Workspace'**
+  String get tskFieldWorkspace;
+
+  /// No description provided for @tskNoWorkspace.
+  ///
+  /// In en, this message translates to:
+  /// **'No workspace'**
+  String get tskNoWorkspace;
+
+  /// No description provided for @tskFieldPriority.
+  ///
+  /// In en, this message translates to:
+  /// **'Priority'**
+  String get tskFieldPriority;
+
+  /// No description provided for @tskPriorityLow.
+  ///
+  /// In en, this message translates to:
+  /// **'Low'**
+  String get tskPriorityLow;
+
+  /// No description provided for @tskPriorityNormal.
+  ///
+  /// In en, this message translates to:
+  /// **'Normal'**
+  String get tskPriorityNormal;
+
+  /// No description provided for @tskPriorityHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'High'**
+  String get tskPriorityHigh;
+
+  /// No description provided for @tskPriorityUrgent.
+  ///
+  /// In en, this message translates to:
+  /// **'Urgent'**
+  String get tskPriorityUrgent;
+
+  /// No description provided for @tskDueDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Due'**
+  String get tskDueDate;
+
+  /// No description provided for @tskNoDate.
+  ///
+  /// In en, this message translates to:
+  /// **'No date'**
+  String get tskNoDate;
+
+  /// No description provided for @tskAllDay.
+  ///
+  /// In en, this message translates to:
+  /// **'All day'**
+  String get tskAllDay;
+
+  /// No description provided for @tskClearDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear date'**
+  String get tskClearDate;
+
+  /// No description provided for @tskReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder'**
+  String get tskReminder;
+
+  /// No description provided for @tskRemindNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No reminder'**
+  String get tskRemindNone;
+
+  /// No description provided for @tskRemindAtDue.
+  ///
+  /// In en, this message translates to:
+  /// **'At the due time'**
+  String get tskRemindAtDue;
+
+  /// No description provided for @tskRemind10.
+  ///
+  /// In en, this message translates to:
+  /// **'10 minutes before'**
+  String get tskRemind10;
+
+  /// No description provided for @tskRemind1h.
+  ///
+  /// In en, this message translates to:
+  /// **'1 hour before'**
+  String get tskRemind1h;
+
+  /// No description provided for @tskRemind1d.
+  ///
+  /// In en, this message translates to:
+  /// **'1 day before'**
+  String get tskRemind1d;
+
+  /// No description provided for @tskRemindMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'9:00 on the day'**
+  String get tskRemindMorning;
+
+  /// No description provided for @tskRemindDayBefore.
+  ///
+  /// In en, this message translates to:
+  /// **'9:00 the day before'**
+  String get tskRemindDayBefore;
+
+  /// No description provided for @tskRemindCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a time…'**
+  String get tskRemindCustom;
+
+  /// No description provided for @tskRepeat.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat'**
+  String get tskRepeat;
+
+  /// No description provided for @tskRepeatNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Does not repeat'**
+  String get tskRepeatNone;
+
+  /// No description provided for @tskRepeatDaily.
+  ///
+  /// In en, this message translates to:
+  /// **'Every day'**
+  String get tskRepeatDaily;
+
+  /// No description provided for @tskRepeatWeekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Every week'**
+  String get tskRepeatWeekly;
+
+  /// No description provided for @tskRepeatMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Every month'**
+  String get tskRepeatMonthly;
+
+  /// No description provided for @tskRepeatYearly.
+  ///
+  /// In en, this message translates to:
+  /// **'Every year'**
+  String get tskRepeatYearly;
+
+  /// No description provided for @tskTags.
+  ///
+  /// In en, this message translates to:
+  /// **'Tags'**
+  String get tskTags;
+
+  /// No description provided for @tskTagsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'client, urgent'**
+  String get tskTagsHint;
+
+  /// No description provided for @tskDiscardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard changes?'**
+  String get tskDiscardTitle;
+
+  /// No description provided for @tskDiscardBody.
+  ///
+  /// In en, this message translates to:
+  /// **'What you typed will be lost.'**
+  String get tskDiscardBody;
+
+  /// No description provided for @tskDiscard.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard'**
+  String get tskDiscard;
+
+  /// No description provided for @tskNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'This task no longer exists.'**
+  String get tskNotFound;
+
+  /// No description provided for @tskStatusTodo.
+  ///
+  /// In en, this message translates to:
+  /// **'To do'**
+  String get tskStatusTodo;
+
+  /// No description provided for @tskStatusDoing.
+  ///
+  /// In en, this message translates to:
+  /// **'In progress'**
+  String get tskStatusDoing;
+
+  /// No description provided for @tskStatusDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get tskStatusDone;
+
+  /// No description provided for @tskMarkDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark done'**
+  String get tskMarkDone;
+
+  /// No description provided for @tskReopen.
+  ///
+  /// In en, this message translates to:
+  /// **'Reopen'**
+  String get tskReopen;
+
+  /// No description provided for @tskStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get tskStart;
+
+  /// No description provided for @tskSnoozeTomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Remind tomorrow 9:00'**
+  String get tskSnoozeTomorrow;
+
+  /// No description provided for @tskSnoozedTomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder moved to tomorrow 9:00'**
+  String get tskSnoozedTomorrow;
+
+  /// No description provided for @tskDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get tskDelete;
+
+  /// No description provided for @tskDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this task?'**
+  String get tskDeleteTitle;
+
+  /// No description provided for @tskDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Its steps are deleted with it.'**
+  String get tskDeleteBody;
+
+  /// No description provided for @tskSteps.
+  ///
+  /// In en, this message translates to:
+  /// **'Steps'**
+  String get tskSteps;
+
+  /// No description provided for @tskAddStep.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a step'**
+  String get tskAddStep;
+
+  /// No description provided for @tskWarnNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications are off, so reminders cannot show. Allow them to be reminded.'**
+  String get tskWarnNotifications;
+
+  /// No description provided for @tskWarnExact.
+  ///
+  /// In en, this message translates to:
+  /// **'Exact alarms are not allowed, so a reminder can arrive a few minutes late. Allow them in Android settings.'**
+  String get tskWarnExact;
+
+  /// No description provided for @tskAllow.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow'**
+  String get tskAllow;
+
+  /// No description provided for @tskOpenSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open settings'**
+  String get tskOpenSettings;
+
+  /// No description provided for @tskMeetingNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Meeting note'**
+  String get tskMeetingNote;
+
+  /// No description provided for @tskMeetingNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New meeting note'**
+  String get tskMeetingNew;
+
+  /// No description provided for @tskMeetingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'What was said'**
+  String get tskMeetingBody;
+
+  /// No description provided for @tskMeetingEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No meeting notes yet. Write one, then pull its action points out as tasks.'**
+  String get tskMeetingEmpty;
+
+  /// No description provided for @tskExtract.
+  ///
+  /// In en, this message translates to:
+  /// **'Extract action points'**
+  String get tskExtract;
+
+  /// No description provided for @tskExtractTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Action points'**
+  String get tskExtractTitle;
+
+  /// No description provided for @tskExtractNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No action points found in this text.'**
+  String get tskExtractNone;
+
+  /// No description provided for @tskNotifDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get tskNotifDone;
+
+  /// No description provided for @tskNotifSnooze10.
+  ///
+  /// In en, this message translates to:
+  /// **'10 min'**
+  String get tskNotifSnooze10;
+
+  /// No description provided for @tskNotifSnooze1h.
+  ///
+  /// In en, this message translates to:
+  /// **'1 hour'**
+  String get tskNotifSnooze1h;
+
+  /// No description provided for @tskNotifChannel.
+  ///
+  /// In en, this message translates to:
+  /// **'Task reminders'**
+  String get tskNotifChannel;
+
+  /// No description provided for @tskAddNTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'Add {count} tasks'**
+  String tskAddNTasks(int count);
+
+  /// No description provided for @tskRepeatEveryN.
+  ///
+  /// In en, this message translates to:
+  /// **'Every {n} · {unit}'**
+  String tskRepeatEveryN(int n, String unit);
+
+  /// No description provided for @tskNextCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Next one: {date}'**
+  String tskNextCreated(String date);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

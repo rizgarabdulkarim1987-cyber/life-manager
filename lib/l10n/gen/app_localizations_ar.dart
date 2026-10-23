@@ -1989,4 +1989,265 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get backupVaultNote =>
       'تدخل الخزنة في النسخة الاحتياطية مشفّرة بكلمة مرورك الرئيسية. بعد الاسترجاع، فعّل الفتح بالبصمة من جديد في إعدادات الخزنة.';
+
+  @override
+  String get tskAdd => 'إضافة مهمة';
+
+  @override
+  String get tskNew => 'مهمة جديدة';
+
+  @override
+  String get tskEdit => 'تعديل المهمة';
+
+  @override
+  String get tskQuickHint => 'أضف مهمة…';
+
+  @override
+  String get tskViewInbox => 'الوارد';
+
+  @override
+  String get tskViewToday => 'اليوم';
+
+  @override
+  String get tskViewTomorrow => 'غداً';
+
+  @override
+  String get tskViewWeek => 'هذا الأسبوع';
+
+  @override
+  String get tskViewUpcoming => 'القادمة';
+
+  @override
+  String get tskViewOverdue => 'متأخرة';
+
+  @override
+  String get tskViewCompleted => 'المكتملة';
+
+  @override
+  String get tskViewAll => 'الكل';
+
+  @override
+  String get tskEmpty => 'لا شيء هنا.';
+
+  @override
+  String get tskAllWorkspaces => 'كل مساحات العمل';
+
+  @override
+  String get tskSort => 'ترتيب';
+
+  @override
+  String get tskSortDue => 'حسب الموعد';
+
+  @override
+  String get tskSortPriority => 'حسب الأولوية';
+
+  @override
+  String get tskCalendar => 'التقويم';
+
+  @override
+  String get tskCalendarEmpty => 'لا مهام في هذا اليوم.';
+
+  @override
+  String get tskMeetings => 'ملاحظات الاجتماعات';
+
+  @override
+  String get tskFieldTitle => 'العنوان';
+
+  @override
+  String get tskFieldNotes => 'ملاحظات';
+
+  @override
+  String get tskFieldWorkspace => 'مساحة العمل';
+
+  @override
+  String get tskNoWorkspace => 'بدون مساحة عمل';
+
+  @override
+  String get tskFieldPriority => 'الأولوية';
+
+  @override
+  String get tskPriorityLow => 'منخفضة';
+
+  @override
+  String get tskPriorityNormal => 'عادية';
+
+  @override
+  String get tskPriorityHigh => 'عالية';
+
+  @override
+  String get tskPriorityUrgent => 'عاجلة';
+
+  @override
+  String get tskDueDate => 'الموعد';
+
+  @override
+  String get tskNoDate => 'بدون تاريخ';
+
+  @override
+  String get tskAllDay => 'طوال اليوم';
+
+  @override
+  String get tskClearDate => 'إزالة التاريخ';
+
+  @override
+  String get tskReminder => 'التذكير';
+
+  @override
+  String get tskRemindNone => 'بدون تذكير';
+
+  @override
+  String get tskRemindAtDue => 'عند الموعد';
+
+  @override
+  String get tskRemind10 => 'قبل 10 دقائق';
+
+  @override
+  String get tskRemind1h => 'قبل ساعة';
+
+  @override
+  String get tskRemind1d => 'قبل يوم';
+
+  @override
+  String get tskRemindMorning => 'الساعة 9 صباحاً في اليوم نفسه';
+
+  @override
+  String get tskRemindDayBefore => 'الساعة 9 صباحاً قبل يوم';
+
+  @override
+  String get tskRemindCustom => 'اختر وقتاً…';
+
+  @override
+  String get tskRepeat => 'التكرار';
+
+  @override
+  String get tskRepeatNone => 'لا يتكرر';
+
+  @override
+  String get tskRepeatDaily => 'كل يوم';
+
+  @override
+  String get tskRepeatWeekly => 'كل أسبوع';
+
+  @override
+  String get tskRepeatMonthly => 'كل شهر';
+
+  @override
+  String get tskRepeatYearly => 'كل سنة';
+
+  @override
+  String get tskTags => 'الوسوم';
+
+  @override
+  String get tskTagsHint => 'عميل، عاجل';
+
+  @override
+  String get tskDiscardTitle => 'تجاهل التغييرات؟';
+
+  @override
+  String get tskDiscardBody => 'سيضيع ما كتبته.';
+
+  @override
+  String get tskDiscard => 'تجاهل';
+
+  @override
+  String get tskNotFound => 'هذه المهمة لم تعد موجودة.';
+
+  @override
+  String get tskStatusTodo => 'للتنفيذ';
+
+  @override
+  String get tskStatusDoing => 'قيد التنفيذ';
+
+  @override
+  String get tskStatusDone => 'مكتملة';
+
+  @override
+  String get tskMarkDone => 'تمّت';
+
+  @override
+  String get tskReopen => 'إعادة فتح';
+
+  @override
+  String get tskStart => 'ابدأ';
+
+  @override
+  String get tskSnoozeTomorrow => 'ذكّرني غداً 9 صباحاً';
+
+  @override
+  String get tskSnoozedTomorrow => 'نُقل التذكير إلى غد 9 صباحاً';
+
+  @override
+  String get tskDelete => 'حذف';
+
+  @override
+  String get tskDeleteTitle => 'حذف هذه المهمة؟';
+
+  @override
+  String get tskDeleteBody => 'تُحذف خطواتها معها.';
+
+  @override
+  String get tskSteps => 'الخطوات';
+
+  @override
+  String get tskAddStep => 'أضف خطوة';
+
+  @override
+  String get tskWarnNotifications => 'الإشعارات مغلقة فلن تظهر التذكيرات. اسمح بها لتصلك.';
+
+  @override
+  String get tskWarnExact => 'المنبهات الدقيقة غير مسموحة، فقد يتأخر التذكير دقائق. اسمح بها من إعدادات أندرويد.';
+
+  @override
+  String get tskAllow => 'السماح';
+
+  @override
+  String get tskOpenSettings => 'فتح الإعدادات';
+
+  @override
+  String get tskMeetingNote => 'ملاحظة اجتماع';
+
+  @override
+  String get tskMeetingNew => 'ملاحظة اجتماع جديدة';
+
+  @override
+  String get tskMeetingBody => 'ما قيل في الاجتماع';
+
+  @override
+  String get tskMeetingEmpty => 'لا ملاحظات اجتماعات بعد. اكتب واحدة ثم استخرج نقاط العمل منها كمهام.';
+
+  @override
+  String get tskExtract => 'استخراج نقاط العمل';
+
+  @override
+  String get tskExtractTitle => 'نقاط العمل';
+
+  @override
+  String get tskExtractNone => 'لم أجد نقاط عمل في هذا النص.';
+
+  @override
+  String get tskNotifDone => 'تمّت';
+
+  @override
+  String get tskNotifSnooze10 => '10 دقائق';
+
+  @override
+  String get tskNotifSnooze1h => 'ساعة';
+
+  @override
+  String get tskNotifChannel => 'تذكيرات المهام';
+
+  @override
+  String tskAddNTasks(int count) {
+    return 'أضف $count مهام';
+  }
+
+  @override
+  String tskRepeatEveryN(int n, String unit) {
+    return 'كل $n · $unit';
+  }
+
+  @override
+  String tskNextCreated(String date) {
+    return 'التالية: $date';
+  }
 }

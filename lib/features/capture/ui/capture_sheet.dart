@@ -316,10 +316,6 @@ class _CaptureTextSheetState extends ConsumerState<CaptureTextSheet> {
     final l = context.l10n;
     final k = context.tokens;
     final text = Theme.of(context).textTheme;
-    Widget soon(String key, IconData icon, String label, int phase) => Tooltip(
-      message: l.comingInPhase(phase),
-      child: ActionChip(key: ValueKey(key), avatar: Icon(icon, size: 18), label: Text(label), onPressed: null),
-    );
     return Padding(
       key: const ValueKey('cap-text-sheet'),
       padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
@@ -379,14 +375,24 @@ class _CaptureTextSheetState extends ConsumerState<CaptureTextSheet> {
                     label: Text(l.typeTransfer),
                     onPressed: _busy ? null : () => _manual('/finance/transfer/new'),
                   ),
-                  soon('cap-manual-task', Icons.task_alt_outlined, l.navTasks, 4),
+                  ActionChip(
+                    key: const ValueKey('cap-manual-task'),
+                    avatar: const Icon(Icons.task_alt_outlined, size: 18),
+                    label: Text(l.navTasks),
+                    onPressed: _busy ? null : () => _manual('/tasks/new'),
+                  ),
                   ActionChip(
                     key: const ValueKey('cap-manual-vault'),
                     avatar: const Icon(Icons.shield_outlined, size: 18),
                     label: Text(l.capVaultItem),
                     onPressed: _busy ? null : () => _manual('/vault/new'),
                   ),
-                  soon('cap-manual-note', Icons.sticky_note_2_outlined, l.capNote, 4),
+                  ActionChip(
+                    key: const ValueKey('cap-manual-note'),
+                    avatar: const Icon(Icons.sticky_note_2_outlined, size: 18),
+                    label: Text(l.tskMeetingNote),
+                    onPressed: _busy ? null : () => _manual('/tasks/meetings/new'),
+                  ),
                 ],
               ),
             ],

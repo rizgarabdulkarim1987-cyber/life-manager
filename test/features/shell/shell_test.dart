@@ -31,11 +31,11 @@ void main() {
     );
   });
 
-  testWidgets('the tasks tab is still a placeholder screen', (t) async {
+  testWidgets('the tasks tab opens the tasks screen', (t) async {
     await pumpApp(t, locale: 'en');
     await t.tap(find.byKey(const ValueKey('nav-2')));
     await t.pumpAndSettle();
-    expect(find.text('Arrives in phase 4'), findsOneWidget);
+    expect(find.byKey(const ValueKey('tasks-screen')), findsOneWidget);
   });
 
   testWidgets('settings icon opens settings', (t) async {

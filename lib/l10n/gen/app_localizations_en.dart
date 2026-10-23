@@ -1989,4 +1989,266 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get backupVaultNote =>
       'The vault goes into the backup still encrypted with your master password. After a restore, turn fingerprint unlock on again in vault settings.';
+
+  @override
+  String get tskAdd => 'Add task';
+
+  @override
+  String get tskNew => 'New task';
+
+  @override
+  String get tskEdit => 'Edit task';
+
+  @override
+  String get tskQuickHint => 'Add a task…';
+
+  @override
+  String get tskViewInbox => 'Inbox';
+
+  @override
+  String get tskViewToday => 'Today';
+
+  @override
+  String get tskViewTomorrow => 'Tomorrow';
+
+  @override
+  String get tskViewWeek => 'This week';
+
+  @override
+  String get tskViewUpcoming => 'Upcoming';
+
+  @override
+  String get tskViewOverdue => 'Overdue';
+
+  @override
+  String get tskViewCompleted => 'Completed';
+
+  @override
+  String get tskViewAll => 'All';
+
+  @override
+  String get tskEmpty => 'Nothing here.';
+
+  @override
+  String get tskAllWorkspaces => 'All workspaces';
+
+  @override
+  String get tskSort => 'Sort';
+
+  @override
+  String get tskSortDue => 'By due date';
+
+  @override
+  String get tskSortPriority => 'By priority';
+
+  @override
+  String get tskCalendar => 'Calendar';
+
+  @override
+  String get tskCalendarEmpty => 'No tasks on this day.';
+
+  @override
+  String get tskMeetings => 'Meeting notes';
+
+  @override
+  String get tskFieldTitle => 'Title';
+
+  @override
+  String get tskFieldNotes => 'Notes';
+
+  @override
+  String get tskFieldWorkspace => 'Workspace';
+
+  @override
+  String get tskNoWorkspace => 'No workspace';
+
+  @override
+  String get tskFieldPriority => 'Priority';
+
+  @override
+  String get tskPriorityLow => 'Low';
+
+  @override
+  String get tskPriorityNormal => 'Normal';
+
+  @override
+  String get tskPriorityHigh => 'High';
+
+  @override
+  String get tskPriorityUrgent => 'Urgent';
+
+  @override
+  String get tskDueDate => 'Due';
+
+  @override
+  String get tskNoDate => 'No date';
+
+  @override
+  String get tskAllDay => 'All day';
+
+  @override
+  String get tskClearDate => 'Clear date';
+
+  @override
+  String get tskReminder => 'Reminder';
+
+  @override
+  String get tskRemindNone => 'No reminder';
+
+  @override
+  String get tskRemindAtDue => 'At the due time';
+
+  @override
+  String get tskRemind10 => '10 minutes before';
+
+  @override
+  String get tskRemind1h => '1 hour before';
+
+  @override
+  String get tskRemind1d => '1 day before';
+
+  @override
+  String get tskRemindMorning => '9:00 on the day';
+
+  @override
+  String get tskRemindDayBefore => '9:00 the day before';
+
+  @override
+  String get tskRemindCustom => 'Pick a time…';
+
+  @override
+  String get tskRepeat => 'Repeat';
+
+  @override
+  String get tskRepeatNone => 'Does not repeat';
+
+  @override
+  String get tskRepeatDaily => 'Every day';
+
+  @override
+  String get tskRepeatWeekly => 'Every week';
+
+  @override
+  String get tskRepeatMonthly => 'Every month';
+
+  @override
+  String get tskRepeatYearly => 'Every year';
+
+  @override
+  String get tskTags => 'Tags';
+
+  @override
+  String get tskTagsHint => 'client, urgent';
+
+  @override
+  String get tskDiscardTitle => 'Discard changes?';
+
+  @override
+  String get tskDiscardBody => 'What you typed will be lost.';
+
+  @override
+  String get tskDiscard => 'Discard';
+
+  @override
+  String get tskNotFound => 'This task no longer exists.';
+
+  @override
+  String get tskStatusTodo => 'To do';
+
+  @override
+  String get tskStatusDoing => 'In progress';
+
+  @override
+  String get tskStatusDone => 'Done';
+
+  @override
+  String get tskMarkDone => 'Mark done';
+
+  @override
+  String get tskReopen => 'Reopen';
+
+  @override
+  String get tskStart => 'Start';
+
+  @override
+  String get tskSnoozeTomorrow => 'Remind tomorrow 9:00';
+
+  @override
+  String get tskSnoozedTomorrow => 'Reminder moved to tomorrow 9:00';
+
+  @override
+  String get tskDelete => 'Delete';
+
+  @override
+  String get tskDeleteTitle => 'Delete this task?';
+
+  @override
+  String get tskDeleteBody => 'Its steps are deleted with it.';
+
+  @override
+  String get tskSteps => 'Steps';
+
+  @override
+  String get tskAddStep => 'Add a step';
+
+  @override
+  String get tskWarnNotifications => 'Notifications are off, so reminders cannot show. Allow them to be reminded.';
+
+  @override
+  String get tskWarnExact =>
+      'Exact alarms are not allowed, so a reminder can arrive a few minutes late. Allow them in Android settings.';
+
+  @override
+  String get tskAllow => 'Allow';
+
+  @override
+  String get tskOpenSettings => 'Open settings';
+
+  @override
+  String get tskMeetingNote => 'Meeting note';
+
+  @override
+  String get tskMeetingNew => 'New meeting note';
+
+  @override
+  String get tskMeetingBody => 'What was said';
+
+  @override
+  String get tskMeetingEmpty => 'No meeting notes yet. Write one, then pull its action points out as tasks.';
+
+  @override
+  String get tskExtract => 'Extract action points';
+
+  @override
+  String get tskExtractTitle => 'Action points';
+
+  @override
+  String get tskExtractNone => 'No action points found in this text.';
+
+  @override
+  String get tskNotifDone => 'Done';
+
+  @override
+  String get tskNotifSnooze10 => '10 min';
+
+  @override
+  String get tskNotifSnooze1h => '1 hour';
+
+  @override
+  String get tskNotifChannel => 'Task reminders';
+
+  @override
+  String tskAddNTasks(int count) {
+    return 'Add $count tasks';
+  }
+
+  @override
+  String tskRepeatEveryN(int n, String unit) {
+    return 'Every $n · $unit';
+  }
+
+  @override
+  String tskNextCreated(String date) {
+    return 'Next one: $date';
+  }
 }

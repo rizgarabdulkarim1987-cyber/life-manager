@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../core/l10n/ckb_fallback_localizations.dart';
 import '../features/backup/backup_screen.dart';
 import '../features/capture/domain/proposal.dart';
 import '../features/capture/ui/capture_review_screen.dart';
@@ -27,8 +26,12 @@ import '../features/settings/workspaces_screen.dart';
 import '../features/setup/setup_flow.dart';
 import '../features/setup/splash_screen.dart';
 import '../features/shell/home_screen.dart';
-import '../features/shell/placeholder_screen.dart';
 import '../features/shell/shell_scaffold.dart';
+import '../features/tasks/ui/calendar_screen.dart';
+import '../features/tasks/ui/meetings_screen.dart';
+import '../features/tasks/ui/task_detail_screen.dart';
+import '../features/tasks/ui/task_form_screen.dart';
+import '../features/tasks/ui/tasks_screen.dart';
 import '../features/vault/ui/vault_gate.dart';
 import '../features/vault/ui/vault_import_screen.dart';
 import '../features/vault/ui/vault_item_form_screen.dart';
@@ -150,8 +153,44 @@ GoRouter buildRouter() => GoRouter(
           routes: [
             GoRoute(
               path: '/tasks',
-              builder: (context, _) =>
-                  PlaceholderScreen(title: context.l10n.navTasks, phase: 4, icon: Icons.task_alt_outlined),
+              builder: (_, _) => const TasksScreen(),
+              routes: [
+                // Literal paths first so ':id' never swallows them.
+                GoRoute(
+                  path: 'new',
+                  parentNavigatorKey: _rootKey,
+                  builder: (_, state) => TaskFormScreen(
+                    initialTitle: state.uri.queryParameters['title'],
+                    initialDue: DateTime.tryParse(state.uri.queryParameters['due'] ?? ''),
+                  ),
+                ),
+                GoRoute(path: 'calendar', parentNavigatorKey: _rootKey, builder: (_, _) => const TasksCalendarScreen()),
+                GoRoute(
+                  path: 'meetings',
+                  parentNavigatorKey: _rootKey,
+                  builder: (_, _) => const MeetingsScreen(),
+                  routes: [
+                    GoRoute(path: 'new', parentNavigatorKey: _rootKey, builder: (_, _) => const MeetingEditorScreen()),
+                    GoRoute(
+                      path: ':id',
+                      parentNavigatorKey: _rootKey,
+                      builder: (_, state) => MeetingEditorScreen(noteId: int.parse(state.pathParameters['id']!)),
+                    ),
+                  ],
+                ),
+                GoRoute(
+                  path: ':id',
+                  parentNavigatorKey: _rootKey,
+                  builder: (_, state) => TaskDetailScreen(taskId: int.parse(state.pathParameters['id']!)),
+                  routes: [
+                    GoRoute(
+                      path: 'edit',
+                      parentNavigatorKey: _rootKey,
+                      builder: (_, state) => TaskFormScreen(editId: int.parse(state.pathParameters['id']!)),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),

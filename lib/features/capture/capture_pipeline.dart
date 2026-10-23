@@ -75,6 +75,22 @@ class CapturePipeline {
     return _parse(id, text.trim(), await _settings.get(), online: true);
   }
 
+  /// The action points of [text] as task proposals, on the phone only (spec §8.6).
+  Future<List<TaskProposal>> actionPoints(String text) async {
+    final s = await _settings.get();
+    final lex = await loadLexicon(_db, lookupAppLocalizations(Locale(s.localeCode)));
+    return const RuleParser().parseTasks(text, lex, DateTime.now());
+  }
+
+  /// Text shared from another app: kept as a capture, split into tasks, never sent anywhere.
+  Future<CaptureOutcome> fromSharedText(String text) async {
+    final id = await _captures.createText(text.trim());
+    final proposals = await actionPoints(text);
+    if (proposals.isEmpty) return SavedToInbox(id, 'empty');
+    await _captures.setParsed(id, proposals, by: 'rules');
+    return ReadyForReview(id);
+  }
+
   /// Runs a pending capture again: transcribes its kept audio when it has no
   /// text yet, then parses the current transcript (after the owner edited it).
   /// [allowOnline] false keeps everything on the phone (the Inbox's offline retry).

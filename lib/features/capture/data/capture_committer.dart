@@ -3,6 +3,7 @@ import '../../finance/data/buckets_repository.dart';
 import '../../finance/data/debts_repository.dart';
 import '../../finance/data/rates_repository.dart';
 import '../../finance/data/transactions_repository.dart';
+import '../../tasks/data/tasks_repository.dart';
 import '../domain/proposal.dart';
 import 'capture_repository.dart';
 
@@ -33,6 +34,13 @@ class DebtCommit extends CommitItem {
   final int? debtId;
 }
 
+/// A task from a capture: saved into Tasks with the capture's id.
+class TaskCommit extends CommitItem {
+  const TaskCommit(this.p);
+
+  final TaskProposal p;
+}
+
 /// Not saved now: moved to a new pending capture so nothing is lost (Decision 3).
 class KeepInInbox extends CommitItem {
   const KeepInInbox(this.p);
@@ -50,13 +58,15 @@ class CaptureCommitter {
     : _tx = TransactionsRepository(_db),
       _debts = DebtsRepository(_db),
       _buckets = BucketsRepository(_db, RatesRepository(_db)),
-      _captures = CaptureRepository(_db);
+      _captures = CaptureRepository(_db),
+      _tasks = TasksRepository(_db);
 
   final AppDatabase _db;
   final TransactionsRepository _tx;
   final DebtsRepository _debts;
   final BucketsRepository _buckets;
   final CaptureRepository _captures;
+  final TasksRepository _tasks;
 
   /// Writes every item and marks the capture done in one transaction: all of it or none.
   Future<void> commit(int captureId, List<CommitItem> items) async {
@@ -90,6 +100,8 @@ class CaptureCommitter {
           throw ArgumentError('a new debt needs its direction, counterparty and principal');
         }
         if (debtId != null && p.leg != 'repayment') throw ArgumentError('only repayments go on an existing debt');
+      case TaskCommit(:final p):
+        if (p.title.trim().isEmpty) throw ArgumentError('a task needs a title');
       case KeepInInbox():
         break;
     }
@@ -144,6 +156,17 @@ class CaptureCommitter {
             recordPrincipalFromAccountId: account.id,
           );
         }
+      case TaskCommit(:final p):
+        final due = p.due;
+        await _tasks.create(
+          TaskInput(
+            title: p.title,
+            dueAt: due,
+            dueAllDay: due != null && due.hour == 0 && due.minute == 0,
+            workspaceId: p.workspaceId,
+            captureId: captureId,
+          ),
+        );
       case KeepInInbox():
         break;
     }

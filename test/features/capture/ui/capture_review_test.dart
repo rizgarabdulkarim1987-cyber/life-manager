@@ -105,7 +105,7 @@ void main() {
     expect(row.status, 'pending');
   });
 
-  testWidgets('review: save moves a task to a new pending capture and shows the AI badge', (t) async {
+  testWidgets('review: save writes the task into Tasks and shows the AI badge', (t) async {
     final c = await _open(t);
     final cash = await accountId(c, 'Personal', 'IQD');
     final repo = CaptureRepository(dbOf(c));
@@ -120,14 +120,17 @@ void main() {
     );
     await pushRoute(t, c, '/capture/$id');
     expect(find.byKey(const ValueKey('cap-badge-ai')), findsOneWidget);
-    expect(find.byKey(const ValueKey('cap-later-0')), findsOneWidget);
+    expect(find.byType(TextFormField), findsWidgets);
+    expect(find.text('اتصل بأحمد'), findsOneWidget);
 
     await t.tap(find.byKey(const ValueKey('cap-save')));
     await settle(t);
     final db = dbOf(c);
     final pending = await t.runAsync(() => (db.select(db.captures)..where((x) => x.status.equals('pending'))).get());
-    expect(pending, hasLength(1), reason: 'the task moved to a new pending capture');
-    expect(decodeProposals(pending!.single.parsedJson!).single, isA<TaskProposal>());
+    expect(pending, isEmpty);
+    final tasks = await t.runAsync(() => db.select(db.tasks).get());
+    expect(tasks!.single.title, 'اتصل بأحمد');
+    expect(tasks.single.captureId, id);
     expect((await t.runAsync(() => repo.get(id)))!.status, 'done');
   });
 

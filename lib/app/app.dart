@@ -1,12 +1,18 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/l10n/ckb_fallback_localizations.dart';
 import '../core/theme/app_theme.dart';
 import '../core/theme/tokens.dart';
+import '../core/logging/app_logger.dart';
+import '../features/capture/capture_pipeline.dart';
 import '../features/lock/lock_controller.dart';
 import '../features/lock/lock_screen.dart';
 import '../features/settings/settings_repository.dart';
+import '../features/tasks/data/task_reminder_sync.dart';
+import '../features/tasks/data/tasks_providers.dart';
 import '../features/vault/vault_session.dart';
 import 'providers.dart';
 import 'router.dart';
@@ -32,10 +38,40 @@ class _AppState extends ConsumerState<App> {
         ref.read(vaultSessionProvider.notifier).lock();
       },
       onShow: () {
+        unawaited(_intake());
         final seconds = ref.read(settingsProvider).value?.lockTimeoutSeconds ?? 300;
         ref.read(lockControllerProvider.notifier).onResumed(DateTime.now(), timeout: Duration(seconds: seconds));
       },
     );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      unawaited(ref.read(taskReminderSyncProvider).syncAll());
+      unawaited(_intake());
+    });
+  }
+
+  /// Start-up and every return to the app: put the alarms right, apply Done taps
+  /// made on notifications, then follow a tapped reminder or a shared text.
+  Future<void> _intake() async {
+    try {
+      final settings = await ref.read(settingsProvider.future);
+      if (!settings.setupCompleted || !mounted) return;
+      final intake = await takeIntake(ref.read(reminderSchedulerProvider), ref.read(tasksRepositoryProvider));
+      if (!mounted) return;
+      final router = ref.read(routerProvider);
+      final shared = intake.sharedText;
+      if (shared != null) {
+        final outcome = await ref.read(capturePipelineProvider).fromSharedText(shared);
+        if (!mounted) return;
+        router.push(switch (outcome) {
+          ReadyForReview(:final captureId) => '/capture/$captureId',
+          _ => '/inbox',
+        });
+      } else if (intake.openTaskId != null) {
+        router.push('/tasks/${intake.openTaskId}');
+      }
+    } catch (e) {
+      AppLogger.warn('app intake failed', e);
+    }
   }
 
   @override

@@ -180,7 +180,21 @@ class _DebtEdit extends _Edit {
   }
 }
 
-/// Tasks and notes: saved for their phase, never lost.
+class _TaskEdit extends _Edit {
+  _TaskEdit(TaskProposal p) : title = p.title, due = p.due, workspaceId = p.workspaceId, super(p.confidence);
+
+  String title;
+  DateTime? due;
+  int? workspaceId;
+
+  @override
+  TaskProposal build() => TaskProposal(title: title.trim(), confidence: confidence, due: due, workspaceId: workspaceId);
+
+  @override
+  bool complete(List<Account> accounts) => title.trim().isNotEmpty && title.trim().length <= 200;
+}
+
+/// Notes: kept in the Inbox until they have a home.
 class _LaterEdit extends _Edit {
   _LaterEdit(this.p) : super(p.confidence);
 
@@ -197,7 +211,8 @@ _Edit _edit(Proposal p) => switch (p) {
   MoneyProposal() => _MoneyEdit(p),
   TransferProposal() => _TransferEdit(p),
   DebtProposal() => _DebtEdit(p),
-  TaskProposal() || NoteProposal() => _LaterEdit(p),
+  TaskProposal() => _TaskEdit(p),
+  NoteProposal() => _LaterEdit(p),
 };
 
 class CaptureReviewScreen extends ConsumerStatefulWidget {
@@ -272,6 +287,7 @@ class _CaptureReviewScreenState extends ConsumerState<CaptureReviewScreen> {
     _MoneyEdit() => MoneyCommit(e.build(), e.type == IntentType.income && e.allocate ? e.allocation : null),
     _TransferEdit() => TransferCommit(e.build()),
     _DebtEdit() => DebtCommit(e.build(), e.leg == 'repayment' ? e.debtId : null),
+    _TaskEdit() => TaskCommit(e.build()),
     _LaterEdit() => KeepInInbox(e.p),
   };
 
@@ -479,14 +495,16 @@ class _ProposalCard extends ConsumerWidget {
     _MoneyEdit(:final type) => type == IntentType.income ? l.typeIncome : l.typeExpense,
     _TransferEdit() => l.typeTransfer,
     _DebtEdit() => l.capDebt,
-    _LaterEdit(:final p) => p is TaskProposal ? l.navTasks : l.capNote,
+    _TaskEdit() => l.navTasks,
+    _LaterEdit() => l.capNote,
   };
 
   IconData get _icon => switch (edit) {
     _MoneyEdit(:final type) => type == IntentType.income ? Icons.north_east_rounded : Icons.south_west_rounded,
     _TransferEdit() => Icons.swap_horiz_rounded,
     _DebtEdit() => Icons.handshake_outlined,
-    _LaterEdit(:final p) => p is TaskProposal ? Icons.task_alt_outlined : Icons.sticky_note_2_outlined,
+    _TaskEdit() => Icons.task_alt_outlined,
+    _LaterEdit() => Icons.sticky_note_2_outlined,
   };
 
   Future<DateTime?> _pickDate(BuildContext context, DateTime? at) async {
@@ -502,7 +520,7 @@ class _ProposalCard extends ConsumerWidget {
     return DateTime(d.year, d.month, d.day, t.hour, t.minute);
   }
 
-  Widget _date(BuildContext context, DateTime? at, ValueChanged<DateTime> set) => Align(
+  Widget _date(BuildContext context, DateTime? at, ValueChanged<DateTime> set, {String? empty}) => Align(
     alignment: AlignmentDirectional.centerStart,
     child: OutlinedButton.icon(
       key: ValueKey('cap-date-$index'),
@@ -511,7 +529,11 @@ class _ProposalCard extends ConsumerWidget {
         if (d != null) set(d);
       },
       icon: const Icon(Icons.event_rounded, size: 18),
-      label: Text(formatDate(context, at ?? DateTime.now()), maxLines: 1, overflow: TextOverflow.ellipsis),
+      label: Text(
+        at == null && empty != null ? empty : formatDate(context, at ?? DateTime.now()),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+      ),
     ),
   );
 
@@ -602,6 +624,7 @@ class _ProposalCard extends ConsumerWidget {
     final _MoneyEdit e => _money(context, ref, e),
     final _TransferEdit e => _transfer(context, ref, e),
     final _DebtEdit e => _debt(context, ref, e),
+    final _TaskEdit e => _task(context, ref, e),
     final _LaterEdit e => _later(context, e),
   };
 
@@ -889,15 +912,69 @@ class _ProposalCard extends ConsumerWidget {
     );
   }
 
+  Widget _task(BuildContext context, WidgetRef ref, _TaskEdit e) {
+    final l = context.l10n;
+    final workspaces = ref.watch(workspacesProvider).value ?? const <Workspace>[];
+    void set(VoidCallback f) {
+      f();
+      onChanged();
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        TextFormField(
+          key: ValueKey('cap-task-title-$index-$gen'),
+          initialValue: e.title,
+          minLines: 1,
+          maxLines: 3,
+          maxLength: 200,
+          decoration: InputDecoration(labelText: l.tskFieldTitle, counterText: ''),
+          onChanged: (v) => set(() => e.title = v),
+        ),
+        const SizedBox(height: 14),
+        Row(
+          children: [
+            Expanded(child: _date(context, e.due, (d) => set(() => e.due = d), empty: l.tskNoDate)),
+            if (e.due != null)
+              IconButton(
+                key: ValueKey('cap-task-clear-date-$index'),
+                tooltip: l.tskClearDate,
+                icon: const Icon(Icons.close_rounded),
+                onPressed: () => set(() => e.due = null),
+              ),
+          ],
+        ),
+        if (workspaces.isNotEmpty) ...[
+          const SizedBox(height: 14),
+          DropdownButtonFormField<int?>(
+            key: ValueKey('cap-task-ws-$index-$gen'),
+            initialValue: workspaces.any((w) => w.id == e.workspaceId) ? e.workspaceId : null,
+            isExpanded: true,
+            decoration: InputDecoration(labelText: l.tskFieldWorkspace),
+            items: [
+              DropdownMenuItem<int?>(value: null, child: Text(l.tskNoWorkspace)),
+              for (final w in workspaces)
+                DropdownMenuItem<int?>(
+                  value: w.id,
+                  child: Text(w.name, maxLines: 1, overflow: TextOverflow.ellipsis),
+                ),
+            ],
+            onChanged: (v) => set(() => e.workspaceId = v),
+          ),
+        ],
+      ],
+    );
+  }
+
   Widget _later(BuildContext context, _LaterEdit e) {
     final l = context.l10n;
     final k = context.tokens;
     final text = Theme.of(context).textTheme;
     final p = e.p;
     final (title, due, phase) = switch (p) {
-      TaskProposal(:final title, :final due) => (title, due, 4),
-      NoteProposal(:final text) => (text, null, 4),
-      _ => ('', null, 4),
+      NoteProposal(:final text) => (text, null, 5),
+      _ => ('', null, 5),
     };
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

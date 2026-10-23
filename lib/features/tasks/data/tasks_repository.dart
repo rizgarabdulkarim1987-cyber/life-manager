@@ -41,9 +41,7 @@ class TaskInput {
 typedef TaskChanged = Future<void> Function(Iterable<int> taskIds);
 
 class TasksRepository {
-  TasksRepository(this._db, {TaskChanged? onChanged, DateTime Function()? now})
-    : _onChanged = onChanged,
-      _now = now ?? DateTime.now;
+  TasksRepository(this._db, {this._onChanged, DateTime Function()? now}) : _now = now ?? DateTime.now;
 
   final AppDatabase _db;
   final TaskChanged? _onChanged;

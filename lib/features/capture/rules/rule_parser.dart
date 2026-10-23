@@ -2,6 +2,7 @@ import '../../../core/money/amount_parse.dart';
 import '../../finance/ui/transfer_form_screen.dart' show rateFromAmounts, ratePair;
 import '../domain/lexicon.dart';
 import '../domain/proposal.dart';
+import '../../tasks/domain/action_points.dart';
 import 'dates.dart';
 import 'keywords.dart';
 import 'numbers.dart';
@@ -31,6 +32,12 @@ class RuleParser implements IntentParser {
     }
     return [for (final c in splitClauses(text)) ?_Clause(c, lex, now).proposal()];
   }
+
+  /// Every line or sentence of [text] as a task, whatever else it sounds like
+  /// (shared messages and meeting notes, spec §8.5 and §8.6).
+  List<TaskProposal> parseTasks(String text, Lexicon lex, DateTime now) => [
+    for (final point in splitActionPoints(text)) _Clause(point, lex, now).asTask(),
+  ];
 }
 
 /// Splits on line breaks, full stops (not decimal points), Arabic commas and «وبعدين».
@@ -310,6 +317,8 @@ class _Clause {
       occurredAt: at,
     );
   }
+
+  TaskProposal asTask() => _task(100);
 
   TaskProposal _task(int confidence) {
     DateTime? due;

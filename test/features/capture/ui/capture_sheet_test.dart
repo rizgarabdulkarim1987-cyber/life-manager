@@ -78,7 +78,7 @@ void main() {
     await settle(t);
     expect(find.byKey(const ValueKey('cap-text-sheet')), findsOneWidget);
     expect(find.byKey(const ValueKey('cap-manual-expense')), findsOneWidget);
-    expect(t.widget<ActionChip>(find.byKey(const ValueKey('cap-manual-task'))).onPressed, isNull);
+    expect(t.widget<ActionChip>(find.byKey(const ValueKey('cap-manual-task'))).onPressed, isNotNull);
 
     await t.enterText(find.byKey(const ValueKey('cap-text-field')), 'دفعت 40 الف تكسي');
     await settle(t);

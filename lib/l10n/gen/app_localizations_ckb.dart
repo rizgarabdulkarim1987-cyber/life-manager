@@ -1991,4 +1991,266 @@ class AppLocalizationsCkb extends AppLocalizations {
   @override
   String get backupVaultNote =>
       'گەنجینە بە کۆدکراوی بە وشەی نهێنیی سەرەکیت دەچێتە ناو باکئەپەکەوە. دوای گەڕاندنەوە، کردنەوە بە پەنجەمۆر لە ڕێکخستنەکانی گەنجینە دووبارە چالاک بکەرەوە.';
+
+  @override
+  String get tskAdd => 'زیادکردنی ئەرک';
+
+  @override
+  String get tskNew => 'ئەرکی نوێ';
+
+  @override
+  String get tskEdit => 'دەستکاریکردنی ئەرک';
+
+  @override
+  String get tskQuickHint => 'ئەرکێک زیاد بکە…';
+
+  @override
+  String get tskViewInbox => 'هاتوو';
+
+  @override
+  String get tskViewToday => 'ئەمڕۆ';
+
+  @override
+  String get tskViewTomorrow => 'سبەینێ';
+
+  @override
+  String get tskViewWeek => 'ئەم هەفتەیە';
+
+  @override
+  String get tskViewUpcoming => 'داهاتوو';
+
+  @override
+  String get tskViewOverdue => 'دواکەوتوو';
+
+  @override
+  String get tskViewCompleted => 'تەواوبوو';
+
+  @override
+  String get tskViewAll => 'هەموو';
+
+  @override
+  String get tskEmpty => 'لێرە هیچ نییە.';
+
+  @override
+  String get tskAllWorkspaces => 'هەموو شوێنەکانی کار';
+
+  @override
+  String get tskSort => 'ڕیزکردن';
+
+  @override
+  String get tskSortDue => 'بەپێی کات';
+
+  @override
+  String get tskSortPriority => 'بەپێی گرنگی';
+
+  @override
+  String get tskCalendar => 'ساڵنامە';
+
+  @override
+  String get tskCalendarEmpty => 'لەم ڕۆژەدا ئەرک نییە.';
+
+  @override
+  String get tskMeetings => 'تێبینییەکانی کۆبوونەوە';
+
+  @override
+  String get tskFieldTitle => 'ناونیشان';
+
+  @override
+  String get tskFieldNotes => 'تێبینی';
+
+  @override
+  String get tskFieldWorkspace => 'شوێنی کار';
+
+  @override
+  String get tskNoWorkspace => 'بێ شوێنی کار';
+
+  @override
+  String get tskFieldPriority => 'گرنگی';
+
+  @override
+  String get tskPriorityLow => 'کەم';
+
+  @override
+  String get tskPriorityNormal => 'ئاسایی';
+
+  @override
+  String get tskPriorityHigh => 'بەرز';
+
+  @override
+  String get tskPriorityUrgent => 'پەلەیی';
+
+  @override
+  String get tskDueDate => 'کاتی دیاریکراو';
+
+  @override
+  String get tskNoDate => 'بێ بەروار';
+
+  @override
+  String get tskAllDay => 'هەموو ڕۆژەکە';
+
+  @override
+  String get tskClearDate => 'لابردنی بەروار';
+
+  @override
+  String get tskReminder => 'بیرخستنەوە';
+
+  @override
+  String get tskRemindNone => 'بێ بیرخستنەوە';
+
+  @override
+  String get tskRemindAtDue => 'لە کاتی دیاریکراودا';
+
+  @override
+  String get tskRemind10 => '١٠ خولەک پێش کات';
+
+  @override
+  String get tskRemind1h => 'کاتژمێرێک پێش کات';
+
+  @override
+  String get tskRemind1d => 'ڕۆژێک پێش کات';
+
+  @override
+  String get tskRemindMorning => '٩ی بەیانی لەو ڕۆژەدا';
+
+  @override
+  String get tskRemindDayBefore => '٩ی بەیانی ڕۆژێک پێشتر';
+
+  @override
+  String get tskRemindCustom => 'کاتێک هەڵبژێرە…';
+
+  @override
+  String get tskRepeat => 'دووبارەبوونەوە';
+
+  @override
+  String get tskRepeatNone => 'دووبارە نابێتەوە';
+
+  @override
+  String get tskRepeatDaily => 'هەموو ڕۆژێک';
+
+  @override
+  String get tskRepeatWeekly => 'هەموو هەفتەیەک';
+
+  @override
+  String get tskRepeatMonthly => 'هەموو مانگێک';
+
+  @override
+  String get tskRepeatYearly => 'هەموو ساڵێک';
+
+  @override
+  String get tskTags => 'تاگەکان';
+
+  @override
+  String get tskTagsHint => 'کڕیار، پەلە';
+
+  @override
+  String get tskDiscardTitle => 'گۆڕانکارییەکان بسڕدرێنەوە؟';
+
+  @override
+  String get tskDiscardBody => 'ئەوەی نووسیوتە لەدەست دەچێت.';
+
+  @override
+  String get tskDiscard => 'فڕێدان';
+
+  @override
+  String get tskNotFound => 'ئەم ئەرکە ئیتر نەماوە.';
+
+  @override
+  String get tskStatusTodo => 'بۆ ئەنجامدان';
+
+  @override
+  String get tskStatusDoing => 'لە ئەنجامداندایە';
+
+  @override
+  String get tskStatusDone => 'تەواوبوو';
+
+  @override
+  String get tskMarkDone => 'تەواو بکە';
+
+  @override
+  String get tskReopen => 'کردنەوەی دووبارە';
+
+  @override
+  String get tskStart => 'دەستپێکردن';
+
+  @override
+  String get tskSnoozeTomorrow => 'سبەینێ ٩ی بەیانی بمخەرەوە بیر';
+
+  @override
+  String get tskSnoozedTomorrow => 'بیرخستنەوەکە گوازرایەوە بۆ سبەینێ ٩ی بەیانی';
+
+  @override
+  String get tskDelete => 'سڕینەوە';
+
+  @override
+  String get tskDeleteTitle => 'ئەم ئەرکە بسڕدرێتەوە؟';
+
+  @override
+  String get tskDeleteBody => 'هەنگاوەکانیشی لەگەڵ دەسڕدرێنەوە.';
+
+  @override
+  String get tskSteps => 'هەنگاوەکان';
+
+  @override
+  String get tskAddStep => 'هەنگاوێک زیاد بکە';
+
+  @override
+  String get tskWarnNotifications => 'ئاگادارکردنەوەکان کوژاونەتەوە، بۆیە بیرخستنەوە پیشان نادرێت. ڕێگەیان پێ بدە.';
+
+  @override
+  String get tskWarnExact =>
+      'زەنگە وردەکان ڕێگەپێنەدراون، بۆیە بیرخستنەوە لەوانەیە چەند خولەکێک دوا بکەوێت. لە ڕێکخستنەکانی ئەندرۆید ڕێگەیان پێ بدە.';
+
+  @override
+  String get tskAllow => 'ڕێگەپێدان';
+
+  @override
+  String get tskOpenSettings => 'کردنەوەی ڕێکخستنەکان';
+
+  @override
+  String get tskMeetingNote => 'تێبینی کۆبوونەوە';
+
+  @override
+  String get tskMeetingNew => 'تێبینی کۆبوونەوەی نوێ';
+
+  @override
+  String get tskMeetingBody => 'ئەوەی گوترا';
+
+  @override
+  String get tskMeetingEmpty => 'هێشتا تێبینی کۆبوونەوە نییە. یەکێک بنووسە و خاڵەکانی کار وەک ئەرک دەربهێنە.';
+
+  @override
+  String get tskExtract => 'دەرهێنانی خاڵەکانی کار';
+
+  @override
+  String get tskExtractTitle => 'خاڵەکانی کار';
+
+  @override
+  String get tskExtractNone => 'لەم دەقەدا خاڵی کار نەدۆزرایەوە.';
+
+  @override
+  String get tskNotifDone => 'تەواو';
+
+  @override
+  String get tskNotifSnooze10 => '١٠ خولەک';
+
+  @override
+  String get tskNotifSnooze1h => 'کاتژمێر';
+
+  @override
+  String get tskNotifChannel => 'بیرخستنەوەی ئەرکەکان';
+
+  @override
+  String tskAddNTasks(int count) {
+    return 'زیادکردنی $count ئەرک';
+  }
+
+  @override
+  String tskRepeatEveryN(int n, String unit) {
+    return 'هەر $n · $unit';
+  }
+
+  @override
+  String tskNextCreated(String date) {
+    return 'داهاتووی: $date';
+  }
 }

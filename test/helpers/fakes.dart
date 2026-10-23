@@ -107,7 +107,8 @@ class FakeBiometricKeyStore implements BiometricKeyStore {
   int prompts = 0;
   int deletes = 0;
 
-  static Uint8List _xor(Uint8List data) => Uint8List.fromList([for (var i = 0; i < data.length; i++) data[i] ^ (0x5A + i)]);
+  static Uint8List _xor(Uint8List data) =>
+      Uint8List.fromList([for (var i = 0; i < data.length; i++) data[i] ^ (0x5A + i)]);
 
   Future<Uint8List> _run(Uint8List data) async {
     prompts++;
