@@ -38,15 +38,6 @@ Future<void> work(WidgetTester t, [int rounds = 12]) async {
   }
 }
 
-/// One database write at a time. A write run inside `runAsync` can wait on the screen's stream refetch, which
-/// is queued in the test's fake-async zone, so each write is followed by a pump that lets that refetch run.
-Future<T> write<T>(WidgetTester t, Future<T> Function() f) async {
-  final r = await t.runAsync(f);
-  await t.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 5)));
-  await t.pump();
-  return r as T;
-}
-
 void main() {
   late Directory dir;
   late InMemorySecureStore store;
@@ -80,8 +71,8 @@ void main() {
     final c = await open(t);
     final repo = CaptureRepository(dbOf(c));
     late int id;
-    id = await write(t, () => repo.createVoice(wav));
-    await write(t, () => repo.setFailure(id, 'SpeechUnavailable'));
+    id = await dbWrite(t, () => repo.createVoice(wav));
+    await dbWrite(t, () => repo.setFailure(id, 'SpeechUnavailable'));
     await pushRoute(t, c, '/inbox');
 
     expect(find.byKey(ValueKey('inbox-row-$id')), findsOneWidget);
@@ -100,8 +91,8 @@ void main() {
     final c = await open(t);
     final repo = CaptureRepository(dbOf(c));
     late int id;
-    id = await write(t, () => repo.createText('اربعين تكسي'));
-    await write(
+    id = await dbWrite(t, () => repo.createText('اربعين تكسي'));
+    await dbWrite(
       t,
       () => repo.setParsed(id, [const MoneyProposal(type: IntentType.expense, confidence: 40)], by: 'rules'),
     );
@@ -133,8 +124,8 @@ void main() {
     final c = await open(t);
     final repo = CaptureRepository(dbOf(c));
     late int id;
-    id = await write(t, () => repo.createVoice(wav));
-    await write(t, () => repo.createText('دفعت 40 الف تكسي'));
+    id = await dbWrite(t, () => repo.createVoice(wav));
+    await dbWrite(t, () => repo.createText('دفعت 40 الف تكسي'));
     await settle(t);
     expect(find.descendant(of: find.byKey(const ValueKey('open-inbox')), matching: find.text('2')), findsOneWidget);
 
@@ -147,7 +138,7 @@ void main() {
     await t.tap(find.byKey(const ValueKey('inbox-discard-confirm')));
     await settle(t);
     expect(find.byKey(ValueKey('inbox-row-$id')), findsNothing);
-    final row = (await write(t, () => repo.get(id)))!;
+    final row = (await dbWrite(t, () => repo.get(id)))!;
     expect(row.status, 'discarded');
     expect(row.audio, isNull);
 
@@ -159,13 +150,13 @@ void main() {
   testWidgets('With online AI disabled, no "Finish with AI" button appears anywhere', (t) async {
     final c = await open(t);
     final repo = CaptureRepository(dbOf(c));
-    await write(t, () => repo.createVoice(wav));
-    final id = await write(t, () => repo.createText('اربعين تكسي'));
-    await write(
+    await dbWrite(t, () => repo.createVoice(wav));
+    final id = await dbWrite(t, () => repo.createText('اربعين تكسي'));
+    await dbWrite(
       t,
       () => repo.setParsed(id, [const MoneyProposal(type: IntentType.expense, confidence: 40)], by: 'rules'),
     );
-    await write(t, () => c.read(settingsRepositoryProvider).setAiOnlineEnabled(false));
+    await dbWrite(t, () => c.read(settingsRepositoryProvider).setAiOnlineEnabled(false));
     await saveKey(t, c);
     await pushRoute(t, c, '/inbox');
 

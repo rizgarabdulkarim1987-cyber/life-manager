@@ -61,3 +61,12 @@ Future<void> revealInForm(WidgetTester t, Finder f) async {
   await t.scrollUntilVisible(f, 200, scrollable: find.byType(Scrollable).last);
   await settle(t);
 }
+
+/// One database write at a time. A write run inside `runAsync` can wait on the screen's stream refetch, which
+/// is queued in the test's fake-async zone, so each write is followed by a pump that lets that refetch run.
+Future<T> dbWrite<T>(WidgetTester t, Future<T> Function() f) async {
+  final r = await t.runAsync(f);
+  await t.runAsync(() => Future<void>.delayed(const Duration(milliseconds: 5)));
+  await t.pump();
+  return r as T;
+}

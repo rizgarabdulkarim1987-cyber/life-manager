@@ -27,13 +27,14 @@ void main() {
     final cash = await accountId(c, 'Personal', 'IQD');
     final repo = CaptureRepository(dbOf(c));
     late int id;
-    await t.runAsync(() async {
-      id = await repo.createText('دفعت 40 الف تكسي وبعدين 15 الف غدا');
-      await repo.setParsed(id, [
+    id = await dbWrite(t, () => repo.createText('دفعت 40 الف تكسي وبعدين 15 الف غدا'));
+    await dbWrite(
+      t,
+      () => repo.setParsed(id, [
         MoneyProposal(type: IntentType.expense, confidence: 90, amountMinor: 40000, currency: 'IQD', accountId: cash),
         MoneyProposal(type: IntentType.expense, confidence: 90, amountMinor: 15000, currency: 'IQD', accountId: cash),
-      ], by: 'rules');
-    });
+      ], by: 'rules'),
+    );
     await pushRoute(t, c, '/capture/$id');
 
     expect(find.byKey(const ValueKey('capture-review')), findsOneWidget);
@@ -58,12 +59,13 @@ void main() {
     final cash = await accountId(c, 'Personal', 'IQD');
     final repo = CaptureRepository(dbOf(c));
     late int id;
-    await t.runAsync(() async {
-      id = await repo.createText('40 الف');
-      await repo.setParsed(id, [
+    id = await dbWrite(t, () => repo.createText('40 الف'));
+    await dbWrite(
+      t,
+      () => repo.setParsed(id, [
         const MoneyProposal(type: IntentType.expense, confidence: 50, amountMinor: 40000, currency: 'IQD'),
-      ], by: 'rules');
-    });
+      ], by: 'rules'),
+    );
     await pushRoute(t, c, '/capture/$id');
 
     expect(saveEnabled(t, 'cap-save'), isFalse);
@@ -78,12 +80,13 @@ void main() {
     final c = await _open(t);
     final repo = CaptureRepository(dbOf(c));
     late int id;
-    await t.runAsync(() async {
-      id = await repo.createText('دفعت 40 الف تكسي');
-      await repo.setParsed(id, [
+    id = await dbWrite(t, () => repo.createText('دفعت 40 الف تكسي'));
+    await dbWrite(
+      t,
+      () => repo.setParsed(id, [
         const MoneyProposal(type: IntentType.expense, confidence: 90, amountMinor: 40000, currency: 'IQD'),
-      ], by: 'rules');
-    });
+      ], by: 'rules'),
+    );
     await pushRoute(t, c, '/capture/$id');
     expect(find.byKey(const ValueKey('cap-card-1')), findsNothing);
 
@@ -107,13 +110,14 @@ void main() {
     final cash = await accountId(c, 'Personal', 'IQD');
     final repo = CaptureRepository(dbOf(c));
     late int id;
-    await t.runAsync(() async {
-      id = await repo.createText('x');
-      await repo.setParsed(id, [
+    id = await dbWrite(t, () => repo.createText('x'));
+    await dbWrite(
+      t,
+      () => repo.setParsed(id, [
         const TaskProposal(title: 'اتصل بأحمد', confidence: 100),
         MoneyProposal(type: IntentType.expense, confidence: 90, amountMinor: 40000, currency: 'IQD', accountId: cash),
-      ], by: 'ai');
-    });
+      ], by: 'ai'),
+    );
     await pushRoute(t, c, '/capture/$id');
     expect(find.byKey(const ValueKey('cap-badge-ai')), findsOneWidget);
     expect(find.byKey(const ValueKey('cap-later-0')), findsOneWidget);
@@ -132,12 +136,13 @@ void main() {
     final cash = await accountId(c, 'Personal', 'IQD');
     final repo = CaptureRepository(dbOf(c));
     late int id;
-    await t.runAsync(() async {
-      id = await repo.createText('40 الف');
-      await repo.setParsed(id, [
+    id = await dbWrite(t, () => repo.createText('40 الف'));
+    await dbWrite(
+      t,
+      () => repo.setParsed(id, [
         const MoneyProposal(type: IntentType.expense, confidence: 50, amountMinor: 40000, currency: 'IQD'),
-      ], by: 'rules');
-    });
+      ], by: 'rules'),
+    );
     await pushRoute(t, c, '/capture/$id');
     await pickAccount(t, 'cap-account-0', cash);
     await t.tap(find.byKey(const ValueKey('cap-keep-inbox')));
