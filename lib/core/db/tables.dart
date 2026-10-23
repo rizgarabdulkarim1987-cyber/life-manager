@@ -63,6 +63,10 @@ class AppSettingsTable extends Table {
   BoolColumn get unallocatedIncomeAlert => boolean().withDefault(const Constant(false))();
   BoolColumn get bucketsConfirmed => boolean().withDefault(const Constant(false))();
 
+  // Phase 3 (schema v3): idle time before the vault locks itself (spec §9.2).
+  IntColumn get vaultAutoLockSeconds =>
+      integer().withDefault(const Constant(120)).check(vaultAutoLockSeconds.isIn(const [60, 120, 300, 600]))();
+
   @override
   Set<Column> get primaryKey => {id};
 }

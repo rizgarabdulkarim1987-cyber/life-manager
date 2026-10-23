@@ -9,10 +9,12 @@ import 'capture_tables.dart';
 import 'finance_seed.dart';
 import 'finance_tables.dart';
 import 'tables.dart';
+import 'vault_tables.dart';
 
 export 'capture_tables.dart';
 export 'finance_tables.dart';
 export 'tables.dart';
+export 'vault_tables.dart';
 
 part 'app_database.g.dart';
 
@@ -32,13 +34,16 @@ part 'app_database.g.dart';
     BucketAllocations,
     Budgets,
     Captures,
+    VaultMeta,
+    VaultKeyWraps,
+    VaultItems,
   ],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase(super.e);
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -81,6 +86,13 @@ class AppDatabase extends _$AppDatabase {
         }
         await seedFinanceDefaults(this);
         await markPersonalCountsInBuckets(this);
+      }
+      if (from < 3) {
+        await m.addColumn(appSettingsTable, appSettingsTable.vaultAutoLockSeconds);
+        for (final t in <TableInfo>[vaultMeta, vaultKeyWraps, vaultItems]) {
+          await m.createTable(t);
+        }
+        await m.createIndex(vaultItemTitle);
       }
     },
     beforeOpen: (details) async {
