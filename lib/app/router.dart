@@ -22,6 +22,7 @@ import '../features/finance/ui/transfer_form_screen.dart';
 import '../features/settings/ai_settings_screen.dart';
 import '../features/settings/categories_screen.dart';
 import '../features/settings/finance_settings_screen.dart';
+import '../core/security/money_privacy.dart';
 import '../features/settings/settings_screen.dart';
 import '../features/settings/workspaces_screen.dart';
 import '../features/setup/setup_flow.dart';
@@ -31,15 +32,17 @@ import '../features/shell/placeholder_screen.dart';
 import '../features/shell/shell_scaffold.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
-  final router = buildRouter();
+  final router = buildRouter(onNavigate: () => ref.read(moneyRevealedProvider.notifier).hide());
   ref.onDispose(router.dispose);
   return router;
 });
 
 final _rootKey = GlobalKey<NavigatorState>();
 
-GoRouter buildRouter() => GoRouter(
+/// [onNavigate] runs on every push and pop, on the root and in each tab.
+GoRouter buildRouter({void Function()? onNavigate}) => GoRouter(
   navigatorKey: _rootKey,
+  observers: [if (onNavigate != null) MoneyHideObserver(onNavigate)],
   initialLocation: '/splash',
   routes: [
     GoRoute(
@@ -54,9 +57,11 @@ GoRouter buildRouter() => GoRouter(
       builder: (context, state, shell) => ShellScaffold(shell: shell),
       branches: [
         StatefulShellBranch(
+          observers: [if (onNavigate != null) MoneyHideObserver(onNavigate)],
           routes: [GoRoute(path: '/home', builder: (_, _) => const HomeScreen())],
         ),
         StatefulShellBranch(
+          observers: [if (onNavigate != null) MoneyHideObserver(onNavigate)],
           routes: [
             GoRoute(
               path: '/finance',
@@ -141,6 +146,7 @@ GoRouter buildRouter() => GoRouter(
           ],
         ),
         StatefulShellBranch(
+          observers: [if (onNavigate != null) MoneyHideObserver(onNavigate)],
           routes: [
             GoRoute(
               path: '/tasks',
@@ -150,6 +156,7 @@ GoRouter buildRouter() => GoRouter(
           ],
         ),
         StatefulShellBranch(
+          observers: [if (onNavigate != null) MoneyHideObserver(onNavigate)],
           routes: [
             GoRoute(
               path: '/vault',

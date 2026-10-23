@@ -865,5 +865,7 @@
         "type": "int"
       }
     }
-  }
+  },
+  "showAmounts": "إظهار المبالغ",
+  "hideAmounts": "إخفاء المبالغ"
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/l10n/ckb_fallback_localizations.dart';
+import '../core/security/money_privacy.dart';
 import '../core/theme/app_theme.dart';
 import '../core/theme/tokens.dart';
 import '../features/lock/lock_controller.dart';
@@ -25,7 +26,10 @@ class _AppState extends ConsumerState<App> {
     super.initState();
     // Relock after the configured time in the background (spec §15).
     _lifecycle = AppLifecycleListener(
-      onHide: () => ref.read(lockControllerProvider.notifier).onPaused(DateTime.now()),
+      onHide: () {
+        ref.read(moneyRevealedProvider.notifier).hide();
+        ref.read(lockControllerProvider.notifier).onPaused(DateTime.now());
+      },
       onShow: () {
         final seconds = ref.read(settingsProvider).value?.lockTimeoutSeconds ?? 300;
         ref.read(lockControllerProvider.notifier).onResumed(DateTime.now(), timeout: Duration(seconds: seconds));

@@ -865,5 +865,7 @@
         "type": "int"
       }
     }
-  }
+  },
+  "showAmounts": "Show amounts",
+  "hideAmounts": "Hide amounts"
 }

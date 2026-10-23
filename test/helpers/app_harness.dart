@@ -7,6 +7,7 @@ import 'package:life_manager/app/app.dart';
 import 'package:life_manager/app/providers.dart';
 import 'package:life_manager/core/db/app_database.dart';
 import 'package:life_manager/core/db/seed.dart';
+import 'package:life_manager/core/security/money_privacy.dart';
 import 'package:life_manager/core/storage/secure_store.dart';
 import 'package:life_manager/features/lock/lock_controller.dart';
 import 'package:life_manager/features/lock/pin_service.dart';
@@ -27,6 +28,7 @@ Future<ProviderContainer> pumpApp(
   WidgetTester t, {
   String locale = 'ar',
   bool bioAvailable = false,
+  bool revealMoney = true,
   List<Override> overrides = const [],
 }) async {
   // Widget tests fail on drift's deferred stream close; close synchronously instead.
@@ -42,6 +44,7 @@ Future<ProviderContainer> pumpApp(
       appDatabaseProvider.overrideWithValue(db),
       pinServiceProvider.overrideWithValue(pins),
       biometricAuthenticatorProvider.overrideWithValue(FakeBiometric(available: bioAvailable, result: true)),
+      alwaysRevealMoneyProvider.overrideWithValue(revealMoney),
       ...overrides,
     ],
   );
