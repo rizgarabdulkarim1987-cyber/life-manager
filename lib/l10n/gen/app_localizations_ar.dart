@@ -46,7 +46,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get biometrics => 'الفتح بالبصمة';
 
   @override
-  String get biometricsUnavailable => 'لا توجد بصمة أو فتح بالوجه مفعّل على هذا الهاتف';
+  String get biometricsUnavailable =>
+      'لا توجد بصمة أو فتح بالوجه مفعّل على هذا الهاتف';
 
   @override
   String get changePin => 'تغيير رمز PIN';
@@ -247,19 +248,22 @@ class AppLocalizationsAr extends AppLocalizations {
       'بياناتك تبقى على هذا التلفون. بس إذا شغّلت الذكاء الاصطناعي عبر الإنترنت ووافقت، ينرسل صوت أو نص التسجيل إلى Groq. الخزنة ما تطلع من التلفون أبداً.';
 
   @override
-  String get restoreTooNew => 'هذه النسخة من إصدار أحدث للتطبيق. حدّث التطبيق أولاً.';
+  String get restoreTooNew =>
+      'هذه النسخة من إصدار أحدث للتطبيق. حدّث التطبيق أولاً.';
 
   @override
   String get restoreWrongPassword => 'كلمة المرور خاطئة، أو الملف تالف.';
 
   @override
-  String get restoreCorrupt => 'الملف تالف أو ليس نسخة احتياطية من هذا التطبيق.';
+  String get restoreCorrupt =>
+      'الملف تالف أو ليس نسخة احتياطية من هذا التطبيق.';
 
   @override
   String get restoreSuccess => 'تم الاسترجاع. جارٍ إعادة التشغيل…';
 
   @override
-  String get passwordStrengthWeak => 'ضعيفة: اجعلها أطول، أو امزج حروفاً وأرقاماً ورموزاً';
+  String get passwordStrengthWeak =>
+      'ضعيفة: اجعلها أطول، أو امزج حروفاً وأرقاماً ورموزاً';
 
   @override
   String get passwordStrengthFair => 'متوسطة';
@@ -483,7 +487,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get finAdjustBalance => 'تعديل الرصيد';
 
   @override
-  String get finAdjustHint => 'اكتب المبلغ الموجود فعلاً بالحساب. الفرق ينحفظ كتعديل.';
+  String get finAdjustHint =>
+      'اكتب المبلغ الموجود فعلاً بالحساب. الفرق ينحفظ كتعديل.';
 
   @override
   String get finActualAmount => 'المبلغ الفعلي';
@@ -700,7 +705,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get finEditPercentages => 'تعديل النسب';
 
   @override
-  String get finPercentagesNote => 'لازم مجموعها 100%. بس الدخل اللي توزعه بعد الحفظ ياخذ النسب الجديدة.';
+  String get finPercentagesNote =>
+      'لازم مجموعها 100%. بس الدخل اللي توزعه بعد الحفظ ياخذ النسب الجديدة.';
 
   @override
   String finPercentTotal(String percent) {
@@ -934,7 +940,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get setFinanceSettings => 'العملة وأسعار الصرف';
 
   @override
-  String get setFinanceSettingsHint => 'العملة الأساسية، سعر الدولار، التنبيهات';
+  String get setFinanceSettingsHint =>
+      'العملة الأساسية، سعر الدولار، التنبيهات';
 
   @override
   String get setCategories => 'الفئات';
@@ -952,7 +959,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get setBaseCurrency => 'العملة الأساسية';
 
   @override
-  String get setBaseCurrencyHint => 'المجاميع والصناديق والتقارير تستخدمها إلا إذا اخترت غيرها.';
+  String get setBaseCurrencyHint =>
+      'المجاميع والصناديق والتقارير تستخدمها إلا إذا اخترت غيرها.';
 
   @override
   String setRateDate(String date) {
@@ -963,7 +971,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get setRateHistory => 'سجل الأسعار';
 
   @override
-  String get setNoRates => 'ماكو سعر بعد. الدولار والدينار يبقون منفصلين لحد ما تضيف سعر.';
+  String get setNoRates =>
+      'ماكو سعر بعد. الدولار والدينار يبقون منفصلين لحد ما تضيف سعر.';
 
   @override
   String get setRateSaved => 'انحفظ السعر';
@@ -1084,7 +1093,8 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get impPickHint => 'ملف ‎.xlsx‎ أو ‎.csv‎ من البنك أو من جدول قديم. ما ينحفظ شي لحد ما تدوس استيراد.';
+  String get impPickHint =>
+      'ملف ‎.xlsx‎ أو ‎.csv‎ من البنك أو من جدول قديم. ما ينحفظ شي لحد ما تدوس استيراد.';
 
   @override
   String get impPick => 'اختار ملف';
@@ -1178,7 +1188,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get impDefaultsHint => 'تنستخدم للأسطر اللي ما بيها هالمعلومة.';
 
   @override
-  String get impNoValues => 'ماكو شي للمطابقة: الملف ما بيه عمود نوع أو فئة أو مساحة أو حساب.';
+  String get impNoValues =>
+      'ماكو شي للمطابقة: الملف ما بيه عمود نوع أو فئة أو مساحة أو حساب.';
 
   @override
   String get impCreateNew => 'سوّي جديد';
@@ -1235,7 +1246,8 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get impOpeningHint => 'اكتب شگد بكل حساب فعلاً اليوم. الفرق ينحفظ كتسوية.';
+  String get impOpeningHint =>
+      'اكتب شگد بكل حساب فعلاً اليوم. الفرق ينحفظ كتسوية.';
 
   @override
   String impComputed(String amount) {
@@ -1286,13 +1298,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get aiOnline => 'استخدم الذكاء الاصطناعي عبر الإنترنت';
 
   @override
-  String get aiOnlineHint => 'إذا طفيته، كلشي يتفهم على التلفون، بدقة أقل شوية.';
+  String get aiOnlineHint =>
+      'إذا طفيته، كلشي يتفهم على التلفون، بدقة أقل شوية.';
 
   @override
   String get aiKey => 'مفتاح Groq API';
 
   @override
-  String get aiKeyHint => 'مجاني من console.groq.com. ينحفظ مشفّر على هذا التلفون بس.';
+  String get aiKeyHint =>
+      'مجاني من console.groq.com. ينحفظ مشفّر على هذا التلفون بس.';
 
   @override
   String aiKeySaved(String last4) {
@@ -1315,7 +1329,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get aiTestOk => 'المفتاح يشتغل.';
 
   @override
-  String get aiTestUnauthorized => 'Groq رفض هذا المفتاح. تأكد منه واحفظه مرة ثانية.';
+  String get aiTestUnauthorized =>
+      'Groq رفض هذا المفتاح. تأكد منه واحفظه مرة ثانية.';
 
   @override
   String get aiTestOffline => 'ما گدرنا نوصل لـ Groq. تأكد من الإنترنت.';
@@ -1373,7 +1388,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get aiOfflineModel => 'نموذج الكلام بدون إنترنت';
 
   @override
-  String get aiOfflineModelHint => 'يحوّل الكلام لنص على التلفون إذا الذكاء الاصطناعي طافي أو ما يوصل.';
+  String get aiOfflineModelHint =>
+      'يحوّل الكلام لنص على التلفون إذا الذكاء الاصطناعي طافي أو ما يوصل.';
 
   @override
   String get consentTitle => 'نرسل هذا إلى Groq؟';
@@ -1382,10 +1398,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get consentWho => 'شركة Groq تعالجه على سيرفرات بالولايات المتحدة.';
 
   @override
-  String get consentNever => 'ما ينرسل أبداً: أرصدتك، معاملاتك السابقة، الرمز، النسخ الاحتياطية أو الخزنة.';
+  String get consentNever =>
+      'ما ينرسل أبداً: أرصدتك، معاملاتك السابقة، الرمز، النسخ الاحتياطية أو الخزنة.';
 
   @override
-  String get consentOff => 'تگدر تطفيه بأي وقت من الإعدادات ← الذكاء الاصطناعي عبر الإنترنت.';
+  String get consentOff =>
+      'تگدر تطفيه بأي وقت من الإعدادات ← الذكاء الاصطناعي عبر الإنترنت.';
 
   @override
   String get consentAllow => 'اسمح';
@@ -1430,13 +1448,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get aiModelVerifying => 'دا نفحص الملف…';
 
   @override
-  String get aiModelFailed => 'التنزيل توقف. جرّب مرة ثانية، والأحسن على الواي فاي.';
+  String get aiModelFailed =>
+      'التنزيل توقف. جرّب مرة ثانية، والأحسن على الواي فاي.';
 
   @override
   String get aiModelMismatch => 'الملف ما طابق وانحذف. جرّب مرة ثانية.';
 
   @override
-  String get aiModelSorani => 'بدون إنترنت، الكردي (السوراني) يتعرّف بدقة أقل من العربي والإنگليزي.';
+  String get aiModelSorani =>
+      'بدون إنترنت، الكردي (السوراني) يتعرّف بدقة أقل من العربي والإنگليزي.';
 
   @override
   String get capMicTooltip => 'سجّل بصوتك (اضغط مطوّلاً للكتابة)';
@@ -1478,7 +1498,27 @@ class AppLocalizationsAr extends AppLocalizations {
   String get capOpen => 'افتح';
 
   @override
-  String get capReason_noSpeechEngine => 'ماكو محرك صوت بعد. شغّل الذكاء الاصطناعي أو نزّل نموذج من الإعدادات.';
+  String get capReason_noSpeechEngine => 'بعد ما تحوّل لنص.';
+
+  @override
+  String get capReason_noSpeechOnlineOff =>
+      'الذكاء الاصطناعي عبر الإنترنت مطفي وماكو نموذج كلام بدون إنترنت. شغّله أو نزّل النموذج من الإعدادات ← الذكاء الاصطناعي عبر الإنترنت.';
+
+  @override
+  String get capReason_noSpeechNoKey =>
+      'ماكو مفتاح Groq محفوظ. ضيفه من الإعدادات ← الذكاء الاصطناعي عبر الإنترنت، أو نزّل نموذج الكلام بدون إنترنت من نفس المكان.';
+
+  @override
+  String get capReason_noSpeechNotAsked =>
+      'بعد ما سمحت يروح الصوت لـ Groq. اضغط المايك واختار «اسمح»، أو نزّل نموذج الكلام بدون إنترنت من الإعدادات ← الذكاء الاصطناعي عبر الإنترنت.';
+
+  @override
+  String get capReason_noSpeechDeclined =>
+      'اخترت ما ترسل الصوت لـ Groq. اضغط «اسألني مرة ثانية» بالإعدادات ← الذكاء الاصطناعي عبر الإنترنت، أو نزّل نموذج الكلام بدون إنترنت من نفس المكان.';
+
+  @override
+  String get capReason_noSpeechOffline =>
+      'ماكو نموذج كلام بدون إنترنت. نزّله من الإعدادات ← الذكاء الاصطناعي عبر الإنترنت.';
 
   @override
   String get capReason_sttFailed => 'ما گدرت أحوّل التسجيل لنص. انحفظ بالوارد.';
@@ -1537,7 +1577,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get capNothingFound => 'ما لگيت شي ينحفظ. عدّل النص واقرأه مرة ثانية.';
 
   @override
-  String get capAlreadyHandled => 'تمت معالجة هذا الإدخال سابقاً (حُفظ أو حُذف).';
+  String get capAlreadyHandled =>
+      'تمت معالجة هذا الإدخال سابقاً (حُفظ أو حُذف).';
 
   @override
   String get capDone => 'انحفظ';
@@ -1546,7 +1587,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get capInbox => 'الوارد';
 
   @override
-  String get capInboxEmpty => 'ماكو شي ينتظر. أي شي تگوله أو تكتبه وما تحفظه يجي هنا.';
+  String get capInboxEmpty =>
+      'ماكو شي ينتظر. أي شي تگوله أو تكتبه وما تحفظه يجي هنا.';
 
   @override
   String get capNotTranscribed => 'تسجيل صوتي، بعده ما تحوّل لنص';
@@ -1586,4 +1628,641 @@ class AppLocalizationsAr extends AppLocalizations {
   String capWillBecomeNote(int phase) {
     return 'يصير ملاحظة بالمرحلة $phase';
   }
+
+  @override
+  String get showAmounts => 'إظهار المبالغ';
+
+  @override
+  String get hideAmounts => 'إخفاء المبالغ';
+
+  @override
+  String get lockedTitle => 'التطبيق مقفول';
+
+  @override
+  String get lockedHint => 'افتح بالوجه أو البصمة أو رمز الموبايل';
+
+  @override
+  String get unlockButton => 'افتح';
+
+  @override
+  String get noScreenLockTitle => 'موبايلك ما بي قفل شاشة';
+
+  @override
+  String get noScreenLockBody =>
+      'التطبيق يحمي فلوسك وملاحظاتك بقفل موبايلك نفسه. فعّل رمز أو نمط أو بصمة أو بصمة وجه أول شي.';
+
+  @override
+  String get openSecuritySettings => 'افتح إعدادات الحماية';
+
+  @override
+  String get sensitiveLocked => 'هذا القسم يطلب بصمتك مرة ثانية';
+
+  @override
+  String get faceUnlockNote =>
+      'إذا بصمة الوجه ما تطلع، فموبايلك ما يسمح بيها للتطبيقات. البصمة ورمز الموبايل يشتغلون.';
+
+  @override
+  String get lockSection => 'القفل';
+
+  @override
+  String lockAfterSeconds(int seconds) {
+    return 'بعد $seconds ثانية';
+  }
+
+  @override
+  String get delete => 'حذف';
+
+  @override
+  String finDeletedMany(int count) {
+    return 'انحذفت $count معاملات';
+  }
+
+  @override
+  String selectedCount(int count) {
+    return '$count مختارة';
+  }
+
+  @override
+  String chatExpense(String amount, String category, String account) {
+    return 'أسجّل $amount مصروف «$category» من «$account».';
+  }
+
+  @override
+  String chatIncome(String amount, String category, String account) {
+    return 'أسجّل $amount مدخول «$category» على «$account».';
+  }
+
+  @override
+  String chatTransfer(String amount, String from, String to) {
+    return 'أحوّل $amount من «$from» إلى «$to».';
+  }
+
+  @override
+  String chatDebtOwedToMe(String who, String amount) {
+    return 'أسجّل إن $who مطلوبلك $amount.';
+  }
+
+  @override
+  String chatDebtOwedByMe(String who, String amount) {
+    return 'أسجّل إنك مطلوب لـ $who $amount.';
+  }
+
+  @override
+  String chatDebtRepay(String who, String amount) {
+    return 'أسجّل تسديد $amount ويا $who.';
+  }
+
+  @override
+  String chatLater(String text) {
+    return '«$text» — أحفظها بالوارد لحد ما يجهز هذا القسم.';
+  }
+
+  @override
+  String get chatNoCategory => 'بدون فئة';
+
+  @override
+  String get chatConfirm => 'تمام؟';
+
+  @override
+  String get chatSaved => 'تم الحفظ.';
+
+  @override
+  String get chatDroppedAll => 'تمام، ما سجلت شي.';
+
+  @override
+  String get chatUndone => 'رجعتها. هسه ماكو شي محفوظ من ذيك الرسالة.';
+
+  @override
+  String get chatNotUnderstood => 'ما فهمت قصدك. حفظتها بالوارد حتى ترجعلها.';
+
+  @override
+  String get chatAskAmount => 'شكد المبلغ؟';
+
+  @override
+  String get chatAskAccount => 'من أي حساب؟';
+
+  @override
+  String get chatAskToAccount => 'لأي حساب؟';
+
+  @override
+  String get chatAskCounterparty => 'منو الشخص؟';
+
+  @override
+  String get chatAskDirection => 'هو مطلوبلك، لو إنت مطلوب إله؟';
+
+  @override
+  String get chatAskLeg => 'هذا دين جديد لو تسديد؟';
+
+  @override
+  String get chatOwedToMe => 'هو مطلوبلي';
+
+  @override
+  String get chatOwedByMe => 'آني مطلوب إله';
+
+  @override
+  String get chatNewDebt => 'دين جديد';
+
+  @override
+  String get chatRepayment => 'تسديد';
+
+  @override
+  String get chatHandedToForm => 'فتحتها بالفورم الكامل.';
+
+  @override
+  String get chatOk => 'تمام';
+
+  @override
+  String get chatEdit => 'عدّل';
+
+  @override
+  String get chatDrop => 'لا';
+
+  @override
+  String get navProjects => 'المشاريع';
+
+  @override
+  String get composerHint => 'اكتب أي شي… صرفية، مهمة، فكرة';
+
+  @override
+  String get composerSend => 'إرسال';
+
+  @override
+  String get composerMic => 'دوس وطوّل حتى تحچي، أو دوس مرة للبدء ومرة للإيقاف';
+
+  @override
+  String get chatTitle => 'المساعد';
+
+  @override
+  String get chatUndo => 'تراجع';
+
+  @override
+  String chatVoiceKept(String reason) {
+    return 'حفظت التسجيل بالوارد. $reason';
+  }
+
+  @override
+  String get chatEmpty =>
+      'گلّي شنو صار بكلامك. راح أراويك شنو فهمت قبل ما أحفظ أي شي.';
+
+  @override
+  String get chatStateSaved => 'انحفظت';
+
+  @override
+  String get chatStateDropped => 'ما انحفظت';
+
+  @override
+  String get chatStateUndone => 'انلغت';
+
+  @override
+  String get chatStateEdited => 'انفتحت بالفورم';
+
+  @override
+  String chatDeleteEntry(String entry) {
+    return 'أحذف «$entry».';
+  }
+
+  @override
+  String chatEditAmount(String entry, String amount) {
+    return 'أغيّر مبلغ «$entry» إلى $amount.';
+  }
+
+  @override
+  String chatEditCategory(String entry, String category) {
+    return 'أنقل «$entry» إلى «$category».';
+  }
+
+  @override
+  String chatEditDescription(String entry, String text) {
+    return 'أغيّر وصف «$entry» إلى «$text».';
+  }
+
+  @override
+  String chatEntryLabel(String what, String date) {
+    return '$what بتاريخ $date';
+  }
+
+  @override
+  String get chatNoEntry => 'ما لگيت هذا القيد. افتح المالية واختاره بنفسك.';
+
+  @override
+  String get chatAskNewAmount => 'شكد يصير المبلغ الجديد؟';
+
+  @override
+  String get tipAllClear => 'كلشي تمام اليوم. اكتب أي شي فوك وآني أرتبه.';
+
+  @override
+  String tipBudgetNear(String name) {
+    return 'ميزانية «$name» قربت تخلص هذا الشهر.';
+  }
+
+  @override
+  String get tipEmergencyLow =>
+      'صندوق الطوارئ أقل من هدفه. حتى مبلغ صغير يفيد.';
+
+  @override
+  String tipOverdue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'عندك $count مهام متأخرة.',
+      one: 'عندك مهمة متأخرة.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String tipProjectStepSoon(String step, String project) {
+    return 'خطوة «$step» بمشروع «$project» موعدها هذا الأسبوع.';
+  }
+
+  @override
+  String get homeGreeting => 'شنو ببالك؟';
+
+  @override
+  String get homeToday => 'اليوم';
+
+  @override
+  String get homeTodayEmpty => 'ماكو شي مطلوب اليوم.';
+
+  @override
+  String get homeRecent => 'آخر القيود';
+
+  @override
+  String get homeRecentEmpty => 'بعد ما مسجل شي.';
+
+  @override
+  String get homeProjects => 'المشاريع الفعالة';
+
+  @override
+  String get homeProjectsEmpty =>
+      'ماكو مشاريع بعد. احچيلي عن مشروع وأساعدك تخطط إله.';
+
+  @override
+  String get homeIncome => 'دخل';
+
+  @override
+  String get homeExpense => 'صرف';
+
+  @override
+  String get setupAccountTitle => 'أول حساب إلك';
+
+  @override
+  String get setupAccountBody =>
+      'وين فلوسك؟ جزدان، مصرف، كارت. تگدر تضيف غيره بعدين، أو بس گول للمساعد.';
+
+  @override
+  String get setupAccountName => 'اسم الحساب';
+
+  @override
+  String get setupAccountHint => 'مثلاً: جزدان كاش';
+
+  @override
+  String get setupAccountCurrency => 'العملة';
+
+  @override
+  String chatAskCreateCategory(String name) {
+    return 'ماكو فئة «$name» بعد. أسوي فئة جديدة؟';
+  }
+
+  @override
+  String get chatAskCreateAccount => 'بعد ما عندك حساب. أول حساب بأي عملة؟';
+
+  @override
+  String chatDefaultAccountName(String currency) {
+    return 'كاش $currency';
+  }
+
+  @override
+  String get chatYesCreate => 'إي، سوّيها';
+
+  @override
+  String get chatNoThanks => 'لا، خليها';
+
+  @override
+  String chatAskRate(String currency) {
+    return 'شكد سعر $currency اليوم؟ (بالدينار لـ 1 $currency أو لـ 100)';
+  }
+
+  @override
+  String finRateToday(String currency) {
+    return 'سعر 1 $currency اليوم';
+  }
+
+  @override
+  String get finRateSave => 'احفظ السعر';
+
+  @override
+  String get finSuggestGoal => 'هدفك (اختياري)';
+
+  @override
+  String get finSuggestGoalHint => 'مثلاً سيارة خلال سنتين، محل صغير';
+
+  @override
+  String get finSuggestSplit => 'اقترح لي تقسيم';
+
+  @override
+  String get finSuggestFailed => 'ما گدرت أجيب اقتراح. جرب مرة ثانية.';
+
+  @override
+  String get aiConsentReceiptTitle => 'صور الوصولات';
+
+  @override
+  String get aiConsentReceipt =>
+      'تنرسل صورة الوصل إلى Groq حتى يقرأ المبلغ. ما يروح وياها أي شي ثاني من التطبيق.';
+
+  @override
+  String get aiVisionModel => 'نموذج قراءة الوصولات (الصور)';
+
+  @override
+  String get capReason_receiptKept =>
+      'ما كدرت أقرأ هذا الوصل. قراءة الصور تحتاج الذكاء الاصطناعي عبر الإنترنت ومفتاح محفوظ وموافقتك على صور الوصولات.';
+
+  @override
+  String get composerCamera => 'صوّر وصل';
+
+  @override
+  String get chatReceiptSent => 'صورة وصل';
+
+  @override
+  String chatReceiptKept(String reason) {
+    return 'خزنت صورة الوصل بالوارد. $reason';
+  }
+
+  @override
+  String get tasksToday => 'اليوم';
+
+  @override
+  String get tasksUpcoming => 'الجاي';
+
+  @override
+  String get tasksOverdue => 'متأخرة';
+
+  @override
+  String get tasksNoDate => 'بدون تاريخ';
+
+  @override
+  String get tasksDone => 'منجزة';
+
+  @override
+  String get tasksCalendar => 'التقويم';
+
+  @override
+  String get tasksNotes => 'الملاحظات';
+
+  @override
+  String get tasksEmpty => 'ماكو شي هنا لحد الان.';
+
+  @override
+  String get tasksAdd => 'أضف مهمة';
+
+  @override
+  String get taskNew => 'مهمة جديدة';
+
+  @override
+  String get taskEdit => 'تعديل المهمة';
+
+  @override
+  String get taskTitleLabel => 'العنوان';
+
+  @override
+  String get taskKindTask => 'مهمة';
+
+  @override
+  String get taskKindAppointment => 'موعد';
+
+  @override
+  String get taskKindReminder => 'تذكير';
+
+  @override
+  String get taskDate => 'التاريخ';
+
+  @override
+  String get taskTime => 'الوقت';
+
+  @override
+  String get taskNoDate => 'بدون تاريخ';
+
+  @override
+  String get taskNoTime => 'بدون وقت';
+
+  @override
+  String get taskPlace => 'المكان';
+
+  @override
+  String get taskNotesLabel => 'ملاحظات';
+
+  @override
+  String get taskPriority => 'الأهمية';
+
+  @override
+  String get taskPrioLow => 'منخفضة';
+
+  @override
+  String get taskPrioNormal => 'عادية';
+
+  @override
+  String get taskPrioHigh => 'عالية';
+
+  @override
+  String get taskRepeat => 'التكرار';
+
+  @override
+  String get taskRepeatNone => 'بدون';
+
+  @override
+  String get taskRepeatDaily => 'يومي';
+
+  @override
+  String get taskRepeatWeekly => 'أسبوعي';
+
+  @override
+  String get taskRepeatMonthly => 'شهري';
+
+  @override
+  String get taskDeleted => 'انحذفت المهمة';
+
+  @override
+  String get taskCompleted => 'تمت';
+
+  @override
+  String get noteDeleted => 'انحذفت الملاحظة';
+
+  @override
+  String get noteNew => 'ملاحظة جديدة';
+
+  @override
+  String get noteEdit => 'تعديل الملاحظة';
+
+  @override
+  String get noteHint => 'اكتب الملاحظة';
+
+  @override
+  String get calendarNoTasks => 'ماكو شي بهذا اليوم.';
+
+  @override
+  String get notifChannelName => 'التذكيرات';
+
+  @override
+  String get notifChannelDesc => 'تذكيرات مهامك ومواعيدك';
+
+  @override
+  String get notifDone => 'تمت';
+
+  @override
+  String get notifSnooze1h => 'بعد ساعة';
+
+  @override
+  String get notifTomorrow => 'باجر 9:00';
+
+  @override
+  String get exactAlarmWarning =>
+      'المنبّهات الدقيقة مطفية، فالتذكيرات ممكن توصل متأخرة دقايق.';
+
+  @override
+  String get exactAlarmAllow => 'اسمح';
+
+  @override
+  String chatTaskLine(String kind, String title, String when) {
+    return '$kind: «$title» — $when';
+  }
+
+  @override
+  String chatNoteLine(String text) {
+    return 'ملاحظة: «$text»';
+  }
+
+  @override
+  String chatProjectLine(String title) {
+    return 'فكرة مشروع: «$title» — أفتحه كمشروع ونخطط له سوا.';
+  }
+
+  @override
+  String get chatNoDate => 'بدون تاريخ';
+
+  @override
+  String get capWillBeTask => 'راح ينحفظ كمهمة';
+
+  @override
+  String get capWillBeNote => 'راح ينحفظ كملاحظة';
+
+  @override
+  String get capSavesOnConfirm => 'ينحفظ لما تأكد.';
+
+  @override
+  String get chatOpenProject => 'افتح المشروع';
+
+  @override
+  String get projectsEmpty =>
+      'ماكو مشاريع بعد. اضغط + أو كلّم الدردشة عن فكرتك.';
+
+  @override
+  String get projectNew => 'مشروع جديد';
+
+  @override
+  String get projectNameLabel => 'اسم المشروع';
+
+  @override
+  String get projectDescLabel => 'شنو هو؟ (اختياري)';
+
+  @override
+  String get projectStatusIdea => 'فكرة';
+
+  @override
+  String get projectStatusPlanning => 'تخطيط';
+
+  @override
+  String get projectStatusActive => 'شغّال';
+
+  @override
+  String get projectStatusDone => 'خلص';
+
+  @override
+  String get projectStatusDropped => 'مُلغى';
+
+  @override
+  String projectProgress(int done, int total) {
+    return '$done من $total خطوات خلصت';
+  }
+
+  @override
+  String get projectNoSteps => 'ماكو خطة بعد. كلّم المخطِّط تحت عن فكرتك.';
+
+  @override
+  String get projectStepsToTasks => 'حوّل كل الخطوات لمهام';
+
+  @override
+  String get projectStepToTask => 'سوّيها مهمة';
+
+  @override
+  String projectTasksMade(int count) {
+    return 'انضافت $count مهام';
+  }
+
+  @override
+  String get projectCost => 'الكلفة';
+
+  @override
+  String get projectCostNone => 'ماكو كلفة بعد.';
+
+  @override
+  String get projectCostSet => 'حدّد الكلفة';
+
+  @override
+  String get projectCostNoRate => 'ماكو سعر صرف لهالعملة بعد.';
+
+  @override
+  String get projectInInvestment => 'بالاستثمار';
+
+  @override
+  String get projectStillMissing => 'باقي ناقص';
+
+  @override
+  String get projectCovered => 'سلة الاستثمار تغطيها.';
+
+  @override
+  String projectMonthsToGo(int months) {
+    return 'تقريباً $months أشهر بوتيرتك المعتادة.';
+  }
+
+  @override
+  String get projectNoPace =>
+      'ماكو شي راح للاستثمار بآخر ٣ أشهر، فما نگدر نحسب موعد.';
+
+  @override
+  String get projectPlannerHint => 'كلّم المخطِّط عنها…';
+
+  @override
+  String get projectPlannerSend => 'أرسل';
+
+  @override
+  String get projectPlannerOffline =>
+      'المخطِّط يحتاج الذكاء الاصطناعي عبر الإنترنت. شغّله من الإعدادات وبعدين اسمح له.';
+
+  @override
+  String get projectPlannerFailed => 'المخطِّط ما جاوب. جرّب مرة ثانية.';
+
+  @override
+  String projectPlanProposed(int count) {
+    return 'خطة من $count خطوة';
+  }
+
+  @override
+  String get projectPlanUse => 'اعتمد هالخطة';
+
+  @override
+  String get projectPlanSaved => 'انحفظت الخطة.';
+
+  @override
+  String get projectDelete => 'احذف المشروع';
+
+  @override
+  String get projectDeleteAsk =>
+      'تحذف هالمشروع؟ خطواته والدردشة تنحذف، والمهام اللي انسوّت تبقى.';
+
+  @override
+  String get projectApplyTicks => 'حدّث الخطوات';
+
+  @override
+  String get chatSaveFailed =>
+      'ما كدرت أحفظها. راجع التفاصيل أو افتح النموذج الكامل بزر تعديل.';
 }

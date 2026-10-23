@@ -17,6 +17,7 @@ void main() {
   setUp(() async {
     db = AppDatabase(NativeDatabase.memory());
     await seedInitialData(db, names);
+    await seedDemoData(db, names);
     final accounts = await db.select(db.accounts).get();
     accountId = accounts.firstWhere((a) => a.currencyCode == 'IQD').id;
     usdAccountId = accounts.firstWhere((a) => a.currencyCode == 'USD').id;

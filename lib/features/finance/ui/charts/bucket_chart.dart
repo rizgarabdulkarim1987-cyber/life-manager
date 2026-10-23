@@ -1,3 +1,7 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../core/security/money_privacy.dart';
+
 import 'package:flutter/material.dart';
 
 import '../../../../core/l10n/ckb_fallback_localizations.dart';
@@ -11,14 +15,15 @@ import '../widgets/money_text.dart';
 import '../widgets/usage_bar.dart';
 
 /// Spent against allocated per bucket, in the usage colours of the Buckets screen.
-class BucketBars extends StatelessWidget {
+class BucketBars extends ConsumerWidget {
   const BucketBars({super.key, required this.statuses, required this.currency});
 
   final List<BucketStatus> statuses;
   final String currency;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final shown = moneyShownOf(ref);
     final l = context.l10n;
     final k = context.tokens;
     final text = Theme.of(context).textTheme;
@@ -59,8 +64,8 @@ class BucketBars extends StatelessWidget {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  '${l.finSpent} ${formatMoney(Money(s.spentMinor, currency), localeCode: lang)} · '
-                  '${l.finAllocated} ${formatMoney(Money(s.allocatedMinor, currency), localeCode: lang)}',
+                  '${l.finSpent} ${shown ? formatMoney(Money(s.spentMinor, currency), localeCode: lang) : kMaskedMoney} · '
+                  '${l.finAllocated} ${shown ? formatMoney(Money(s.allocatedMinor, currency), localeCode: lang) : kMaskedMoney}',
                   style: text.bodySmall?.copyWith(color: k.textMuted),
                 ),
               ],

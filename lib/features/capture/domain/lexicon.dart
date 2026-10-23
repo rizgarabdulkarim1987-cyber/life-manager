@@ -64,6 +64,7 @@ class Lexicon {
     required this.buckets,
     required this.personalWorkspaceId,
     required this.baseCurrency,
+    this.projects = const [],
   });
 
   final List<LexWorkspace> workspaces;
@@ -72,6 +73,9 @@ class Lexicon {
   final List<LexBucket> buckets;
   final int personalWorkspaceId;
   final String baseCurrency;
+
+  /// Titles of projects still in play, so a task can be tied to one.
+  final List<String> projects;
 }
 
 Future<Lexicon> loadLexicon(AppDatabase db, AppLocalizations l10n) async {
@@ -88,6 +92,7 @@ Future<Lexicon> loadLexicon(AppDatabase db, AppLocalizations l10n) async {
   final cats = await (db.select(db.categories)..where((c) => c.isArchived.equals(false))).get();
   final buckets = await db.select(db.buckets).get();
   final settings = await db.select(db.appSettingsTable).getSingleOrNull();
+  final projects = await (db.select(db.projects)..where((p) => p.status.isNotIn(const ['done', 'dropped']))).get();
   return Lexicon(
     workspaces: [
       for (final w in ws) LexWorkspace(w.id, w.name, _terms([w.name, ..._aliases(w)]), aliases: _aliases(w)),
@@ -112,5 +117,6 @@ Future<Lexicon> loadLexicon(AppDatabase db, AppLocalizations l10n) async {
     // The seed puts Personal first; it is where anything unassigned goes.
     personalWorkspaceId: ws.first.id,
     baseCurrency: settings?.baseCurrency ?? 'IQD',
+    projects: [for (final p in projects) p.title],
   );
 }

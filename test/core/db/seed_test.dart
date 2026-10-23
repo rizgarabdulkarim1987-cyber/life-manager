@@ -18,30 +18,31 @@ void main() {
   setUp(() => db = AppDatabase(NativeDatabase.memory()));
   tearDown(() => db.close());
 
-  test('seed creates 4 workspaces in spec order', () async {
+  test('fresh install has no categories and no accounts until setup', () async {
+    expect(await db.select(db.categories).get(), isEmpty);
+    expect(await db.select(db.accounts).get(), isEmpty);
+    expect(await db.select(db.buckets).get(), hasLength(3));
     await seedInitialData(db, names);
-    final ws = await (db.select(db.workspaces)..orderBy([(w) => OrderingTerm.asc(w.sortOrder)])).get();
-    expect(ws.map((w) => w.name), ['Personal', 'Buzzify', 'Related / EO', 'Other Projects']);
-  });
-
-  test('seed creates 6 cash accounts, IQD+USD per Personal/Buzzify/EO', () async {
-    await seedInitialData(db, names);
-    final acc = await db.select(db.accounts).get();
-    expect(acc, hasLength(6));
-    expect(acc.where((a) => a.currencyCode == 'IQD'), hasLength(3));
-    expect(acc.where((a) => a.currencyCode == 'USD'), hasLength(3));
-    expect(acc.every((a) => a.kind == 'cash' && a.openingBalanceMinor == 0), isTrue);
-    expect(acc.map((a) => a.name), contains('Buzzify · Cash USD'));
-
-    final other = (await db.select(db.workspaces).get()).firstWhere((w) => w.name == 'Other Projects');
-    expect(acc.where((a) => a.workspaceId == other.id), isEmpty);
+    expect((await db.select(db.workspaces).get()).map((w) => (w.name, w.countsInBuckets)), [('Personal', true)]);
+    expect(await db.select(db.accounts).get(), isEmpty);
+    expect(await db.select(db.categories).get(), isEmpty);
   });
 
   test('seed is idempotent', () async {
     await seedInitialData(db, names);
     await seedInitialData(db, names);
-    expect(await db.select(db.accounts).get(), hasLength(6));
-    expect(await db.select(db.workspaces).get(), hasLength(4));
+    expect(await db.select(db.workspaces).get(), hasLength(1));
+  });
+
+  test('the demo seed (tests, screenshots) adds the four workspaces, six accounts and the categories', () async {
+    await seedInitialData(db, names);
+    await seedDemoData(db, names);
+    final ws = await (db.select(db.workspaces)..orderBy([(w) => OrderingTerm.asc(w.sortOrder)])).get();
+    expect(ws.map((w) => w.name), ['Personal', 'Buzzify', 'Related / EO', 'Other Projects']);
+    final acc = await db.select(db.accounts).get();
+    expect(acc, hasLength(6));
+    expect(acc.map((a) => a.name), contains('Buzzify · Cash USD'));
+    expect(await db.select(db.categories).get(), hasLength(16));
   });
 
   test('isSetupCompleted reads the settings flag', () async {

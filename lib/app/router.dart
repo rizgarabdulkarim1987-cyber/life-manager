@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../core/l10n/ckb_fallback_localizations.dart';
 import '../features/backup/backup_screen.dart';
 import '../features/capture/domain/proposal.dart';
 import '../features/capture/ui/capture_review_screen.dart';
@@ -22,24 +21,31 @@ import '../features/finance/ui/transfer_form_screen.dart';
 import '../features/settings/ai_settings_screen.dart';
 import '../features/settings/categories_screen.dart';
 import '../features/settings/finance_settings_screen.dart';
+import '../core/security/money_privacy.dart';
+import '../features/lock/sensitive_gate.dart';
 import '../features/settings/settings_screen.dart';
 import '../features/settings/workspaces_screen.dart';
 import '../features/setup/setup_flow.dart';
 import '../features/setup/splash_screen.dart';
 import '../features/shell/home_screen.dart';
-import '../features/shell/placeholder_screen.dart';
+import '../features/tasks/ui/task_form_screen.dart';
+import '../features/projects/ui/project_detail_screen.dart';
+import '../features/projects/ui/projects_screen.dart';
+import '../features/tasks/ui/tasks_screen.dart';
 import '../features/shell/shell_scaffold.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
-  final router = buildRouter();
+  final router = buildRouter(onNavigate: () => ref.read(moneyRevealedProvider.notifier).hide());
   ref.onDispose(router.dispose);
   return router;
 });
 
 final _rootKey = GlobalKey<NavigatorState>();
 
-GoRouter buildRouter() => GoRouter(
+/// [onNavigate] runs on every push and pop, on the root and in each tab.
+GoRouter buildRouter({void Function()? onNavigate}) => GoRouter(
   navigatorKey: _rootKey,
+  observers: [if (onNavigate != null) MoneyHideObserver(onNavigate)],
   initialLocation: '/splash',
   routes: [
     GoRoute(
@@ -54,16 +60,18 @@ GoRouter buildRouter() => GoRouter(
       builder: (context, state, shell) => ShellScaffold(shell: shell),
       branches: [
         StatefulShellBranch(
+          observers: [if (onNavigate != null) MoneyHideObserver(onNavigate)],
           routes: [GoRoute(path: '/home', builder: (_, _) => const HomeScreen())],
         ),
         StatefulShellBranch(
+          observers: [if (onNavigate != null) MoneyHideObserver(onNavigate)],
           routes: [
             GoRoute(
               path: '/finance',
-              builder: (_, _) => const FinanceOverviewScreen(),
+              builder: (_, _) => const SensitiveGate(fullScreen: true, child: FinanceOverviewScreen()),
               routes: [
                 // Forms cover the shell (no bottom bar or mic over the Save button).
-                GoRoute(
+                _financeRoute(
                   path: 'tx/new',
                   parentNavigatorKey: _rootKey,
                   builder: (_, state) {
@@ -84,47 +92,51 @@ GoRouter buildRouter() => GoRouter(
                     );
                   },
                 ),
-                GoRoute(
+                _financeRoute(
                   path: 'tx/:id',
                   parentNavigatorKey: _rootKey,
                   builder: (_, state) => TransactionFormScreen(editId: int.parse(state.pathParameters['id']!)),
                 ),
-                GoRoute(
+                _financeRoute(
                   path: 'transfer/new',
                   parentNavigatorKey: _rootKey,
                   builder: (_, state) =>
                       TransferFormScreen(initial: state.extra is TransferDraft ? state.extra! as TransferDraft : null),
                 ),
-                GoRoute(path: 'import', parentNavigatorKey: _rootKey, builder: (_, _) => const ImportWizardScreen()),
-                GoRoute(
+                _financeRoute(
+                  path: 'import',
+                  parentNavigatorKey: _rootKey,
+                  builder: (_, _) => const ImportWizardScreen(),
+                ),
+                _financeRoute(
                   path: 'transfer/:id',
                   parentNavigatorKey: _rootKey,
                   builder: (_, state) => TransferFormScreen(editId: int.parse(state.pathParameters['id']!)),
                 ),
-                GoRoute(
+                _financeRoute(
                   path: 'accounts',
                   builder: (_, _) => const AccountsScreen(),
                   routes: [
-                    GoRoute(
+                    _financeRoute(
                       path: ':id',
                       builder: (_, state) => AccountDetailScreen(accountId: int.parse(state.pathParameters['id']!)),
                     ),
                   ],
                 ),
-                GoRoute(path: 'reports', builder: (_, _) => const ReportsScreen()),
-                GoRoute(path: 'buckets', builder: (_, _) => const BucketsScreen()),
-                GoRoute(path: 'budgets', builder: (_, _) => const BudgetsScreen()),
-                GoRoute(
+                _financeRoute(path: 'reports', builder: (_, _) => const ReportsScreen()),
+                _financeRoute(path: 'buckets', builder: (_, _) => const BucketsScreen()),
+                _financeRoute(path: 'budgets', builder: (_, _) => const BudgetsScreen()),
+                _financeRoute(
                   path: 'debts',
                   builder: (_, _) => const DebtsScreen(),
                   routes: [
-                    GoRoute(
+                    _financeRoute(
                       path: ':id',
                       builder: (_, state) => DebtDetailScreen(debtId: int.parse(state.pathParameters['id']!)),
                     ),
                   ],
                 ),
-                GoRoute(
+                _financeRoute(
                   path: 'history',
                   builder: (_, state) {
                     final q = state.uri.queryParameters;
@@ -141,20 +153,35 @@ GoRouter buildRouter() => GoRouter(
           ],
         ),
         StatefulShellBranch(
+          observers: [if (onNavigate != null) MoneyHideObserver(onNavigate)],
           routes: [
-            GoRoute(
+            _financeRoute(
               path: '/tasks',
-              builder: (context, _) =>
-                  PlaceholderScreen(title: context.l10n.navTasks, phase: 4, icon: Icons.task_alt_outlined),
+              builder: (_, _) => const TasksScreen(),
+              routes: [
+                GoRoute(path: 'new', parentNavigatorKey: _rootKey, builder: (_, _) => const TaskFormScreen()),
+                GoRoute(
+                  path: ':id',
+                  parentNavigatorKey: _rootKey,
+                  builder: (_, state) => TaskFormScreen(editId: int.parse(state.pathParameters['id']!)),
+                ),
+              ],
             ),
           ],
         ),
         StatefulShellBranch(
+          observers: [if (onNavigate != null) MoneyHideObserver(onNavigate)],
           routes: [
             GoRoute(
-              path: '/vault',
-              builder: (context, _) =>
-                  PlaceholderScreen(title: context.l10n.navVault, phase: 3, icon: Icons.shield_outlined),
+              path: '/projects',
+              builder: (_, _) => const ProjectsScreen(),
+              routes: [
+                GoRoute(
+                  path: ':id',
+                  parentNavigatorKey: _rootKey,
+                  builder: (_, state) => ProjectDetailScreen(projectId: int.parse(state.pathParameters['id']!)),
+                ),
+              ],
             ),
           ],
         ),
@@ -177,4 +204,18 @@ GoRouter buildRouter() => GoRouter(
       ],
     ),
   ],
+);
+
+/// A page under /finance. go_router stacks these over the overview instead of inside it, so each one
+/// carries its own biometric gate (the Global Constraint: Finance asks again after a minute).
+GoRoute _financeRoute({
+  required String path,
+  required GoRouterWidgetBuilder builder,
+  GlobalKey<NavigatorState>? parentNavigatorKey,
+  List<RouteBase> routes = const [],
+}) => GoRoute(
+  path: path,
+  parentNavigatorKey: parentNavigatorKey,
+  routes: routes,
+  builder: (context, state) => SensitiveGate(fullScreen: true, child: builder(context, state)),
 );

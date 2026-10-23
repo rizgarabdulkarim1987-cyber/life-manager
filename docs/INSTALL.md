@@ -2,7 +2,7 @@
 
 ## تثبيت التطبيق على الهاتف
 
-1. انسخ الملف `app-release.apk` إلى الهاتف (بكابل USB، أو بإرساله لنفسك في تطبيق مراسلة).
+1. انسخ الملف `app-arm64-v8a-release.apk` إلى الهاتف (بكابل USB، أو بإرساله لنفسك في تطبيق مراسلة). إذا رفض الهاتف التثبيت لأنه «غير متوافق» فهو هاتف قديم بنظام 32-bit؛ استخدم `app-armeabi-v7a-release.apk` بدلاً منه.
 2. افتح الملف من مدير الملفات. سيطلب أندرويد السماح بتثبيت التطبيقات من هذا المصدر. اسمح بذلك لمدير الملفات فقط.
 3. اضغط «تثبيت». بعد الانتهاء يمكنك إلغاء ذلك السماح من الإعدادات.
 4. عند التحديث لاحقاً ثبّت ملف APK الجديد فوق القديم. بياناتك تبقى، بشرط أن يكون الملف موقّعاً بنفس مفتاح التوقيع (انظر قسم التوقيع أدناه).
@@ -28,10 +28,12 @@
 flutter pub get
 dart run build_runner build -d
 flutter test
-flutter build apk --release
+flutter build apk --release --split-per-abi
 ```
 
-الملف الناتج: `build/app/outputs/flutter-apk/app-release.apk`.
+الملفات الناتجة في `build/app/outputs/flutter-apk/`، ملف لكل نوع معالج. للهاتف استخدم `app-arm64-v8a-release.apk` (حوالي 47 MB). أما `flutter build apk --release` بدون `--split-per-abi` فيبني ملفاً واحداً لكل الأنواع حجمه حوالي 150 MB.
+
+استمر على `--split-per-abi`: يضيف فلاتر 2000 إلى رقم الإصدار في ملف arm64 (مثلاً 2002 بدل 2)، فإذا ثبّتّ بعده الملف الشامل يرفضه أندرويد لأن رقمه أقل.
 
 إذا بنيت نسخة debug قبلها، فقد يفشل بناء الإصدار بخطأ `package dev.flutter.plugins.integration_test does not exist`. السبب ملف مولَّد قديم؛ نفّذ `flutter clean` (أو احذف `android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java`) ثم أعد البناء.
 
@@ -69,7 +71,7 @@ flutter test integration_test -d <device-id>
 
 ## Install on the phone
 
-1. Copy `app-release.apk` to the phone (USB cable, or send it to yourself in a messenger).
+1. Copy `app-arm64-v8a-release.apk` to the phone (USB cable, or send it to yourself in a messenger). If the phone refuses it as "not compatible", it is an old 32-bit phone; use `app-armeabi-v7a-release.apk` instead.
 2. Open it from the file manager. Android asks to allow installing apps from this source; allow it for the file manager only.
 3. Tap Install. You can turn that permission off again afterwards.
 4. To update later, install the new APK over the old one. Your data stays, as long as the APK is signed with the same release key (see signing below).
@@ -95,10 +97,12 @@ Your data lives only on this phone, encrypted. If you lose the phone or uninstal
 flutter pub get
 dart run build_runner build -d
 flutter test
-flutter build apk --release
+flutter build apk --release --split-per-abi
 ```
 
-Output: `build/app/outputs/flutter-apk/app-release.apk`.
+Output: one APK per processor type in `build/app/outputs/flutter-apk/`. For the phone use `app-arm64-v8a-release.apk` (about 47 MB). Plain `flutter build apk --release` builds one APK for every type, about 150 MB.
+
+Stick with `--split-per-abi`: Flutter adds 2000 to the arm64 APK's version code (2002 instead of 2), so Android refuses a later full APK as a downgrade.
 
 If you built a debug APK first, the release build can fail with `package dev.flutter.plugins.integration_test does not exist`. A stale generated file causes it: run `flutter clean` (or delete `android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java`) and build again.
 

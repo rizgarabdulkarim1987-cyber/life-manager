@@ -11,7 +11,7 @@ import 'ai_config.dart';
 Future<bool> ensureConsent(BuildContext c, AiFeature f) async {
   final container = ProviderScope.containerOf(c, listen: false);
   final s = await container.read(settingsProvider.future);
-  final current = f == AiFeature.voice ? s.aiVoiceConsent : s.aiParseConsent;
+  final current = consentOf(f, s);
   if (current != null) return current == ConsentState.granted.name;
   if (!c.mounted) return false;
   final answer = await showConsentSheet(c, f);

@@ -1,12 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/l10n/ckb_fallback_localizations.dart';
+import '../core/security/money_privacy.dart';
 import '../core/theme/app_theme.dart';
 import '../core/theme/tokens.dart';
 import '../features/lock/lock_controller.dart';
 import '../features/lock/lock_screen.dart';
 import '../features/settings/settings_repository.dart';
+import '../features/tasks/reminders/reminder_service.dart';
 import 'providers.dart';
 import 'router.dart';
 
@@ -23,9 +27,18 @@ class _AppState extends ConsumerState<App> {
   @override
   void initState() {
     super.initState();
+    // Notifications start after the unlock: on Android 13+ the permission dialog would take focus from the
+    // fingerprint prompt and cancel it.
+    if (ref.read(lockControllerProvider) == LockStatus.unlocked) unawaited(ref.read(reminderServiceProvider).start());
+    ref.listenManual(lockControllerProvider, (_, next) {
+      if (next == LockStatus.unlocked) unawaited(ref.read(reminderServiceProvider).start());
+    });
     // Relock after the configured time in the background (spec §15).
     _lifecycle = AppLifecycleListener(
-      onHide: () => ref.read(lockControllerProvider.notifier).onPaused(DateTime.now()),
+      onHide: () {
+        ref.read(moneyRevealedProvider.notifier).hide();
+        ref.read(lockControllerProvider.notifier).onPaused(DateTime.now());
+      },
       onShow: () {
         final seconds = ref.read(settingsProvider).value?.lockTimeoutSeconds ?? 300;
         ref.read(lockControllerProvider.notifier).onResumed(DateTime.now(), timeout: Duration(seconds: seconds));
@@ -42,7 +55,7 @@ class _AppState extends ConsumerState<App> {
   @override
   Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider).value;
-    if (settings == null) return ColoredBox(color: AppTokens.dark.bg);
+    if (settings == null) return ColoredBox(color: AppTokens.light.bg);
 
     final locked = settings.setupCompleted && ref.watch(lockControllerProvider) == LockStatus.locked;
     return MaterialApp.router(

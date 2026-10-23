@@ -14,9 +14,8 @@ void main() {
     expect(t.textTheme.bodyMedium!.fontFamily, kAppFont);
   });
 
-  test('light theme has its own tokens and keeps accent hue', () {
+  test('light theme has its own tokens', () {
     final k = buildAppTheme(Brightness.light).extension<AppTokens>()!;
-    expect(HSVColor.fromColor(k.accent).hue, closeTo(HSVColor.fromColor(const Color(0xFF3B82FF)).hue, 3));
     expect(k.bg.computeLuminance(), greaterThan(0.8));
   });
 
@@ -36,9 +35,23 @@ void main() {
     }
   });
 
-  test('cards use the 20 radius', () {
+  test('cards use the 24 radius', () {
     final shape = buildAppTheme(Brightness.dark).cardTheme.shape as RoundedRectangleBorder;
-    expect(shape.borderRadius, BorderRadius.circular(20));
+    expect(shape.borderRadius, BorderRadius.circular(24));
+  });
+
+  test('light theme is the calm redesign palette', () {
+    final t = buildAppTheme(Brightness.light);
+    final k = t.extension<AppTokens>()!;
+    expect(t.scaffoldBackgroundColor, const Color(0xFFFAFAF7));
+    expect(k.surface, const Color(0xFFFFFFFF));
+    expect(k.accent, const Color(0xFF2F5BEA));
+    expect(contrastRatio(k.onAccent, k.accent), greaterThanOrEqualTo(4.5));
+  });
+
+  test('light cards have no outline', () {
+    final shape = buildAppTheme(Brightness.light).cardTheme.shape as RoundedRectangleBorder;
+    expect(shape.side, BorderSide.none);
   });
 
   test('contrastRatio of black on white is 21', () {

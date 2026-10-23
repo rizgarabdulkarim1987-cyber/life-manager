@@ -13,6 +13,7 @@ import '../../data/transactions_repository.dart';
 import '../../domain/ledger.dart';
 import '../ui_format.dart';
 import 'money_text.dart';
+import 'undo_snack.dart';
 
 /// Opens the edit form for rows that have one (debt payments and
 /// adjustments are changed from their own screens).
@@ -25,8 +26,9 @@ void openTransaction(BuildContext context, Transaction t) {
 }
 
 /// Transactions matching [filter] as slivers: day headers with the day's net
-/// per currency, swipe to delete with an Undo snackbar. [filterKey] changes
-/// whenever the filter does, so the list resubscribes.
+/// per currency, swipe to delete with an Undo snackbar, and long-press to
+/// select several rows and delete them together. [filterKey] changes whenever
+/// the filter does, so the list resubscribes.
 class TransactionSliverList extends ConsumerStatefulWidget {
   const TransactionSliverList({
     super.key,
@@ -54,6 +56,7 @@ class TransactionSliverList extends ConsumerStatefulWidget {
 class _TransactionSliverListState extends ConsumerState<TransactionSliverList> {
   late Stream<List<Transaction>> _stream;
   final _hidden = <int>{};
+  final _selected = <int>{};
 
   @override
   void initState() {
@@ -79,26 +82,29 @@ class _TransactionSliverListState extends ConsumerState<TransactionSliverList> {
     return Money(effect, currency);
   }
 
-  Future<void> _delete(Transaction t) async {
+  Future<void> _delete(List<Transaction> rows) async {
     final repo = ref.read(transactionsRepositoryProvider);
     final messenger = ScaffoldMessenger.of(context);
     final l = context.l10n;
-    setState(() => _hidden.add(t.id));
-    final allocations = await repo.delete(t.id);
-    messenger.hideCurrentSnackBar();
-    messenger.showSnackBar(
-      SnackBar(
-        content: Text(l.finDeleted),
-        action: SnackBarAction(
-          label: l.undo,
-          onPressed: () async {
-            await repo.restore(t, allocations);
-            if (mounted) setState(() => _hidden.remove(t.id));
-          },
-        ),
-      ),
+    setState(() {
+      _hidden.addAll(rows.map((t) => t.id));
+      _selected.clear();
+    });
+    final removed = [for (final t in rows) (t, await repo.delete(t.id))];
+    showUndoSnack(
+      messenger,
+      l,
+      message: rows.length == 1 ? l.finDeleted : l.finDeletedMany(rows.length),
+      onUndo: () async {
+        for (final (t, allocations) in removed) {
+          await repo.restore(t, allocations);
+        }
+        if (mounted) setState(() => _hidden.removeAll(rows.map((t) => t.id)));
+      },
     );
   }
+
+  void _toggle(int id) => setState(() => _selected.contains(id) ? _selected.remove(id) : _selected.add(id));
 
   @override
   Widget build(BuildContext context) {
@@ -138,13 +144,48 @@ class _TransactionSliverListState extends ConsumerState<TransactionSliverList> {
             ),
           );
         }
+        final items = <Widget>[];
+        if (_selected.isNotEmpty) {
+          items.add(
+            Padding(
+              key: const ValueKey('selection-bar'),
+              padding: const EdgeInsets.fromLTRB(12, 8, 12, 0),
+              child: Material(
+                color: k.surfaceHigh,
+                borderRadius: BorderRadius.circular(AppTokens.radiusSmall),
+                child: Row(
+                  children: [
+                    IconButton(
+                      key: const ValueKey('select-cancel'),
+                      tooltip: l.cancel,
+                      icon: const Icon(Icons.close_rounded),
+                      onPressed: () => setState(_selected.clear),
+                    ),
+                    Expanded(
+                      child: Text(
+                        l.selectedCount(_selected.length),
+                        key: const ValueKey('selection-count'),
+                        style: text.titleSmall,
+                      ),
+                    ),
+                    TextButton.icon(
+                      key: const ValueKey('select-delete'),
+                      onPressed: () => _delete(rows.where((r) => _selected.contains(r.id)).toList()),
+                      icon: Icon(Icons.delete_outline_rounded, color: k.danger),
+                      label: Text(l.delete, style: TextStyle(color: k.danger)),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
         final days = <DateTime, List<Transaction>>{};
         for (final t in rows) {
           final d = t.occurredAt.toLocal();
           days.putIfAbsent(DateTime(d.year, d.month, d.day), () => []).add(t);
         }
         final today = DateTime.now();
-        final items = <Widget>[];
         for (final MapEntry(key: day, value: list) in days.entries) {
           final totals = <String, int>{};
           for (final t in list) {
@@ -205,15 +246,27 @@ class _TransactionSliverListState extends ConsumerState<TransactionSliverList> {
                   padding: const EdgeInsetsDirectional.only(end: 24),
                   child: Icon(Icons.delete_outline_rounded, color: k.danger),
                 ),
-                onDismissed: (_) => _delete(t),
+                onDismissed: (_) => _delete([t]),
                 child: InkWell(
-                  onTap: widget.onTap == null ? null : () => widget.onTap!(t),
+                  onTap: _selected.isNotEmpty
+                      ? () => _toggle(t.id)
+                      : widget.onTap == null
+                      ? null
+                      : () => widget.onTap!(t),
+                  onLongPress: () => _toggle(t.id),
                   child: ConstrainedBox(
                     constraints: const BoxConstraints(minHeight: 64),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       child: Row(
                         children: [
+                          if (_selected.isNotEmpty) ...[
+                            Icon(
+                              _selected.contains(t.id) ? Icons.check_circle_rounded : Icons.circle_outlined,
+                              color: _selected.contains(t.id) ? k.accent : k.textMuted,
+                            ),
+                            const SizedBox(width: 12),
+                          ],
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,

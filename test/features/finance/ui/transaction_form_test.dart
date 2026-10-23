@@ -38,9 +38,19 @@ void main() {
     await t.enterText(find.byKey(const ValueKey('amount')), '100.00');
     await settle(t);
     await revealInForm(t, find.byKey(const ValueKey('tx-allocate')));
+    // On by default for a new income once the percentages are confirmed.
+    expect(t.widget<SwitchListTile>(find.byKey(const ValueKey('tx-allocate'))).value, isTrue);
+  }
+
+  testWidgets('switching the split off keeps it off', (t) async {
+    final c = await pumpApp(t, locale: 'en');
+    await usdIncomeWithAllocation(t, c);
     await t.tap(find.byKey(const ValueKey('tx-allocate')));
     await settle(t);
-  }
+    await t.enterText(find.byKey(const ValueKey('amount')), '120.00');
+    await settle(t);
+    expect(t.widget<SwitchListTile>(find.byKey(const ValueKey('tx-allocate'))).value, isFalse);
+  });
 
   testWidgets('USD income with allocation pre-fills 91700 / 26200 / 13100 IQD and saves three rows', (t) async {
     final c = await pumpApp(t, locale: 'en');
@@ -75,6 +85,24 @@ void main() {
     expect(sw.onChanged, isNull);
   });
 
+  testWidgets('a foreign income with no rate asks today\'s rate in the form, which enables the split', (t) async {
+    final c = await pumpApp(t, locale: 'en');
+    await SettingsRepository(dbOf(c)).setBucketsConfirmed();
+    await pushRoute(t, c, '/finance/tx/new?type=income');
+    await pickAccount(t, 'tx-account', await accountId(c, 'Personal', 'USD'));
+    await t.enterText(find.byKey(const ValueKey('amount')), '10');
+    await settle(t);
+    await revealInForm(t, find.byKey(const ValueKey('tx-rate-today')));
+    await t.enterText(find.byKey(const ValueKey('tx-rate-today')), '1320');
+    await t.tap(find.byKey(const ValueKey('tx-rate-save')));
+    await settle(t);
+    final rates = await RatesRepository(dbOf(c)).all();
+    expect(rates.single.rateE6, 1320000000);
+    expect(find.byKey(const ValueKey('tx-rate-today')), findsNothing);
+    await revealInForm(t, find.byKey(const ValueKey('tx-allocate')));
+    expect(t.widget<SwitchListTile>(find.byKey(const ValueKey('tx-allocate'))).value, isTrue);
+  });
+
   testWidgets('editing an allocated income asks to clear its allocations', (t) async {
     final c = await pumpApp(t, locale: 'en');
     final p = await accountId(c, 'Personal', 'IQD');
@@ -92,6 +120,32 @@ void main() {
     await settle(t);
     expect((await t.runAsync(() => txRepo(c).get(id)))!.amountMinor, 50000);
     expect(await t.runAsync(() => dbOf(c).select(dbOf(c).bucketAllocations).get()), isEmpty);
+  });
+
+  testWidgets('an open expense deletes from its own screen, with undo', (t) async {
+    final c = await pumpApp(t, locale: 'en');
+    final acc = await accountId(c, 'Personal', 'IQD');
+    final id = await txRepo(c).addSimple(
+      type: 'expense',
+      accountId: acc,
+      amountMinor: 4000,
+      occurredAt: DateTime.now().toUtc(),
+      description: 'Taxi',
+    );
+    await pushRoute(t, c, '/finance/tx/$id');
+    await t.tap(find.byKey(const ValueKey('tx-delete')));
+    await settle(t);
+    expect(find.byKey(const ValueKey('tx-save')), findsNothing, reason: 'the form closes');
+    expect(await txRepo(c).get(id), isNull);
+    await t.tap(find.text('Undo'));
+    await settle(t);
+    expect(await txRepo(c).get(id), isNotNull);
+  });
+
+  testWidgets('a new transaction has no delete button', (t) async {
+    final c = await pumpApp(t, locale: 'en');
+    await pushRoute(t, c, '/finance/tx/new?type=expense');
+    expect(find.byKey(const ValueKey('tx-delete')), findsNothing);
   });
 
   testWidgets('expense form fits 320 px in Kurdish', (t) async {

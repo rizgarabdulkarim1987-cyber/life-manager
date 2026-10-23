@@ -26,13 +26,34 @@ class SeedNames {
   final String cashUsd;
 }
 
-/// Creates the four workspaces and six cash accounts from spec §10.1, plus
-/// the finance defaults. Does nothing once any workspace exists.
+/// First run (redesign §11.1): the Personal workspace and the three buckets.
+/// The owner adds the first account in setup and their own categories later.
+/// Does nothing once any workspace exists.
 Future<void> seedInitialData(AppDatabase db, SeedNames n) async {
   await db.transaction(() async {
-    await seedFinanceDefaults(db);
-    final existing = await (db.select(db.workspaces)..limit(1)).get();
-    if (existing.isNotEmpty) return;
+    await seedBuckets(db);
+    if ((await (db.select(db.workspaces)..limit(1)).get()).isNotEmpty) return;
+    await db
+        .into(db.workspaces)
+        .insert(
+          WorkspacesCompanion.insert(
+            name: n.personal,
+            iconKey: 'person',
+            colorArgb: AppTokens.light.accent.toARGB32(),
+            sortOrder: 0,
+            createdAt: DateTime.now().toUtc(),
+            countsInBuckets: const Value(true),
+          ),
+        );
+  });
+}
+
+/// Tests and screenshots: the phase 1 workspaces and six cash accounts, and
+/// the default categories. Run after [seedInitialData]; does nothing twice.
+Future<void> seedDemoData(AppDatabase db, SeedNames n) async {
+  await db.transaction(() async {
+    await seedDefaultCategories(db);
+    if ((await (db.select(db.accounts)..limit(1)).get()).isNotEmpty) return;
 
     final now = DateTime.now().toUtc();
     final dark = AppTokens.dark;
@@ -44,19 +65,22 @@ Future<void> seedInitialData(AppDatabase db, SeedNames n) async {
     ];
 
     var order = 0;
+    final personal = (await (db.select(db.workspaces)..where((w) => w.sortOrder.equals(0))).getSingleOrNull())?.id;
     for (final (name, icon, color, hasCash) in workspaces) {
-      final wsId = await db
-          .into(db.workspaces)
-          .insert(
-            WorkspacesCompanion.insert(
-              name: name,
-              iconKey: icon,
-              colorArgb: color.toARGB32(),
-              sortOrder: order,
-              createdAt: now,
-              countsInBuckets: Value(order == 0),
-            ),
-          );
+      final wsId = order == 0 && personal != null
+          ? personal
+          : await db
+                .into(db.workspaces)
+                .insert(
+                  WorkspacesCompanion.insert(
+                    name: name,
+                    iconKey: icon,
+                    colorArgb: color.toARGB32(),
+                    sortOrder: order,
+                    createdAt: now,
+                    countsInBuckets: Value(order == 0),
+                  ),
+                );
       if (hasCash) {
         for (final (currency, label) in [('IQD', n.cashIqd), ('USD', n.cashUsd)]) {
           await db

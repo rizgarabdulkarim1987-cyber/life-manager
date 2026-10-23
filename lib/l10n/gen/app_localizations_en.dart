@@ -46,7 +46,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get biometrics => 'Unlock with fingerprint';
 
   @override
-  String get biometricsUnavailable => 'No fingerprint or face unlock is set up on this phone';
+  String get biometricsUnavailable =>
+      'No fingerprint or face unlock is set up on this phone';
 
   @override
   String get changePin => 'Change PIN';
@@ -159,7 +160,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setupWelcome => 'Welcome';
 
   @override
-  String get setupWelcomeBody => 'Everything stays on this phone, under your lock.';
+  String get setupWelcomeBody =>
+      'Everything stays on this phone, under your lock.';
 
   @override
   String get setupChooseLanguage => 'Choose your language';
@@ -177,7 +179,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setupEnableBiometrics => 'Unlock with fingerprint too?';
 
   @override
-  String get setupEnableBiometricsBody => 'Your PIN always works as a fallback.';
+  String get setupEnableBiometricsBody =>
+      'Your PIN always works as a fallback.';
 
   @override
   String get enable => 'Enable';
@@ -243,19 +246,22 @@ class AppLocalizationsEn extends AppLocalizations {
       'Your data stays on this phone. Only if you turn on online AI and agree is a capture\'s voice or text sent to Groq. The vault never leaves the phone.';
 
   @override
-  String get restoreTooNew => 'This backup was made by a newer version of the app. Update the app first.';
+  String get restoreTooNew =>
+      'This backup was made by a newer version of the app. Update the app first.';
 
   @override
   String get restoreWrongPassword => 'Wrong password, or the file is damaged.';
 
   @override
-  String get restoreCorrupt => 'This file is damaged or isn\'t a backup from this app.';
+  String get restoreCorrupt =>
+      'This file is damaged or isn\'t a backup from this app.';
 
   @override
   String get restoreSuccess => 'Restored. Restarting…';
 
   @override
-  String get passwordStrengthWeak => 'Weak: make it longer, or mix letters, numbers and symbols';
+  String get passwordStrengthWeak =>
+      'Weak: make it longer, or mix letters, numbers and symbols';
 
   @override
   String get passwordStrengthFair => 'Fair';
@@ -271,10 +277,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get somethingWentWrong => 'Something went wrong. Please try again.';
 
   @override
-  String get backupFailed => 'The backup couldn\'t be created. Your data is unchanged.';
+  String get backupFailed =>
+      'The backup couldn\'t be created. Your data is unchanged.';
 
   @override
-  String get startupFailed => 'Your data couldn\'t be opened. Nothing was deleted.';
+  String get startupFailed =>
+      'Your data couldn\'t be opened. Nothing was deleted.';
 
   @override
   String get retry => 'Try again';
@@ -479,7 +487,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get finAdjustBalance => 'Adjust balance';
 
   @override
-  String get finAdjustHint => 'Type what is actually in this account. The difference is saved as an adjustment.';
+  String get finAdjustHint =>
+      'Type what is actually in this account. The difference is saved as an adjustment.';
 
   @override
   String get finActualAmount => 'Actual amount';
@@ -657,7 +666,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get finOwnerDraw => 'Owner draw (salary)';
 
   @override
-  String get finOwnerDrawHint => 'Counts as an expense of the business and income of the person';
+  String get finOwnerDrawHint =>
+      'Counts as an expense of the business and income of the person';
 
   @override
   String get finSameAccount => 'Choose two different accounts';
@@ -696,7 +706,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get finEditPercentages => 'Edit percentages';
 
   @override
-  String get finPercentagesNote => 'Must add up to 100%. Only income you split after saving uses the new percentages.';
+  String get finPercentagesNote =>
+      'Must add up to 100%. Only income you split after saving uses the new percentages.';
 
   @override
   String finPercentTotal(String percent) {
@@ -704,7 +715,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get finBucketsUnconfirmed => 'Set your own percentages before splitting income into buckets.';
+  String get finBucketsUnconfirmed =>
+      'Set your own percentages before splitting income into buckets.';
 
   @override
   String get finExpensesMonthly => 'Resets every month';
@@ -918,7 +930,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get repExportPdf => 'Report as PDF';
 
   @override
-  String get repNotEncrypted => 'This file is not encrypted. Anyone who gets it can read it.';
+  String get repNotEncrypted =>
+      'This file is not encrypted. Anyone who gets it can read it.';
 
   @override
   String get repExportFailed => 'Could not save the file';
@@ -948,7 +961,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setBaseCurrency => 'Base currency';
 
   @override
-  String get setBaseCurrencyHint => 'Totals, buckets and reports use it unless you pick another.';
+  String get setBaseCurrencyHint =>
+      'Totals, buckets and reports use it unless you pick another.';
 
   @override
   String setRateDate(String date) {
@@ -959,7 +973,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setRateHistory => 'Rate history';
 
   @override
-  String get setNoRates => 'No rate yet. USD and IQD stay apart until you add one.';
+  String get setNoRates =>
+      'No rate yet. USD and IQD stay apart until you add one.';
 
   @override
   String get setRateSaved => 'Rate saved';
@@ -968,7 +983,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setAlerts => 'Alerts';
 
   @override
-  String get setUnallocatedAlert => 'Remind me about income not split into buckets';
+  String get setUnallocatedAlert =>
+      'Remind me about income not split into buckets';
 
   @override
   String get setUnallocatedAlertHint => 'Shows on the Finance screen';
@@ -1032,7 +1048,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setCountsInBuckets => 'Counts in buckets';
 
   @override
-  String get setCountsInBucketsHint => 'Its expenses come out of the Expenses bucket';
+  String get setCountsInBucketsHint =>
+      'Its expenses come out of the Expenses bucket';
 
   @override
   String setArchiveWorkspace(String name) {
@@ -1080,7 +1097,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get impPickHint => 'An .xlsx or .csv from your bank or an old sheet. Nothing is saved until you tap Import.';
+  String get impPickHint =>
+      'An .xlsx or .csv from your bank or an old sheet. Nothing is saved until you tap Import.';
 
   @override
   String get impPick => 'Choose a file';
@@ -1089,7 +1107,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get impPickAnother => 'Choose another file';
 
   @override
-  String get impTooLarge => 'This file is too big: over 50,000 rows or 64 columns.';
+  String get impTooLarge =>
+      'This file is too big: over 50,000 rows or 64 columns.';
 
   @override
   String get impUnreadable => 'This file could not be read as .xlsx or .csv.';
@@ -1174,7 +1193,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get impDefaultsHint => 'Used for rows that do not say.';
 
   @override
-  String get impNoValues => 'Nothing to match: the file has no type, category, workspace or account column.';
+  String get impNoValues =>
+      'Nothing to match: the file has no type, category, workspace or account column.';
 
   @override
   String get impCreateNew => 'Create new';
@@ -1231,7 +1251,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get impOpeningHint => 'Type what each account really holds today. A difference is saved as an adjustment.';
+  String get impOpeningHint =>
+      'Type what each account really holds today. A difference is saved as an adjustment.';
 
   @override
   String impComputed(String amount) {
@@ -1282,13 +1303,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aiOnline => 'Use online AI';
 
   @override
-  String get aiOnlineHint => 'When off, everything is understood on the phone, a little less accurately.';
+  String get aiOnlineHint =>
+      'When off, everything is understood on the phone, a little less accurately.';
 
   @override
   String get aiKey => 'Groq API key';
 
   @override
-  String get aiKeyHint => 'Free from console.groq.com. Kept encrypted on this phone only.';
+  String get aiKeyHint =>
+      'Free from console.groq.com. Kept encrypted on this phone only.';
 
   @override
   String aiKeySaved(String last4) {
@@ -1311,7 +1334,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aiTestOk => 'The key works.';
 
   @override
-  String get aiTestUnauthorized => 'Groq refused this key. Check it and save it again.';
+  String get aiTestUnauthorized =>
+      'Groq refused this key. Check it and save it again.';
 
   @override
   String get aiTestOffline => 'Could not reach Groq. Check the internet.';
@@ -1347,7 +1371,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aiConsentParseTitle => 'Filling in the form';
 
   @override
-  String get aiConsentVoice => 'Your voice recording is sent to Groq to turn it into text.';
+  String get aiConsentVoice =>
+      'Your voice recording is sent to Groq to turn it into text.';
 
   @override
   String get aiConsentParse =>
@@ -1369,19 +1394,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aiOfflineModel => 'Offline speech model';
 
   @override
-  String get aiOfflineModelHint => 'Turns speech into text on the phone when online AI is off or unreachable.';
+  String get aiOfflineModelHint =>
+      'Turns speech into text on the phone when online AI is off or unreachable.';
 
   @override
   String get consentTitle => 'Send this to Groq?';
 
   @override
-  String get consentWho => 'Groq, Inc. processes it on servers in the United States.';
+  String get consentWho =>
+      'Groq, Inc. processes it on servers in the United States.';
 
   @override
-  String get consentNever => 'Never sent: your balances, past transactions, PIN, backups or the vault.';
+  String get consentNever =>
+      'Never sent: your balances, past transactions, PIN, backups or the vault.';
 
   @override
-  String get consentOff => 'You can turn this off any time in Settings → Online AI.';
+  String get consentOff =>
+      'You can turn this off any time in Settings → Online AI.';
 
   @override
   String get consentAllow => 'Allow';
@@ -1426,13 +1455,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aiModelVerifying => 'Checking the file…';
 
   @override
-  String get aiModelFailed => 'The download stopped. Try again, ideally on Wi-Fi.';
+  String get aiModelFailed =>
+      'The download stopped. Try again, ideally on Wi-Fi.';
 
   @override
-  String get aiModelMismatch => 'The file did not match and was deleted. Try again.';
+  String get aiModelMismatch =>
+      'The file did not match and was deleted. Try again.';
 
   @override
-  String get aiModelSorani => 'Offline, Kurdish (Sorani) is recognised less accurately than Arabic and English.';
+  String get aiModelSorani =>
+      'Offline, Kurdish (Sorani) is recognised less accurately than Arabic and English.';
 
   @override
   String get capMicTooltip => 'Capture by voice (hold to type)';
@@ -1450,7 +1482,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get capProcessing => 'Working it out…';
 
   @override
-  String get capMicDenied => 'Microphone access is off. Allow it in Android settings.';
+  String get capMicDenied =>
+      'Microphone access is off. Allow it in Android settings.';
 
   @override
   String get capTypeHint => 'Type what happened';
@@ -1474,17 +1507,38 @@ class AppLocalizationsEn extends AppLocalizations {
   String get capOpen => 'Open';
 
   @override
-  String get capReason_noSpeechEngine =>
-      'No speech engine yet. Turn on online AI or install an offline model in Settings.';
+  String get capReason_noSpeechEngine => 'Not turned into text yet.';
 
   @override
-  String get capReason_sttFailed => 'Couldn\'t turn the recording into text. It is kept in the Inbox.';
+  String get capReason_noSpeechOnlineOff =>
+      'Online AI is off and no offline speech model is installed. Turn on online AI or download the model in Settings → Online AI.';
+
+  @override
+  String get capReason_noSpeechNoKey =>
+      'No Groq key is saved. Add it in Settings → Online AI, or download the offline speech model there.';
+
+  @override
+  String get capReason_noSpeechNotAsked =>
+      'Voice isn\'t allowed to go to Groq yet. Tap the mic and choose Allow, or download the offline speech model in Settings → Online AI.';
+
+  @override
+  String get capReason_noSpeechDeclined =>
+      'You chose not to send voice to Groq. Tap Ask again in Settings → Online AI, or download the offline speech model there.';
+
+  @override
+  String get capReason_noSpeechOffline =>
+      'No offline speech model is installed. Download it in Settings → Online AI.';
+
+  @override
+  String get capReason_sttFailed =>
+      'Couldn\'t turn the recording into text. It is kept in the Inbox.';
 
   @override
   String get capReason_empty => 'Nothing was heard.';
 
   @override
-  String get capReason_lowConfidence => 'Not sure what you meant. It is kept in the Inbox.';
+  String get capReason_lowConfidence =>
+      'Not sure what you meant. It is kept in the Inbox.';
 
   @override
   String get capReviewTitle => 'Review';
@@ -1508,7 +1562,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get capCheckThis => 'Check this one';
 
   @override
-  String get capMissingFields => 'Fill in the highlighted fields or turn this one off';
+  String get capMissingFields =>
+      'Fill in the highlighted fields or turn this one off';
 
   @override
   String get capKeepInInbox => 'Keep in Inbox';
@@ -1531,10 +1586,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get capDrop => 'Dropped';
 
   @override
-  String get capNothingFound => 'Nothing to save was found. Edit the text and read it again.';
+  String get capNothingFound =>
+      'Nothing to save was found. Edit the text and read it again.';
 
   @override
-  String get capAlreadyHandled => 'This capture was already saved or discarded.';
+  String get capAlreadyHandled =>
+      'This capture was already saved or discarded.';
 
   @override
   String get capDone => 'Saved';
@@ -1543,7 +1600,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get capInbox => 'Inbox';
 
   @override
-  String get capInboxEmpty => 'Nothing waiting. Anything you say or type and don\'t save lands here.';
+  String get capInboxEmpty =>
+      'Nothing waiting. Anything you say or type and don\'t save lands here.';
 
   @override
   String get capNotTranscribed => 'Voice, not transcribed yet';
@@ -1572,7 +1630,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get capDiscardTitle => 'Discard this capture?';
 
   @override
-  String get capDiscardBody => 'Its text and recording are deleted. Nothing saved from it changes.';
+  String get capDiscardBody =>
+      'Its text and recording are deleted. Nothing saved from it changes.';
 
   @override
   String capWillBecomeTask(int phase) {
@@ -1583,4 +1642,647 @@ class AppLocalizationsEn extends AppLocalizations {
   String capWillBecomeNote(int phase) {
     return 'Will become a note in phase $phase';
   }
+
+  @override
+  String get showAmounts => 'Show amounts';
+
+  @override
+  String get hideAmounts => 'Hide amounts';
+
+  @override
+  String get lockedTitle => 'Locked';
+
+  @override
+  String get lockedHint => 'Use your face, fingerprint or screen lock';
+
+  @override
+  String get unlockButton => 'Unlock';
+
+  @override
+  String get noScreenLockTitle => 'Your phone has no screen lock';
+
+  @override
+  String get noScreenLockBody =>
+      'This app protects your money and notes with your phone\'s own lock. Turn on a PIN, pattern, fingerprint or face unlock first.';
+
+  @override
+  String get openSecuritySettings => 'Open security settings';
+
+  @override
+  String get sensitiveLocked =>
+      'This section asks for your face or fingerprint again';
+
+  @override
+  String get faceUnlockNote =>
+      'If face unlock isn\'t offered, your phone doesn\'t share it with apps; fingerprint and screen lock still work.';
+
+  @override
+  String get lockSection => 'Lock';
+
+  @override
+  String lockAfterSeconds(int seconds) {
+    return 'After $seconds seconds';
+  }
+
+  @override
+  String get delete => 'Delete';
+
+  @override
+  String finDeletedMany(int count) {
+    return '$count transactions deleted';
+  }
+
+  @override
+  String selectedCount(int count) {
+    return '$count selected';
+  }
+
+  @override
+  String chatExpense(String amount, String category, String account) {
+    return 'I\'ll record $amount spent on «$category» from «$account».';
+  }
+
+  @override
+  String chatIncome(String amount, String category, String account) {
+    return 'I\'ll record $amount income «$category» into «$account».';
+  }
+
+  @override
+  String chatTransfer(String amount, String from, String to) {
+    return 'I\'ll move $amount from «$from» to «$to».';
+  }
+
+  @override
+  String chatDebtOwedToMe(String who, String amount) {
+    return 'I\'ll record that $who owes you $amount.';
+  }
+
+  @override
+  String chatDebtOwedByMe(String who, String amount) {
+    return 'I\'ll record that you owe $who $amount.';
+  }
+
+  @override
+  String chatDebtRepay(String who, String amount) {
+    return 'I\'ll record a repayment of $amount with $who.';
+  }
+
+  @override
+  String chatLater(String text) {
+    return '«$text» — I\'ll keep this in the Inbox until that part of the app is ready.';
+  }
+
+  @override
+  String get chatNoCategory => 'no category';
+
+  @override
+  String get chatConfirm => 'OK?';
+
+  @override
+  String get chatSaved => 'Saved.';
+
+  @override
+  String get chatDroppedAll => 'OK, nothing saved.';
+
+  @override
+  String get chatUndone => 'Undone. Nothing from that message is saved now.';
+
+  @override
+  String get chatNotUnderstood =>
+      'I didn\'t get that. I\'ve kept it in the Inbox so you can come back to it.';
+
+  @override
+  String get chatAskAmount => 'How much?';
+
+  @override
+  String get chatAskAccount => 'From which account?';
+
+  @override
+  String get chatAskToAccount => 'To which account?';
+
+  @override
+  String get chatAskCounterparty => 'Who is it with?';
+
+  @override
+  String get chatAskDirection => 'Do they owe you, or do you owe them?';
+
+  @override
+  String get chatAskLeg => 'Is this a new debt or a repayment?';
+
+  @override
+  String get chatOwedToMe => 'They owe me';
+
+  @override
+  String get chatOwedByMe => 'I owe them';
+
+  @override
+  String get chatNewDebt => 'New debt';
+
+  @override
+  String get chatRepayment => 'Repayment';
+
+  @override
+  String get chatHandedToForm => 'Opened in the full form.';
+
+  @override
+  String get chatOk => 'OK';
+
+  @override
+  String get chatEdit => 'Edit';
+
+  @override
+  String get chatDrop => 'No';
+
+  @override
+  String get navProjects => 'Projects';
+
+  @override
+  String get composerHint => 'Write anything… an expense, a task, an idea';
+
+  @override
+  String get composerSend => 'Send';
+
+  @override
+  String get composerMic => 'Hold to talk, or tap to start and stop';
+
+  @override
+  String get chatTitle => 'Assistant';
+
+  @override
+  String get chatUndo => 'Undo';
+
+  @override
+  String chatVoiceKept(String reason) {
+    return 'I kept your voice note in the Inbox. $reason';
+  }
+
+  @override
+  String get chatEmpty =>
+      'Tell me what happened, in your own words. I\'ll show you what I understood before saving anything.';
+
+  @override
+  String get chatStateSaved => 'Saved';
+
+  @override
+  String get chatStateDropped => 'Not saved';
+
+  @override
+  String get chatStateUndone => 'Undone';
+
+  @override
+  String get chatStateEdited => 'Opened in the form';
+
+  @override
+  String chatDeleteEntry(String entry) {
+    return 'I\'ll delete «$entry».';
+  }
+
+  @override
+  String chatEditAmount(String entry, String amount) {
+    return 'I\'ll change the amount of «$entry» to $amount.';
+  }
+
+  @override
+  String chatEditCategory(String entry, String category) {
+    return 'I\'ll move «$entry» to «$category».';
+  }
+
+  @override
+  String chatEditDescription(String entry, String text) {
+    return 'I\'ll rename «$entry» to «$text».';
+  }
+
+  @override
+  String chatEntryLabel(String what, String date) {
+    return '$what on $date';
+  }
+
+  @override
+  String get chatNoEntry =>
+      'I couldn\'t find that entry. Open Finance to pick it yourself.';
+
+  @override
+  String get chatAskNewAmount => 'What should the new amount be?';
+
+  @override
+  String get tipAllClear =>
+      'All clear today. Write anything above and I\'ll sort it.';
+
+  @override
+  String tipBudgetNear(String name) {
+    return 'The «$name» budget is almost used up this month.';
+  }
+
+  @override
+  String get tipEmergencyLow =>
+      'The Emergency fund is below its target. A small top-up helps.';
+
+  @override
+  String tipOverdue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count tasks are overdue.',
+      one: '1 task is overdue.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String tipProjectStepSoon(String step, String project) {
+    return '«$step» in «$project» is due this week.';
+  }
+
+  @override
+  String get homeGreeting => 'What\'s on your mind?';
+
+  @override
+  String get homeToday => 'Today';
+
+  @override
+  String get homeTodayEmpty => 'Nothing due today.';
+
+  @override
+  String get homeRecent => 'Recent entries';
+
+  @override
+  String get homeRecentEmpty => 'Nothing recorded yet.';
+
+  @override
+  String get homeProjects => 'Active projects';
+
+  @override
+  String get homeProjectsEmpty =>
+      'No projects yet. Tell me about one and I\'ll help you plan it.';
+
+  @override
+  String get homeIncome => 'Income';
+
+  @override
+  String get homeExpense => 'Expense';
+
+  @override
+  String get setupAccountTitle => 'Your first account';
+
+  @override
+  String get setupAccountBody =>
+      'Where does your money sit? A wallet, a bank, a card. You can add more later, or just tell the assistant.';
+
+  @override
+  String get setupAccountName => 'Account name';
+
+  @override
+  String get setupAccountHint => 'e.g. Cash wallet';
+
+  @override
+  String get setupAccountCurrency => 'Currency';
+
+  @override
+  String chatAskCreateCategory(String name) {
+    return 'There is no «$name» category yet. Shall I create it?';
+  }
+
+  @override
+  String get chatAskCreateAccount =>
+      'You don\'t have an account yet. Which currency should the first one use?';
+
+  @override
+  String chatDefaultAccountName(String currency) {
+    return 'Cash $currency';
+  }
+
+  @override
+  String get chatYesCreate => 'Yes, create it';
+
+  @override
+  String get chatNoThanks => 'No, leave it';
+
+  @override
+  String chatAskRate(String currency) {
+    return 'What\'s the $currency rate today? (IQD for 1 $currency, or for 100)';
+  }
+
+  @override
+  String finRateToday(String currency) {
+    return 'Today\'s rate for 1 $currency';
+  }
+
+  @override
+  String get finRateSave => 'Save rate';
+
+  @override
+  String get finSuggestGoal => 'Your goal (optional)';
+
+  @override
+  String get finSuggestGoalHint => 'e.g. a car in two years, a small shop';
+
+  @override
+  String get finSuggestSplit => 'Suggest a split';
+
+  @override
+  String get finSuggestFailed => 'Couldn\'t get a suggestion. Try again.';
+
+  @override
+  String get aiConsentReceiptTitle => 'Receipt photos';
+
+  @override
+  String get aiConsentReceipt =>
+      'A photo of a receipt is sent to Groq so it can read the total. Nothing else from the app goes with it.';
+
+  @override
+  String get aiVisionModel => 'Receipt model (photos)';
+
+  @override
+  String get capReason_receiptKept =>
+      'I couldn\'t read this receipt. Reading photos needs online AI, a saved key and your OK for receipt photos.';
+
+  @override
+  String get composerCamera => 'Scan a receipt';
+
+  @override
+  String get chatReceiptSent => 'Receipt photo';
+
+  @override
+  String chatReceiptKept(String reason) {
+    return 'I kept the receipt photo in the Inbox. $reason';
+  }
+
+  @override
+  String get tasksToday => 'Today';
+
+  @override
+  String get tasksUpcoming => 'Upcoming';
+
+  @override
+  String get tasksOverdue => 'Overdue';
+
+  @override
+  String get tasksNoDate => 'No date';
+
+  @override
+  String get tasksDone => 'Done';
+
+  @override
+  String get tasksCalendar => 'Calendar';
+
+  @override
+  String get tasksNotes => 'Notes';
+
+  @override
+  String get tasksEmpty => 'Nothing here yet.';
+
+  @override
+  String get tasksAdd => 'Add a task';
+
+  @override
+  String get taskNew => 'New task';
+
+  @override
+  String get taskEdit => 'Edit task';
+
+  @override
+  String get taskTitleLabel => 'Title';
+
+  @override
+  String get taskKindTask => 'Task';
+
+  @override
+  String get taskKindAppointment => 'Appointment';
+
+  @override
+  String get taskKindReminder => 'Reminder';
+
+  @override
+  String get taskDate => 'Date';
+
+  @override
+  String get taskTime => 'Time';
+
+  @override
+  String get taskNoDate => 'No date';
+
+  @override
+  String get taskNoTime => 'No time';
+
+  @override
+  String get taskPlace => 'Place';
+
+  @override
+  String get taskNotesLabel => 'Notes';
+
+  @override
+  String get taskPriority => 'Priority';
+
+  @override
+  String get taskPrioLow => 'Low';
+
+  @override
+  String get taskPrioNormal => 'Normal';
+
+  @override
+  String get taskPrioHigh => 'High';
+
+  @override
+  String get taskRepeat => 'Repeat';
+
+  @override
+  String get taskRepeatNone => 'Never';
+
+  @override
+  String get taskRepeatDaily => 'Daily';
+
+  @override
+  String get taskRepeatWeekly => 'Weekly';
+
+  @override
+  String get taskRepeatMonthly => 'Monthly';
+
+  @override
+  String get taskDeleted => 'Task deleted';
+
+  @override
+  String get taskCompleted => 'Marked done';
+
+  @override
+  String get noteDeleted => 'Note deleted';
+
+  @override
+  String get noteNew => 'New note';
+
+  @override
+  String get noteEdit => 'Edit note';
+
+  @override
+  String get noteHint => 'Write the note';
+
+  @override
+  String get calendarNoTasks => 'Nothing on this day.';
+
+  @override
+  String get notifChannelName => 'Reminders';
+
+  @override
+  String get notifChannelDesc => 'Reminders for your tasks and appointments';
+
+  @override
+  String get notifDone => 'Done';
+
+  @override
+  String get notifSnooze1h => 'In 1 hour';
+
+  @override
+  String get notifTomorrow => 'Tomorrow 9:00';
+
+  @override
+  String get exactAlarmWarning =>
+      'Exact alarms are off, so reminders may come a few minutes late.';
+
+  @override
+  String get exactAlarmAllow => 'Allow';
+
+  @override
+  String chatTaskLine(String kind, String title, String when) {
+    return '$kind: «$title» — $when';
+  }
+
+  @override
+  String chatNoteLine(String text) {
+    return 'Note: «$text»';
+  }
+
+  @override
+  String chatProjectLine(String title) {
+    return 'Project idea: «$title» — I\'ll open it as a project and we can plan it together.';
+  }
+
+  @override
+  String get chatNoDate => 'no date';
+
+  @override
+  String get capWillBeTask => 'Will be saved as a task';
+
+  @override
+  String get capWillBeNote => 'Will be saved as a note';
+
+  @override
+  String get capSavesOnConfirm => 'Saved when you confirm.';
+
+  @override
+  String get chatOpenProject => 'Open the project';
+
+  @override
+  String get projectsEmpty =>
+      'No projects yet. Tap + or tell the chat your idea.';
+
+  @override
+  String get projectNew => 'New project';
+
+  @override
+  String get projectNameLabel => 'Project name';
+
+  @override
+  String get projectDescLabel => 'What is it? (optional)';
+
+  @override
+  String get projectStatusIdea => 'Idea';
+
+  @override
+  String get projectStatusPlanning => 'Planning';
+
+  @override
+  String get projectStatusActive => 'Running';
+
+  @override
+  String get projectStatusDone => 'Done';
+
+  @override
+  String get projectStatusDropped => 'Dropped';
+
+  @override
+  String projectProgress(int done, int total) {
+    return '$done of $total steps done';
+  }
+
+  @override
+  String get projectNoSteps =>
+      'No plan yet. Tell the planner below about your idea.';
+
+  @override
+  String get projectStepsToTasks => 'Make all steps tasks';
+
+  @override
+  String get projectStepToTask => 'Make a task';
+
+  @override
+  String projectTasksMade(int count) {
+    return '$count tasks added';
+  }
+
+  @override
+  String get projectCost => 'Cost';
+
+  @override
+  String get projectCostNone => 'No cost yet.';
+
+  @override
+  String get projectCostSet => 'Set the cost';
+
+  @override
+  String get projectCostNoRate => 'No exchange rate for this currency yet.';
+
+  @override
+  String get projectInInvestment => 'In Investment';
+
+  @override
+  String get projectStillMissing => 'Still missing';
+
+  @override
+  String get projectCovered => 'The Investment bucket covers it.';
+
+  @override
+  String projectMonthsToGo(int months) {
+    return 'About $months months at your usual pace.';
+  }
+
+  @override
+  String get projectNoPace =>
+      'Nothing went to Investment in the last 3 months, so no date can be worked out.';
+
+  @override
+  String get projectPlannerHint => 'Tell the planner about it…';
+
+  @override
+  String get projectPlannerSend => 'Send';
+
+  @override
+  String get projectPlannerOffline =>
+      'The planner needs online AI. Turn it on in Settings, then allow it.';
+
+  @override
+  String get projectPlannerFailed => 'The planner did not answer. Try again.';
+
+  @override
+  String projectPlanProposed(int count) {
+    return 'A plan with $count steps';
+  }
+
+  @override
+  String get projectPlanUse => 'Use this plan';
+
+  @override
+  String get projectPlanSaved => 'Plan saved.';
+
+  @override
+  String get projectDelete => 'Delete project';
+
+  @override
+  String get projectDeleteAsk =>
+      'Delete this project? Its steps and chat go; tasks already made stay.';
+
+  @override
+  String get projectApplyTicks => 'Update the steps';
+
+  @override
+  String get chatSaveFailed =>
+      'I couldn\'t save that. Check the details, or open the full form with Edit.';
 }

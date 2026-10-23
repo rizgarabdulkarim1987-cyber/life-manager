@@ -92,6 +92,9 @@ class RatesRepository {
     return row == null ? null : _value(row);
   }
 
+  /// The newest rate for the pair, whatever its day.
+  Future<RateValue?> latest(String base, String quote) => rateOn(base, quote, DateTime.utc(9999));
+
   /// Every stored rate, any pair, oldest first (for lookups over a range).
   Future<List<RateValue>> all() async {
     final rows = await (_db.select(_db.exchangeRates)..orderBy([(r) => OrderingTerm.asc(r.effectiveFrom)])).get();

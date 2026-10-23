@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:life_manager/app/providers.dart';
-import 'package:life_manager/features/lock/lock_controller.dart';
-import 'package:life_manager/features/lock/pin_service.dart';
 
 import '../../helpers/app_harness.dart';
 
@@ -27,24 +25,13 @@ void main() {
   testWidgets('theme choice changes brightness', (t) async {
     await pumpApp(t, locale: 'en');
     await openSettings(t);
-    expect(Theme.of(t.element(find.byKey(const ValueKey('settings-screen')))).brightness, Brightness.dark);
-    await t.scrollUntilVisible(find.byKey(const ValueKey('theme-light')), 100);
-    await t.ensureVisible(find.byKey(const ValueKey('theme-light')));
-    await t.pumpAndSettle();
-    await t.tap(find.byKey(const ValueKey('theme-light')));
-    await t.pumpAndSettle();
     expect(Theme.of(t.element(find.byKey(const ValueKey('settings-screen')))).brightness, Brightness.light);
-  });
-
-  testWidgets('biometric switch is disabled when unavailable', (t) async {
-    await pumpApp(t, locale: 'en');
-    await openSettings(t);
-    await t.scrollUntilVisible(find.byKey(const ValueKey('bio-switch')), 100);
-    await t.ensureVisible(find.byKey(const ValueKey('bio-switch')));
+    await t.scrollUntilVisible(find.byKey(const ValueKey('theme-dark')), 100);
+    await t.ensureVisible(find.byKey(const ValueKey('theme-dark')));
     await t.pumpAndSettle();
-    final tile = t.widget<SwitchListTile>(find.byKey(const ValueKey('bio-switch')));
-    expect(tile.onChanged, isNull);
-    expect(find.text('No fingerprint or face unlock is set up on this phone'), findsOneWidget);
+    await t.tap(find.byKey(const ValueKey('theme-dark')));
+    await t.pumpAndSettle();
+    expect(Theme.of(t.element(find.byKey(const ValueKey('settings-screen')))).brightness, Brightness.dark);
   });
 
   testWidgets('lock timeout can be changed', (t) async {
@@ -55,9 +42,20 @@ void main() {
     await t.pumpAndSettle();
     await t.tap(find.byKey(const ValueKey('lock-timeout')));
     await t.pumpAndSettle();
-    await t.tap(find.byKey(const ValueKey('timeout-900')));
+    for (final s in [0, 30, 60, 300, 900]) {
+      expect(find.byKey(ValueKey('timeout-$s')), findsOneWidget);
+    }
+    await t.tap(find.byKey(const ValueKey('timeout-30')));
     await t.pumpAndSettle();
-    expect((await c.read(settingsRepositoryProvider).get()).lockTimeoutSeconds, 900);
+    expect((await c.read(settingsRepositoryProvider).get()).lockTimeoutSeconds, 30);
+  });
+
+  testWidgets('the lock has no PIN to change and explains face unlock', (t) async {
+    await pumpApp(t, locale: 'en');
+    await openSettings(t);
+    await t.scrollUntilVisible(find.byKey(const ValueKey('face-unlock-note')), 100);
+    expect(find.byKey(const ValueKey('change-pin')), findsNothing);
+    expect(find.byKey(const ValueKey('bio-switch')), findsNothing);
   });
 
   testWidgets('never backed up shows a warning subtitle', (t) async {
@@ -67,29 +65,6 @@ void main() {
     await t.ensureVisible(find.text('Never backed up'));
     await t.pumpAndSettle();
     expect(find.text('Never backed up'), findsOneWidget);
-  });
-
-  testWidgets('change PIN needs the current PIN', (t) async {
-    final c = await pumpApp(t, locale: 'en');
-    await openSettings(t);
-    await t.scrollUntilVisible(find.byKey(const ValueKey('change-pin')), 100);
-    await t.ensureVisible(find.byKey(const ValueKey('change-pin')));
-    await t.pumpAndSettle();
-    await t.tap(find.byKey(const ValueKey('change-pin')));
-    await t.pumpAndSettle();
-    Future<void> enter(String pin) async {
-      for (final d in pin.split('')) {
-        await t.tap(find.byKey(ValueKey('pin-key-$d')));
-        await t.pump();
-      }
-      await t.pumpAndSettle();
-    }
-
-    await enter('123456');
-    await enter('111111');
-    await enter('111111');
-    expect(find.text('PIN changed'), findsOneWidget);
-    expect(await c.read(pinServiceProvider).verify('111111'), isA<PinOk>());
   });
 
   testWidgets('settings fits a small phone in Kurdish', (t) async {

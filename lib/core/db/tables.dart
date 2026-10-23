@@ -45,8 +45,8 @@ class AppSettingsTable extends Table {
 
   IntColumn get id => integer().check(id.equals(1)).withDefault(const Constant(1))();
   TextColumn get localeCode => text().withDefault(const Constant('ar'))();
-  TextColumn get themeMode => text().withDefault(const Constant('dark'))();
-  IntColumn get lockTimeoutSeconds => integer().withDefault(const Constant(300))();
+  TextColumn get themeMode => text().withDefault(const Constant('light'))();
+  IntColumn get lockTimeoutSeconds => integer().withDefault(const Constant(60))();
   BoolColumn get biometricEnabled => boolean().withDefault(const Constant(false))();
   TextColumn get baseCurrency => text().withDefault(const Constant('IQD'))();
   BoolColumn get setupCompleted => boolean().withDefault(const Constant(false))();
@@ -62,6 +62,10 @@ class AppSettingsTable extends Table {
       text().withDefault(const Constant('small')).check(localWhisperModel.isIn(const ['small', 'base']))();
   BoolColumn get unallocatedIncomeAlert => boolean().withDefault(const Constant(false))();
   BoolColumn get bucketsConfirmed => boolean().withDefault(const Constant(false))();
+
+  // Redesign (schema v3)
+  TextColumn get groqVisionModel => text().withDefault(const Constant('meta-llama/llama-4-scout-17b-16e-instruct'))();
+  TextColumn get aiReceiptConsent => text().nullable().check(aiReceiptConsent.isIn(const ['granted', 'declined']))();
 
   @override
   Set<Column> get primaryKey => {id};

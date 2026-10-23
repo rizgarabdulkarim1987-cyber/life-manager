@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:typed_data';
 
+import 'package:life_manager/features/capture/speech/recorder.dart';
 import 'package:life_manager/core/crypto/kdf.dart';
 import 'package:life_manager/core/net/http_port.dart';
 import 'package:life_manager/features/lock/biometric_authenticator.dart';
@@ -18,12 +20,12 @@ class FakeKdf implements Kdf {
 }
 
 class FakeBiometric implements BiometricAuthenticator {
-  FakeBiometric({required this.available, required this.result});
-  final bool available;
-  final bool result;
+  FakeBiometric({this.deviceSupported = true, this.result = true});
+  final bool deviceSupported;
+  bool result;
   int prompts = 0;
   @override
-  Future<bool> isAvailable() async => available;
+  Future<bool> deviceSecure() async => deviceSupported;
   @override
   Future<bool> authenticate(String reason) async {
     prompts++;
@@ -88,4 +90,32 @@ class FakeHttpPort implements HttpPort {
     if (s == null) throw StateError('no stream configured');
     return s(u);
   }
+}
+
+class FakeRecorder implements AudioRecorderPort {
+  FakeRecorder({this.allowed = true});
+
+  final bool allowed;
+  final levels = StreamController<double>.broadcast();
+  int starts = 0;
+  int stops = 0;
+  int cancels = 0;
+
+  @override
+  Future<bool> ensurePermission() async => allowed;
+
+  @override
+  Future<void> start() async => starts++;
+
+  @override
+  Stream<double> get level => levels.stream;
+
+  @override
+  Future<Uint8List> stop() async {
+    stops++;
+    return Uint8List.fromList(List.filled(32, 1));
+  }
+
+  @override
+  Future<void> cancel() async => cancels++;
 }

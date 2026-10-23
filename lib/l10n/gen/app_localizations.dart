@@ -63,7 +63,8 @@ import 'app_localizations_en.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale)
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -71,7 +72,8 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations)!;
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -83,15 +85,20 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('ar'), Locale('ckb'), Locale('en')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('ar'),
+    Locale('ckb'),
+    Locale('en'),
+  ];
 
   /// No description provided for @appTitle.
   ///
@@ -2802,8 +2809,38 @@ abstract class AppLocalizations {
   /// No description provided for @capReason_noSpeechEngine.
   ///
   /// In en, this message translates to:
-  /// **'No speech engine yet. Turn on online AI or install an offline model in Settings.'**
+  /// **'Not turned into text yet.'**
   String get capReason_noSpeechEngine;
+
+  /// No description provided for @capReason_noSpeechOnlineOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Online AI is off and no offline speech model is installed. Turn on online AI or download the model in Settings → Online AI.'**
+  String get capReason_noSpeechOnlineOff;
+
+  /// No description provided for @capReason_noSpeechNoKey.
+  ///
+  /// In en, this message translates to:
+  /// **'No Groq key is saved. Add it in Settings → Online AI, or download the offline speech model there.'**
+  String get capReason_noSpeechNoKey;
+
+  /// No description provided for @capReason_noSpeechNotAsked.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice isn\'t allowed to go to Groq yet. Tap the mic and choose Allow, or download the offline speech model in Settings → Online AI.'**
+  String get capReason_noSpeechNotAsked;
+
+  /// No description provided for @capReason_noSpeechDeclined.
+  ///
+  /// In en, this message translates to:
+  /// **'You chose not to send voice to Groq. Tap Ask again in Settings → Online AI, or download the offline speech model there.'**
+  String get capReason_noSpeechDeclined;
+
+  /// No description provided for @capReason_noSpeechOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'No offline speech model is installed. Download it in Settings → Online AI.'**
+  String get capReason_noSpeechOffline;
 
   /// No description provided for @capReason_sttFailed.
   ///
@@ -3002,9 +3039,1120 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Will become a note in phase {phase}'**
   String capWillBecomeNote(int phase);
+
+  /// No description provided for @showAmounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Show amounts'**
+  String get showAmounts;
+
+  /// No description provided for @hideAmounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide amounts'**
+  String get hideAmounts;
+
+  /// No description provided for @lockedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Locked'**
+  String get lockedTitle;
+
+  /// No description provided for @lockedHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Use your face, fingerprint or screen lock'**
+  String get lockedHint;
+
+  /// No description provided for @unlockButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock'**
+  String get unlockButton;
+
+  /// No description provided for @noScreenLockTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your phone has no screen lock'**
+  String get noScreenLockTitle;
+
+  /// No description provided for @noScreenLockBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This app protects your money and notes with your phone\'s own lock. Turn on a PIN, pattern, fingerprint or face unlock first.'**
+  String get noScreenLockBody;
+
+  /// No description provided for @openSecuritySettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open security settings'**
+  String get openSecuritySettings;
+
+  /// No description provided for @sensitiveLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'This section asks for your face or fingerprint again'**
+  String get sensitiveLocked;
+
+  /// No description provided for @faceUnlockNote.
+  ///
+  /// In en, this message translates to:
+  /// **'If face unlock isn\'t offered, your phone doesn\'t share it with apps; fingerprint and screen lock still work.'**
+  String get faceUnlockNote;
+
+  /// No description provided for @lockSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Lock'**
+  String get lockSection;
+
+  /// No description provided for @lockAfterSeconds.
+  ///
+  /// In en, this message translates to:
+  /// **'After {seconds} seconds'**
+  String lockAfterSeconds(int seconds);
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @finDeletedMany.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} transactions deleted'**
+  String finDeletedMany(int count);
+
+  /// No description provided for @selectedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} selected'**
+  String selectedCount(int count);
+
+  /// No description provided for @chatExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll record {amount} spent on «{category}» from «{account}».'**
+  String chatExpense(String amount, String category, String account);
+
+  /// No description provided for @chatIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll record {amount} income «{category}» into «{account}».'**
+  String chatIncome(String amount, String category, String account);
+
+  /// No description provided for @chatTransfer.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll move {amount} from «{from}» to «{to}».'**
+  String chatTransfer(String amount, String from, String to);
+
+  /// No description provided for @chatDebtOwedToMe.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll record that {who} owes you {amount}.'**
+  String chatDebtOwedToMe(String who, String amount);
+
+  /// No description provided for @chatDebtOwedByMe.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll record that you owe {who} {amount}.'**
+  String chatDebtOwedByMe(String who, String amount);
+
+  /// No description provided for @chatDebtRepay.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll record a repayment of {amount} with {who}.'**
+  String chatDebtRepay(String who, String amount);
+
+  /// No description provided for @chatLater.
+  ///
+  /// In en, this message translates to:
+  /// **'«{text}» — I\'ll keep this in the Inbox until that part of the app is ready.'**
+  String chatLater(String text);
+
+  /// No description provided for @chatNoCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'no category'**
+  String get chatNoCategory;
+
+  /// No description provided for @chatConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'OK?'**
+  String get chatConfirm;
+
+  /// No description provided for @chatSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved.'**
+  String get chatSaved;
+
+  /// No description provided for @chatDroppedAll.
+  ///
+  /// In en, this message translates to:
+  /// **'OK, nothing saved.'**
+  String get chatDroppedAll;
+
+  /// No description provided for @chatUndone.
+  ///
+  /// In en, this message translates to:
+  /// **'Undone. Nothing from that message is saved now.'**
+  String get chatUndone;
+
+  /// No description provided for @chatNotUnderstood.
+  ///
+  /// In en, this message translates to:
+  /// **'I didn\'t get that. I\'ve kept it in the Inbox so you can come back to it.'**
+  String get chatNotUnderstood;
+
+  /// No description provided for @chatAskAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'How much?'**
+  String get chatAskAmount;
+
+  /// No description provided for @chatAskAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'From which account?'**
+  String get chatAskAccount;
+
+  /// No description provided for @chatAskToAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'To which account?'**
+  String get chatAskToAccount;
+
+  /// No description provided for @chatAskCounterparty.
+  ///
+  /// In en, this message translates to:
+  /// **'Who is it with?'**
+  String get chatAskCounterparty;
+
+  /// No description provided for @chatAskDirection.
+  ///
+  /// In en, this message translates to:
+  /// **'Do they owe you, or do you owe them?'**
+  String get chatAskDirection;
+
+  /// No description provided for @chatAskLeg.
+  ///
+  /// In en, this message translates to:
+  /// **'Is this a new debt or a repayment?'**
+  String get chatAskLeg;
+
+  /// No description provided for @chatOwedToMe.
+  ///
+  /// In en, this message translates to:
+  /// **'They owe me'**
+  String get chatOwedToMe;
+
+  /// No description provided for @chatOwedByMe.
+  ///
+  /// In en, this message translates to:
+  /// **'I owe them'**
+  String get chatOwedByMe;
+
+  /// No description provided for @chatNewDebt.
+  ///
+  /// In en, this message translates to:
+  /// **'New debt'**
+  String get chatNewDebt;
+
+  /// No description provided for @chatRepayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Repayment'**
+  String get chatRepayment;
+
+  /// No description provided for @chatHandedToForm.
+  ///
+  /// In en, this message translates to:
+  /// **'Opened in the full form.'**
+  String get chatHandedToForm;
+
+  /// No description provided for @chatOk.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get chatOk;
+
+  /// No description provided for @chatEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get chatEdit;
+
+  /// No description provided for @chatDrop.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get chatDrop;
+
+  /// No description provided for @navProjects.
+  ///
+  /// In en, this message translates to:
+  /// **'Projects'**
+  String get navProjects;
+
+  /// No description provided for @composerHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write anything… an expense, a task, an idea'**
+  String get composerHint;
+
+  /// No description provided for @composerSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get composerSend;
+
+  /// No description provided for @composerMic.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold to talk, or tap to start and stop'**
+  String get composerMic;
+
+  /// No description provided for @chatTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Assistant'**
+  String get chatTitle;
+
+  /// No description provided for @chatUndo.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get chatUndo;
+
+  /// No description provided for @chatVoiceKept.
+  ///
+  /// In en, this message translates to:
+  /// **'I kept your voice note in the Inbox. {reason}'**
+  String chatVoiceKept(String reason);
+
+  /// No description provided for @chatEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell me what happened, in your own words. I\'ll show you what I understood before saving anything.'**
+  String get chatEmpty;
+
+  /// No description provided for @chatStateSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved'**
+  String get chatStateSaved;
+
+  /// No description provided for @chatStateDropped.
+  ///
+  /// In en, this message translates to:
+  /// **'Not saved'**
+  String get chatStateDropped;
+
+  /// No description provided for @chatStateUndone.
+  ///
+  /// In en, this message translates to:
+  /// **'Undone'**
+  String get chatStateUndone;
+
+  /// No description provided for @chatStateEdited.
+  ///
+  /// In en, this message translates to:
+  /// **'Opened in the form'**
+  String get chatStateEdited;
+
+  /// No description provided for @chatDeleteEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll delete «{entry}».'**
+  String chatDeleteEntry(String entry);
+
+  /// No description provided for @chatEditAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll change the amount of «{entry}» to {amount}.'**
+  String chatEditAmount(String entry, String amount);
+
+  /// No description provided for @chatEditCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll move «{entry}» to «{category}».'**
+  String chatEditCategory(String entry, String category);
+
+  /// No description provided for @chatEditDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'ll rename «{entry}» to «{text}».'**
+  String chatEditDescription(String entry, String text);
+
+  /// No description provided for @chatEntryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{what} on {date}'**
+  String chatEntryLabel(String what, String date);
+
+  /// No description provided for @chatNoEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'I couldn\'t find that entry. Open Finance to pick it yourself.'**
+  String get chatNoEntry;
+
+  /// No description provided for @chatAskNewAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'What should the new amount be?'**
+  String get chatAskNewAmount;
+
+  /// No description provided for @tipAllClear.
+  ///
+  /// In en, this message translates to:
+  /// **'All clear today. Write anything above and I\'ll sort it.'**
+  String get tipAllClear;
+
+  /// No description provided for @tipBudgetNear.
+  ///
+  /// In en, this message translates to:
+  /// **'The «{name}» budget is almost used up this month.'**
+  String tipBudgetNear(String name);
+
+  /// No description provided for @tipEmergencyLow.
+  ///
+  /// In en, this message translates to:
+  /// **'The Emergency fund is below its target. A small top-up helps.'**
+  String get tipEmergencyLow;
+
+  /// No description provided for @tipOverdue.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 task is overdue.} other{{count} tasks are overdue.}}'**
+  String tipOverdue(int count);
+
+  /// No description provided for @tipProjectStepSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'«{step}» in «{project}» is due this week.'**
+  String tipProjectStepSoon(String step, String project);
+
+  /// No description provided for @homeGreeting.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s on your mind?'**
+  String get homeGreeting;
+
+  /// No description provided for @homeToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get homeToday;
+
+  /// No description provided for @homeTodayEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing due today.'**
+  String get homeTodayEmpty;
+
+  /// No description provided for @homeRecent.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent entries'**
+  String get homeRecent;
+
+  /// No description provided for @homeRecentEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing recorded yet.'**
+  String get homeRecentEmpty;
+
+  /// No description provided for @homeProjects.
+  ///
+  /// In en, this message translates to:
+  /// **'Active projects'**
+  String get homeProjects;
+
+  /// No description provided for @homeProjectsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No projects yet. Tell me about one and I\'ll help you plan it.'**
+  String get homeProjectsEmpty;
+
+  /// No description provided for @homeIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Income'**
+  String get homeIncome;
+
+  /// No description provided for @homeExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Expense'**
+  String get homeExpense;
+
+  /// No description provided for @setupAccountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your first account'**
+  String get setupAccountTitle;
+
+  /// No description provided for @setupAccountBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Where does your money sit? A wallet, a bank, a card. You can add more later, or just tell the assistant.'**
+  String get setupAccountBody;
+
+  /// No description provided for @setupAccountName.
+  ///
+  /// In en, this message translates to:
+  /// **'Account name'**
+  String get setupAccountName;
+
+  /// No description provided for @setupAccountHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Cash wallet'**
+  String get setupAccountHint;
+
+  /// No description provided for @setupAccountCurrency.
+  ///
+  /// In en, this message translates to:
+  /// **'Currency'**
+  String get setupAccountCurrency;
+
+  /// No description provided for @chatAskCreateCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'There is no «{name}» category yet. Shall I create it?'**
+  String chatAskCreateCategory(String name);
+
+  /// No description provided for @chatAskCreateAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'You don\'t have an account yet. Which currency should the first one use?'**
+  String get chatAskCreateAccount;
+
+  /// No description provided for @chatDefaultAccountName.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash {currency}'**
+  String chatDefaultAccountName(String currency);
+
+  /// No description provided for @chatYesCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, create it'**
+  String get chatYesCreate;
+
+  /// No description provided for @chatNoThanks.
+  ///
+  /// In en, this message translates to:
+  /// **'No, leave it'**
+  String get chatNoThanks;
+
+  /// No description provided for @chatAskRate.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s the {currency} rate today? (IQD for 1 {currency}, or for 100)'**
+  String chatAskRate(String currency);
+
+  /// No description provided for @finRateToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s rate for 1 {currency}'**
+  String finRateToday(String currency);
+
+  /// No description provided for @finRateSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save rate'**
+  String get finRateSave;
+
+  /// No description provided for @finSuggestGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Your goal (optional)'**
+  String get finSuggestGoal;
+
+  /// No description provided for @finSuggestGoalHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. a car in two years, a small shop'**
+  String get finSuggestGoalHint;
+
+  /// No description provided for @finSuggestSplit.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggest a split'**
+  String get finSuggestSplit;
+
+  /// No description provided for @finSuggestFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t get a suggestion. Try again.'**
+  String get finSuggestFailed;
+
+  /// No description provided for @aiConsentReceiptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt photos'**
+  String get aiConsentReceiptTitle;
+
+  /// No description provided for @aiConsentReceipt.
+  ///
+  /// In en, this message translates to:
+  /// **'A photo of a receipt is sent to Groq so it can read the total. Nothing else from the app goes with it.'**
+  String get aiConsentReceipt;
+
+  /// No description provided for @aiVisionModel.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt model (photos)'**
+  String get aiVisionModel;
+
+  /// No description provided for @capReason_receiptKept.
+  ///
+  /// In en, this message translates to:
+  /// **'I couldn\'t read this receipt. Reading photos needs online AI, a saved key and your OK for receipt photos.'**
+  String get capReason_receiptKept;
+
+  /// No description provided for @composerCamera.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan a receipt'**
+  String get composerCamera;
+
+  /// No description provided for @chatReceiptSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt photo'**
+  String get chatReceiptSent;
+
+  /// No description provided for @chatReceiptKept.
+  ///
+  /// In en, this message translates to:
+  /// **'I kept the receipt photo in the Inbox. {reason}'**
+  String chatReceiptKept(String reason);
+
+  /// No description provided for @tasksToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get tasksToday;
+
+  /// No description provided for @tasksUpcoming.
+  ///
+  /// In en, this message translates to:
+  /// **'Upcoming'**
+  String get tasksUpcoming;
+
+  /// No description provided for @tasksOverdue.
+  ///
+  /// In en, this message translates to:
+  /// **'Overdue'**
+  String get tasksOverdue;
+
+  /// No description provided for @tasksNoDate.
+  ///
+  /// In en, this message translates to:
+  /// **'No date'**
+  String get tasksNoDate;
+
+  /// No description provided for @tasksDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get tasksDone;
+
+  /// No description provided for @tasksCalendar.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar'**
+  String get tasksCalendar;
+
+  /// No description provided for @tasksNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get tasksNotes;
+
+  /// No description provided for @tasksEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing here yet.'**
+  String get tasksEmpty;
+
+  /// No description provided for @tasksAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a task'**
+  String get tasksAdd;
+
+  /// No description provided for @taskNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New task'**
+  String get taskNew;
+
+  /// No description provided for @taskEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit task'**
+  String get taskEdit;
+
+  /// No description provided for @taskTitleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get taskTitleLabel;
+
+  /// No description provided for @taskKindTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Task'**
+  String get taskKindTask;
+
+  /// No description provided for @taskKindAppointment.
+  ///
+  /// In en, this message translates to:
+  /// **'Appointment'**
+  String get taskKindAppointment;
+
+  /// No description provided for @taskKindReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder'**
+  String get taskKindReminder;
+
+  /// No description provided for @taskDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get taskDate;
+
+  /// No description provided for @taskTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get taskTime;
+
+  /// No description provided for @taskNoDate.
+  ///
+  /// In en, this message translates to:
+  /// **'No date'**
+  String get taskNoDate;
+
+  /// No description provided for @taskNoTime.
+  ///
+  /// In en, this message translates to:
+  /// **'No time'**
+  String get taskNoTime;
+
+  /// No description provided for @taskPlace.
+  ///
+  /// In en, this message translates to:
+  /// **'Place'**
+  String get taskPlace;
+
+  /// No description provided for @taskNotesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get taskNotesLabel;
+
+  /// No description provided for @taskPriority.
+  ///
+  /// In en, this message translates to:
+  /// **'Priority'**
+  String get taskPriority;
+
+  /// No description provided for @taskPrioLow.
+  ///
+  /// In en, this message translates to:
+  /// **'Low'**
+  String get taskPrioLow;
+
+  /// No description provided for @taskPrioNormal.
+  ///
+  /// In en, this message translates to:
+  /// **'Normal'**
+  String get taskPrioNormal;
+
+  /// No description provided for @taskPrioHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'High'**
+  String get taskPrioHigh;
+
+  /// No description provided for @taskRepeat.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat'**
+  String get taskRepeat;
+
+  /// No description provided for @taskRepeatNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Never'**
+  String get taskRepeatNone;
+
+  /// No description provided for @taskRepeatDaily.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily'**
+  String get taskRepeatDaily;
+
+  /// No description provided for @taskRepeatWeekly.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly'**
+  String get taskRepeatWeekly;
+
+  /// No description provided for @taskRepeatMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get taskRepeatMonthly;
+
+  /// No description provided for @taskDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Task deleted'**
+  String get taskDeleted;
+
+  /// No description provided for @taskCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Marked done'**
+  String get taskCompleted;
+
+  /// No description provided for @noteDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Note deleted'**
+  String get noteDeleted;
+
+  /// No description provided for @noteNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New note'**
+  String get noteNew;
+
+  /// No description provided for @noteEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit note'**
+  String get noteEdit;
+
+  /// No description provided for @noteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write the note'**
+  String get noteHint;
+
+  /// No description provided for @calendarNoTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing on this day.'**
+  String get calendarNoTasks;
+
+  /// No description provided for @notifChannelName.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders'**
+  String get notifChannelName;
+
+  /// No description provided for @notifChannelDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders for your tasks and appointments'**
+  String get notifChannelDesc;
+
+  /// No description provided for @notifDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get notifDone;
+
+  /// No description provided for @notifSnooze1h.
+  ///
+  /// In en, this message translates to:
+  /// **'In 1 hour'**
+  String get notifSnooze1h;
+
+  /// No description provided for @notifTomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow 9:00'**
+  String get notifTomorrow;
+
+  /// No description provided for @exactAlarmWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Exact alarms are off, so reminders may come a few minutes late.'**
+  String get exactAlarmWarning;
+
+  /// No description provided for @exactAlarmAllow.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow'**
+  String get exactAlarmAllow;
+
+  /// No description provided for @chatTaskLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{kind}: «{title}» — {when}'**
+  String chatTaskLine(String kind, String title, String when);
+
+  /// No description provided for @chatNoteLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Note: «{text}»'**
+  String chatNoteLine(String text);
+
+  /// No description provided for @chatProjectLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Project idea: «{title}» — I\'ll open it as a project and we can plan it together.'**
+  String chatProjectLine(String title);
+
+  /// No description provided for @chatNoDate.
+  ///
+  /// In en, this message translates to:
+  /// **'no date'**
+  String get chatNoDate;
+
+  /// No description provided for @capWillBeTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Will be saved as a task'**
+  String get capWillBeTask;
+
+  /// No description provided for @capWillBeNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Will be saved as a note'**
+  String get capWillBeNote;
+
+  /// No description provided for @capSavesOnConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved when you confirm.'**
+  String get capSavesOnConfirm;
+
+  /// No description provided for @chatOpenProject.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the project'**
+  String get chatOpenProject;
+
+  /// No description provided for @projectsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No projects yet. Tap + or tell the chat your idea.'**
+  String get projectsEmpty;
+
+  /// No description provided for @projectNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New project'**
+  String get projectNew;
+
+  /// No description provided for @projectNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Project name'**
+  String get projectNameLabel;
+
+  /// No description provided for @projectDescLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'What is it? (optional)'**
+  String get projectDescLabel;
+
+  /// No description provided for @projectStatusIdea.
+  ///
+  /// In en, this message translates to:
+  /// **'Idea'**
+  String get projectStatusIdea;
+
+  /// No description provided for @projectStatusPlanning.
+  ///
+  /// In en, this message translates to:
+  /// **'Planning'**
+  String get projectStatusPlanning;
+
+  /// No description provided for @projectStatusActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Running'**
+  String get projectStatusActive;
+
+  /// No description provided for @projectStatusDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get projectStatusDone;
+
+  /// No description provided for @projectStatusDropped.
+  ///
+  /// In en, this message translates to:
+  /// **'Dropped'**
+  String get projectStatusDropped;
+
+  /// No description provided for @projectProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {total} steps done'**
+  String projectProgress(int done, int total);
+
+  /// No description provided for @projectNoSteps.
+  ///
+  /// In en, this message translates to:
+  /// **'No plan yet. Tell the planner below about your idea.'**
+  String get projectNoSteps;
+
+  /// No description provided for @projectStepsToTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'Make all steps tasks'**
+  String get projectStepsToTasks;
+
+  /// No description provided for @projectStepToTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Make a task'**
+  String get projectStepToTask;
+
+  /// No description provided for @projectTasksMade.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} tasks added'**
+  String projectTasksMade(int count);
+
+  /// No description provided for @projectCost.
+  ///
+  /// In en, this message translates to:
+  /// **'Cost'**
+  String get projectCost;
+
+  /// No description provided for @projectCostNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No cost yet.'**
+  String get projectCostNone;
+
+  /// No description provided for @projectCostSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Set the cost'**
+  String get projectCostSet;
+
+  /// No description provided for @projectCostNoRate.
+  ///
+  /// In en, this message translates to:
+  /// **'No exchange rate for this currency yet.'**
+  String get projectCostNoRate;
+
+  /// No description provided for @projectInInvestment.
+  ///
+  /// In en, this message translates to:
+  /// **'In Investment'**
+  String get projectInInvestment;
+
+  /// No description provided for @projectStillMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Still missing'**
+  String get projectStillMissing;
+
+  /// No description provided for @projectCovered.
+  ///
+  /// In en, this message translates to:
+  /// **'The Investment bucket covers it.'**
+  String get projectCovered;
+
+  /// No description provided for @projectMonthsToGo.
+  ///
+  /// In en, this message translates to:
+  /// **'About {months} months at your usual pace.'**
+  String projectMonthsToGo(int months);
+
+  /// No description provided for @projectNoPace.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing went to Investment in the last 3 months, so no date can be worked out.'**
+  String get projectNoPace;
+
+  /// No description provided for @projectPlannerHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell the planner about it…'**
+  String get projectPlannerHint;
+
+  /// No description provided for @projectPlannerSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get projectPlannerSend;
+
+  /// No description provided for @projectPlannerOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'The planner needs online AI. Turn it on in Settings, then allow it.'**
+  String get projectPlannerOffline;
+
+  /// No description provided for @projectPlannerFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The planner did not answer. Try again.'**
+  String get projectPlannerFailed;
+
+  /// No description provided for @projectPlanProposed.
+  ///
+  /// In en, this message translates to:
+  /// **'A plan with {count} steps'**
+  String projectPlanProposed(int count);
+
+  /// No description provided for @projectPlanUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Use this plan'**
+  String get projectPlanUse;
+
+  /// No description provided for @projectPlanSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan saved.'**
+  String get projectPlanSaved;
+
+  /// No description provided for @projectDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete project'**
+  String get projectDelete;
+
+  /// No description provided for @projectDeleteAsk.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this project? Its steps and chat go; tasks already made stay.'**
+  String get projectDeleteAsk;
+
+  /// No description provided for @projectApplyTicks.
+  ///
+  /// In en, this message translates to:
+  /// **'Update the steps'**
+  String get projectApplyTicks;
+
+  /// No description provided for @chatSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'I couldn\'t save that. Check the details, or open the full form with Edit.'**
+  String get chatSaveFailed;
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -3013,7 +4161,8 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['ar', 'ckb', 'en'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['ar', 'ckb', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;

@@ -8,6 +8,8 @@ import '../../../core/money/amount_parse.dart';
 import '../../../core/money/money.dart';
 import '../../../core/text/digits.dart';
 import '../../../core/theme/tokens.dart';
+import '../../capture/ai/ai_config.dart';
+import '../ai/split_suggester.dart';
 import '../data/categories_repository.dart';
 import '../data/finance_providers.dart';
 import '../domain/buckets_math.dart';
@@ -262,7 +264,51 @@ class _PercentagesSheetState extends ConsumerState<_PercentagesSheet> {
     for (final c in _ctl.values) {
       c.dispose();
     }
+    _goal.dispose();
     super.dispose();
+  }
+
+  final _goal = TextEditingController();
+  var _suggesting = false;
+  var _online = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkOnline();
+  }
+
+  /// The suggestion needs online AI; without it the button isn't shown.
+  Future<void> _checkOnline() async {
+    try {
+      final s = ref.read(settingsProvider).value;
+      final ok = s != null && await canUseOnline(AiFeature.parse, s, ref.read(groqKeyStoreProvider));
+      if (mounted && ok) setState(() => _online = true);
+    } catch (_) {}
+  }
+
+  /// Fills the fields with the AI's split; nothing is saved until Save.
+  Future<void> _suggest() async {
+    final goal = _goal.text.trim();
+    if (_suggesting) return;
+    setState(() => _suggesting = true);
+    final l = context.l10n;
+    final messenger = ScaffoldMessenger.maybeOf(context);
+    try {
+      final model = ref.read(settingsProvider).value?.groqLlmModel ?? 'llama-3.3-70b-versatile';
+      final split = await suggestSplit(ref.read(groqClientProvider), model, goal);
+      if (!mounted) return;
+      setState(() {
+        for (final b in widget.buckets) {
+          final bp = split[b.systemKey];
+          if (bp != null) _ctl[b.id]!.text = formatBp(bp);
+        }
+      });
+    } catch (_) {
+      messenger?.showSnackBar(SnackBar(content: Text(l.finSuggestFailed)));
+    } finally {
+      if (mounted) setState(() => _suggesting = false);
+    }
   }
 
   Map<int, int?> get _values => {for (final e in _ctl.entries) e.key: parsePercentBp(e.value.text)};
@@ -296,6 +342,28 @@ class _PercentagesSheetState extends ConsumerState<_PercentagesSheet> {
               const SizedBox(height: 6),
               Text(l.finPercentagesNote, style: text.bodyMedium?.copyWith(color: k.textMuted)),
               const SizedBox(height: 16),
+              if (_online) ...[
+                TextField(
+                  key: const ValueKey('suggest-goal'),
+                  controller: _goal,
+                  minLines: 1,
+                  maxLines: 3,
+                  decoration: InputDecoration(labelText: l.finSuggestGoal, hintText: l.finSuggestGoalHint),
+                ),
+                const SizedBox(height: 8),
+                Align(
+                  alignment: AlignmentDirectional.centerStart,
+                  child: TextButton.icon(
+                    key: const ValueKey('suggest-split'),
+                    onPressed: _suggesting ? null : _suggest,
+                    icon: _suggesting
+                        ? const SizedBox.square(dimension: 18, child: CircularProgressIndicator(strokeWidth: 2))
+                        : const Icon(Icons.auto_awesome_outlined, size: 18),
+                    label: Text(l.finSuggestSplit),
+                  ),
+                ),
+                const SizedBox(height: 12),
+              ],
               for (final b in widget.buckets)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 12),

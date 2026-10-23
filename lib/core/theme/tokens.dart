@@ -33,7 +33,7 @@ class AppTokens extends ThemeExtension<AppTokens> {
   final Color danger;
   final Color warning;
 
-  static const double radiusCard = 20;
+  static const double radiusCard = 24;
   static const double radiusSmall = 14;
 
   static const dark = AppTokens(
@@ -51,18 +51,19 @@ class AppTokens extends ThemeExtension<AppTokens> {
     warning: Color(0xFFF5B544),
   );
 
+  /// Redesign (2026-10-23): light, calm and minimal. Off-white page, white
+  /// cards without outlines, one deep-blue accent.
   static const light = AppTokens(
-    bg: Color(0xFFF5F7FB),
+    bg: Color(0xFFFAFAF7),
     surface: Color(0xFFFFFFFF),
-    surfaceHigh: Color(0xFFEEF2F9),
-    border: Color(0xFFD9E0EC),
-    text: Color(0xFF0B1224),
-    textMuted: Color(0xFF4A5672),
-    // Darkened so white labels on filled buttons reach 4.5:1.
-    accent: Color(0xFF2563EB),
+    surfaceHigh: Color(0xFFF2F3EF),
+    border: Color(0xFFE7E8E3),
+    text: Color(0xFF16181D),
+    textMuted: Color(0xFF585D66),
+    accent: Color(0xFF2F5BEA),
     onAccent: Color(0xFFFFFFFF),
-    success: Color(0xFF13804F),
-    danger: Color(0xFFC9283A),
+    success: Color(0xFF15803D),
+    danger: Color(0xFFC42B3B),
     warning: Color(0xFF9A6200),
   );
 

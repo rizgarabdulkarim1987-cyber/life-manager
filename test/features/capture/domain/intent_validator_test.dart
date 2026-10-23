@@ -203,4 +203,63 @@ void main() {
       expect(e.toString(), isNot(contains('secret')));
     }
   });
+
+  test('edit and delete carry their target', () {
+    final ps = validateIntents(
+      root([
+        {'type': 'delete', 'target': 'last_expense'},
+        {'type': 'edit', 'target': 'last', 'amount': '30000', 'currency': 'IQD'},
+      ]),
+      lex,
+      now,
+    );
+    expect((ps[0] as DeleteProposal).target, 'last_expense');
+    final e = ps[1] as EditProposal;
+    expect((e.target, e.newAmountMinor), ('last', 30000));
+  });
+
+  test('an unknown category name is kept for the chat to offer', () {
+    final p =
+        validateIntents(
+              root([
+                intent({'amount': '5000', 'currency': 'IQD', 'category': 'Gym'}),
+              ]),
+              lex,
+              now,
+            ).single
+            as MoneyProposal;
+    expect((p.categoryId, p.newCategoryName), (null, 'Gym'));
+  });
+
+  test('reminder, appointment with a place, and a project idea are accepted', () {
+    final ps = validateIntents(
+      root([
+        {'type': 'reminder', 'title': 'اخابر احمد', 'date': '2026-10-24', 'time': '17:00'},
+        {'type': 'appointment', 'title': 'طبيب', 'date': '2026-10-29', 'place': 'المنصور'},
+        {'type': 'project_idea', 'title': 'محل قهوة', 'description': 'محل قهوة صغير بالكرادة'},
+      ]),
+      lex,
+      now,
+    );
+    final reminder = ps[0] as TaskProposal, visit = ps[1] as TaskProposal, idea = ps[2] as ProjectIdeaProposal;
+    expect((reminder.kind, reminder.due, reminder.hasTime), ('reminder', DateTime(2026, 10, 24, 17), true));
+    expect(
+      (visit.kind, visit.place, visit.hasTime, visit.due),
+      ('appointment', 'المنصور', false, DateTime(2026, 10, 29)),
+    );
+    expect((idea.title, idea.description), ('محل قهوة', 'محل قهوة صغير بالكرادة'));
+  });
+
+  test('an unknown type is still refused', () {
+    expect(
+      () => validateIntents(
+        root([
+          {'type': 'lottery'},
+        ]),
+        lex,
+        now,
+      ),
+      throwsA(isA<InvalidAiOutput>()),
+    );
+  });
 }

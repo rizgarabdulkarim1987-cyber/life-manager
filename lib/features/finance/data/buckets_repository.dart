@@ -164,3 +164,14 @@ class BucketsRepository {
     ];
   }
 }
+
+/// [totalBaseMinor] split by each bucket's percentage, summing exactly to the
+/// total: what rounding leaves over goes to the bucket with the largest share.
+Map<int, int> splitByPercents(int totalBaseMinor, List<Bucket> buckets) {
+  if (buckets.isEmpty) return const {};
+  final out = {for (final b in buckets) b.id: totalBaseMinor * b.percentBp ~/ 10000};
+  final left = totalBaseMinor - out.values.fold<int>(0, (s, v) => s + v);
+  final largest = buckets.reduce((a, b) => b.percentBp > a.percentBp ? b : a);
+  out[largest.id] = out[largest.id]! + left;
+  return out;
+}

@@ -27,6 +27,18 @@ class CaptureRepository {
         ),
       );
 
+  Future<int> createImage(Uint8List jpeg) => _db
+      .into(_db.captures)
+      .insert(
+        CapturesCompanion.insert(
+          source: 'image',
+          status: 'pending',
+          image: Value(jpeg),
+          createdAt: _now,
+          updatedAt: _now,
+        ),
+      );
+
   Future<int> createText(String text) => _db
       .into(_db.captures)
       .insert(
@@ -70,17 +82,24 @@ class CaptureRepository {
     return _write(id, CapturesCompanion(failureType: Value(errorType)));
   }
 
-  Future<void> markDone(int id) => _write(id, const CapturesCompanion(status: Value('done'), audio: Value(null)));
+  Future<void> markDone(int id) =>
+      _write(id, const CapturesCompanion(status: Value('done'), audio: Value(null), image: Value(null)));
 
   /// Marks a pending capture done; false when it was already handled (done, discarded or gone).
   Future<bool> markDoneIfPending(int id) async {
     final n = await (_db.update(_db.captures)..where((x) => x.id.equals(id) & x.status.equals('pending'))).write(
-      CapturesCompanion(status: const Value('done'), audio: const Value(null), updatedAt: Value(_now)),
+      CapturesCompanion(
+        status: const Value('done'),
+        audio: const Value(null),
+        image: const Value(null),
+        updatedAt: Value(_now),
+      ),
     );
     return n > 0;
   }
 
-  Future<void> discard(int id) => _write(id, const CapturesCompanion(status: Value('discarded'), audio: Value(null)));
+  Future<void> discard(int id) =>
+      _write(id, const CapturesCompanion(status: Value('discarded'), audio: Value(null), image: Value(null)));
 
   SimpleSelectStatement<$CapturesTable, Capture> _pending() =>
       _db.select(_db.captures)..where((c) => c.status.equals('pending'));
@@ -122,6 +141,8 @@ Map<String, Object?> _toJson(Proposal p) => _clean(switch (p) {
     'occurredAt': _date(p.occurredAt),
     'description': p.description,
     'bucketTag': p.bucketTag,
+    'newCategoryName': p.newCategoryName,
+    'newAccountName': p.newAccountName,
   },
   TransferProposal() => {
     'kind': 'transfer',
@@ -151,8 +172,22 @@ Map<String, Object?> _toJson(Proposal p) => _clean(switch (p) {
     'title': p.title,
     'due': _date(p.due),
     'workspaceId': p.workspaceId,
+    'taskKind': p.kind,
+    'place': p.place,
+    'hasTime': p.hasTime,
   },
+  ProjectIdeaProposal() => {'kind': 'project_idea', 'title': p.title, 'description': p.description},
   NoteProposal() => {'kind': 'note', 'text': p.text, 'workspaceId': p.workspaceId},
+  EditProposal() => {
+    'kind': 'edit',
+    'confidence': p.confidence,
+    'target': p.target,
+    'txId': p.txId,
+    'newAmountMinor': p.newAmountMinor,
+    'newCategoryId': p.newCategoryId,
+    'newDescription': p.newDescription,
+  },
+  DeleteProposal() => {'kind': 'delete', 'confidence': p.confidence, 'target': p.target, 'txId': p.txId},
 });
 
 Proposal _fromJson(Map<String, Object?> j) {
@@ -170,6 +205,8 @@ Proposal _fromJson(Map<String, Object?> j) {
       occurredAt: _parse(j['occurredAt']),
       description: s('description'),
       bucketTag: s('bucketTag'),
+      newCategoryName: s('newCategoryName'),
+      newAccountName: s('newAccountName'),
     ),
     'transfer' => TransferProposal(
       confidence: i('confidence')!,
@@ -196,8 +233,21 @@ Proposal _fromJson(Map<String, Object?> j) {
       confidence: i('confidence')!,
       due: _parse(j['due']),
       workspaceId: i('workspaceId'),
+      kind: s('taskKind') ?? 'task',
+      place: s('place'),
+      hasTime: j['hasTime'] == true,
     ),
+    'project_idea' => ProjectIdeaProposal(title: s('title')!, description: s('description')),
     'note' => NoteProposal(text: s('text')!, workspaceId: i('workspaceId')),
+    'edit' => EditProposal(
+      confidence: i('confidence')!,
+      target: s('target') ?? kTargetLast,
+      txId: i('txId'),
+      newAmountMinor: i('newAmountMinor'),
+      newCategoryId: i('newCategoryId'),
+      newDescription: s('newDescription'),
+    ),
+    'delete' => DeleteProposal(confidence: i('confidence')!, target: s('target') ?? kTargetLast, txId: i('txId')),
     _ => throw const FormatException('unknown proposal kind'),
   };
 }

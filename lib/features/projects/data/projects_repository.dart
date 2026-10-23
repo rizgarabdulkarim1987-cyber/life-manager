@@ -1,0 +1,213 @@
+import 'package:drift/drift.dart';
+
+import '../../../core/db/app_database.dart';
+import '../ai/planner.dart';
+
+class ProjectsRepository {
+  ProjectsRepository(this._db);
+
+  final AppDatabase _db;
+
+  DateTime get _now => DateTime.now().toUtc();
+
+  Future<int> create({required String title, String? description, String status = 'idea', int? captureId}) {
+    final t = title.trim();
+    if (t.isEmpty) throw ArgumentError.value(title, 'title');
+    return _db
+        .into(_db.projects)
+        .insert(
+          ProjectsCompanion.insert(
+            title: t,
+            description: Value(description?.trim().isEmpty ?? true ? null : description!.trim()),
+            status: Value(status),
+            captureId: Value(captureId),
+            createdAt: _now,
+            updatedAt: _now,
+          ),
+        );
+  }
+
+  Future<Project?> get(int id) => (_db.select(_db.projects)..where((p) => p.id.equals(id))).getSingleOrNull();
+
+  Stream<Project?> watch(int id) => (_db.select(_db.projects)..where((p) => p.id.equals(id))).watchSingleOrNull();
+
+  /// Open projects first (newest edit on top), finished and dropped ones after.
+  Stream<List<Project>> watchAll() =>
+      (_db.select(_db.projects)..orderBy([
+            (p) => OrderingTerm.asc(CustomExpression<int>("CASE WHEN status IN ('done','dropped') THEN 1 ELSE 0 END")),
+            (p) => OrderingTerm.desc(p.updatedAt),
+          ]))
+          .watch();
+
+  Future<List<Project>> all() => _db.select(_db.projects).get();
+
+  Future<void> _touch(int id, ProjectsCompanion c) =>
+      (_db.update(_db.projects)..where((p) => p.id.equals(id))).write(c.copyWith(updatedAt: Value(_now)));
+
+  Future<void> setStatus(int id, String status) => _touch(id, ProjectsCompanion(status: Value(status)));
+
+  Future<void> setEstimate(int id, {required int? costMinor, required String? currency}) =>
+      _touch(id, ProjectsCompanion(estCostMinor: Value(costMinor), currencyCode: Value(currency)));
+
+  Future<void> setTitle(int id, String title, String? description) {
+    final t = title.trim();
+    if (t.isEmpty) throw ArgumentError.value(title, 'title');
+    return _touch(id, ProjectsCompanion(title: Value(t), description: Value(description)));
+  }
+
+  /// Deletes the project with its steps and chat; tasks made from its steps stay as plain tasks.
+  Future<void> delete(int id) => _db.transaction(() async {
+    await (_db.update(_db.tasks)..where((t) => t.projectId.equals(id))).write(
+      const TasksCompanion(projectId: Value(null), projectStepId: Value(null)),
+    );
+    await (_db.delete(_db.projects)..where((p) => p.id.equals(id))).go();
+  });
+
+  // ---- steps
+
+  Stream<List<ProjectStep>> watchSteps(int projectId) =>
+      (_db.select(_db.projectSteps)
+            ..where((s) => s.projectId.equals(projectId))
+            ..orderBy([(s) => OrderingTerm.asc(s.seq)]))
+          .watch();
+
+  Future<List<ProjectStep>> stepsOf(int projectId) =>
+      (_db.select(_db.projectSteps)
+            ..where((s) => s.projectId.equals(projectId))
+            ..orderBy([(s) => OrderingTerm.asc(s.seq)]))
+          .get();
+
+  /// The owner said OK to [plan]: it replaces the steps (done marks of steps with the same title are kept),
+  /// sets the estimate when it has one, and moves an idea to planning.
+  Future<void> applyPlan(int projectId, PlanProposal plan) => _db.transaction(() async {
+    final old = await stepsOf(projectId);
+    final doneTitles = {for (final s in old.where((s) => s.done)) s.title};
+    final taskByTitle = {for (final s in old.where((s) => s.taskId != null)) s.title: s.taskId!};
+    await (_db.delete(_db.projectSteps)..where((s) => s.projectId.equals(projectId))).go();
+    var seq = 1;
+    for (final phase in plan.phases) {
+      for (final step in phase.steps) {
+        final taskId = taskByTitle.remove(step.title);
+        final stepId = await _db
+            .into(_db.projectSteps)
+            .insert(
+              ProjectStepsCompanion.insert(
+                projectId: projectId,
+                seq: seq++,
+                phase: Value(phase.name),
+                title: step.title,
+                dueDate: Value(step.due),
+                done: Value(doneTitles.contains(step.title)),
+                taskId: Value(taskId),
+              ),
+            );
+        if (taskId != null) {
+          await (_db.update(
+            _db.tasks,
+          )..where((t) => t.id.equals(taskId))).write(TasksCompanion(projectStepId: Value(stepId)));
+        }
+      }
+    }
+    // Tasks whose step the new plan dropped stay as plain tasks.
+    final kept = [
+      for (final s in await stepsOf(projectId))
+        if (s.taskId != null) s.taskId!,
+    ];
+    await (_db.update(_db.tasks)
+          ..where((t) => t.projectId.equals(projectId) & t.projectStepId.isNotNull() & t.id.isNotIn(kept)))
+        .write(const TasksCompanion(projectId: Value(null), projectStepId: Value(null)));
+    final project = await get(projectId);
+    await _touch(
+      projectId,
+      ProjectsCompanion(
+        status: Value(project?.status == 'idea' ? 'planning' : project?.status ?? 'planning'),
+        estCostMinor: plan.estCostMinor == null ? const Value.absent() : Value(plan.estCostMinor),
+        currencyCode: plan.estCostMinor == null ? const Value.absent() : Value(plan.currency),
+      ),
+    );
+  });
+
+  /// The planner says these steps are finished (by their number in the list).
+  Future<void> applyStepUpdates(int projectId, List<StepUpdate> updates) async {
+    for (final u in updates) {
+      final step = await (_db.select(
+        _db.projectSteps,
+      )..where((s) => s.projectId.equals(projectId) & s.seq.equals(u.seq))).getSingleOrNull();
+      if (step != null) await setStepDone(step.id, u.done);
+    }
+    await _touch(projectId, const ProjectsCompanion());
+  }
+
+  /// Ticks or unticks a step and the task made from it, so both always agree.
+  Future<void> setStepDone(int stepId, bool done) => _db.transaction(() async {
+    final step = await (_db.select(_db.projectSteps)..where((s) => s.id.equals(stepId))).getSingleOrNull();
+    if (step == null) return;
+    await (_db.update(
+      _db.projectSteps,
+    )..where((s) => s.id.equals(stepId))).write(ProjectStepsCompanion(done: Value(done)));
+    final taskId = step.taskId;
+    if (taskId != null) {
+      await (_db.update(_db.tasks)..where((t) => t.id.equals(taskId))).write(
+        TasksCompanion(status: Value(done ? 'done' : 'open'), completedAt: Value(done ? _now : null)),
+      );
+    }
+  });
+
+  Future<void> linkTask(int stepId, int taskId) => (_db.update(
+    _db.projectSteps,
+  )..where((s) => s.id.equals(stepId))).write(ProjectStepsCompanion(taskId: Value(taskId)));
+
+  /// Makes a task from the step (due on its date) and links the two; returns the task id,
+  /// or the existing one when the step already has a live task.
+  Future<int?> makeTask(int stepId) => _db.transaction(() async {
+    final step = await (_db.select(_db.projectSteps)..where((s) => s.id.equals(stepId))).getSingleOrNull();
+    if (step == null) return null;
+    if (step.taskId != null) {
+      final live = await (_db.select(_db.tasks)..where((t) => t.id.equals(step.taskId!))).getSingleOrNull();
+      if (live != null) return live.id;
+    }
+    final id = await _db
+        .into(_db.tasks)
+        .insert(
+          TasksCompanion.insert(
+            title: step.title,
+            createdAt: _now,
+            dueAt: Value(step.dueDate),
+            projectId: Value(step.projectId),
+            projectStepId: Value(step.id),
+          ),
+        );
+    await linkTask(stepId, id);
+    return id;
+  });
+
+  /// A task for every step that is not done and has none yet; returns how many were made.
+  Future<int> makeAllTasks(int projectId) => _db.transaction(() async {
+    var made = 0;
+    for (final s in await stepsOf(projectId)) {
+      if (s.done) continue;
+      final before = s.taskId;
+      final id = await makeTask(s.id);
+      if (id != null && id != before) made++;
+    }
+    return made;
+  });
+
+  // ---- chat
+
+  Future<int> addMessage(int projectId, String role, String body) => _db
+      .into(_db.projectMessages)
+      .insert(ProjectMessagesCompanion.insert(projectId: projectId, role: role, body: body, createdAt: _now));
+
+  Stream<List<ProjectMessage>> watchMessages(int projectId) =>
+      (_db.select(_db.projectMessages)
+            ..where((m) => m.projectId.equals(projectId))
+            ..orderBy([(m) => OrderingTerm.asc(m.id)]))
+          .watch();
+
+  Future<List<ProjectMessage>> messagesOf(int projectId) =>
+      (_db.select(_db.projectMessages)
+            ..where((m) => m.projectId.equals(projectId))
+            ..orderBy([(m) => OrderingTerm.asc(m.id)]))
+          .get();
+}

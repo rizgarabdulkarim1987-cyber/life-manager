@@ -141,4 +141,13 @@ void main() {
     await tx.restore(row, allocs);
     expect(await f.db.select(f.db.bucketAllocations).get(), hasLength(3));
   });
+
+  test('split sums exactly to total; the remainder goes to the largest bucket', () async {
+    await buckets.setPercents({id('expenses'): 3333, id('emergency'): 3333, id('investment'): 3334});
+    all = await buckets.watch().first;
+    final split = splitByPercents(100001, all);
+    expect(split.values.fold<int>(0, (s, v) => s + v), 100001);
+    expect(split[id('investment')], 33341, reason: '33340 plus the 1 left over');
+    expect(splitByPercents(0, all).values.every((v) => v == 0), isTrue);
+  });
 }

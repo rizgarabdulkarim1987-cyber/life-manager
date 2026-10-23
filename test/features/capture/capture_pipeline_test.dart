@@ -105,16 +105,41 @@ void main() {
       expect(row.parsedBy, 'rules');
     });
 
-    test('no engine → SavedToInbox noSpeechEngine with audio kept', () async {
+    test('no engine → SavedToInbox naming the missing key, audio kept', () async {
       final http = FakeHttpPort((_) => throw StateError('no network expected'));
       final out = await pipeline(http, local: (_) async => null).fromVoice(wav);
       expect(out, isA<SavedToInbox>());
       out as SavedToInbox;
-      expect(out.reasonKey, 'noSpeechEngine');
+      expect(out.reasonKey, 'noSpeechNoKey');
       final row = (await captures.get(out.captureId))!;
       expect(row.status, 'pending');
       expect(row.audio, wav);
       expect(row.failureType, 'SpeechUnavailable');
+      expect(http.requests, isEmpty);
+    });
+
+    test('no engine → the reason names what is missing', () async {
+      final http = FakeHttpPort((_) => throw StateError('no network expected'));
+      Future<String> reason() async =>
+          ((await pipeline(http, local: (_) async => null).fromVoice(wav)) as SavedToInbox).reasonKey;
+
+      await settings.setAiOnlineEnabled(false);
+      expect(await reason(), 'noSpeechOnlineOff');
+
+      await settings.setAiOnlineEnabled(true);
+      await keys.write(const Sensitive('gsk_1234'));
+      expect(await reason(), 'noSpeechNotAsked');
+
+      await settings.setConsent(AiFeature.voice, ConsentState.declined);
+      expect(await reason(), 'noSpeechDeclined');
+    });
+
+    test('offline retry with no model → noSpeechOffline even when online is allowed', () async {
+      await allowOnline();
+      final http = FakeHttpPort((_) => throw StateError('no network expected'));
+      final id = await captures.createVoice(wav);
+      final out = await pipeline(http, local: (_) async => null).reparse(id, allowOnline: false);
+      expect((out as SavedToInbox).reasonKey, 'noSpeechOffline');
       expect(http.requests, isEmpty);
     });
 
@@ -227,6 +252,66 @@ void main() {
       final ok = pipeline(FakeHttpPort((_) => throw StateError('offline path')));
       await ok.reparse(id, allowOnline: false);
       expect(ok.lastOnlineError, isNull);
+    });
+  });
+
+  group('receipt photos', () {
+    final jpeg = Uint8List.fromList(List.filled(32, 9));
+    const answer = '{"intents":[{"type":"expense","amount":"12500","currency":"IQD","description":"Market"}]}';
+
+    Future<void> allowReceipts() async {
+      await keys.write(const Sensitive('gsk_1234'));
+      await settings.setConsent(AiFeature.receipt, ConsentState.granted);
+    }
+
+    test('image request carries a data url and no lexicon amounts', () async {
+      await allowReceipts();
+      final http = FakeHttpPort((_) => _content(answer));
+      await pipeline(http).fromImage(jpeg);
+      final body = jsonDecode(http.requests.single.body!) as Map<String, Object?>;
+      expect(body['model'], 'meta-llama/llama-4-scout-17b-16e-instruct');
+      final user = ((body['messages'] as List).last as Map)['content'] as List;
+      expect((user.last as Map)['image_url']['url'], startsWith('data:image/jpeg;base64,'));
+      final payload = jsonDecode((user.first as Map)['text'] as String) as Map;
+      expect(payload.containsKey('transcript'), isFalse);
+      expect(payload.keys.toSet(), {'now', 'utcOffset', 'accounts', 'workspaces', 'categories', 'buckets'});
+    });
+
+    test('offline keeps the image capture in the inbox', () async {
+      final http = FakeHttpPort((_) => throw StateError('no network expected'));
+      final out = await pipeline(http).fromImage(jpeg);
+      expect(out, isA<SavedToInbox>());
+      final row = (await captures.get(out.captureId))!;
+      expect(row.source, 'image');
+      expect(row.status, 'pending');
+      expect(row.image, jpeg);
+    });
+
+    test('a Groq failure keeps it too, and reparse reads it once online again', () async {
+      await allowReceipts();
+      var up = false;
+      final http = FakeHttpPort((_) => up ? _content(answer) : const HttpReply(500, 'down'));
+      final p = pipeline(http);
+      final out = await p.fromImage(jpeg);
+      expect(out, isA<SavedToInbox>());
+      up = true;
+      expect(await p.reparse(out.captureId), isA<ReadyForReview>());
+    });
+
+    test('result becomes a MoneyProposal card', () async {
+      await allowReceipts();
+      final out = await pipeline(FakeHttpPort((_) => _content(answer))).fromImage(jpeg);
+      expect(out, isA<ReadyForReview>());
+      final row = (await captures.get(out.captureId))!;
+      final money = decodeProposals(row.parsedJson!).whereType<MoneyProposal>().single;
+      expect(money.amountMinor, 12500);
+      expect(row.parsedBy, 'ai');
+    });
+
+    test('an unreadable answer keeps the photo in the inbox', () async {
+      await allowReceipts();
+      final out = await pipeline(FakeHttpPort((_) => _content('{"intents":[]}'))).fromImage(jpeg);
+      expect(out, isA<SavedToInbox>());
     });
   });
 }

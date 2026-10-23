@@ -10,7 +10,6 @@ import 'package:life_manager/app/providers.dart';
 import 'package:life_manager/core/db/app_database.dart';
 import 'package:life_manager/core/storage/secure_store.dart';
 import 'package:life_manager/features/lock/lock_controller.dart';
-import 'package:life_manager/features/lock/pin_service.dart';
 
 import 'package:life_manager/features/capture/data/capture_repository.dart';
 import 'package:life_manager/features/capture/domain/proposal.dart';
@@ -77,13 +76,10 @@ void main() {
     await db
         .update(db.appSettingsTable)
         .write(AppSettingsTableCompanion(setupCompleted: const Value(true), localeCode: Value(locale)));
-    final pins = PinService(InMemorySecureStore(), FakeKdf());
-    await pins.setPin('123456');
     container = ProviderContainer(
       overrides: [
         appDatabaseProvider.overrideWithValue(db),
-        pinServiceProvider.overrideWithValue(pins),
-        biometricAuthenticatorProvider.overrideWithValue(FakeBiometric(available: true, result: false)),
+        biometricAuthenticatorProvider.overrideWithValue(FakeBiometric(deviceSupported: true, result: false)),
       ],
     );
     container.read(lockControllerProvider.notifier).unlock();

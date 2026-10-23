@@ -13,6 +13,7 @@ import '../../../core/theme/tokens.dart';
 import '../../capture/domain/proposal.dart';
 import '../data/categories_repository.dart';
 import '../data/finance_providers.dart';
+import '../data/rates_repository.dart' show parseRateE6;
 import '../data/transactions_repository.dart';
 import 'buckets_screen.dart' show showPercentagesSheet;
 import 'ui_format.dart';
@@ -20,6 +21,7 @@ import 'widgets/account_picker.dart';
 import 'widgets/allocation_editor.dart';
 import 'widgets/amount_field.dart';
 import 'widgets/money_text.dart';
+import 'widgets/undo_snack.dart';
 
 const kFormTypes = ['expense', 'income', 'refund'];
 
@@ -46,10 +48,14 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
   int? _categoryId;
   late DateTime _at;
   final _description = TextEditingController();
+  final _rateToday = TextEditingController();
   bool _pending = false;
   String? _bucketTag;
 
   bool _allocate = false;
+
+  /// The owner flipped the split switch; the default no longer applies.
+  bool _allocTouched = false;
   Map<int, int> _allocation = const {};
 
   /// The amount in the base currency, or null when it has no rate.
@@ -102,6 +108,7 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
   @override
   void dispose() {
     _description.dispose();
+    _rateToday.dispose();
     super.dispose();
   }
 
@@ -133,8 +140,31 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
     setState(() {
       _baseTotal = total;
       _rateMissing = missing;
-      if (missing || total == null) _allocate = false;
+      if (missing || total == null) {
+        _allocate = false;
+      } else if (!_allocTouched && widget.editId == null && _type == 'income' && !_hasAllocations) {
+        // Redesign §11.2: a new income is split by the percentages unless the owner says no.
+        _allocate = ref.read(settingsProvider).value?.bucketsConfirmed ?? false;
+      }
     });
+  }
+
+  /// Redesign §11.2: a foreign income with no rate asks for one on the spot.
+  Future<void> _saveRateToday() async {
+    final rate = parseRateE6(_rateToday.text);
+    final account = _account;
+    if (rate == null || account == null) return;
+    final base = ref.read(settingsProvider).value?.baseCurrency ?? 'IQD';
+    await ref
+        .read(ratesRepositoryProvider)
+        .setRate(
+          base: account.currencyCode,
+          quote: base,
+          rateE6: rate > 10000 * 1000000 ? rate ~/ 100 : rate,
+          effectiveFrom: _at,
+        );
+    _rateToday.clear();
+    await _refreshBase();
   }
 
   bool get _canAllocate =>
@@ -239,6 +269,18 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
           _ => l.finAddExpense,
         };
 
+  /// Deletes the open row, closes the form and offers Undo on the screen below.
+  Future<void> _deleteOpen() async {
+    final t = _editing!;
+    final repo = ref.read(transactionsRepositoryProvider);
+    final messenger = ScaffoldMessenger.of(context);
+    final l = context.l10n;
+    final navigator = Navigator.of(context);
+    final allocations = await repo.delete(t.id);
+    if (navigator.canPop()) navigator.pop();
+    showUndoSnack(messenger, l, message: l.finDeleted, onUndo: () => repo.restore(t, allocations));
+  }
+
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
@@ -260,7 +302,18 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
     final locale = dateLocaleOf(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text(_title(l))),
+      appBar: AppBar(
+        title: Text(_title(l)),
+        actions: [
+          if (_editing != null)
+            IconButton(
+              key: const ValueKey('tx-delete'),
+              tooltip: l.delete,
+              icon: Icon(Icons.delete_outline_rounded, color: k.danger),
+              onPressed: _deleteOpen,
+            ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
         children: [
@@ -364,6 +417,25 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
                 if (v) _allocate = false;
               }),
             ),
+            if (_rateMissing && !_pending)
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      key: const ValueKey('tx-rate-today'),
+                      controller: _rateToday,
+                      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                      decoration: InputDecoration(labelText: l.finRateToday(currency)),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  FilledButton.tonal(
+                    key: const ValueKey('tx-rate-save'),
+                    onPressed: _saveRateToday,
+                    child: Text(l.finRateSave),
+                  ),
+                ],
+              ),
             if (!_hasAllocations)
               SwitchListTile(
                 key: const ValueKey('tx-allocate'),
@@ -380,7 +452,12 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
                 onChanged: !_canAllocate
                     ? null
                     // Until the owner has set their own percentages, the toggle asks for them first.
-                    : (v) => confirmed ? setState(() => _allocate = v) : showPercentagesSheet(context, ref),
+                    : (v) => confirmed
+                          ? setState(() {
+                              _allocTouched = true;
+                              _allocate = v;
+                            })
+                          : showPercentagesSheet(context, ref),
               ),
             if (_allocate && _canAllocate) ...[
               const SizedBox(height: 8),

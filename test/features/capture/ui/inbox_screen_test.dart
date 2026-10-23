@@ -77,12 +77,18 @@ void main() {
 
     expect(find.byKey(ValueKey('inbox-row-$id')), findsOneWidget);
     expect(find.text('Voice, not transcribed yet'), findsOneWidget);
-    expect(find.textContaining('No speech engine yet'), findsOneWidget);
+    expect(find.textContaining('No Groq key is saved'), findsOneWidget);
     expect(find.textContaining('SpeechUnavailable'), findsNothing, reason: 'never the raw type');
     expect(find.byKey(ValueKey('inbox-transcribe-$id')), findsOneWidget);
     expect(find.byKey(ValueKey('inbox-ai-$id')), findsNothing, reason: 'no key saved');
 
     await saveKey(t, c);
+    expect(
+      find.textContaining('No Groq key is saved'),
+      findsNothing,
+      reason: 'the reason follows the current settings',
+    );
+    expect(find.textContaining('choose Allow'), findsOneWidget);
     expect(find.byKey(ValueKey('inbox-ai-$id')), findsOneWidget);
     expect(find.byKey(const ValueKey('inbox-ai-all')), findsOneWidget);
   });
@@ -173,9 +179,14 @@ void main() {
     await t.pageBack();
     await settle(t);
     await openFinance(t);
-    await t.scrollUntilVisible(find.byKey(const ValueKey('open-inbox-tile')), 200);
-    // The tile can end up behind the mic button, so tap its start edge.
-    await t.tapAt(t.getTopLeft(find.byKey(const ValueKey('open-inbox-tile'))) + const Offset(24, 16));
+    await t.scrollUntilVisible(
+      find.byKey(const ValueKey('open-inbox-tile')),
+      200,
+      scrollable: find.byType(Scrollable).first,
+    );
+    await t.ensureVisible(find.byKey(const ValueKey('open-inbox-tile')));
+    await settle(t);
+    await t.tap(find.byKey(const ValueKey('open-inbox-tile')));
     await settle(t);
     expect(find.byKey(const ValueKey('inbox-screen')), findsOneWidget);
   });

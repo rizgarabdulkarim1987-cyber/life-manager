@@ -37,7 +37,16 @@ void main() {
     final lex = await loadLexicon(f.db, lookupAppLocalizations(const Locale('ar')));
     final body = jsonEncode(buildParsePayload('غدا 15 الف', lex, now));
     final json = jsonDecode(body) as Map<String, Object?>;
-    expect(json.keys.toSet(), {'transcript', 'now', 'utcOffset', 'accounts', 'workspaces', 'categories', 'buckets'});
+    expect(json.keys.toSet(), {
+      'transcript',
+      'now',
+      'utcOffset',
+      'accounts',
+      'workspaces',
+      'categories',
+      'buckets',
+      'projects',
+    });
     for (final s in ['SECRET-DESC-7731', '987654', '4455667', '3344556', 'openingBalance', 'balance']) {
       expect(body, isNot(contains(s)), reason: s);
     }

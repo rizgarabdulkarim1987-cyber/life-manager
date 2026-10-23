@@ -1,3 +1,7 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../core/security/money_privacy.dart';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -8,14 +12,15 @@ import '../ui_format.dart';
 import 'chart_style.dart';
 
 /// Closing balance per day as one line, with a crosshair tooltip.
-class BalanceLineChart extends StatelessWidget {
+class BalanceLineChart extends ConsumerWidget {
   const BalanceLineChart({super.key, required this.points, required this.currency});
 
   final List<(DateTime, int)> points;
   final String currency;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final shown = moneyShownOf(ref);
     final k = context.tokens;
     final lang = langOf(context);
     final axis = axisStyle(context);
@@ -43,7 +48,7 @@ class BalanceLineChart extends StatelessWidget {
                   showTitles: true,
                   reservedSize: 44,
                   getTitlesWidget: (v, meta) =>
-                      v == meta.max ? const SizedBox.shrink() : Text(axisLabel(v), style: axis),
+                      !shown || v == meta.max ? const SizedBox.shrink() : Text(axisLabel(v), style: axis),
                 ),
               ),
               bottomTitles: AxisTitles(
@@ -81,7 +86,7 @@ class BalanceLineChart extends StatelessWidget {
                   for (final s in spots)
                     LineTooltipItem(
                       '${formatDate(context, points[s.spotIndex].$1)}\n'
-                      '${formatMoney(Money(points[s.spotIndex].$2, currency), localeCode: lang)}',
+                      '${shown ? formatMoney(Money(points[s.spotIndex].$2, currency), localeCode: lang) : kMaskedMoney}',
                       TextStyle(color: k.text, fontSize: 12),
                     ),
                 ],

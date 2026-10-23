@@ -16,9 +16,11 @@ import '../capture_pipeline.dart';
 import '../data/capture_providers.dart';
 import '../data/capture_repository.dart';
 import '../domain/proposal.dart';
-import 'capture_sheet.dart' show inboxReason, showCaptureOutcome;
+import 'capture_sheet.dart' show showCaptureOutcome;
+import '../chat/describe.dart' show inboxReason;
 
 bool _hasAudio(Capture c) => c.audio != null && c.audio!.isNotEmpty;
+bool _hasImage(Capture c) => c.image != null && c.image!.isNotEmpty;
 bool _hasText(Capture c) => (c.transcript ?? '').trim().isNotEmpty;
 
 List<Proposal> _proposals(Capture c) {
@@ -33,20 +35,26 @@ List<Proposal> _proposals(Capture c) {
 }
 
 /// The features a capture needs from Groq to be finished online.
-List<AiFeature> _needs(Capture c) => [if (!_hasText(c) && _hasAudio(c)) AiFeature.voice, AiFeature.parse];
+List<AiFeature> _needs(Capture c) =>
+    _hasImage(c) ? const [AiFeature.receipt] : [if (!_hasText(c) && _hasAudio(c)) AiFeature.voice, AiFeature.parse];
 
 /// Online AI is on, a key is saved, and the owner has not said no to any of [needs].
 bool _aiAllowed(AppSetting? s, bool keySaved, List<AiFeature> needs) {
   if (s == null || !s.aiOnlineEnabled || !keySaved) return false;
-  return needs.every((f) => (f == AiFeature.voice ? s.aiVoiceConsent : s.aiParseConsent) != ConsentState.declined.name);
+  return needs.every((f) => consentOf(f, s) != ConsentState.declined.name);
 }
 
 /// A friendly line for why a capture is waiting; never the raw error type.
-String? _reason(BuildContext context, Capture c, List<Proposal> ps) {
+/// A missing speech engine is explained from the current settings, not the ones at capture time.
+String? _reason(BuildContext context, Capture c, List<Proposal> ps, AppSetting? s, bool keySaved) {
   final l = context.l10n;
   final f = c.failureType;
-  if (f != null) return inboxReason(l, f == 'SpeechUnavailable' ? 'noSpeechEngine' : 'sttFailed');
-  if (!_hasText(c)) return _hasAudio(c) ? null : l.capReason_empty;
+  if (f == 'SpeechUnavailable') {
+    return inboxReason(l, (s == null ? null : onlineVoiceGap(s, keySaved: keySaved)) ?? 'noSpeechEngine');
+  }
+  if (f != null) return inboxReason(l, 'sttFailed');
+  if (_hasImage(c) && ps.isEmpty) return l.capReason_receiptKept;
+  if (!_hasText(c) && !_hasImage(c)) return _hasAudio(c) ? null : l.capReason_empty;
   final money = ps.whereType<MoneyProposal>();
   if (ps.isEmpty || (money.isNotEmpty && money.every((p) => p.confidence < kLowConfidence))) {
     return l.capReason_lowConfidence;
@@ -150,7 +158,7 @@ class _InboxScreenState extends ConsumerState<InboxScreen> {
     final keySaved = ref.watch(groqKeySavedProvider).value ?? false;
     final aiRows = [
       for (final c in captures ?? const <Capture>[])
-        if ((_hasText(c) || _hasAudio(c)) && _aiAllowed(settings, keySaved, _needs(c))) c,
+        if ((_hasText(c) || _hasAudio(c) || _hasImage(c)) && _aiAllowed(settings, keySaved, _needs(c))) c,
     ];
     final progress = _progress;
 
@@ -221,6 +229,8 @@ class _InboxScreenState extends ConsumerState<InboxScreen> {
                   capture: c,
                   busy: _busy.contains(c.id) || progress != null,
                   aiAllowed: aiRows.contains(c),
+                  settings: settings,
+                  keySaved: keySaved,
                   onOpen: () => context.push('/capture/${c.id}'),
                   onOffline: () => _offline(c),
                   onAi: () => _finishWithAi(c),
@@ -238,6 +248,8 @@ class _InboxRow extends StatelessWidget {
     required this.capture,
     required this.busy,
     required this.aiAllowed,
+    required this.settings,
+    required this.keySaved,
     required this.onOpen,
     required this.onOffline,
     required this.onAi,
@@ -247,6 +259,8 @@ class _InboxRow extends StatelessWidget {
   final Capture capture;
   final bool busy;
   final bool aiAllowed;
+  final AppSetting? settings;
+  final bool keySaved;
   final VoidCallback onOpen;
   final VoidCallback onOffline;
   final VoidCallback onAi;
@@ -260,12 +274,12 @@ class _InboxRow extends StatelessWidget {
     final c = capture;
     final id = c.id;
     final ps = _proposals(c);
-    final reason = _reason(context, c, ps);
+    final reason = _reason(context, c, ps, settings, keySaved);
     final voice = c.source == 'voice';
     final at = c.createdAt.toLocal();
     final later = [
-      if (ps.any((p) => p is TaskProposal)) l.capWillBecomeTask(4),
-      if (ps.any((p) => p is NoteProposal)) l.capWillBecomeNote(4),
+      if (ps.any((p) => p is TaskProposal)) l.capWillBeTask,
+      if (ps.any((p) => p is NoteProposal)) l.capWillBeNote,
     ];
 
     return Container(

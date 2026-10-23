@@ -8,6 +8,10 @@ import '../../../core/l10n/ckb_fallback_localizations.dart';
 import '../../../core/money/money.dart';
 import '../../../core/theme/tokens.dart';
 import '../../capture/data/capture_providers.dart';
+import '../../../core/security/money_privacy.dart';
+import '../../shell/home_cards.dart' show HomeChartCard;
+import '../data/categories_repository.dart' show bucketLabel;
+import 'widgets/usage_bar.dart';
 import '../data/finance_providers.dart';
 import 'ui_format.dart';
 import 'widgets/alerts_banner.dart';
@@ -46,17 +50,19 @@ class FinanceOverviewScreen extends ConsumerWidget {
     final l = context.l10n;
     final alerts = ref.watch(financeAlertsProvider).value ?? const [];
     return Scaffold(
-      appBar: AppBar(title: Text(l.navFinance)),
+      appBar: AppBar(title: Text(l.navFinance), actions: const [RevealMoneyButton(), SizedBox(width: 4)]),
       body: ListView(
         key: const ValueKey('finance-overview'),
         padding: const EdgeInsets.fromLTRB(16, 4, 16, 112),
         children: [
+          // Redesign §11.4: totals only. Per-account balances live in Accounts.
+          const KeyedSubtree(key: ValueKey('fin-total'), child: _ConsolidatedPanel()),
           const _MonthPanel(),
           const _AddActions(),
-          const _ConsolidatedPanel(),
+          const _BucketCards(),
           AlertsBanner(alerts),
           const _Entries(),
-          const _AccountsPanel(),
+          const HomeChartCard(),
         ],
       ),
     );
@@ -288,78 +294,82 @@ class _Entries extends ConsumerWidget {
   }
 }
 
-class _AccountsPanel extends ConsumerWidget {
-  const _AccountsPanel();
+/// Expenses, Emergency and Investment, each with what is left and how far it is
+/// from its target.
+class _BucketCards extends ConsumerWidget {
+  const _BucketCards();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l = context.l10n;
     final k = context.tokens;
     final text = Theme.of(context).textTheme;
-    final groups = ref.watch(accountGroupsProvider).value ?? const [];
-    final balances = ref.watch(balancesProvider).value ?? const {};
-
-    return Panel(
-      key: const ValueKey('finance-accounts'),
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(l.accounts, style: text.titleMedium?.copyWith(color: k.text)),
-          for (final (ws, accounts) in groups) ...[
-            const SizedBox(height: 14),
-            Row(
+    final base = ref.watch(settingsProvider).value?.baseCurrency ?? 'IQD';
+    final all = ref.watch(bucketStatusProvider).value ?? const [];
+    return Column(
+      children: [
+        for (final s in all)
+          Panel(
+            key: ValueKey('bucket-${s.bucket.systemKey ?? s.bucket.id}'),
+            onTap: () => context.push('/finance/buckets'),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Container(
-                  width: 8,
-                  height: 8,
-                  decoration: BoxDecoration(color: Color(ws.colorArgb), shape: BoxShape.circle),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        bucketLabel(s.bucket, l),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: text.titleMedium?.copyWith(color: k.text),
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Flexible(
+                      child: FittedMoney(
+                        Money(s.availableMinor, base),
+                        style: text.titleMedium?.copyWith(color: s.availableMinor < 0 ? k.danger : k.text),
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    ws.name,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: text.labelLarge?.copyWith(color: k.textMuted),
+                const SizedBox(height: 10),
+                if (s.bucket.systemKey == 'expenses')
+                  UsageBar(
+                    barKey: ValueKey('fin-bucket-bar-${s.bucket.systemKey}'),
+                    valueBp: s.usedBp ?? 0,
+                    color: usageColor(k, s.usedBp),
+                  )
+                else if (s.targetMinor case final target? when target > 0) ...[
+                  UsageBar(
+                    barKey: ValueKey('fin-bucket-bar-${s.bucket.systemKey}'),
+                    valueBp: (s.availableMinor.clamp(0, target) * 10000 ~/ target),
+                    color: k.success,
                   ),
-                ),
-              ],
-            ),
-            for (final a in accounts)
-              InkWell(
-                key: ValueKey('overview-account-${a.id}'),
-                borderRadius: BorderRadius.circular(AppTokens.radiusSmall),
-                onTap: () => context.push('/finance/accounts/${a.id}'),
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(minHeight: 48),
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.only(start: 16, end: 4),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            shortAccountName(a.name, ws.name),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: text.bodyMedium?.copyWith(color: k.text),
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Flexible(
-                          child: FittedMoney(
-                            balances[a.id] ?? Money(a.openingBalanceMinor, a.currencyCode),
-                            style: text.bodyLarge?.copyWith(color: k.text),
-                          ),
-                        ),
-                      ],
+                  const SizedBox(height: 6),
+                  Row(
+                    children: [
+                      Text('${l.finTarget}: ', style: text.bodySmall?.copyWith(color: k.textMuted)),
+                      Flexible(
+                        child: FittedMoney(Money(target, base), style: text.bodySmall?.copyWith(color: k.textMuted)),
+                      ),
+                    ],
+                  ),
+                ] else
+                  Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: TextButton.icon(
+                      key: ValueKey('bucket-set-target-${s.bucket.systemKey}'),
+                      onPressed: () => context.push('/finance/buckets'),
+                      icon: const Icon(Icons.flag_outlined, size: 18),
+                      label: Text(l.finSetTarget),
                     ),
                   ),
-                ),
-              ),
-          ],
-        ],
-      ),
+              ],
+            ),
+          ),
+      ],
     );
   }
 }

@@ -5,6 +5,7 @@ import 'package:life_manager/features/capture/data/capture_committer.dart';
 import 'package:life_manager/features/capture/data/capture_repository.dart';
 import 'package:life_manager/features/capture/domain/proposal.dart';
 import 'package:life_manager/features/finance/data/debts_repository.dart';
+import 'package:life_manager/features/finance/data/rates_repository.dart';
 
 import '../../../helpers/finance_fixtures.dart';
 
@@ -182,5 +183,169 @@ void main() {
     await expectLater(committer.commit(other, [MoneyCommit(expense(), null)]), throwsA(isA<CaptureAlreadyHandled>()));
     expect(await f.db.select(f.db.transactions).get(), hasLength(1));
     expect((await repo.get(other))!.status, 'discarded');
+  });
+
+  test('undo removes everything one capture wrote, including a new debt, and discards it', () async {
+    final id = await voiceCapture();
+    await committer.commit(id, [
+      MoneyCommit(expense(), null),
+      DebtCommit(
+        DebtProposal(
+          confidence: 100,
+          counterparty: 'Ahmed',
+          direction: 'owed_to_me',
+          leg: 'principal',
+          amountMinor: 50000,
+          accountId: f.personalIqd,
+          occurredAt: at,
+        ),
+        null,
+      ),
+    ]);
+    expect(await f.db.select(f.db.transactions).get(), hasLength(2));
+    expect(await f.db.select(f.db.debts).get(), hasLength(1));
+    await committer.undo(id);
+    expect(await f.db.select(f.db.transactions).get(), isEmpty);
+    expect(await f.db.select(f.db.debts).get(), isEmpty);
+    expect((await repo.get(id))!.status, 'discarded');
+  });
+
+  test('undo of a repayment that closed a debt opens it again', () async {
+    final debts = DebtsRepository(f.db);
+    final debtId = await debts.create(
+      direction: 'owed_by_me',
+      counterparty: 'Sara',
+      workspaceId: f.personalWs,
+      principalMinor: 20000,
+      currencyCode: 'IQD',
+      startDate: at.toUtc(),
+    );
+    final id = await voiceCapture();
+    await committer.commit(id, [
+      DebtCommit(
+        DebtProposal(confidence: 100, leg: 'repayment', amountMinor: 20000, accountId: f.personalIqd, occurredAt: at),
+        debtId,
+      ),
+    ]);
+    expect((await (f.db.select(f.db.debts)..where((d) => d.id.equals(debtId))).getSingle()).closedAt, isNotNull);
+    await committer.undo(id);
+    final d = await (f.db.select(f.db.debts)..where((d) => d.id.equals(debtId))).getSingle();
+    expect(d.closedAt, isNull);
+    expect(await f.db.select(f.db.transactions).get(), isEmpty);
+  });
+
+  test('undo twice is harmless', () async {
+    final id = await voiceCapture();
+    await committer.commit(id, [MoneyCommit(expense(), null)]);
+    await committer.undo(id);
+    await committer.undo(id);
+    expect(await f.db.select(f.db.transactions).get(), isEmpty);
+  });
+
+  test('commit deletes, undo restores', () async {
+    final first = await repo.createText('دفعت 40 الف تكسي');
+    await committer.commit(first, [MoneyCommit(expense(), null)]);
+    final tx = (await f.db.select(f.db.transactions).get()).single;
+
+    final id = await repo.createText('احذف آخر مصروف');
+    await committer.commit(id, [DeleteCommit(DeleteProposal(confidence: 100, target: 'last_expense', txId: tx.id))]);
+    expect(await f.db.select(f.db.transactions).get(), isEmpty);
+
+    await committer.undo(id);
+    final back = (await f.db.select(f.db.transactions).get()).single;
+    expect((back.id, back.amountMinor, back.description), (tx.id, 40000, 'تكسي'));
+  });
+
+  test('commit edits, undo puts the old amount back', () async {
+    final first = await repo.createText('دفعت 40 الف تكسي');
+    await committer.commit(first, [MoneyCommit(expense(), null)]);
+    final tx = (await f.db.select(f.db.transactions).get()).single;
+
+    final id = await repo.createText('غير المبلغ لـ 30 الف');
+    await committer.commit(id, [
+      EditCommit(EditProposal(confidence: 100, target: 'last', txId: tx.id, newAmountMinor: 30000)),
+    ]);
+    expect((await f.db.select(f.db.transactions).get()).single.amountMinor, 30000);
+
+    await committer.undo(id);
+    expect((await f.db.select(f.db.transactions).get()).single.amountMinor, 40000);
+  });
+
+  test('income via chat is auto allocated by percents', () async {
+    final id = await repo.createText('استلمت راتب مليون');
+    await committer.commit(id, [
+      MoneyCommit(
+        MoneyProposal(type: IntentType.income, confidence: 100, amountMinor: 1000000, accountId: f.personalIqd),
+        null,
+      ),
+    ]);
+    final allocations = await f.db.select(f.db.bucketAllocations).get();
+    expect(allocations.fold<int>(0, (s, a) => s + a.amountBaseMinor), 1000000);
+    final buckets = {for (final b in await f.db.select(f.db.buckets).get()) b.id: b};
+    for (final a in allocations) {
+      expect(a.amountBaseMinor, 1000000 * buckets[a.bucketId]!.percentBp ~/ 10000);
+    }
+  });
+
+  test('USD income with a rate saved first allocates; without one it waits unallocated', () async {
+    final noRate = await repo.createText('500 دولار');
+    await committer.commit(noRate, [
+      MoneyCommit(
+        MoneyProposal(type: IntentType.income, confidence: 100, amountMinor: 50000, accountId: f.personalUsd),
+        null,
+      ),
+    ]);
+    expect(await f.db.select(f.db.bucketAllocations).get(), isEmpty, reason: 'no rate: saved, not allocated');
+
+    await RatesRepository(f.db)
+        .setRate(base: 'USD', quote: 'IQD', rateE6: 1310000000, effectiveFrom: DateTime.utc(2026, 1, 1));
+    final withRate = await repo.createText('500 دولار');
+    await committer.commit(withRate, [
+      MoneyCommit(
+        MoneyProposal(type: IntentType.income, confidence: 100, amountMinor: 50000, accountId: f.personalUsd),
+        null,
+      ),
+    ]);
+    final total = (await f.db.select(f.db.bucketAllocations).get()).fold<int>(0, (s, a) => s + a.amountBaseMinor);
+    expect(total, 655000);
+  });
+
+  group('tasks and notes', () {
+    test('a confirmed task and note are saved with their capture and Undo takes them back', () async {
+      final id = await repo.createText('ذكرني باجر 5 ثم ملاحظة');
+      await committer.commit(id, [
+        TaskCommit(
+          TaskProposal(
+            title: 'اتصل بأحمد',
+            confidence: 100,
+            due: DateTime(2026, 10, 24, 17),
+            hasTime: true,
+            kind: 'reminder',
+            place: 'المنصور',
+          ),
+        ),
+        const NoteCommit(NoteProposal(text: 'رقم المهندس')),
+      ]);
+      final tasks = await f.db.select(f.db.tasks).get();
+      expect(tasks.single.title, 'اتصل بأحمد');
+      expect(
+        (tasks.single.kind, tasks.single.hasTime, tasks.single.place, tasks.single.captureId),
+        ('reminder', true, 'المنصور', id),
+      );
+      expect(tasks.single.dueAt!.isAtSameMomentAs(DateTime(2026, 10, 24, 17)), isTrue);
+      expect((await f.db.select(f.db.notes).get()).single.body, 'رقم المهندس');
+      await committer.undo(id);
+      expect(await f.db.select(f.db.tasks).get(), isEmpty);
+      expect(await f.db.select(f.db.notes).get(), isEmpty);
+    });
+
+    test('an empty title is refused and nothing is written', () async {
+      final id = await repo.createText('x');
+      expect(
+        () => committer.commit(id, [const TaskCommit(TaskProposal(title: ' ', confidence: 40))]),
+        throwsArgumentError,
+      );
+      expect(await f.db.select(f.db.tasks).get(), isEmpty);
+    });
   });
 }

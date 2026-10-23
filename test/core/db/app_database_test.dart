@@ -23,8 +23,8 @@ void main() {
   test('settings row exists with defaults', () async {
     final s = await db.select(db.appSettingsTable).getSingle();
     expect(s.localeCode, 'ar');
-    expect(s.themeMode, 'dark');
-    expect(s.lockTimeoutSeconds, 300);
+    expect(s.themeMode, 'light');
+    expect(s.lockTimeoutSeconds, 60);
     expect(s.biometricEnabled, false);
     expect(s.baseCurrency, 'IQD');
     expect(s.setupCompleted, false);

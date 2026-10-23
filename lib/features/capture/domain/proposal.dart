@@ -42,7 +42,7 @@ class TransferDraft {
   final String? transferKind;
 }
 
-enum IntentType { expense, income, transfer, task, debtPayment, note }
+enum IntentType { expense, income, transfer, task, debtPayment, note, edit, delete, projectIdea }
 
 /// Below this the review screen asks the owner to check the proposal.
 const kLowConfidence = 60;
@@ -70,6 +70,8 @@ class MoneyProposal extends Proposal {
     this.occurredAt,
     this.description,
     this.bucketTag,
+    this.newCategoryName,
+    this.newAccountName,
   });
 
   /// [IntentType.expense] or [IntentType.income].
@@ -85,6 +87,32 @@ class MoneyProposal extends Proposal {
   final DateTime? occurredAt;
   final String? description;
   final String? bucketTag;
+
+  /// A category or account the owner named that does not exist yet; the chat offers to make it.
+  final String? newCategoryName;
+  final String? newAccountName;
+
+  MoneyProposal copyWith({
+    int? amountMinor,
+    String? currency,
+    int? accountId,
+    int? categoryId,
+    bool dropNewCategory = false,
+    bool dropNewAccount = false,
+  }) => MoneyProposal(
+    type: type,
+    confidence: confidence,
+    amountMinor: amountMinor ?? this.amountMinor,
+    currency: currency ?? this.currency,
+    accountId: accountId ?? this.accountId,
+    workspaceId: workspaceId,
+    categoryId: categoryId ?? this.categoryId,
+    occurredAt: occurredAt,
+    description: description,
+    bucketTag: bucketTag,
+    newCategoryName: dropNewCategory || categoryId != null ? null : newCategoryName,
+    newAccountName: dropNewAccount || accountId != null ? null : newAccountName,
+  );
 
   TransactionDraft toTransactionDraft() => TransactionDraft(
     type: type == IntentType.income ? 'income' : 'expense',
@@ -120,6 +148,17 @@ class TransferProposal extends Proposal {
   final int? rateE6;
   final String? transferKind;
   final DateTime? occurredAt;
+
+  TransferProposal copyWith({int? fromAccountId, int? toAccountId, int? amountMinor}) => TransferProposal(
+    confidence: confidence,
+    fromAccountId: fromAccountId ?? this.fromAccountId,
+    toAccountId: toAccountId ?? this.toAccountId,
+    amountMinor: amountMinor ?? this.amountMinor,
+    toAmountMinor: toAmountMinor ?? (amountMinor ?? this.amountMinor),
+    rateE6: rateE6,
+    transferKind: transferKind,
+    occurredAt: occurredAt,
+  );
 
   TransferDraft toTransferDraft() => TransferDraft(
     fromAccountId: fromAccountId,
@@ -158,10 +197,30 @@ class DebtProposal extends Proposal {
   final String? currency;
   final int? accountId;
   final DateTime? occurredAt;
+
+  DebtProposal copyWith({String? counterparty, String? direction, String? leg, int? amountMinor, int? accountId}) =>
+      DebtProposal(
+        confidence: confidence,
+        counterparty: counterparty ?? this.counterparty,
+        direction: direction ?? this.direction,
+        leg: leg ?? this.leg,
+        amountMinor: amountMinor ?? this.amountMinor,
+        currency: currency,
+        accountId: accountId ?? this.accountId,
+        occurredAt: occurredAt,
+      );
 }
 
 class TaskProposal extends Proposal {
-  const TaskProposal({required this.title, required this.confidence, this.due, this.workspaceId});
+  const TaskProposal({
+    required this.title,
+    required this.confidence,
+    this.due,
+    this.workspaceId,
+    this.kind = 'task',
+    this.place,
+    this.hasTime = false,
+  });
 
   @override
   IntentType get type => IntentType.task;
@@ -170,6 +229,25 @@ class TaskProposal extends Proposal {
   final String title;
   final DateTime? due;
   final int? workspaceId;
+
+  /// `task`, `reminder` or `appointment`.
+  final String kind;
+  final String? place;
+
+  /// Whether [due] carries a time of day, not just a date.
+  final bool hasTime;
+}
+
+/// «عندي فكرة مشروع …»: becomes a project the planner chat then works on.
+class ProjectIdeaProposal extends Proposal {
+  const ProjectIdeaProposal({required this.title, this.description});
+
+  @override
+  IntentType get type => IntentType.projectIdea;
+  @override
+  int get confidence => 100;
+  final String title;
+  final String? description;
 }
 
 class NoteProposal extends Proposal {
@@ -181,4 +259,57 @@ class NoteProposal extends Proposal {
   int get confidence => 100;
   final String text;
   final int? workspaceId;
+}
+
+/// Which saved entry «edit» and «delete» mean: `last`, `last_expense`,
+/// `last_income`, or words found in its description or category.
+const kTargetLast = 'last';
+
+/// «غير المبلغ لـ 30 الف»: changes one saved income or expense. [txId] is
+/// picked by the chat from [target] before the card is shown.
+class EditProposal extends Proposal {
+  const EditProposal({
+    required this.confidence,
+    this.target = kTargetLast,
+    this.txId,
+    this.newAmountMinor,
+    this.newCategoryId,
+    this.newDescription,
+  });
+
+  @override
+  IntentType get type => IntentType.edit;
+  @override
+  final int confidence;
+  final String target;
+  final int? txId;
+  final int? newAmountMinor;
+  final int? newCategoryId;
+  final String? newDescription;
+
+  bool get changesNothing => newAmountMinor == null && newCategoryId == null && newDescription == null;
+
+  EditProposal copyWith({int? txId, int? newAmountMinor}) => EditProposal(
+    confidence: confidence,
+    target: target,
+    txId: txId ?? this.txId,
+    newAmountMinor: newAmountMinor ?? this.newAmountMinor,
+    newCategoryId: newCategoryId,
+    newDescription: newDescription,
+  );
+}
+
+/// «احذف آخر مصروف»: deletes one saved income or expense.
+class DeleteProposal extends Proposal {
+  const DeleteProposal({required this.confidence, this.target = kTargetLast, this.txId});
+
+  @override
+  IntentType get type => IntentType.delete;
+  @override
+  final int confidence;
+  final String target;
+  final int? txId;
+
+  DeleteProposal copyWith({int? txId}) =>
+      DeleteProposal(confidence: confidence, target: target, txId: txId ?? this.txId);
 }

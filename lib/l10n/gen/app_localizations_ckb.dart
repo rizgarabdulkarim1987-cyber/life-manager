@@ -46,7 +46,8 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get biometrics => 'کردنەوە بە پەنجەمۆر';
 
   @override
-  String get biometricsUnavailable => 'هیچ پەنجەمۆر یان ناسینەوەی ڕوو لەسەر ئەم مۆبایلە چالاک نییە';
+  String get biometricsUnavailable =>
+      'هیچ پەنجەمۆر یان ناسینەوەی ڕوو لەسەر ئەم مۆبایلە چالاک نییە';
 
   @override
   String get changePin => 'گۆڕینی PIN';
@@ -159,7 +160,8 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get setupWelcome => 'بەخێربێیت';
 
   @override
-  String get setupWelcomeBody => 'هەموو شتێک لەسەر ئەم مۆبایلە دەمێنێتەوە، لەژێر قوفڵی خۆت.';
+  String get setupWelcomeBody =>
+      'هەموو شتێک لەسەر ئەم مۆبایلە دەمێنێتەوە، لەژێر قوفڵی خۆت.';
 
   @override
   String get setupChooseLanguage => 'زمانەکەت هەڵبژێرە';
@@ -243,7 +245,8 @@ class AppLocalizationsCkb extends AppLocalizations {
       'زانیارییەکانت لەسەر ئەم مۆبایلە دەمێننەوە. تەنها ئەگەر زیرەکی دەستکردی ئۆنلاین هەڵبکەیت و ڕازی بیت، دەنگ یان دەقی تۆمارەکە بۆ Groq دەنێردرێت. گەنجینەکە هەرگیز لە مۆبایلەکە دەرناچێت.';
 
   @override
-  String get restoreTooNew => 'ئەم پاشەکەوتە لە وەشانێکی نوێتری ئەپەکە دروستکراوە. سەرەتا ئەپەکە نوێ بکەرەوە.';
+  String get restoreTooNew =>
+      'ئەم پاشەکەوتە لە وەشانێکی نوێتری ئەپەکە دروستکراوە. سەرەتا ئەپەکە نوێ بکەرەوە.';
 
   @override
   String get restoreWrongPassword => 'وشەی نهێنی هەڵەیە، یان فایلەکە تێکچووە.';
@@ -255,7 +258,8 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get restoreSuccess => 'گەڕێندرایەوە. دووبارە دەستپێدەکاتەوە…';
 
   @override
-  String get passwordStrengthWeak => 'لاواز: درێژتری بکە، یان پیت و ژمارە و هێما تێکەڵ بکە';
+  String get passwordStrengthWeak =>
+      'لاواز: درێژتری بکە، یان پیت و ژمارە و هێما تێکەڵ بکە';
 
   @override
   String get passwordStrengthFair => 'مامناوەند';
@@ -479,7 +483,8 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get finAdjustBalance => 'ڕێکخستنی باڵانس';
 
   @override
-  String get finAdjustHint => 'بڕی ڕاستەقینەی ئەم هەژمارە بنووسە. جیاوازییەکە وەک ڕێکخستن پاشەکەوت دەکرێت.';
+  String get finAdjustHint =>
+      'بڕی ڕاستەقینەی ئەم هەژمارە بنووسە. جیاوازییەکە وەک ڕێکخستن پاشەکەوت دەکرێت.';
 
   @override
   String get finActualAmount => 'بڕی ڕاستەقینە';
@@ -705,7 +710,8 @@ class AppLocalizationsCkb extends AppLocalizations {
   }
 
   @override
-  String get finBucketsUnconfirmed => 'پێش دابەشکردنی داهات، ڕێژەکانی خۆت دابنێ.';
+  String get finBucketsUnconfirmed =>
+      'پێش دابەشکردنی داهات، ڕێژەکانی خۆت دابنێ.';
 
   @override
   String get finExpensesMonthly => 'هەموو مانگێک سفر دەبێتەوە';
@@ -720,7 +726,8 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get finEditBudget => 'دەستکاری بودجە';
 
   @override
-  String get finBudgetNeedsScope => 'پۆلێک یان شوێنی کارێک یان هەردووکیان هەڵبژێرە';
+  String get finBudgetNeedsScope =>
+      'پۆلێک یان شوێنی کارێک یان هەردووکیان هەڵبژێرە';
 
   @override
   String get finAnyWorkspace => 'هەموو شوێنەکانی کار';
@@ -919,7 +926,8 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get repExportPdf => 'ڕاپۆرت وەک PDF';
 
   @override
-  String get repNotEncrypted => 'ئەم فایلە نهێنی نەکراوە. هەر کەسێک دەستی بکەوێت دەتوانێت بیخوێنێتەوە.';
+  String get repNotEncrypted =>
+      'ئەم فایلە نهێنی نەکراوە. هەر کەسێک دەستی بکەوێت دەتوانێت بیخوێنێتەوە.';
 
   @override
   String get repExportFailed => 'نەتوانرا فایلەکە پاشەکەوت بکرێت';
@@ -931,7 +939,8 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get setFinanceSettings => 'دراو و نرخەکان';
 
   @override
-  String get setFinanceSettingsHint => 'دراوی بنەڕەت، نرخی دۆلار، ئاگادارکردنەوە';
+  String get setFinanceSettingsHint =>
+      'دراوی بنەڕەت، نرخی دۆلار، ئاگادارکردنەوە';
 
   @override
   String get setCategories => 'پۆلەکان';
@@ -949,7 +958,8 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get setBaseCurrency => 'دراوی بنەڕەت';
 
   @override
-  String get setBaseCurrencyHint => 'کۆکان و سندوقەکان و ڕاپۆرتەکان بەکاری دەهێنن مەگەر یەکێکی تر هەڵبژێریت.';
+  String get setBaseCurrencyHint =>
+      'کۆکان و سندوقەکان و ڕاپۆرتەکان بەکاری دەهێنن مەگەر یەکێکی تر هەڵبژێریت.';
 
   @override
   String setRateDate(String date) {
@@ -960,7 +970,8 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get setRateHistory => 'مێژووی نرخەکان';
 
   @override
-  String get setNoRates => 'هێشتا نرخ نییە. دۆلار و دینار جیا دەمێننەوە تا نرخێک زیاد دەکەیت.';
+  String get setNoRates =>
+      'هێشتا نرخ نییە. دۆلار و دینار جیا دەمێننەوە تا نرخێک زیاد دەکەیت.';
 
   @override
   String get setRateSaved => 'نرخەکە پاشەکەوت کرا';
@@ -969,7 +980,8 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get setAlerts => 'ئاگادارکردنەوەکان';
 
   @override
-  String get setUnallocatedAlert => 'بیرم بخەرەوە بە داهاتێک کە دابەش نەکراوە بۆ سندوقەکان';
+  String get setUnallocatedAlert =>
+      'بیرم بخەرەوە بە داهاتێک کە دابەش نەکراوە بۆ سندوقەکان';
 
   @override
   String get setUnallocatedAlertHint => 'لە شاشەی دارایی دەردەکەوێت';
@@ -1091,10 +1103,12 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get impPickAnother => 'فایلێکی تر هەڵبژێرە';
 
   @override
-  String get impTooLarge => 'فایلەکە زۆر گەورەیە: زیاتر لە 50,000 ڕیز یان 64 ستوون.';
+  String get impTooLarge =>
+      'فایلەکە زۆر گەورەیە: زیاتر لە 50,000 ڕیز یان 64 ستوون.';
 
   @override
-  String get impUnreadable => 'نەتوانرا فایلەکە وەک ‎.xlsx‎ یان ‎.csv‎ بخوێنرێتەوە.';
+  String get impUnreadable =>
+      'نەتوانرا فایلەکە وەک ‎.xlsx‎ یان ‎.csv‎ بخوێنرێتەوە.';
 
   @override
   String get impSheet => 'پەڕە';
@@ -1170,13 +1184,15 @@ class AppLocalizationsCkb extends AppLocalizations {
   }
 
   @override
-  String get impNeedDateAmount => 'ستوونی بەروار و بڕ هەڵبژێرە بۆ بەردەوامبوون.';
+  String get impNeedDateAmount =>
+      'ستوونی بەروار و بڕ هەڵبژێرە بۆ بەردەوامبوون.';
 
   @override
   String get impDefaultsHint => 'بۆ ئەو ڕیزانە بەکاردێت کە ئەمەیان تێدا نییە.';
 
   @override
-  String get impNoValues => 'هیچ بۆ گونجاندن نییە: فایلەکە ستوونی جۆر، پۆل، شوێن یان هەژماری تێدا نییە.';
+  String get impNoValues =>
+      'هیچ بۆ گونجاندن نییە: فایلەکە ستوونی جۆر، پۆل، شوێن یان هەژماری تێدا نییە.';
 
   @override
   String get impCreateNew => 'نوێ دروست بکە';
@@ -1285,13 +1301,15 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get aiOnline => 'زیرەکی دەستکردی ئۆنلاین بەکاربهێنە';
 
   @override
-  String get aiOnlineHint => 'کاتێک کوژاوەیە، هەموو شتێک لەسەر مۆبایلەکە تێدەگات، کەمێک بە وردی کەمتر.';
+  String get aiOnlineHint =>
+      'کاتێک کوژاوەیە، هەموو شتێک لەسەر مۆبایلەکە تێدەگات، کەمێک بە وردی کەمتر.';
 
   @override
   String get aiKey => 'کلیلی Groq API';
 
   @override
-  String get aiKeyHint => 'بەخۆڕایی لە console.groq.com. تەنها لەسەر ئەم مۆبایلە بە نهێنی هەڵدەگیرێت.';
+  String get aiKeyHint =>
+      'بەخۆڕایی لە console.groq.com. تەنها لەسەر ئەم مۆبایلە بە نهێنی هەڵدەگیرێت.';
 
   @override
   String aiKeySaved(String last4) {
@@ -1314,7 +1332,8 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get aiTestOk => 'کلیلەکە کار دەکات.';
 
   @override
-  String get aiTestUnauthorized => 'Groq ئەم کلیلەی ڕەتکردەوە. بیپشکنە و دووبارە هەڵیبگرەوە.';
+  String get aiTestUnauthorized =>
+      'Groq ئەم کلیلەی ڕەتکردەوە. بیپشکنە و دووبارە هەڵیبگرەوە.';
 
   @override
   String get aiTestOffline => 'نەتوانرا بگەینە Groq. ئینتەرنێتەکە بپشکنە.';
@@ -1323,7 +1342,8 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get aiTestBusy => 'Groq سەرقاڵە. دوای خولەکێک دووبارە هەوڵ بدەرەوە.';
 
   @override
-  String get aiTestOther => 'Groq وەک چاوەڕوانکراو وەڵامی نەدایەوە. دواتر هەوڵ بدەرەوە.';
+  String get aiTestOther =>
+      'Groq وەک چاوەڕوانکراو وەڵامی نەدایەوە. دواتر هەوڵ بدەرەوە.';
 
   @override
   String get aiModels => 'مۆدێلەکان';
@@ -1350,7 +1370,8 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get aiConsentParseTitle => 'پڕکردنەوەی فۆرمەکە';
 
   @override
-  String get aiConsentVoice => 'تۆماری دەنگەکەت بۆ Groq دەنێردرێت بۆ ئەوەی بکرێتە دەق.';
+  String get aiConsentVoice =>
+      'تۆماری دەنگەکەت بۆ Groq دەنێردرێت بۆ ئەوەی بکرێتە دەق.';
 
   @override
   String get aiConsentParse =>
@@ -1372,19 +1393,23 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get aiOfflineModel => 'مۆدێلی قسەکردن بێ ئینتەرنێت';
 
   @override
-  String get aiOfflineModelHint => 'قسە دەکاتە دەق لەسەر مۆبایلەکە کاتێک زیرەکی ئۆنلاین کوژاوەیە یان ناگات.';
+  String get aiOfflineModelHint =>
+      'قسە دەکاتە دەق لەسەر مۆبایلەکە کاتێک زیرەکی ئۆنلاین کوژاوەیە یان ناگات.';
 
   @override
   String get consentTitle => 'ئەمە بنێرین بۆ Groq؟';
 
   @override
-  String get consentWho => 'کۆمپانیای Groq لەسەر سێرڤەرەکانی ویلایەتە یەکگرتووەکان چارەسەری دەکات.';
+  String get consentWho =>
+      'کۆمپانیای Groq لەسەر سێرڤەرەکانی ویلایەتە یەکگرتووەکان چارەسەری دەکات.';
 
   @override
-  String get consentNever => 'هەرگیز نانێردرێت: باڵانسەکانت، مامەڵە کۆنەکان، PIN، پاشەکەوتەکان یان گەنجینەکە.';
+  String get consentNever =>
+      'هەرگیز نانێردرێت: باڵانسەکانت، مامەڵە کۆنەکان، PIN، پاشەکەوتەکان یان گەنجینەکە.';
 
   @override
-  String get consentOff => 'هەر کاتێک دەتوانیت لە ڕێکخستنەکان ← زیرەکی دەستکردی ئۆنلاین بیکوژێنیتەوە.';
+  String get consentOff =>
+      'هەر کاتێک دەتوانیت لە ڕێکخستنەکان ← زیرەکی دەستکردی ئۆنلاین بیکوژێنیتەوە.';
 
   @override
   String get consentAllow => 'ڕێگە بدە';
@@ -1429,13 +1454,16 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get aiModelVerifying => 'فایلەکە دەپشکنرێت…';
 
   @override
-  String get aiModelFailed => 'دابەزاندنەکە وەستا. دووبارە هەوڵ بدەرەوە، باشترە لەسەر Wi-Fi.';
+  String get aiModelFailed =>
+      'دابەزاندنەکە وەستا. دووبارە هەوڵ بدەرەوە، باشترە لەسەر Wi-Fi.';
 
   @override
-  String get aiModelMismatch => 'فایلەکە یەکی نەگرتەوە و سڕایەوە. دووبارە هەوڵ بدەرەوە.';
+  String get aiModelMismatch =>
+      'فایلەکە یەکی نەگرتەوە و سڕایەوە. دووبارە هەوڵ بدەرەوە.';
 
   @override
-  String get aiModelSorani => 'بێ ئینتەرنێت، کوردی (سۆرانی) بە وردی کەمتر لە عەرەبی و ئینگلیزی دەناسرێتەوە.';
+  String get aiModelSorani =>
+      'بێ ئینتەرنێت، کوردی (سۆرانی) بە وردی کەمتر لە عەرەبی و ئینگلیزی دەناسرێتەوە.';
 
   @override
   String get capMicTooltip => 'بە دەنگ تۆمار بکە (بۆ نووسین دابگرە)';
@@ -1453,7 +1481,8 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get capProcessing => 'تێدەگەم…';
 
   @override
-  String get capMicDenied => 'مایکرۆفۆن ڕێگەپێنەدراوە. لە ڕێکخستنەکانی ئەندرۆید ڕێگەی پێبدە.';
+  String get capMicDenied =>
+      'مایکرۆفۆن ڕێگەپێنەدراوە. لە ڕێکخستنەکانی ئەندرۆید ڕێگەی پێبدە.';
 
   @override
   String get capTypeHint => 'بنووسە چی ڕوویدا';
@@ -1477,17 +1506,38 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get capOpen => 'بیکەرەوە';
 
   @override
-  String get capReason_noSpeechEngine =>
-      'هێشتا بزوێنەری دەنگ نییە. AI ی ئۆنلاین هەڵبکە یان مۆدێلێکی ئۆفلاین لە ڕێکخستنەکان دابەزێنە.';
+  String get capReason_noSpeechEngine => 'هێشتا نەکراوەتە دەق.';
 
   @override
-  String get capReason_sttFailed => 'نەمتوانی تۆمارەکە بکەمە دەق. لە سندوقی هاتوو هەڵگیرا.';
+  String get capReason_noSpeechOnlineOff =>
+      'زیرەکی دەستکردی ئۆنلاین کوژاوەیە و مۆدێلی قسەکردن بێ ئینتەرنێت دانەبەزێنراوە. لە ڕێکخستنەکان ← زیرەکی دەستکردی ئۆنلاین هەڵیبکە یان مۆدێلەکە دابەزێنە.';
+
+  @override
+  String get capReason_noSpeechNoKey =>
+      'هیچ کلیلێکی Groq هەڵنەگیراوە. لە ڕێکخستنەکان ← زیرەکی دەستکردی ئۆنلاین زیادی بکە، یان مۆدێلی قسەکردن بێ ئینتەرنێت لەوێ دابەزێنە.';
+
+  @override
+  String get capReason_noSpeechNotAsked =>
+      'هێشتا ڕێگە نەدراوە دەنگ بۆ Groq بنێردرێت. مایکەکە دابگرە و «ڕێگە بدە» هەڵبژێرە، یان مۆدێلی قسەکردن بێ ئینتەرنێت لە ڕێکخستنەکان ← زیرەکی دەستکردی ئۆنلاین دابەزێنە.';
+
+  @override
+  String get capReason_noSpeechDeclined =>
+      'هەڵتبژارد دەنگ بۆ Groq نەنێردرێت. لە ڕێکخستنەکان ← زیرەکی دەستکردی ئۆنلاین «دووبارە بپرسە» دابگرە، یان مۆدێلی قسەکردن بێ ئینتەرنێت لەوێ دابەزێنە.';
+
+  @override
+  String get capReason_noSpeechOffline =>
+      'مۆدێلی قسەکردن بێ ئینتەرنێت دانەبەزێنراوە. لە ڕێکخستنەکان ← زیرەکی دەستکردی ئۆنلاین دایبەزێنە.';
+
+  @override
+  String get capReason_sttFailed =>
+      'نەمتوانی تۆمارەکە بکەمە دەق. لە سندوقی هاتوو هەڵگیرا.';
 
   @override
   String get capReason_empty => 'هیچ نەبیسترا.';
 
   @override
-  String get capReason_lowConfidence => 'دڵنیا نیم مەبەستت چییە. لە سندوقی هاتوو هەڵگیرا.';
+  String get capReason_lowConfidence =>
+      'دڵنیا نیم مەبەستت چییە. لە سندوقی هاتوو هەڵگیرا.';
 
   @override
   String get capReviewTitle => 'پێداچوونەوە';
@@ -1511,7 +1561,8 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get capCheckThis => 'ئەمە بپشکنە';
 
   @override
-  String get capMissingFields => 'خانە دیاریکراوەکان پڕبکەوە یان ئەمە بکوژێنەوە';
+  String get capMissingFields =>
+      'خانە دیاریکراوەکان پڕبکەوە یان ئەمە بکوژێنەوە';
 
   @override
   String get capKeepInInbox => 'لە سندوقی هاتوو بیهێڵەوە';
@@ -1534,7 +1585,8 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get capDrop => 'لابرا';
 
   @override
-  String get capNothingFound => 'هیچ شتێک بۆ پاشەکەوتکردن نەدۆزرایەوە. دەقەکە دەستکاری بکە و دووبارە بیخوێنەوە.';
+  String get capNothingFound =>
+      'هیچ شتێک بۆ پاشەکەوتکردن نەدۆزرایەوە. دەقەکە دەستکاری بکە و دووبارە بیخوێنەوە.';
 
   @override
   String get capAlreadyHandled => 'ئەم تۆمارە پێشتر پاشەکەوت یان سڕاوەتەوە.';
@@ -1546,7 +1598,8 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get capInbox => 'سندوقی هاتوو';
 
   @override
-  String get capInboxEmpty => 'هیچ شتێک چاوەڕێ نییە. هەر شتێک بڵێیت یان بینووسیت و پاشەکەوتی نەکەیت دێتە ئێرە.';
+  String get capInboxEmpty =>
+      'هیچ شتێک چاوەڕێ نییە. هەر شتێک بڵێیت یان بینووسیت و پاشەکەوتی نەکەیت دێتە ئێرە.';
 
   @override
   String get capNotTranscribed => 'دەنگ، هێشتا نەکراوە بە دەق';
@@ -1575,7 +1628,8 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get capDiscardTitle => 'ئەم تۆمارە لاببرێت؟';
 
   @override
-  String get capDiscardBody => 'دەق و دەنگەکەی دەسڕێتەوە. هیچ شتێکی پاشەکەوتکراو لێی ناگۆڕێت.';
+  String get capDiscardBody =>
+      'دەق و دەنگەکەی دەسڕێتەوە. هیچ شتێکی پاشەکەوتکراو لێی ناگۆڕێت.';
 
   @override
   String capWillBecomeTask(int phase) {
@@ -1586,4 +1640,650 @@ class AppLocalizationsCkb extends AppLocalizations {
   String capWillBecomeNote(int phase) {
     return 'دەبێتە تێبینی لە قۆناغی $phase';
   }
+
+  @override
+  String get showAmounts => 'پیشاندانی بڕەکان';
+
+  @override
+  String get hideAmounts => 'شاردنەوەی بڕەکان';
+
+  @override
+  String get lockedTitle => 'داخراوە';
+
+  @override
+  String get lockedHint => 'بە ڕووخسار، پەنجەمۆر یان قوفڵی شاشە بیکەرەوە';
+
+  @override
+  String get unlockButton => 'کردنەوە';
+
+  @override
+  String get noScreenLockTitle => 'مۆبایلەکەت قوفڵی شاشەی نییە';
+
+  @override
+  String get noScreenLockBody =>
+      'ئەم ئەپە پارە و تێبینییەکانت بە قوفڵی مۆبایلەکەت دەپارێزێت. سەرەتا PIN، شێوە، پەنجەمۆر یان ڕووخسار چالاک بکە.';
+
+  @override
+  String get openSecuritySettings => 'ڕێکخستنەکانی ئاسایش بکەرەوە';
+
+  @override
+  String get sensitiveLocked =>
+      'ئەم بەشە دووبارە پەنجەمۆر یان ڕووخسار دەخوازێت';
+
+  @override
+  String get faceUnlockNote =>
+      'ئەگەر ڕووخسار پیشان نەدرا، مۆبایلەکەت ڕێگەی پێ نادات بۆ ئەپەکان؛ پەنجەمۆر و قوفڵی شاشە کار دەکەن.';
+
+  @override
+  String get lockSection => 'قوفڵ';
+
+  @override
+  String lockAfterSeconds(int seconds) {
+    return 'دوای $seconds چرکە';
+  }
+
+  @override
+  String get delete => 'سڕینەوە';
+
+  @override
+  String finDeletedMany(int count) {
+    return '$count مامەڵە سڕایەوە';
+  }
+
+  @override
+  String selectedCount(int count) {
+    return '$count هەڵبژێردراو';
+  }
+
+  @override
+  String chatExpense(String amount, String category, String account) {
+    return '$amount وەک خەرجی «$category» لە «$account» تۆمار دەکەم.';
+  }
+
+  @override
+  String chatIncome(String amount, String category, String account) {
+    return '$amount وەک داهاتی «$category» بۆ «$account» تۆمار دەکەم.';
+  }
+
+  @override
+  String chatTransfer(String amount, String from, String to) {
+    return '$amount لە «$from» بۆ «$to» دەگوازمەوە.';
+  }
+
+  @override
+  String chatDebtOwedToMe(String who, String amount) {
+    return 'تۆمار دەکەم کە $who $amountی قەرزارە بۆت.';
+  }
+
+  @override
+  String chatDebtOwedByMe(String who, String amount) {
+    return 'تۆمار دەکەم کە تۆ $amount قەرزاری $whoیت.';
+  }
+
+  @override
+  String chatDebtRepay(String who, String amount) {
+    return 'دانەوەی $amount لەگەڵ $who تۆمار دەکەم.';
+  }
+
+  @override
+  String chatLater(String text) {
+    return '«$text» — لە هاتووەکان هەڵیدەگرم تا ئەو بەشە ئامادە دەبێت.';
+  }
+
+  @override
+  String get chatNoCategory => 'بێ پۆل';
+
+  @override
+  String get chatConfirm => 'باشە؟';
+
+  @override
+  String get chatSaved => 'پاشەکەوت کرا.';
+
+  @override
+  String get chatDroppedAll => 'باشە، هیچ تۆمار نەکرا.';
+
+  @override
+  String get chatUndone => 'گەڕێندرایەوە. ئێستا هیچ لەو نامەیە پاشەکەوت نییە.';
+
+  @override
+  String get chatNotUnderstood =>
+      'تێنەگەیشتم. لە هاتووەکان هەڵمگرت تا بگەڕێیتەوە بۆی.';
+
+  @override
+  String get chatAskAmount => 'چەندە؟';
+
+  @override
+  String get chatAskAccount => 'لە کام هەژمار؟';
+
+  @override
+  String get chatAskToAccount => 'بۆ کام هەژمار؟';
+
+  @override
+  String get chatAskCounterparty => 'لەگەڵ کێ؟';
+
+  @override
+  String get chatAskDirection => 'ئەو قەرزارتە یان تۆ قەرزاری ئەویت؟';
+
+  @override
+  String get chatAskLeg => 'ئەمە قەرزێکی نوێیە یان دانەوە؟';
+
+  @override
+  String get chatOwedToMe => 'ئەو قەرزارمە';
+
+  @override
+  String get chatOwedByMe => 'من قەرزاریم';
+
+  @override
+  String get chatNewDebt => 'قەرزی نوێ';
+
+  @override
+  String get chatRepayment => 'دانەوە';
+
+  @override
+  String get chatHandedToForm => 'لە فۆرمی تەواودا کرایەوە.';
+
+  @override
+  String get chatOk => 'باشە';
+
+  @override
+  String get chatEdit => 'دەستکاری';
+
+  @override
+  String get chatDrop => 'نەخێر';
+
+  @override
+  String get navProjects => 'پڕۆژەکان';
+
+  @override
+  String get composerHint => 'هەرچی بنووسە… خەرجی، ئەرک، بیرۆکە';
+
+  @override
+  String get composerSend => 'ناردن';
+
+  @override
+  String get composerMic =>
+      'پەنجە دابگرە بۆ قسەکردن، یان جارێک بۆ دەستپێک و جارێک بۆ وەستان';
+
+  @override
+  String get chatTitle => 'یاریدەدەر';
+
+  @override
+  String get chatUndo => 'گەڕاندنەوە';
+
+  @override
+  String chatVoiceKept(String reason) {
+    return 'دەنگەکەتم لە هاتووەکان هەڵگرت. $reason';
+  }
+
+  @override
+  String get chatEmpty =>
+      'بە قسەی خۆت بڵێ چی ڕوویدا. پێش پاشەکەوتکردن پیشانت دەدەم چیم تێگەیشت.';
+
+  @override
+  String get chatStateSaved => 'پاشەکەوت کرا';
+
+  @override
+  String get chatStateDropped => 'پاشەکەوت نەکرا';
+
+  @override
+  String get chatStateUndone => 'گەڕێندرایەوە';
+
+  @override
+  String get chatStateEdited => 'لە فۆرم کرایەوە';
+
+  @override
+  String chatDeleteEntry(String entry) {
+    return '«$entry» دەسڕمەوە.';
+  }
+
+  @override
+  String chatEditAmount(String entry, String amount) {
+    return 'بڕی «$entry» دەگۆڕم بۆ $amount.';
+  }
+
+  @override
+  String chatEditCategory(String entry, String category) {
+    return '«$entry» دەگوازمەوە بۆ «$category».';
+  }
+
+  @override
+  String chatEditDescription(String entry, String text) {
+    return 'وەسفی «$entry» دەگۆڕم بۆ «$text».';
+  }
+
+  @override
+  String chatEntryLabel(String what, String date) {
+    return '$what لە $date';
+  }
+
+  @override
+  String get chatNoEntry =>
+      'ئەو تۆمارەم نەدۆزیەوە. دارایی بکەرەوە و خۆت هەڵیبژێرە.';
+
+  @override
+  String get chatAskNewAmount => 'بڕە نوێیەکە چەند بێت؟';
+
+  @override
+  String get tipAllClear =>
+      'ئەمڕۆ هەموو شت باشە. هەرچی لە سەرەوە بنووسە ڕێکی دەخەم.';
+
+  @override
+  String tipBudgetNear(String name) {
+    return 'بودجەی «$name» ئەم مانگە خەریکە تەواو دەبێت.';
+  }
+
+  @override
+  String get tipEmergencyLow =>
+      'سندوقی فریاکەوتن لە ئامانجەکەی کەمترە. بڕێکی بچووکیش سوودی هەیە.';
+
+  @override
+  String tipOverdue(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ئەرک دواکەوتوون.',
+      one: '1 ئەرک دواکەوتووە.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String tipProjectStepSoon(String step, String project) {
+    return 'هەنگاوی «$step» لە «$project» ئەم هەفتەیە کاتیەتی.';
+  }
+
+  @override
+  String get homeGreeting => 'چی لە مێشکتە؟';
+
+  @override
+  String get homeToday => 'ئەمڕۆ';
+
+  @override
+  String get homeTodayEmpty => 'ئەمڕۆ هیچ شتێک نییە.';
+
+  @override
+  String get homeRecent => 'دوایین تۆمارەکان';
+
+  @override
+  String get homeRecentEmpty => 'هێشتا هیچ تۆمار نەکراوە.';
+
+  @override
+  String get homeProjects => 'پڕۆژە چالاکەکان';
+
+  @override
+  String get homeProjectsEmpty =>
+      'هێشتا پڕۆژە نییە. باسی یەکێکم بۆ بکە یارمەتیت دەدەم پلانی بۆ دابنێیت.';
+
+  @override
+  String get homeIncome => 'داهات';
+
+  @override
+  String get homeExpense => 'خەرجی';
+
+  @override
+  String get setupAccountTitle => 'یەکەم هەژمارت';
+
+  @override
+  String get setupAccountBody =>
+      'پارەکەت لە کوێیە؟ جزدان، بانک، کارت. دواتر دەتوانیت زیاتر زیاد بکەیت، یان تەنها بە یاریدەدەر بڵێ.';
+
+  @override
+  String get setupAccountName => 'ناوی هەژمار';
+
+  @override
+  String get setupAccountHint => 'بۆ نموونە: جزدانی نەختینە';
+
+  @override
+  String get setupAccountCurrency => 'دراو';
+
+  @override
+  String chatAskCreateCategory(String name) {
+    return 'هێشتا پۆلی «$name» نییە. دروستی بکەم؟';
+  }
+
+  @override
+  String get chatAskCreateAccount =>
+      'هێشتا هەژمارت نییە. یەکەم هەژمار بە کام دراو بێت؟';
+
+  @override
+  String chatDefaultAccountName(String currency) {
+    return 'نەختینە $currency';
+  }
+
+  @override
+  String get chatYesCreate => 'بەڵێ، دروستی بکە';
+
+  @override
+  String get chatNoThanks => 'نەخێر، وازی لێ بهێنە';
+
+  @override
+  String chatAskRate(String currency) {
+    return 'نرخی $currency ئەمڕۆ چەندە؟ (بە دینار بۆ 1 $currency یان بۆ 100)';
+  }
+
+  @override
+  String finRateToday(String currency) {
+    return 'نرخی 1 $currency ئەمڕۆ';
+  }
+
+  @override
+  String get finRateSave => 'پاشەکەوتی نرخ';
+
+  @override
+  String get finSuggestGoal => 'ئامانجەکەت (ئارەزوومەندانە)';
+
+  @override
+  String get finSuggestGoalHint =>
+      'بۆ نموونە ئۆتۆمبێل لە دوو ساڵدا، دوکانێکی بچووک';
+
+  @override
+  String get finSuggestSplit => 'دابەشکردنێک پێشنیار بکە';
+
+  @override
+  String get finSuggestFailed =>
+      'نەمتوانی پێشنیارێک بهێنم. دووبارە هەوڵ بدەوە.';
+
+  @override
+  String get aiConsentReceiptTitle => 'وێنەی پسوولەکان';
+
+  @override
+  String get aiConsentReceipt =>
+      'وێنەی پسوولەکە دەنێردرێت بۆ Groq بۆ خوێندنەوەی کۆی گشتی. هیچی تر لە ئەپەکەوە لەگەڵیدا ناچێت.';
+
+  @override
+  String get aiVisionModel => 'مۆدێلی خوێندنەوەی پسوولە (وێنە)';
+
+  @override
+  String get capReason_receiptKept =>
+      'نەمتوانی ئەم پسوولەیە بخوێنمەوە. خوێندنەوەی وێنە پێویستی بە زیرەکی دەستکردی ئۆنلاین و کلیلی پاشەکەوتکراو و ڕەزامەندیت هەیە بۆ وێنەی پسوولە.';
+
+  @override
+  String get composerCamera => 'وێنەی پسوولە بگرە';
+
+  @override
+  String get chatReceiptSent => 'وێنەی پسوولە';
+
+  @override
+  String chatReceiptKept(String reason) {
+    return 'وێنەی پسوولەکەم لە بەشی هاتووەکان هێشتەوە. $reason';
+  }
+
+  @override
+  String get tasksToday => 'ئەمڕۆ';
+
+  @override
+  String get tasksUpcoming => 'داهاتوو';
+
+  @override
+  String get tasksOverdue => 'دواکەوتوو';
+
+  @override
+  String get tasksNoDate => 'بێ بەروار';
+
+  @override
+  String get tasksDone => 'تەواوبوو';
+
+  @override
+  String get tasksCalendar => 'ساڵنامە';
+
+  @override
+  String get tasksNotes => 'تێبینییەکان';
+
+  @override
+  String get tasksEmpty => 'هێشتا هیچ لێرە نییە.';
+
+  @override
+  String get tasksAdd => 'ئەرکێک زیاد بکە';
+
+  @override
+  String get taskNew => 'ئەرکی نوێ';
+
+  @override
+  String get taskEdit => 'دەستکاری ئەرک';
+
+  @override
+  String get taskTitleLabel => 'ناونیشان';
+
+  @override
+  String get taskKindTask => 'ئەرک';
+
+  @override
+  String get taskKindAppointment => 'کاتی دیاریکراو';
+
+  @override
+  String get taskKindReminder => 'بیرخستنەوە';
+
+  @override
+  String get taskDate => 'بەروار';
+
+  @override
+  String get taskTime => 'کات';
+
+  @override
+  String get taskNoDate => 'بێ بەروار';
+
+  @override
+  String get taskNoTime => 'بێ کات';
+
+  @override
+  String get taskPlace => 'شوێن';
+
+  @override
+  String get taskNotesLabel => 'تێبینی';
+
+  @override
+  String get taskPriority => 'گرنگی';
+
+  @override
+  String get taskPrioLow => 'نزم';
+
+  @override
+  String get taskPrioNormal => 'ئاسایی';
+
+  @override
+  String get taskPrioHigh => 'بەرز';
+
+  @override
+  String get taskRepeat => 'دووبارەبوونەوە';
+
+  @override
+  String get taskRepeatNone => 'هیچ کات';
+
+  @override
+  String get taskRepeatDaily => 'ڕۆژانە';
+
+  @override
+  String get taskRepeatWeekly => 'هەفتانە';
+
+  @override
+  String get taskRepeatMonthly => 'مانگانە';
+
+  @override
+  String get taskDeleted => 'ئەرکەکە سڕایەوە';
+
+  @override
+  String get taskCompleted => 'تەواو کرا';
+
+  @override
+  String get noteDeleted => 'تێبینییەکە سڕایەوە';
+
+  @override
+  String get noteNew => 'تێبینی نوێ';
+
+  @override
+  String get noteEdit => 'دەستکاری تێبینی';
+
+  @override
+  String get noteHint => 'تێبینییەکە بنووسە';
+
+  @override
+  String get calendarNoTasks => 'هیچ نییە لەم ڕۆژەدا.';
+
+  @override
+  String get notifChannelName => 'بیرخستنەوەکان';
+
+  @override
+  String get notifChannelDesc => 'بیرخستنەوەی ئەرک و کاتەکانت';
+
+  @override
+  String get notifDone => 'تەواو';
+
+  @override
+  String get notifSnooze1h => 'دوای کاتژمێرێک';
+
+  @override
+  String get notifTomorrow => 'سبەینێ 9:00';
+
+  @override
+  String get exactAlarmWarning =>
+      'زەنگە ورد‌ەکان کوژاونەتەوە، بۆیە بیرخستنەوەکان لەوانەیە چەند خولەکێک دوا بکەون.';
+
+  @override
+  String get exactAlarmAllow => 'ڕێگە بدە';
+
+  @override
+  String chatTaskLine(String kind, String title, String when) {
+    return '$kind: «$title» — $when';
+  }
+
+  @override
+  String chatNoteLine(String text) {
+    return 'تێبینی: «$text»';
+  }
+
+  @override
+  String chatProjectLine(String title) {
+    return 'بیرۆکەی پڕۆژە: «$title» — وەک پڕۆژە دەیکەمەوە و پێکەوە پلانی بۆ دادەنێین.';
+  }
+
+  @override
+  String get chatNoDate => 'بێ بەروار';
+
+  @override
+  String get capWillBeTask => 'وەک ئەرک پاشەکەوت دەکرێت';
+
+  @override
+  String get capWillBeNote => 'وەک تێبینی پاشەکەوت دەکرێت';
+
+  @override
+  String get capSavesOnConfirm => 'کاتێک دووپاتی بکەیتەوە پاشەکەوت دەکرێت.';
+
+  @override
+  String get chatOpenProject => 'پڕۆژەکە بکەرەوە';
+
+  @override
+  String get projectsEmpty =>
+      'هێشتا پڕۆژە نییە. + دابگرە یان بیرۆکەکەت بە چات بڵێ.';
+
+  @override
+  String get projectNew => 'پڕۆژەی نوێ';
+
+  @override
+  String get projectNameLabel => 'ناوی پڕۆژە';
+
+  @override
+  String get projectDescLabel => 'چییە؟ (ئارەزوومەندانە)';
+
+  @override
+  String get projectStatusIdea => 'بیرۆکە';
+
+  @override
+  String get projectStatusPlanning => 'پلاندانان';
+
+  @override
+  String get projectStatusActive => 'کارا';
+
+  @override
+  String get projectStatusDone => 'تەواو';
+
+  @override
+  String get projectStatusDropped => 'وازلێهێنراو';
+
+  @override
+  String projectProgress(int done, int total) {
+    return '$done لە $total هەنگاو تەواو بوون';
+  }
+
+  @override
+  String get projectNoSteps => 'هێشتا پلان نییە. لە خوارەوە بە پلانداڕێژ بڵێ.';
+
+  @override
+  String get projectStepsToTasks => 'هەموو هەنگاوەکان بکە بە ئەرک';
+
+  @override
+  String get projectStepToTask => 'بیکە بە ئەرک';
+
+  @override
+  String projectTasksMade(int count) {
+    return '$count ئەرک زیادکرا';
+  }
+
+  @override
+  String get projectCost => 'تێچوون';
+
+  @override
+  String get projectCostNone => 'هێشتا تێچوون نییە.';
+
+  @override
+  String get projectCostSet => 'تێچوون دیاری بکە';
+
+  @override
+  String get projectCostNoRate => 'هێشتا نرخی ئاڵوگۆڕ بۆ ئەم دراوە نییە.';
+
+  @override
+  String get projectInInvestment => 'لە وەبەرهێنان';
+
+  @override
+  String get projectStillMissing => 'هێشتا کەمە';
+
+  @override
+  String get projectCovered => 'سەبەتەی وەبەرهێنان داپۆشی دەکات.';
+
+  @override
+  String projectMonthsToGo(int months) {
+    return 'نزیکەی $months مانگ بە خێرایی ئاسایی تۆ.';
+  }
+
+  @override
+  String get projectNoPace =>
+      'لە ٣ مانگی ڕابردوودا هیچ بۆ وەبەرهێنان نەچووە، بۆیە کات ناکرێت حیساب بکرێت.';
+
+  @override
+  String get projectPlannerHint => 'بە پلانداڕێژ بڵێ…';
+
+  @override
+  String get projectPlannerSend => 'بنێرە';
+
+  @override
+  String get projectPlannerOffline =>
+      'پلانداڕێژ پێویستی بە زیرەکی دەستکردی ئۆنلاینە. لە ڕێکخستنەکان بیکەرەوە و ڕێگەی پێبدە.';
+
+  @override
+  String get projectPlannerFailed =>
+      'پلانداڕێژ وەڵامی نەدایەوە. دووبارە هەوڵ بدەرەوە.';
+
+  @override
+  String projectPlanProposed(int count) {
+    return 'پلانێک بە $count هەنگاو';
+  }
+
+  @override
+  String get projectPlanUse => 'ئەم پلانە بەکاربهێنە';
+
+  @override
+  String get projectPlanSaved => 'پلان پاشەکەوت کرا.';
+
+  @override
+  String get projectDelete => 'پڕۆژە بسڕەوە';
+
+  @override
+  String get projectDeleteAsk =>
+      'ئەم پڕۆژەیە بسڕدرێتەوە؟ هەنگاو و چاتەکە دەسڕدرێنەوە، ئەرکە دروستکراوەکان دەمێننەوە.';
+
+  @override
+  String get projectApplyTicks => 'هەنگاوەکان نوێ بکەرەوە';
+
+  @override
+  String get chatSaveFailed =>
+      'نەمتوانی پاشەکەوتی بکەم. وردەکارییەکان بپشکنە یان فۆرمی تەواو بە دەستکاری بکەرەوە.';
 }

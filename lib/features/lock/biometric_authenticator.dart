@@ -2,20 +2,23 @@ import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
 
 abstract interface class BiometricAuthenticator {
-  Future<bool> isAvailable();
+  /// Whether the phone has any screen lock (PIN, pattern, password or biometrics).
+  Future<bool> deviceSecure();
+
   Future<bool> authenticate(String reason);
 }
 
-/// Fingerprint/face with the device credential allowed as a fallback (spec §15).
+/// Face or fingerprint, weak or strong class, with the phone's own screen lock
+/// as the fallback (redesign §8.1). There is no app PIN.
 final class LocalAuthBiometricAuthenticator implements BiometricAuthenticator {
   LocalAuthBiometricAuthenticator([LocalAuthentication? auth]) : _auth = auth ?? LocalAuthentication();
 
   final LocalAuthentication _auth;
 
   @override
-  Future<bool> isAvailable() async {
+  Future<bool> deviceSecure() async {
     try {
-      return await _auth.isDeviceSupported() && (await _auth.getAvailableBiometrics()).isNotEmpty;
+      return await _auth.isDeviceSupported();
     } on PlatformException {
       return false;
     } on LocalAuthException {
@@ -26,6 +29,7 @@ final class LocalAuthBiometricAuthenticator implements BiometricAuthenticator {
   @override
   Future<bool> authenticate(String reason) async {
     try {
+      // biometricOnly false: weak and strong biometrics plus the device credential.
       return await _auth.authenticate(localizedReason: reason, persistAcrossBackgrounding: true);
     } on PlatformException {
       return false;
