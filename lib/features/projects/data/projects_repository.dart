@@ -82,11 +82,13 @@ class ProjectsRepository {
   Future<void> applyPlan(int projectId, PlanProposal plan) => _db.transaction(() async {
     final old = await stepsOf(projectId);
     final doneTitles = {for (final s in old.where((s) => s.done)) s.title};
+    final taskByTitle = {for (final s in old.where((s) => s.taskId != null)) s.title: s.taskId!};
     await (_db.delete(_db.projectSteps)..where((s) => s.projectId.equals(projectId))).go();
     var seq = 1;
     for (final phase in plan.phases) {
       for (final step in phase.steps) {
-        await _db
+        final taskId = taskByTitle.remove(step.title);
+        final stepId = await _db
             .into(_db.projectSteps)
             .insert(
               ProjectStepsCompanion.insert(
@@ -96,10 +98,24 @@ class ProjectsRepository {
                 title: step.title,
                 dueDate: Value(step.due),
                 done: Value(doneTitles.contains(step.title)),
+                taskId: Value(taskId),
               ),
             );
+        if (taskId != null) {
+          await (_db.update(
+            _db.tasks,
+          )..where((t) => t.id.equals(taskId))).write(TasksCompanion(projectStepId: Value(stepId)));
+        }
       }
     }
+    // Tasks whose step the new plan dropped stay as plain tasks.
+    final kept = [
+      for (final s in await stepsOf(projectId))
+        if (s.taskId != null) s.taskId!,
+    ];
+    await (_db.update(_db.tasks)
+          ..where((t) => t.projectId.equals(projectId) & t.projectStepId.isNotNull() & t.id.isNotIn(kept)))
+        .write(const TasksCompanion(projectId: Value(null), projectStepId: Value(null)));
     final project = await get(projectId);
     await _touch(
       projectId,
@@ -114,15 +130,28 @@ class ProjectsRepository {
   /// The planner says these steps are finished (by their number in the list).
   Future<void> applyStepUpdates(int projectId, List<StepUpdate> updates) async {
     for (final u in updates) {
-      await (_db.update(_db.projectSteps)..where((s) => s.projectId.equals(projectId) & s.seq.equals(u.seq))).write(
-        ProjectStepsCompanion(done: Value(u.done)),
-      );
+      final step = await (_db.select(
+        _db.projectSteps,
+      )..where((s) => s.projectId.equals(projectId) & s.seq.equals(u.seq))).getSingleOrNull();
+      if (step != null) await setStepDone(step.id, u.done);
     }
     await _touch(projectId, const ProjectsCompanion());
   }
 
-  Future<void> setStepDone(int stepId, bool done) =>
-      (_db.update(_db.projectSteps)..where((s) => s.id.equals(stepId))).write(ProjectStepsCompanion(done: Value(done)));
+  /// Ticks or unticks a step and the task made from it, so both always agree.
+  Future<void> setStepDone(int stepId, bool done) => _db.transaction(() async {
+    final step = await (_db.select(_db.projectSteps)..where((s) => s.id.equals(stepId))).getSingleOrNull();
+    if (step == null) return;
+    await (_db.update(
+      _db.projectSteps,
+    )..where((s) => s.id.equals(stepId))).write(ProjectStepsCompanion(done: Value(done)));
+    final taskId = step.taskId;
+    if (taskId != null) {
+      await (_db.update(_db.tasks)..where((t) => t.id.equals(taskId))).write(
+        TasksCompanion(status: Value(done ? 'done' : 'open'), completedAt: Value(done ? _now : null)),
+      );
+    }
+  });
 
   Future<void> linkTask(int stepId, int taskId) => (_db.update(
     _db.projectSteps,

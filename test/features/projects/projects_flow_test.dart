@@ -61,6 +61,41 @@ void main() {
     expect((await repo.stepsOf(id)).first.taskId, second);
   });
 
+  test('re-planning keeps the task link of a step and does not duplicate its task', () async {
+    await repo.makeAllTasks(id);
+    final before = await db.select(db.tasks).get();
+    await repo.applyPlan(
+      id,
+      const PlanProposal(
+        phases: [
+          PlanPhase('New', [PlanStep('Find a shop', null), PlanStep('Hire staff', null)]),
+        ],
+      ),
+    );
+    final steps = await repo.stepsOf(id);
+    expect(steps.first.taskId, before.firstWhere((t) => t.title == 'Find a shop').id);
+    expect(steps.last.taskId, isNull);
+    final shopTask = await tasks.get(steps.first.taskId!);
+    expect(shopTask!.projectStepId, steps.first.id);
+    final dropped = await tasks.get(before.firstWhere((t) => t.title == 'Buy a machine').id);
+    expect((dropped!.projectId, dropped.projectStepId), (null, null), reason: 'a dropped step leaves a plain task');
+    expect(await repo.makeAllTasks(id), 1, reason: 'only the new step gets a task');
+    await tasks.complete(steps.first.taskId!);
+    expect((await repo.stepsOf(id)).first.done, isTrue);
+  });
+
+  test('ticking a step, by hand or from the planner, completes its task', () async {
+    await repo.makeAllTasks(id);
+    final steps = await repo.stepsOf(id);
+    await repo.setStepDone(steps[0].id, true);
+    expect((await tasks.get(steps[0].taskId!))!.status, 'done');
+    await repo.applyStepUpdates(id, const [StepUpdate(2, true)]);
+    expect((await tasks.get(steps[1].taskId!))!.status, 'done');
+    await repo.setStepDone(steps[0].id, false);
+    final reopened = await tasks.get(steps[0].taskId!);
+    expect((reopened!.status, reopened.completedAt), ('open', null));
+  });
+
   test('investment average takes the last 3 full months only', () async {
     final f = await financeFixture();
     addTearDown(f.db.close);

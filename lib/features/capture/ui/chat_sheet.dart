@@ -4,7 +4,9 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/l10n/ckb_fallback_localizations.dart';
 import '../../../core/theme/tokens.dart';
+import '../../../core/security/money_privacy.dart';
 import '../chat/conversation.dart';
+import '../chat/describe.dart' show maskAmounts;
 import 'composer.dart';
 
 /// Which navigators already show the sheet, so a second send doesn't stack another.
@@ -136,7 +138,16 @@ class _AssistantBubble extends ConsumerWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                 decoration: BoxDecoration(color: k.surfaceHigh, borderRadius: BorderRadius.circular(18)),
-                child: Text(m.text, style: text.bodyLarge),
+                child: Text(
+                  maskAmounts(
+                    m.text,
+                    reveal:
+                        moneyShownOf(ref) ||
+                        m.cards.any((c) => c.state == CardState.open || c.state == CardState.accepted),
+                    mask: kMaskedMoney,
+                  ),
+                  style: text.bodyLarge,
+                ),
               ),
             for (final c in m.cards) _Card(card: c, single: m.cards.length == 1, confirm: l.chatConfirm),
             if (m.replies.isNotEmpty)
@@ -208,7 +219,14 @@ class _Card extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(card.text, style: text.bodyLarge),
+          Text(
+            maskAmounts(
+              card.text,
+              reveal: moneyShownOf(ref) || card.state == CardState.open || card.state == CardState.accepted,
+              mask: kMaskedMoney,
+            ),
+            style: text.bodyLarge,
+          ),
           const SizedBox(height: 10),
           if (status != null)
             Row(

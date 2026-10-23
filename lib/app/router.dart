@@ -71,7 +71,7 @@ GoRouter buildRouter({void Function()? onNavigate}) => GoRouter(
               builder: (_, _) => const SensitiveGate(fullScreen: true, child: FinanceOverviewScreen()),
               routes: [
                 // Forms cover the shell (no bottom bar or mic over the Save button).
-                GoRoute(
+                _financeRoute(
                   path: 'tx/new',
                   parentNavigatorKey: _rootKey,
                   builder: (_, state) {
@@ -92,47 +92,51 @@ GoRouter buildRouter({void Function()? onNavigate}) => GoRouter(
                     );
                   },
                 ),
-                GoRoute(
+                _financeRoute(
                   path: 'tx/:id',
                   parentNavigatorKey: _rootKey,
                   builder: (_, state) => TransactionFormScreen(editId: int.parse(state.pathParameters['id']!)),
                 ),
-                GoRoute(
+                _financeRoute(
                   path: 'transfer/new',
                   parentNavigatorKey: _rootKey,
                   builder: (_, state) =>
                       TransferFormScreen(initial: state.extra is TransferDraft ? state.extra! as TransferDraft : null),
                 ),
-                GoRoute(path: 'import', parentNavigatorKey: _rootKey, builder: (_, _) => const ImportWizardScreen()),
-                GoRoute(
+                _financeRoute(
+                  path: 'import',
+                  parentNavigatorKey: _rootKey,
+                  builder: (_, _) => const ImportWizardScreen(),
+                ),
+                _financeRoute(
                   path: 'transfer/:id',
                   parentNavigatorKey: _rootKey,
                   builder: (_, state) => TransferFormScreen(editId: int.parse(state.pathParameters['id']!)),
                 ),
-                GoRoute(
+                _financeRoute(
                   path: 'accounts',
                   builder: (_, _) => const AccountsScreen(),
                   routes: [
-                    GoRoute(
+                    _financeRoute(
                       path: ':id',
                       builder: (_, state) => AccountDetailScreen(accountId: int.parse(state.pathParameters['id']!)),
                     ),
                   ],
                 ),
-                GoRoute(path: 'reports', builder: (_, _) => const ReportsScreen()),
-                GoRoute(path: 'buckets', builder: (_, _) => const BucketsScreen()),
-                GoRoute(path: 'budgets', builder: (_, _) => const BudgetsScreen()),
-                GoRoute(
+                _financeRoute(path: 'reports', builder: (_, _) => const ReportsScreen()),
+                _financeRoute(path: 'buckets', builder: (_, _) => const BucketsScreen()),
+                _financeRoute(path: 'budgets', builder: (_, _) => const BudgetsScreen()),
+                _financeRoute(
                   path: 'debts',
                   builder: (_, _) => const DebtsScreen(),
                   routes: [
-                    GoRoute(
+                    _financeRoute(
                       path: ':id',
                       builder: (_, state) => DebtDetailScreen(debtId: int.parse(state.pathParameters['id']!)),
                     ),
                   ],
                 ),
-                GoRoute(
+                _financeRoute(
                   path: 'history',
                   builder: (_, state) {
                     final q = state.uri.queryParameters;
@@ -151,7 +155,7 @@ GoRouter buildRouter({void Function()? onNavigate}) => GoRouter(
         StatefulShellBranch(
           observers: [if (onNavigate != null) MoneyHideObserver(onNavigate)],
           routes: [
-            GoRoute(
+            _financeRoute(
               path: '/tasks',
               builder: (_, _) => const TasksScreen(),
               routes: [
@@ -200,4 +204,18 @@ GoRouter buildRouter({void Function()? onNavigate}) => GoRouter(
       ],
     ),
   ],
+);
+
+/// A page under /finance. go_router stacks these over the overview instead of inside it, so each one
+/// carries its own biometric gate (the Global Constraint: Finance asks again after a minute).
+GoRoute _financeRoute({
+  required String path,
+  required GoRouterWidgetBuilder builder,
+  GlobalKey<NavigatorState>? parentNavigatorKey,
+  List<RouteBase> routes = const [],
+}) => GoRoute(
+  path: path,
+  parentNavigatorKey: parentNavigatorKey,
+  routes: routes,
+  builder: (context, state) => SensitiveGate(fullScreen: true, child: builder(context, state)),
 );

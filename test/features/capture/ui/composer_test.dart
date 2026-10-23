@@ -85,6 +85,34 @@ void main() {
     expect(http.requests, isEmpty, reason: 'online AI is off');
   });
 
+  testWidgets('a saved card in the chat hides its amount again, while the open one shows what was typed', (t) async {
+    await pumpApp(
+      t,
+      locale: 'en',
+      revealMoney: false,
+      overrides: [
+        secureStoreProvider.overrideWithValue(store),
+        httpPortProvider.overrideWithValue(http),
+        modelManagerProvider.overrideWithValue(ModelManager(http, () async => dir)),
+      ],
+    );
+    await t.tap(find.byKey(const ValueKey('nav-2')));
+    await settle(t);
+    await t.enterText(find.byKey(const ValueKey('composer-field')).first, 'دفعت 40 الف تكسي');
+    await t.pump();
+    await t.tap(find.byKey(const ValueKey('composer-send')).first);
+    await spin(t);
+    expect(find.textContaining('40,000'), findsWidgets, reason: 'the owner just typed it');
+    await t.tap(
+      find.byWidgetPredicate(
+        (w) => w.key is ValueKey<String> && (w.key! as ValueKey<String>).value.startsWith('card-ok-'),
+      ),
+    );
+    await spin(t);
+    expect(find.textContaining('40,000'), findsNothing, reason: 'after saving, the figure is masked again');
+    expect(find.textContaining('•••••'), findsWidgets);
+  });
+
   testWidgets('hold mic records and release sends', (t) async {
     final c = await open(t);
     final g = await t.startGesture(t.getCenter(find.byKey(const ValueKey('composer-mic')).first));

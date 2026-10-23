@@ -16,7 +16,6 @@ import '../../finance/ui/ui_format.dart';
 import '../../finance/ui/widgets/money_text.dart';
 import '../../finance/ui/widgets/panel.dart';
 import '../../lock/sensitive_gate.dart';
-import '../../tasks/data/tasks_providers.dart';
 import '../ai/planner.dart';
 import '../data/projects_providers.dart';
 import 'projects_screen.dart' show projectStatusLabel;
@@ -66,8 +65,7 @@ class _ProjectDetailScreenState extends ConsumerState<ProjectDetailScreen> {
         () => settings.groqLlmModel,
       ).reply(project, await repo.messagesOf(widget.projectId), await repo.stepsOf(widget.projectId));
       await repo.addMessage(widget.projectId, 'assistant', reply.reply);
-      await repo.applyStepUpdates(widget.projectId, reply.stepUpdates);
-      if (mounted) setState(() => _pending = reply.plan == null ? _pending : reply);
+      if (mounted && (reply.plan != null || reply.stepUpdates.isNotEmpty)) setState(() => _pending = reply);
     } on GroqError {
       messenger.showSnackBar(SnackBar(content: Text(l.projectPlannerFailed)));
     } on FormatException {
@@ -80,11 +78,14 @@ class _ProjectDetailScreenState extends ConsumerState<ProjectDetailScreen> {
   }
 
   Future<void> _usePlan() async {
-    final plan = _pending?.plan;
-    if (plan == null) return;
+    final pending = _pending;
+    if (pending == null) return;
     final l = context.l10n;
     final messenger = ScaffoldMessenger.of(context);
-    await ref.read(projectsRepositoryProvider).applyPlan(widget.projectId, plan);
+    final repo = ref.read(projectsRepositoryProvider);
+    // The ticks refer to the steps as the planner saw them, so they go in before the plan renumbers.
+    await repo.applyStepUpdates(widget.projectId, pending.stepUpdates);
+    if (pending.plan case final plan?) await repo.applyPlan(widget.projectId, plan);
     if (!mounted) return;
     setState(() => _pending = null);
     messenger.showSnackBar(SnackBar(content: Text(l.projectPlanSaved)));
@@ -98,10 +99,6 @@ class _ProjectDetailScreenState extends ConsumerState<ProjectDetailScreen> {
   }
 
   Future<void> _toggleStep(ProjectStep s, bool done) async {
-    final tasks = ref.read(tasksRepositoryProvider);
-    if (s.taskId != null && await tasks.get(s.taskId!) != null) {
-      done ? await tasks.complete(s.taskId!) : await tasks.reopen(s.taskId!);
-    }
     await ref.read(projectsRepositoryProvider).setStepDone(s.id, done);
   }
 
@@ -267,24 +264,33 @@ class _ProjectDetailScreenState extends ConsumerState<ProjectDetailScreen> {
                   ),
                 const SizedBox(height: 16),
                 for (final m in messages) _Bubble(m),
-                if (_pending?.plan case final plan?)
+                if (_pending case final pending?)
                   Panel(
                     key: const ValueKey('plan-proposal'),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Text(l.projectPlanProposed(plan.stepCount), style: text.titleSmall),
-                        const SizedBox(height: 8),
-                        for (final ph in plan.phases)
-                          Text(
-                            '• ${ph.name} (${ph.steps.length})',
-                            style: text.bodyMedium?.copyWith(color: k.textMuted),
-                          ),
+                        if (pending.plan case final plan?) ...[
+                          Text(l.projectPlanProposed(plan.stepCount), style: text.titleSmall),
+                          const SizedBox(height: 8),
+                          for (final ph in plan.phases)
+                            Text(
+                              '• ${ph.name} (${ph.steps.length})',
+                              style: text.bodyMedium?.copyWith(color: k.textMuted),
+                            ),
+                        ],
+                        for (final u in pending.stepUpdates)
+                          if (steps.where((s) => s.seq == u.seq).firstOrNull case final step?)
+                            Text(
+                              '${u.done ? '✓' : '○'} ${step.title}',
+                              key: ValueKey('update-${u.seq}'),
+                              style: text.bodyMedium?.copyWith(color: k.textMuted),
+                            ),
                         const SizedBox(height: 12),
                         FilledButton(
                           key: const ValueKey('plan-use'),
                           onPressed: _usePlan,
-                          child: Text(l.projectPlanUse),
+                          child: Text(pending.plan == null ? l.projectApplyTicks : l.projectPlanUse),
                         ),
                       ],
                     ),

@@ -17,6 +17,7 @@ import 'package:life_manager/features/capture/chat/conversation.dart';
 import 'package:life_manager/features/capture/data/capture_repository.dart';
 import 'package:life_manager/features/capture/domain/proposal.dart';
 import 'package:life_manager/features/capture/speech/model_manager.dart';
+import 'package:life_manager/features/finance/data/debts_repository.dart';
 import 'package:life_manager/features/finance/data/rates_repository.dart';
 import 'package:life_manager/features/settings/settings_repository.dart';
 
@@ -312,5 +313,35 @@ void main() {
       final task = (await f.db.select(f.db.tasks).get()).single;
       expect((task.kind, task.place, task.title), ('appointment', 'Mansour', 'Doctor'));
     });
+  });
+
+  test('a save that fails gives the cards back and says so, instead of going silent', () async {
+    await DebtsRepository(f.db).create(
+      direction: 'owed_by_me',
+      counterparty: 'Ahmed',
+      workspaceId: f.personalWs,
+      principalMinor: 100000,
+      currencyCode: 'IQD',
+      startDate: DateTime(2026, 10, 1),
+    );
+    await online([
+      {
+        'type': 'debt_payment',
+        'amount': '500000',
+        'currency': 'IQD',
+        'counterparty': 'Ahmed',
+        'debt_direction': 'owed_by_me',
+        'debt_leg': 'repayment',
+      },
+    ]);
+    await chat().send('paid Ahmed 500000');
+    final card = last().cards.single;
+    await chat().accept(card);
+    expect(last().text, contains("couldn't save"));
+    final cards = messages().whereType<AssistantMessage>().expand((m) => m.cards);
+    expect(cards.single.state, CardState.open, reason: 'the owner can still edit or drop it');
+    expect(await f.db.select(f.db.transactions).get(), isEmpty);
+    final capture = await CaptureRepository(f.db).get(card.captureId);
+    expect(capture!.status, 'pending');
   });
 }

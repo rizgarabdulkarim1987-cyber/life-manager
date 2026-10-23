@@ -367,8 +367,20 @@ class Conversation extends Notifier<List<ChatMessage>> {
       _add(AssistantMessage(l.chatDroppedAll));
       return;
     }
-    final items = [for (final c in accepted) await _commitItem(c.proposal)];
-    await CaptureCommitter(_db).commit(card.captureId, items);
+    try {
+      final items = [for (final c in accepted) await _commitItem(c.proposal)];
+      await CaptureCommitter(_db).commit(card.captureId, items);
+    } on Object {
+      // Nothing was written (the commit is one transaction): give the cards back so the owner can edit or drop them.
+      _replace(
+        i,
+        msg.copyWith(
+          cards: [for (final c in cards) c.state == CardState.accepted ? c.copyWith(state: CardState.open) : c],
+        ),
+      );
+      _add(AssistantMessage(l.chatSaveFailed));
+      return;
+    }
     _replace(
       i,
       msg.copyWith(

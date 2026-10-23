@@ -50,9 +50,11 @@ class DebtDetailScreen extends ConsumerWidget {
                   alignment: AlignmentDirectional.centerStart,
                   style: text.headlineMedium?.copyWith(color: k.text, fontWeight: FontWeight.w600),
                 ),
-                Text(
-                  '${l.finPrincipal}: ${formatMoney(Money(d.principalMinor, d.currencyCode), localeCode: langOf(context))}',
-                  style: muted,
+                Row(
+                  children: [
+                    Text('${l.finPrincipal}: ', style: muted),
+                    Flexible(child: FittedMoney(Money(d.principalMinor, d.currencyCode), style: muted)),
+                  ],
                 ),
                 if (d.notes != null) ...[const SizedBox(height: 8), Text(d.notes!, style: text.bodyMedium)],
                 if (!closed) ...[

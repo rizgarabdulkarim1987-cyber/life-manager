@@ -5,6 +5,15 @@ import '../../../l10n/gen/app_localizations.dart';
 import '../domain/lexicon.dart';
 import '../domain/proposal.dart';
 
+/// Invisible marks around each amount in a sentence, so the chat can mask the amounts of cards
+/// that are no longer waiting for an OK (the owner just typed those; old ones stay hidden).
+const kAmountStart = '';
+const kAmountEnd = '';
+
+/// [text] with the marks removed; the marked amounts become [mask] unless [reveal].
+String maskAmounts(String text, {required bool reveal, required String mask}) =>
+    text.replaceAllMapped(RegExp('$kAmountStart(.*?)$kAmountEnd'), (m) => reveal ? m[1]! : mask);
+
 /// One plain sentence saying what saving [p] would do. [entry] is the saved
 /// row an edit or delete acts on; it is named without its amount.
 String describeProposal(Proposal p, Lexicon lex, AppLocalizations l, {Transaction? entry}) {
@@ -12,7 +21,7 @@ String describeProposal(Proposal p, Lexicon lex, AppLocalizations l, {Transactio
   String currencyOf(int? accountId) =>
       lex.accounts.where((a) => a.id == accountId).firstOrNull?.currency ?? lex.baseCurrency;
   String money(int? minor, String currency) =>
-      minor == null ? '—' : formatMoney(Money(minor, currency), localeCode: l.localeName);
+      minor == null ? '—' : '$kAmountStart${formatMoney(Money(minor, currency), localeCode: l.localeName)}$kAmountEnd';
 
   switch (p) {
     case MoneyProposal():

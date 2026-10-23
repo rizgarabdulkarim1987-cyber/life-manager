@@ -2279,4 +2279,11 @@ class AppLocalizationsCkb extends AppLocalizations {
   @override
   String get projectDeleteAsk =>
       'ئەم پڕۆژەیە بسڕدرێتەوە؟ هەنگاو و چاتەکە دەسڕدرێنەوە، ئەرکە دروستکراوەکان دەمێننەوە.';
+
+  @override
+  String get projectApplyTicks => 'هەنگاوەکان نوێ بکەرەوە';
+
+  @override
+  String get chatSaveFailed =>
+      'نەمتوانی پاشەکەوتی بکەم. وردەکارییەکان بپشکنە یان فۆرمی تەواو بە دەستکاری بکەرەوە.';
 }

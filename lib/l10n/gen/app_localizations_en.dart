@@ -2278,4 +2278,11 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get projectDeleteAsk =>
       'Delete this project? Its steps and chat go; tasks already made stay.';
+
+  @override
+  String get projectApplyTicks => 'Update the steps';
+
+  @override
+  String get chatSaveFailed =>
+      'I couldn\'t save that. Check the details, or open the full form with Edit.';
 }

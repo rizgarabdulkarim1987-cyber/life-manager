@@ -1,3 +1,5 @@
+import '../../../core/security/money_privacy.dart';
+
 import 'package:drift/drift.dart' show Value;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -104,7 +106,9 @@ class _BudgetsScreenState extends ConsumerState<BudgetsScreen> {
                   ),
                   Text(
                     l.finOfBudget(
-                      formatMoney(Money(p.budget.amountMinor, p.budget.currencyCode), localeCode: langOf(context)),
+                      moneyShownOf(ref)
+                          ? formatMoney(Money(p.budget.amountMinor, p.budget.currencyCode), localeCode: langOf(context))
+                          : kMaskedMoney,
                     ),
                     textDirection: Directionality.of(context),
                     style: text.bodySmall?.copyWith(color: k.textMuted),

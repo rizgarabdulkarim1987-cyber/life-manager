@@ -165,7 +165,7 @@ class AppDatabase extends _$AppDatabase {
       "DELETE FROM accounts WHERE kind = 'cash' AND opening_balance_minor = 0 AND name LIKE '% · %' "
       'AND id NOT IN (SELECT account_id FROM transactions) '
       'AND id NOT IN (SELECT to_account_id FROM transactions WHERE to_account_id IS NOT NULL) '
-      'AND (SELECT COUNT(*) FROM accounts) > 1',
+      'AND id <> (SELECT MIN(id) FROM accounts)',
     );
     await customStatement(
       "DELETE FROM workspaces WHERE icon_key IN ('campaign', 'handshake', 'folder') "

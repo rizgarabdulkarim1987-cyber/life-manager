@@ -2258,4 +2258,11 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get projectDeleteAsk =>
       'تحذف هالمشروع؟ خطواته والدردشة تنحذف، والمهام اللي انسوّت تبقى.';
+
+  @override
+  String get projectApplyTicks => 'حدّث الخطوات';
+
+  @override
+  String get chatSaveFailed =>
+      'ما كدرت أحفظها. راجع التفاصيل أو افتح النموذج الكامل بزر تعديل.';
 }

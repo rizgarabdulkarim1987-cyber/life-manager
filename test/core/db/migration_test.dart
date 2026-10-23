@@ -141,4 +141,34 @@ void main() {
     expect(await db.select(db.buckets).get(), hasLength(3));
     await db.close();
   });
+
+  test('v2 → v3 never removes every account, even when all of them are unused seeds', () async {
+    final schema = await verifier.schemaAt(2);
+    final raw = schema.rawDatabase;
+    const at = 1761177600;
+    raw.execute(
+      "INSERT INTO app_settings (id, locale_code, theme_mode, lock_timeout_seconds, biometric_enabled, base_currency, setup_completed) "
+      "VALUES (1, 'en', 'light', 60, 1, 'IQD', 1)",
+    );
+    raw.execute(
+      'INSERT INTO workspaces (name, icon_key, color_argb, sort_order, is_archived, created_at, aliases, counts_in_buckets) '
+      "VALUES ('Personal', 'person', 0, 0, 0, ?, '', 1)",
+      [at],
+    );
+    for (final (name, cur) in [('Personal · Cash IQD', 'IQD'), ('Personal · Cash USD', 'USD')]) {
+      raw.execute(
+        'INSERT INTO accounts (workspace_id, name, kind, currency_code, opening_balance_minor, sort_order, is_archived, created_at) '
+        "VALUES (1, ?, 'cash', ?, 0, 0, 0, ?)",
+        [name, cur, at],
+      );
+    }
+    final db = AppDatabase(schema.newConnection());
+    await verifier.migrateAndValidate(db, 3);
+    expect(
+      await db.select(db.accounts).get(),
+      hasLength(1),
+      reason: 'one account is kept so the app has somewhere to record',
+    );
+    await db.close();
+  });
 }

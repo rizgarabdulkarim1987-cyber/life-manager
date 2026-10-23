@@ -27,7 +27,12 @@ class _AppState extends ConsumerState<App> {
   @override
   void initState() {
     super.initState();
-    unawaited(ref.read(reminderServiceProvider).start());
+    // Notifications start after the unlock: on Android 13+ the permission dialog would take focus from the
+    // fingerprint prompt and cancel it.
+    if (ref.read(lockControllerProvider) == LockStatus.unlocked) unawaited(ref.read(reminderServiceProvider).start());
+    ref.listenManual(lockControllerProvider, (_, next) {
+      if (next == LockStatus.unlocked) unawaited(ref.read(reminderServiceProvider).start());
+    });
     // Relock after the configured time in the background (spec §15).
     _lifecycle = AppLifecycleListener(
       onHide: () {

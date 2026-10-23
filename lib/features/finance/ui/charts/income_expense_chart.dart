@@ -1,3 +1,7 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../core/security/money_privacy.dart';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +13,7 @@ import 'chart_style.dart';
 
 /// Two bars per slot (income and expense, money in and out) on one axis, with
 /// the difference as a line over them. Used for periods and for workspaces.
-class PairBarChart extends StatelessWidget {
+class PairBarChart extends ConsumerWidget {
   const PairBarChart({
     super.key,
     required this.labels,
@@ -35,7 +39,8 @@ class PairBarChart extends StatelessWidget {
   static const _left = 44.0;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final shown = moneyShownOf(ref);
     final k = context.tokens;
     final lang = langOf(context);
     final n = labels.length;
@@ -53,8 +58,9 @@ class PairBarChart extends StatelessWidget {
       );
     }
 
-    Widget left(double v, TitleMeta meta) =>
-        v == meta.max || (v == meta.min && v != 0) ? const SizedBox.shrink() : Text(axisLabel(v), style: axis);
+    Widget left(double v, TitleMeta meta) => !shown || v == meta.max || (v == meta.min && v != 0)
+        ? const SizedBox.shrink()
+        : Text(axisLabel(v), style: axis);
 
     FlTitlesData titles({required bool visible}) => FlTitlesData(
       topTitles: const AxisTitles(),
@@ -112,7 +118,7 @@ class PairBarChart extends StatelessWidget {
                             maxContentWidth: 180,
                             getTooltipItem: (group, gi, rod, ri) => BarTooltipItem(
                               '${labels[gi]}\n${ri == 0 ? firstName : secondName}: '
-                              '${formatMoney(Money(ri == 0 ? first[gi] : second[gi], currency), localeCode: lang)}',
+                              '${shown ? formatMoney(Money(ri == 0 ? first[gi] : second[gi], currency), localeCode: lang) : kMaskedMoney}',
                               TextStyle(color: k.text, fontSize: 12),
                             ),
                           ),

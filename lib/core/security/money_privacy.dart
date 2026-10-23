@@ -24,6 +24,9 @@ final moneyRevealedProvider = NotifierProvider<MoneyReveal, bool>(MoneyReveal.ne
 /// Test seam: older widget tests that check figures turn masking off.
 final alwaysRevealMoneyProvider = Provider<bool>((ref) => false);
 
+/// Whether amounts show right now; for text that is not a [MoneyText] (chart axes, tooltips, sentences).
+bool moneyShownOf(WidgetRef ref) => ref.watch(alwaysRevealMoneyProvider) || ref.watch(moneyRevealedProvider);
+
 /// Masks amounts again on every push, pop and replace.
 class MoneyHideObserver extends NavigatorObserver {
   MoneyHideObserver(this._onChange);

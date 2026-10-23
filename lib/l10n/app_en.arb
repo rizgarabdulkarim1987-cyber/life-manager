@@ -1316,5 +1316,7 @@
   "projectPlanUse": "Use this plan",
   "projectPlanSaved": "Plan saved.",
   "projectDelete": "Delete project",
-  "projectDeleteAsk": "Delete this project? Its steps and chat go; tasks already made stay."
+  "projectDeleteAsk": "Delete this project? Its steps and chat go; tasks already made stay.",
+  "projectApplyTicks": "Update the steps",
+  "chatSaveFailed": "I couldn't save that. Check the details, or open the full form with Edit."
 }

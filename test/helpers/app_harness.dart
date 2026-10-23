@@ -27,6 +27,7 @@ Future<ProviderContainer> pumpApp(
   String locale = 'ar',
   FakeBiometric? bio,
   bool revealMoney = true,
+  bool startLocked = false,
   List<Override> overrides = const [],
 }) async {
   // Widget tests fail on drift's deferred stream close; close synchronously instead.
@@ -44,7 +45,7 @@ Future<ProviderContainer> pumpApp(
       ...overrides,
     ],
   );
-  container.read(lockControllerProvider.notifier).unlock();
+  if (!startLocked) container.read(lockControllerProvider.notifier).unlock();
   addTearDown(() async {
     container.dispose();
     await db.close();

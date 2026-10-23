@@ -28,6 +28,9 @@ class ReminderService {
   final Ref _ref;
   var _started = false;
 
+  /// True once [start] has run; it waits for the unlock so its permission dialog never covers the lock prompt.
+  bool get started => _started;
+
   Future<void> start() async {
     if (_started) return;
     _started = true;

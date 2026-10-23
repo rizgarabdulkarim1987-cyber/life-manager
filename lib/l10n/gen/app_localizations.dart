@@ -4137,6 +4137,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete this project? Its steps and chat go; tasks already made stay.'**
   String get projectDeleteAsk;
+
+  /// No description provided for @projectApplyTicks.
+  ///
+  /// In en, this message translates to:
+  /// **'Update the steps'**
+  String get projectApplyTicks;
+
+  /// No description provided for @chatSaveFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'I couldn\'t save that. Check the details, or open the full form with Edit.'**
+  String get chatSaveFailed;
 }
 
 class _AppLocalizationsDelegate
