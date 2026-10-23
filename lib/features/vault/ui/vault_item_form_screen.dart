@@ -93,7 +93,7 @@ class _VaultItemFormScreenState extends ConsumerState<VaultItemFormScreen> {
         _loading = false;
       });
     } catch (e) {
-      AppLogger.error('vault item load failed', e.runtimeType);
+      AppLogger.error('vault item load failed', e);
       if (mounted) context.pop();
     }
   }
@@ -124,7 +124,7 @@ class _VaultItemFormScreenState extends ConsumerState<VaultItemFormScreen> {
       _initial = _snapshot();
       if (mounted) context.pop();
     } catch (e) {
-      AppLogger.error('vault item save failed', e.runtimeType);
+      AppLogger.error('vault item save failed', e);
       if (mounted) {
         setState(() => _saving = false);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.somethingWentWrong)));

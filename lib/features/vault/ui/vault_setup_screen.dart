@@ -59,7 +59,7 @@ class _VaultSetupScreenState extends ConsumerState<VaultSetupScreen> {
         _step = _Step.recovery;
       });
     } catch (e) {
-      AppLogger.error('vault setup failed', e.runtimeType);
+      AppLogger.error('vault setup failed', e);
       if (mounted) {
         setState(() {
           _step = _Step.password;
@@ -96,7 +96,7 @@ class _VaultSetupScreenState extends ConsumerState<VaultSetupScreen> {
       await _service.commitSetUp(pending);
       _bioAvailable = await _service.biometricAvailable();
     } catch (e) {
-      AppLogger.error('vault setup commit failed', e.runtimeType);
+      AppLogger.error('vault setup commit failed', e);
       if (mounted) {
         setState(() {
           _busy = false;
@@ -128,7 +128,7 @@ class _VaultSetupScreenState extends ConsumerState<VaultSetupScreen> {
       await _service.enableBiometric(key, vaultBioPrompt(context.l10n));
     } catch (e) {
       // Cancelled or unavailable: the vault works without it; settings can try again.
-      AppLogger.warn('vault biometric enable failed', e.runtimeType);
+      AppLogger.warn('vault biometric enable failed', e);
     }
     ref.invalidate(vaultBiometricEnabledProvider);
     if (mounted) _finish();

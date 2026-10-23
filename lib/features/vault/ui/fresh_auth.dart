@@ -86,7 +86,7 @@ class _ConfirmPasswordDialogState extends ConsumerState<_ConfirmPasswordDialog> 
         });
       }
     } catch (e) {
-      AppLogger.error('vault fresh auth failed', e.runtimeType);
+      AppLogger.error('vault fresh auth failed', e);
       if (mounted) Navigator.of(context).pop(false);
     }
   }

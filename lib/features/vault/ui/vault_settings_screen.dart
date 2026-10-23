@@ -62,7 +62,7 @@ class VaultSettingsScreen extends ConsumerWidget {
     } on VaultUnlockError {
       // Cancelled or unavailable: the switch stays as it was.
     } catch (e) {
-      AppLogger.warn('vault biometric toggle failed', e.runtimeType);
+      AppLogger.warn('vault biometric toggle failed', e);
     }
     ref.invalidate(vaultBiometricEnabledProvider);
   }
@@ -203,7 +203,7 @@ class _ChangeMasterPasswordScreenState extends ConsumerState<_ChangeMasterPasswo
         });
       }
     } catch (e) {
-      AppLogger.error('vault password change failed', e.runtimeType);
+      AppLogger.error('vault password change failed', e);
       if (mounted) {
         setState(() {
           _busy = false;
@@ -278,7 +278,7 @@ class _NewRecoveryKeyScreenState extends ConsumerState<_NewRecoveryKeyScreen> {
       messenger.showSnackBar(SnackBar(content: Text(l.vltRecoveryReplaced)));
       navigator.pop();
     } catch (e) {
-      AppLogger.error('vault recovery replace failed', e.runtimeType);
+      AppLogger.error('vault recovery replace failed', e);
       if (mounted) {
         setState(() {
           _busy = false;

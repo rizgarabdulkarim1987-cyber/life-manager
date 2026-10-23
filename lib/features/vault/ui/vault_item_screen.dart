@@ -50,7 +50,7 @@ class _VaultItemScreenState extends ConsumerState<VaultItemScreen> {
       final key = ref.read(vaultSessionProvider.notifier).requireKey();
       return await ref.read(vaultItemsRepositoryProvider).secrets(key, widget.itemId);
     } catch (e) {
-      AppLogger.error('vault secrets failed', e.runtimeType);
+      AppLogger.error('vault secrets failed', e);
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.somethingWentWrong)));
       }

@@ -3758,6 +3758,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Fill in this field'**
   String get vltFillIn;
+
+  /// No description provided for @backupVaultNote.
+  ///
+  /// In en, this message translates to:
+  /// **'The vault goes into the backup still encrypted with your master password. After a restore, turn fingerprint unlock on again in vault settings.'**
+  String get backupVaultNote;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

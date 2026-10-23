@@ -1985,4 +1985,8 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get vltFillIn => 'املأ هذا الحقل';
+
+  @override
+  String get backupVaultNote =>
+      'تدخل الخزنة في النسخة الاحتياطية مشفّرة بكلمة مرورك الرئيسية. بعد الاسترجاع، فعّل الفتح بالبصمة من جديد في إعدادات الخزنة.';
 }

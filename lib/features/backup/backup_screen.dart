@@ -228,6 +228,14 @@ class _BackupScreenState extends ConsumerState<BackupScreen> {
                 style: text.bodySmall?.copyWith(color: last == null ? k.warning : k.textMuted),
               ),
             ),
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(8, 8, 8, 0),
+              child: Text(
+                l10n.backupVaultNote,
+                key: const ValueKey('backup-vault-note'),
+                style: text.bodySmall?.copyWith(color: k.textMuted, height: 1.5),
+              ),
+            ),
             const SizedBox(height: 24),
             Text(l10n.createBackup, style: text.titleMedium?.copyWith(color: k.text)),
             const SizedBox(height: 4),

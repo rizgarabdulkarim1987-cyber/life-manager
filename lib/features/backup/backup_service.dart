@@ -55,6 +55,7 @@ class BackupService {
     required this._settings,
     required this._appVersion,
     this.groqKey,
+    this.afterRestore,
   }) : _paths = RestorePaths(supportDir);
 
   final AppDatabase _db;
@@ -67,6 +68,11 @@ class BackupService {
 
   /// Where the Groq key lives; its backup entry is written and restored only when this is set.
   final GroqKeyStore? groqKey;
+
+  /// Runs after a successful swap, e.g. to drop this phone's vault fingerprint
+  /// key, which belongs to the database that was just replaced. A failure here
+  /// is logged by type and does not fail the restore.
+  final Future<void> Function()? afterRestore;
 
   bool _closed = false;
 
@@ -191,6 +197,13 @@ class BackupService {
       } else {
         await keys.write(Sensitive(text));
       }
+    }
+
+    // 7. Device-bound state of the old data goes.
+    try {
+      await afterRestore?.call();
+    } catch (e) {
+      AppLogger.warn('after-restore step failed', e);
     }
   }
 

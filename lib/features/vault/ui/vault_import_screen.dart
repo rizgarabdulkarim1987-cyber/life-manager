@@ -87,7 +87,7 @@ class _VaultImportScreenState extends ConsumerState<VaultImportScreen> {
         );
       }
     } catch (e) {
-      AppLogger.error('vault import failed', e.runtimeType);
+      AppLogger.error('vault import failed', e);
       if (mounted) {
         setState(() => _saving = false);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(context.l10n.somethingWentWrong)));

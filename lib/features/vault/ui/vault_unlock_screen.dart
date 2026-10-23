@@ -88,7 +88,7 @@ class _VaultUnlockScreenState extends ConsumerState<VaultUnlockScreen> {
         if (e is VaultLockedOut) _startCountdown(e.remaining);
       });
     } catch (e) {
-      AppLogger.error('vault unlock failed', e.runtimeType);
+      AppLogger.error('vault unlock failed', e);
       if (mounted) {
         setState(() {
           _busy = false;

@@ -23,6 +23,8 @@ class FakeBackupService implements BackupService {
 
   @override
   GroqKeyStore? get groqKey => null;
+  @override
+  Future<void> Function()? get afterRestore => null;
 
   @override
   bool get databaseClosed => false;

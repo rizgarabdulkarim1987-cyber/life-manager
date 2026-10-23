@@ -1985,4 +1985,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get vltFillIn => 'Fill in this field';
+
+  @override
+  String get backupVaultNote =>
+      'The vault goes into the backup still encrypted with your master password. After a restore, turn fingerprint unlock on again in vault settings.';
 }

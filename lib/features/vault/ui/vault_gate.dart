@@ -56,7 +56,7 @@ class _ForcedNewPasswordState extends ConsumerState<_ForcedNewPassword> {
       await ref.read(vaultKeyServiceProvider).changeMasterPassword(session.requireKey(), pw);
       session.passwordReplaced();
     } catch (e) {
-      AppLogger.error('vault forced password change failed', e.runtimeType);
+      AppLogger.error('vault forced password change failed', e);
       if (mounted) {
         setState(() {
           _busy = false;

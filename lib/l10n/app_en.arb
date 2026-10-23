@@ -1035,5 +1035,6 @@
   "vltRecoveryReplaced": "New recovery key saved",
   "vltHowProtected": "How your vault is protected",
   "vltHowProtectedBody": "Each password, note and recovery code is encrypted with AES-256-GCM using a random vault key. That key is locked by your master password (Argon2id), by your recovery key, and, if you turn it on, by a fingerprint-only key inside the phone's secure hardware. Titles, sites and usernames are stored in the app's encrypted database so you can search them. Nothing in the vault is sent to the internet or to the AI. Backups carry the vault still encrypted; fingerprint unlock must be turned on again after a restore. Copied secrets are marked sensitive and cleared after 30 seconds where Android allows it.",
-  "vltFillIn": "Fill in this field"
+  "vltFillIn": "Fill in this field",
+  "backupVaultNote": "The vault goes into the backup still encrypted with your master password. After a restore, turn fingerprint unlock on again in vault settings."
 }

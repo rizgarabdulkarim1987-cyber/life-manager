@@ -22,6 +22,13 @@ bool masterPasswordLongEnough(String pw) => normalizeDigits(pw).runes.length >= 
 
 String _hex(List<int> bytes) => bytes.map((b) => b.toRadixString(16).padLeft(2, '0')).join();
 
+/// Drops this phone's biometric wrap and Keystore key. Needs no database, so
+/// the backup service can call it right after a restore swap (plan Decision 1).
+Future<void> forgetVaultDeviceKeys(BioWrapStore wraps, BiometricKeyStore keystore) async {
+  await wraps.clear();
+  await keystore.deleteKey();
+}
+
 /// A vault built in memory but not yet written: the owner still has to type
 /// the recovery key back (spec §9.1). [discard] wipes it if they leave.
 final class PendingVault {
@@ -229,10 +236,7 @@ class VaultKeyService {
   Future<void> disableBiometric() => forgetDeviceKeys();
 
   /// Drops the biometric wrap and its Keystore key, e.g. after a restore.
-  Future<void> forgetDeviceKeys() async {
-    await _bioWraps.clear();
-    await _keystore.deleteKey();
-  }
+  Future<void> forgetDeviceKeys() => forgetVaultDeviceKeys(_bioWraps, _keystore);
 
   Future<Never> _invalidated() async {
     await forgetDeviceKeys();

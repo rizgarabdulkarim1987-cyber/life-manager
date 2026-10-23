@@ -1987,4 +1987,8 @@ class AppLocalizationsCkb extends AppLocalizations {
 
   @override
   String get vltFillIn => 'ئەم خانەیە پڕ بکەرەوە';
+
+  @override
+  String get backupVaultNote =>
+      'گەنجینە بە کۆدکراوی بە وشەی نهێنیی سەرەکیت دەچێتە ناو باکئەپەکەوە. دوای گەڕاندنەوە، کردنەوە بە پەنجەمۆر لە ڕێکخستنەکانی گەنجینە دووبارە چالاک بکەرەوە.';
 }
