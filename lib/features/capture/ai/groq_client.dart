@@ -47,10 +47,10 @@ class GroqClient {
   final HttpPort _http;
   final GroqKeyStore _keys;
 
-  Future<Map<String, String>> _auth() async {
-    final key = await _keys.read();
-    if (key == null) throw const GroqUnauthorized();
-    return {'Authorization': 'Bearer ${key.value}'};
+  Future<(String, Map<String, String>)> _auth() async {
+    final c = await _keys.credential();
+    if (c == null) throw const GroqUnauthorized();
+    return (c.base, {'Authorization': 'Bearer ${c.secret.value}'});
   }
 
   Future<HttpReply> _send(Future<HttpReply> Function() call) async {
@@ -81,7 +81,8 @@ class GroqClient {
 
   /// Returns the model's message content (expected to be a JSON object as text).
   Future<String> chatJson({required String model, required String system, required String user}) async {
-    final headers = {...await _auth(), 'Content-Type': 'application/json'};
+    final (base, auth) = await _auth();
+    final headers = {...auth, 'Content-Type': 'application/json'};
     final body = jsonEncode({
       'model': model,
       'temperature': 0,
@@ -91,7 +92,7 @@ class GroqClient {
         {'role': 'user', 'content': user},
       ],
     });
-    final r = await _send(() => _http.postJson(Uri.parse('$kGroqBase/chat/completions'), headers, body, kChatTimeout));
+    final r = await _send(() => _http.postJson(Uri.parse('$base/chat/completions'), headers, body, kChatTimeout));
     final json = _decode(r.body);
     if (json case {'choices': [{'message': {'content': final String content}}, ...]}) return content;
     throw const GroqBadResponse();
@@ -104,7 +105,8 @@ class GroqClient {
     required String user,
     required Uint8List jpeg,
   }) async {
-    final headers = {...await _auth(), 'Content-Type': 'application/json'};
+    final (base, auth) = await _auth();
+    final headers = {...auth, 'Content-Type': 'application/json'};
     final body = jsonEncode({
       'model': model,
       'temperature': 0,
@@ -123,19 +125,17 @@ class GroqClient {
         },
       ],
     });
-    final r = await _send(
-      () => _http.postJson(Uri.parse('$kGroqBase/chat/completions'), headers, body, kVisionTimeout),
-    );
+    final r = await _send(() => _http.postJson(Uri.parse('$base/chat/completions'), headers, body, kVisionTimeout));
     final json = _decode(r.body);
     if (json case {'choices': [{'message': {'content': final String content}}, ...]}) return content;
     throw const GroqBadResponse();
   }
 
   Future<String> transcribe({required String model, required Uint8List wav}) async {
-    final headers = await _auth();
+    final (base, headers) = await _auth();
     final r = await _send(
       () => _http.postMultipart(
-        Uri.parse('$kGroqBase/audio/transcriptions'),
+        Uri.parse('$base/audio/transcriptions'),
         headers,
         {'model': model, 'response_format': 'json', 'temperature': '0'},
         'file',

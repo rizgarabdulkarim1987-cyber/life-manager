@@ -134,4 +134,35 @@ void main() {
     await keys.clear();
     expect(await can(AiFeature.parse), isFalse, reason: 'no key');
   });
+
+  group('built-in proxy', () {
+    GroqKeyStore withProxy() => GroqKeyStore(store, proxyUrl: 'https://ai.example.com/v1', proxyToken: 'app-token');
+
+    test('with no personal key, requests go to the proxy with the app token', () async {
+      final empty = GroqKeyStore(InMemorySecureStore(), proxyUrl: 'https://ai.example.com/v1', proxyToken: 'app-token');
+      expect(await empty.read(), isNotNull, reason: 'online AI counts as available');
+      final http = FakeHttpPort((_) => _chat('{"intents":[]}'));
+      await GroqClient(http, empty).chatJson(model: 'm', system: 'S', user: 'U');
+      final r = http.requests.single;
+      expect(r.uri.toString(), 'https://ai.example.com/v1/chat/completions');
+      expect(r.headers['Authorization'], 'Bearer app-token');
+    });
+
+    test('a personal key still goes straight to Groq and never to the proxy', () async {
+      final http = FakeHttpPort((_) => _chat('{"intents":[]}'));
+      await GroqClient(http, withProxy()).chatJson(model: 'm', system: 'S', user: 'U');
+      final r = http.requests.single;
+      expect(r.uri.toString(), 'https://api.groq.com/openai/v1/chat/completions');
+      expect(r.headers['Authorization'], 'Bearer $_key');
+    });
+
+    test('no key and no proxy is unauthorized', () async {
+      final none = GroqKeyStore(InMemorySecureStore(), proxyUrl: '', proxyToken: '');
+      expect(await none.read(), isNull);
+      expect(
+        () => GroqClient(FakeHttpPort((_) => _chat('{}')), none).chatJson(model: 'm', system: 'S', user: 'U'),
+        throwsA(isA<GroqUnauthorized>()),
+      );
+    });
+  });
 }

@@ -13,15 +13,36 @@ export '../../settings/settings_repository.dart' show AiFeature, ConsentState;
 /// The Groq key lives only in the Android Keystore-backed store, never in the DB or logs.
 const kGroqKeyStoreKey = 'groq_api_key_v1';
 
+/// Set at build time (`--dart-define=AI_PROXY_URL=... --dart-define=AI_PROXY_TOKEN=...`) so the app works
+/// without the owner typing a Groq key: requests go to a small server that holds the real key.
+const kAiProxyUrl = String.fromEnvironment('AI_PROXY_URL');
+const kAiProxyToken = String.fromEnvironment('AI_PROXY_TOKEN');
+
+/// Where a request goes and with what secret.
+typedef AiCredential = ({String base, Sensitive<String> secret});
+
 class GroqKeyStore {
-  GroqKeyStore(this._store);
+  GroqKeyStore(this._store, {this.proxyUrl = kAiProxyUrl, this.proxyToken = kAiProxyToken});
 
   final SecureStore _store;
+  final String proxyUrl;
+  final String proxyToken;
 
-  Future<Sensitive<String>?> read() async {
+  Future<Sensitive<String>?> _own() async {
     final v = (await _store.read(kGroqKeyStoreKey))?.trim();
     return v == null || v.isEmpty ? null : Sensitive(v);
   }
+
+  /// A key of the owner's own goes straight to Groq; with none, the built-in proxy is used if there is one.
+  Future<AiCredential?> credential() async {
+    final own = await _own();
+    if (own != null) return (base: kGroqBase, secret: own);
+    if (proxyUrl.isNotEmpty && proxyToken.isNotEmpty) return (base: proxyUrl, secret: Sensitive(proxyToken));
+    return null;
+  }
+
+  /// Whether online AI can be used at all: the owner's key, or the built-in proxy.
+  Future<Sensitive<String>?> read() async => (await credential())?.secret;
 
   Future<void> write(Sensitive<String> key) {
     final v = key.value.trim();
