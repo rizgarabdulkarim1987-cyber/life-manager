@@ -79,3 +79,8 @@ kotlin {
 flutter {
     source = "../.."
 }
+
+dependencies {
+    // The vault's biometric-bound key (VaultChannel.kt). local_auth already brings this version in.
+    implementation("androidx.biometric:biometric:1.1.0")
+}

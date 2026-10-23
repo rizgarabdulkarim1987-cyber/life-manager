@@ -1,10 +1,7 @@
-import 'dart:typed_data';
-
 import 'package:drift/drift.dart' hide isNull, isNotNull;
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:life_manager/core/db/app_database.dart';
-import 'package:sqlite3/sqlite3.dart' show SqliteException;
 
 void main() {
   late AppDatabase db;

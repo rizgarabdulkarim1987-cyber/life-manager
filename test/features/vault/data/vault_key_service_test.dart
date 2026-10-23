@@ -13,6 +13,7 @@ import 'package:life_manager/features/vault/crypto/vault_errors.dart';
 import 'package:life_manager/features/vault/data/unlock_throttle.dart';
 import 'package:life_manager/features/vault/data/vault_items_repository.dart';
 import 'package:life_manager/features/vault/data/vault_key_service.dart';
+import 'package:life_manager/features/vault/platform/biometric_key_store.dart';
 
 import '../../../helpers/fakes.dart';
 
@@ -34,6 +35,8 @@ void main() {
       wrapper: KeyWrapper(FakeKdf(), const AesGcmAead()),
       throttle: UnlockThrottle(store, now: () => now),
       kdf: FakeKdf(),
+      bioWraps: SecureBioWrapStore(InMemorySecureStore()),
+      keystore: FakeBiometricKeyStore(),
     );
   });
   tearDown(() => db.close());
@@ -77,6 +80,8 @@ void main() {
       wrapper: KeyWrapper(FakeKdf(), const AesGcmAead()),
       throttle: UnlockThrottle(InMemorySecureStore()),
       kdf: FakeKdf(),
+      bioWraps: SecureBioWrapStore(InMemorySecureStore()),
+      keystore: FakeBiometricKeyStore(),
     );
     await expectLater(fresh.prepareSetUp(const Sensitive('123456789'), params: _params), throwsArgumentError);
     await expectLater(fresh.prepareSetUp(const Sensitive('١٢٣٤٥٦٧٨٩'), params: _params), throwsArgumentError);

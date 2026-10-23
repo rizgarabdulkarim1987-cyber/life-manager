@@ -12,6 +12,7 @@ import '../crypto/recovery_key.dart';
 import '../crypto/vault_errors.dart';
 import '../crypto/vault_kdf.dart';
 import '../crypto/vault_key.dart';
+import '../platform/biometric_key_store.dart';
 import 'unlock_throttle.dart';
 
 /// Plan Decision 6: no composition rules, just length (counted after digit normalization).
@@ -51,6 +52,8 @@ class VaultKeyService {
     required this._wrapper,
     required this._throttle,
     required this._kdf,
+    required this._bioWraps,
+    required this._keystore,
     DateTime Function()? now,
   }) : _now = now ?? DateTime.now;
 
@@ -58,6 +61,8 @@ class VaultKeyService {
   final KeyWrapper _wrapper;
   final UnlockThrottle _throttle;
   final Kdf _kdf;
+  final BioWrapStore _bioWraps;
+  final BiometricKeyStore _keystore;
   final DateTime Function() _now;
 
   Future<VaultMetaRow?> _meta() => _db.select(_db.vaultMeta).getSingleOrNull();
@@ -201,5 +206,71 @@ class VaultKeyService {
   /// after the owner typed [next] back.
   Future<void> replaceRecoveryKey(VaultKey vdk, RecoveryKey next) async {
     await _replaceWrap(await _wrapper.wrapWithRecovery(vdk, next, await vaultId()));
+  }
+
+  // Biometric unlock (spec §9.1 wrap 3). The wrap lives on this phone only.
+
+  Future<bool> biometricAvailable() => _keystore.isAvailable();
+
+  /// True when this phone holds a biometric wrap for this vault.
+  Future<bool> biometricEnabled() async {
+    final w = await _bioWraps.read();
+    final m = await _meta();
+    return w != null && m != null && w.vaultId == m.vaultId;
+  }
+
+  Future<void> enableBiometric(VaultKey vdk, BioPromptText t) async {
+    if (!await _keystore.isAvailable()) throw const VaultBiometricUnavailable();
+    final id = await vaultId();
+    final blob = await _keystore.encrypt(Uint8List.fromList(vdk.bytes), t);
+    await _bioWraps.write(BioWrap(vaultId: id, blob: blob));
+  }
+
+  Future<void> disableBiometric() => forgetDeviceKeys();
+
+  /// Drops the biometric wrap and its Keystore key, e.g. after a restore.
+  Future<void> forgetDeviceKeys() async {
+    await _bioWraps.clear();
+    await _keystore.deleteKey();
+  }
+
+  Future<Never> _invalidated() async {
+    await forgetDeviceKeys();
+    throw const VaultBiometricInvalidated();
+  }
+
+  /// A wrap from another vault, a Keystore key Android invalidated, or a key
+  /// that fails the check all clear the wrap: the master password still works.
+  Future<VaultKey> unlockWithBiometric(BioPromptText t) async {
+    final meta = await _meta();
+    if (meta == null) throw StateError('vault not set up');
+    final w = await _bioWraps.read();
+    if (w == null || w.vaultId != meta.vaultId) return _invalidated();
+    final Uint8List plain;
+    try {
+      plain = await _keystore.decrypt(w.blob, t);
+    } on VaultBiometricInvalidated {
+      return _invalidated();
+    }
+    if (plain.length != 32) {
+      plain.fillRange(0, plain.length, 0);
+      return _invalidated();
+    }
+    try {
+      return await _verified(VaultKey(plain), meta);
+    } on VaultCorrupt {
+      return _invalidated();
+    }
+  }
+
+  /// Fresh auth before reveal or copy (spec §9.2): a real Keystore unwrap whose
+  /// result must equal the key already in memory.
+  Future<bool> confirmWithBiometric(VaultKey current, BioPromptText t) async {
+    final k = await unlockWithBiometric(t);
+    try {
+      return k.sameAs(current);
+    } finally {
+      k.destroy();
+    }
   }
 }
