@@ -11,10 +11,12 @@ import '../security/sensitive.dart';
 import 'capture_tables.dart';
 import 'finance_seed.dart';
 import 'finance_tables.dart';
+import 'life_tables.dart';
 import 'tables.dart';
 
 export 'capture_tables.dart';
 export 'finance_tables.dart';
+export 'life_tables.dart';
 export 'tables.dart';
 
 part 'app_database.g.dart';
@@ -35,6 +37,8 @@ part 'app_database.g.dart';
     BucketAllocations,
     Budgets,
     Captures,
+    Tasks,
+    Notes,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -102,6 +106,14 @@ class AppDatabase extends _$AppDatabase {
     await m.addColumn(table, column);
   }
 
+  Future<void> _createOnce(Migrator m, TableInfo table) async {
+    final found = await customSelect(
+      "SELECT name FROM sqlite_master WHERE type = 'table' AND name = ?",
+      variables: [Variable<String>(table.actualTableName)],
+    ).get();
+    if (found.isEmpty) await m.createTable(table);
+  }
+
   /// Redesign (spec 2026-10-23): light and minimal by default, relock after a minute.
   Future<void> _toV3(Migrator m) async {
     // Rebuilt so the column defaults change too.
@@ -115,6 +127,8 @@ class AppDatabase extends _$AppDatabase {
     await _addColumnOnce(m, captures, captures.image);
     // The source check now allows 'image'.
     await m.alterTable(TableMigration(captures));
+    await _createOnce(m, tasks);
+    await _createOnce(m, notes);
     await customStatement("UPDATE app_settings SET theme_mode = 'light' WHERE theme_mode = 'dark'");
     await customStatement('UPDATE app_settings SET lock_timeout_seconds = 60 WHERE lock_timeout_seconds = 300');
     await _dropUnusedSeeds();

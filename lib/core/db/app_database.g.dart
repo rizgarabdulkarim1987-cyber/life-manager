@@ -6996,6 +6996,1095 @@ class CapturesCompanion extends UpdateCompanion<Capture> {
   }
 }
 
+class $TasksTable extends Tasks with TableInfo<$TasksTable, Task> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TasksTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'),
+  );
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
+    'title',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 300),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+    'notes',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _kindMeta = const VerificationMeta('kind');
+  @override
+  late final GeneratedColumn<String> kind = GeneratedColumn<String>(
+    'kind',
+    aliasedName,
+    false,
+    check: () => kind.isIn(kTaskKinds),
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('task'),
+  );
+  static const VerificationMeta _dueAtMeta = const VerificationMeta('dueAt');
+  @override
+  late final GeneratedColumn<DateTime> dueAt = GeneratedColumn<DateTime>(
+    'due_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _hasTimeMeta = const VerificationMeta('hasTime');
+  @override
+  late final GeneratedColumn<bool> hasTime = GeneratedColumn<bool>(
+    'has_time',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("has_time" IN (0, 1))'),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _placeMeta = const VerificationMeta('place');
+  @override
+  late final GeneratedColumn<String> place = GeneratedColumn<String>(
+    'place',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _priorityMeta = const VerificationMeta('priority');
+  @override
+  late final GeneratedColumn<int> priority = GeneratedColumn<int>(
+    'priority',
+    aliasedName,
+    false,
+    check: () => ComparableExpr(priority).isBetweenValues(0, 2),
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(1),
+  );
+  static const VerificationMeta _statusMeta = const VerificationMeta('status');
+  @override
+  late final GeneratedColumn<String> status = GeneratedColumn<String>(
+    'status',
+    aliasedName,
+    false,
+    check: () => status.isIn(const ['open', 'done']),
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('open'),
+  );
+  static const VerificationMeta _recurrenceMeta = const VerificationMeta('recurrence');
+  @override
+  late final GeneratedColumn<String> recurrence = GeneratedColumn<String>(
+    'recurrence',
+    aliasedName,
+    false,
+    check: () => recurrence.isIn(kRecurrences),
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('none'),
+  );
+  static const VerificationMeta _workspaceIdMeta = const VerificationMeta('workspaceId');
+  @override
+  late final GeneratedColumn<int> workspaceId = GeneratedColumn<int>(
+    'workspace_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES workspaces (id) ON DELETE SET NULL'),
+  );
+  static const VerificationMeta _projectIdMeta = const VerificationMeta('projectId');
+  @override
+  late final GeneratedColumn<int> projectId = GeneratedColumn<int>(
+    'project_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _projectStepIdMeta = const VerificationMeta('projectStepId');
+  @override
+  late final GeneratedColumn<int> projectStepId = GeneratedColumn<int>(
+    'project_step_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _captureIdMeta = const VerificationMeta('captureId');
+  @override
+  late final GeneratedColumn<int> captureId = GeneratedColumn<int>(
+    'capture_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _completedAtMeta = const VerificationMeta('completedAt');
+  @override
+  late final GeneratedColumn<DateTime> completedAt = GeneratedColumn<DateTime>(
+    'completed_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    title,
+    notes,
+    kind,
+    dueAt,
+    hasTime,
+    place,
+    priority,
+    status,
+    recurrence,
+    workspaceId,
+    projectId,
+    projectStepId,
+    captureId,
+    createdAt,
+    completedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'tasks';
+  @override
+  VerificationContext validateIntegrity(Insertable<Task> instance, {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('title')) {
+      context.handle(_titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+    } else if (isInserting) {
+      context.missing(_titleMeta);
+    }
+    if (data.containsKey('notes')) {
+      context.handle(_notesMeta, notes.isAcceptableOrUnknown(data['notes']!, _notesMeta));
+    }
+    if (data.containsKey('kind')) {
+      context.handle(_kindMeta, kind.isAcceptableOrUnknown(data['kind']!, _kindMeta));
+    }
+    if (data.containsKey('due_at')) {
+      context.handle(_dueAtMeta, dueAt.isAcceptableOrUnknown(data['due_at']!, _dueAtMeta));
+    }
+    if (data.containsKey('has_time')) {
+      context.handle(_hasTimeMeta, hasTime.isAcceptableOrUnknown(data['has_time']!, _hasTimeMeta));
+    }
+    if (data.containsKey('place')) {
+      context.handle(_placeMeta, place.isAcceptableOrUnknown(data['place']!, _placeMeta));
+    }
+    if (data.containsKey('priority')) {
+      context.handle(_priorityMeta, priority.isAcceptableOrUnknown(data['priority']!, _priorityMeta));
+    }
+    if (data.containsKey('status')) {
+      context.handle(_statusMeta, status.isAcceptableOrUnknown(data['status']!, _statusMeta));
+    }
+    if (data.containsKey('recurrence')) {
+      context.handle(_recurrenceMeta, recurrence.isAcceptableOrUnknown(data['recurrence']!, _recurrenceMeta));
+    }
+    if (data.containsKey('workspace_id')) {
+      context.handle(_workspaceIdMeta, workspaceId.isAcceptableOrUnknown(data['workspace_id']!, _workspaceIdMeta));
+    }
+    if (data.containsKey('project_id')) {
+      context.handle(_projectIdMeta, projectId.isAcceptableOrUnknown(data['project_id']!, _projectIdMeta));
+    }
+    if (data.containsKey('project_step_id')) {
+      context.handle(
+        _projectStepIdMeta,
+        projectStepId.isAcceptableOrUnknown(data['project_step_id']!, _projectStepIdMeta),
+      );
+    }
+    if (data.containsKey('capture_id')) {
+      context.handle(_captureIdMeta, captureId.isAcceptableOrUnknown(data['capture_id']!, _captureIdMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta, createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('completed_at')) {
+      context.handle(_completedAtMeta, completedAt.isAcceptableOrUnknown(data['completed_at']!, _completedAtMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Task map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Task(
+      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      title: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}title'])!,
+      notes: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}notes']),
+      kind: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}kind'])!,
+      dueAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}due_at']),
+      hasTime: attachedDatabase.typeMapping.read(DriftSqlType.bool, data['${effectivePrefix}has_time'])!,
+      place: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}place']),
+      priority: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}priority'])!,
+      status: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}status'])!,
+      recurrence: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}recurrence'])!,
+      workspaceId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}workspace_id']),
+      projectId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}project_id']),
+      projectStepId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}project_step_id']),
+      captureId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}capture_id']),
+      createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      completedAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}completed_at']),
+    );
+  }
+
+  @override
+  $TasksTable createAlias(String alias) {
+    return $TasksTable(attachedDatabase, alias);
+  }
+}
+
+class Task extends DataClass implements Insertable<Task> {
+  final int id;
+  final String title;
+  final String? notes;
+  final String kind;
+  final DateTime? dueAt;
+
+  /// False when only the day was given; `dueAt` is then local midnight.
+  final bool hasTime;
+  final String? place;
+  final int priority;
+  final String status;
+  final String recurrence;
+  final int? workspaceId;
+
+  /// Plain ints, no foreign keys: a deleted project or capture must never block.
+  final int? projectId;
+  final int? projectStepId;
+  final int? captureId;
+  final DateTime createdAt;
+  final DateTime? completedAt;
+  const Task({
+    required this.id,
+    required this.title,
+    this.notes,
+    required this.kind,
+    this.dueAt,
+    required this.hasTime,
+    this.place,
+    required this.priority,
+    required this.status,
+    required this.recurrence,
+    this.workspaceId,
+    this.projectId,
+    this.projectStepId,
+    this.captureId,
+    required this.createdAt,
+    this.completedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['title'] = Variable<String>(title);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    map['kind'] = Variable<String>(kind);
+    if (!nullToAbsent || dueAt != null) {
+      map['due_at'] = Variable<DateTime>(dueAt);
+    }
+    map['has_time'] = Variable<bool>(hasTime);
+    if (!nullToAbsent || place != null) {
+      map['place'] = Variable<String>(place);
+    }
+    map['priority'] = Variable<int>(priority);
+    map['status'] = Variable<String>(status);
+    map['recurrence'] = Variable<String>(recurrence);
+    if (!nullToAbsent || workspaceId != null) {
+      map['workspace_id'] = Variable<int>(workspaceId);
+    }
+    if (!nullToAbsent || projectId != null) {
+      map['project_id'] = Variable<int>(projectId);
+    }
+    if (!nullToAbsent || projectStepId != null) {
+      map['project_step_id'] = Variable<int>(projectStepId);
+    }
+    if (!nullToAbsent || captureId != null) {
+      map['capture_id'] = Variable<int>(captureId);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    if (!nullToAbsent || completedAt != null) {
+      map['completed_at'] = Variable<DateTime>(completedAt);
+    }
+    return map;
+  }
+
+  TasksCompanion toCompanion(bool nullToAbsent) {
+    return TasksCompanion(
+      id: Value(id),
+      title: Value(title),
+      notes: notes == null && nullToAbsent ? const Value.absent() : Value(notes),
+      kind: Value(kind),
+      dueAt: dueAt == null && nullToAbsent ? const Value.absent() : Value(dueAt),
+      hasTime: Value(hasTime),
+      place: place == null && nullToAbsent ? const Value.absent() : Value(place),
+      priority: Value(priority),
+      status: Value(status),
+      recurrence: Value(recurrence),
+      workspaceId: workspaceId == null && nullToAbsent ? const Value.absent() : Value(workspaceId),
+      projectId: projectId == null && nullToAbsent ? const Value.absent() : Value(projectId),
+      projectStepId: projectStepId == null && nullToAbsent ? const Value.absent() : Value(projectStepId),
+      captureId: captureId == null && nullToAbsent ? const Value.absent() : Value(captureId),
+      createdAt: Value(createdAt),
+      completedAt: completedAt == null && nullToAbsent ? const Value.absent() : Value(completedAt),
+    );
+  }
+
+  factory Task.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Task(
+      id: serializer.fromJson<int>(json['id']),
+      title: serializer.fromJson<String>(json['title']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      kind: serializer.fromJson<String>(json['kind']),
+      dueAt: serializer.fromJson<DateTime?>(json['dueAt']),
+      hasTime: serializer.fromJson<bool>(json['hasTime']),
+      place: serializer.fromJson<String?>(json['place']),
+      priority: serializer.fromJson<int>(json['priority']),
+      status: serializer.fromJson<String>(json['status']),
+      recurrence: serializer.fromJson<String>(json['recurrence']),
+      workspaceId: serializer.fromJson<int?>(json['workspaceId']),
+      projectId: serializer.fromJson<int?>(json['projectId']),
+      projectStepId: serializer.fromJson<int?>(json['projectStepId']),
+      captureId: serializer.fromJson<int?>(json['captureId']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      completedAt: serializer.fromJson<DateTime?>(json['completedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'title': serializer.toJson<String>(title),
+      'notes': serializer.toJson<String?>(notes),
+      'kind': serializer.toJson<String>(kind),
+      'dueAt': serializer.toJson<DateTime?>(dueAt),
+      'hasTime': serializer.toJson<bool>(hasTime),
+      'place': serializer.toJson<String?>(place),
+      'priority': serializer.toJson<int>(priority),
+      'status': serializer.toJson<String>(status),
+      'recurrence': serializer.toJson<String>(recurrence),
+      'workspaceId': serializer.toJson<int?>(workspaceId),
+      'projectId': serializer.toJson<int?>(projectId),
+      'projectStepId': serializer.toJson<int?>(projectStepId),
+      'captureId': serializer.toJson<int?>(captureId),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'completedAt': serializer.toJson<DateTime?>(completedAt),
+    };
+  }
+
+  Task copyWith({
+    int? id,
+    String? title,
+    Value<String?> notes = const Value.absent(),
+    String? kind,
+    Value<DateTime?> dueAt = const Value.absent(),
+    bool? hasTime,
+    Value<String?> place = const Value.absent(),
+    int? priority,
+    String? status,
+    String? recurrence,
+    Value<int?> workspaceId = const Value.absent(),
+    Value<int?> projectId = const Value.absent(),
+    Value<int?> projectStepId = const Value.absent(),
+    Value<int?> captureId = const Value.absent(),
+    DateTime? createdAt,
+    Value<DateTime?> completedAt = const Value.absent(),
+  }) => Task(
+    id: id ?? this.id,
+    title: title ?? this.title,
+    notes: notes.present ? notes.value : this.notes,
+    kind: kind ?? this.kind,
+    dueAt: dueAt.present ? dueAt.value : this.dueAt,
+    hasTime: hasTime ?? this.hasTime,
+    place: place.present ? place.value : this.place,
+    priority: priority ?? this.priority,
+    status: status ?? this.status,
+    recurrence: recurrence ?? this.recurrence,
+    workspaceId: workspaceId.present ? workspaceId.value : this.workspaceId,
+    projectId: projectId.present ? projectId.value : this.projectId,
+    projectStepId: projectStepId.present ? projectStepId.value : this.projectStepId,
+    captureId: captureId.present ? captureId.value : this.captureId,
+    createdAt: createdAt ?? this.createdAt,
+    completedAt: completedAt.present ? completedAt.value : this.completedAt,
+  );
+  Task copyWithCompanion(TasksCompanion data) {
+    return Task(
+      id: data.id.present ? data.id.value : this.id,
+      title: data.title.present ? data.title.value : this.title,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      kind: data.kind.present ? data.kind.value : this.kind,
+      dueAt: data.dueAt.present ? data.dueAt.value : this.dueAt,
+      hasTime: data.hasTime.present ? data.hasTime.value : this.hasTime,
+      place: data.place.present ? data.place.value : this.place,
+      priority: data.priority.present ? data.priority.value : this.priority,
+      status: data.status.present ? data.status.value : this.status,
+      recurrence: data.recurrence.present ? data.recurrence.value : this.recurrence,
+      workspaceId: data.workspaceId.present ? data.workspaceId.value : this.workspaceId,
+      projectId: data.projectId.present ? data.projectId.value : this.projectId,
+      projectStepId: data.projectStepId.present ? data.projectStepId.value : this.projectStepId,
+      captureId: data.captureId.present ? data.captureId.value : this.captureId,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      completedAt: data.completedAt.present ? data.completedAt.value : this.completedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Task(')
+          ..write('id: $id, ')
+          ..write('title: $title, ')
+          ..write('notes: $notes, ')
+          ..write('kind: $kind, ')
+          ..write('dueAt: $dueAt, ')
+          ..write('hasTime: $hasTime, ')
+          ..write('place: $place, ')
+          ..write('priority: $priority, ')
+          ..write('status: $status, ')
+          ..write('recurrence: $recurrence, ')
+          ..write('workspaceId: $workspaceId, ')
+          ..write('projectId: $projectId, ')
+          ..write('projectStepId: $projectStepId, ')
+          ..write('captureId: $captureId, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('completedAt: $completedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    title,
+    notes,
+    kind,
+    dueAt,
+    hasTime,
+    place,
+    priority,
+    status,
+    recurrence,
+    workspaceId,
+    projectId,
+    projectStepId,
+    captureId,
+    createdAt,
+    completedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Task &&
+          other.id == this.id &&
+          other.title == this.title &&
+          other.notes == this.notes &&
+          other.kind == this.kind &&
+          other.dueAt == this.dueAt &&
+          other.hasTime == this.hasTime &&
+          other.place == this.place &&
+          other.priority == this.priority &&
+          other.status == this.status &&
+          other.recurrence == this.recurrence &&
+          other.workspaceId == this.workspaceId &&
+          other.projectId == this.projectId &&
+          other.projectStepId == this.projectStepId &&
+          other.captureId == this.captureId &&
+          other.createdAt == this.createdAt &&
+          other.completedAt == this.completedAt);
+}
+
+class TasksCompanion extends UpdateCompanion<Task> {
+  final Value<int> id;
+  final Value<String> title;
+  final Value<String?> notes;
+  final Value<String> kind;
+  final Value<DateTime?> dueAt;
+  final Value<bool> hasTime;
+  final Value<String?> place;
+  final Value<int> priority;
+  final Value<String> status;
+  final Value<String> recurrence;
+  final Value<int?> workspaceId;
+  final Value<int?> projectId;
+  final Value<int?> projectStepId;
+  final Value<int?> captureId;
+  final Value<DateTime> createdAt;
+  final Value<DateTime?> completedAt;
+  const TasksCompanion({
+    this.id = const Value.absent(),
+    this.title = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.kind = const Value.absent(),
+    this.dueAt = const Value.absent(),
+    this.hasTime = const Value.absent(),
+    this.place = const Value.absent(),
+    this.priority = const Value.absent(),
+    this.status = const Value.absent(),
+    this.recurrence = const Value.absent(),
+    this.workspaceId = const Value.absent(),
+    this.projectId = const Value.absent(),
+    this.projectStepId = const Value.absent(),
+    this.captureId = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.completedAt = const Value.absent(),
+  });
+  TasksCompanion.insert({
+    this.id = const Value.absent(),
+    required String title,
+    this.notes = const Value.absent(),
+    this.kind = const Value.absent(),
+    this.dueAt = const Value.absent(),
+    this.hasTime = const Value.absent(),
+    this.place = const Value.absent(),
+    this.priority = const Value.absent(),
+    this.status = const Value.absent(),
+    this.recurrence = const Value.absent(),
+    this.workspaceId = const Value.absent(),
+    this.projectId = const Value.absent(),
+    this.projectStepId = const Value.absent(),
+    this.captureId = const Value.absent(),
+    required DateTime createdAt,
+    this.completedAt = const Value.absent(),
+  }) : title = Value(title),
+       createdAt = Value(createdAt);
+  static Insertable<Task> custom({
+    Expression<int>? id,
+    Expression<String>? title,
+    Expression<String>? notes,
+    Expression<String>? kind,
+    Expression<DateTime>? dueAt,
+    Expression<bool>? hasTime,
+    Expression<String>? place,
+    Expression<int>? priority,
+    Expression<String>? status,
+    Expression<String>? recurrence,
+    Expression<int>? workspaceId,
+    Expression<int>? projectId,
+    Expression<int>? projectStepId,
+    Expression<int>? captureId,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? completedAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (title != null) 'title': title,
+      if (notes != null) 'notes': notes,
+      if (kind != null) 'kind': kind,
+      if (dueAt != null) 'due_at': dueAt,
+      if (hasTime != null) 'has_time': hasTime,
+      if (place != null) 'place': place,
+      if (priority != null) 'priority': priority,
+      if (status != null) 'status': status,
+      if (recurrence != null) 'recurrence': recurrence,
+      if (workspaceId != null) 'workspace_id': workspaceId,
+      if (projectId != null) 'project_id': projectId,
+      if (projectStepId != null) 'project_step_id': projectStepId,
+      if (captureId != null) 'capture_id': captureId,
+      if (createdAt != null) 'created_at': createdAt,
+      if (completedAt != null) 'completed_at': completedAt,
+    });
+  }
+
+  TasksCompanion copyWith({
+    Value<int>? id,
+    Value<String>? title,
+    Value<String?>? notes,
+    Value<String>? kind,
+    Value<DateTime?>? dueAt,
+    Value<bool>? hasTime,
+    Value<String?>? place,
+    Value<int>? priority,
+    Value<String>? status,
+    Value<String>? recurrence,
+    Value<int?>? workspaceId,
+    Value<int?>? projectId,
+    Value<int?>? projectStepId,
+    Value<int?>? captureId,
+    Value<DateTime>? createdAt,
+    Value<DateTime?>? completedAt,
+  }) {
+    return TasksCompanion(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      notes: notes ?? this.notes,
+      kind: kind ?? this.kind,
+      dueAt: dueAt ?? this.dueAt,
+      hasTime: hasTime ?? this.hasTime,
+      place: place ?? this.place,
+      priority: priority ?? this.priority,
+      status: status ?? this.status,
+      recurrence: recurrence ?? this.recurrence,
+      workspaceId: workspaceId ?? this.workspaceId,
+      projectId: projectId ?? this.projectId,
+      projectStepId: projectStepId ?? this.projectStepId,
+      captureId: captureId ?? this.captureId,
+      createdAt: createdAt ?? this.createdAt,
+      completedAt: completedAt ?? this.completedAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (kind.present) {
+      map['kind'] = Variable<String>(kind.value);
+    }
+    if (dueAt.present) {
+      map['due_at'] = Variable<DateTime>(dueAt.value);
+    }
+    if (hasTime.present) {
+      map['has_time'] = Variable<bool>(hasTime.value);
+    }
+    if (place.present) {
+      map['place'] = Variable<String>(place.value);
+    }
+    if (priority.present) {
+      map['priority'] = Variable<int>(priority.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(status.value);
+    }
+    if (recurrence.present) {
+      map['recurrence'] = Variable<String>(recurrence.value);
+    }
+    if (workspaceId.present) {
+      map['workspace_id'] = Variable<int>(workspaceId.value);
+    }
+    if (projectId.present) {
+      map['project_id'] = Variable<int>(projectId.value);
+    }
+    if (projectStepId.present) {
+      map['project_step_id'] = Variable<int>(projectStepId.value);
+    }
+    if (captureId.present) {
+      map['capture_id'] = Variable<int>(captureId.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (completedAt.present) {
+      map['completed_at'] = Variable<DateTime>(completedAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TasksCompanion(')
+          ..write('id: $id, ')
+          ..write('title: $title, ')
+          ..write('notes: $notes, ')
+          ..write('kind: $kind, ')
+          ..write('dueAt: $dueAt, ')
+          ..write('hasTime: $hasTime, ')
+          ..write('place: $place, ')
+          ..write('priority: $priority, ')
+          ..write('status: $status, ')
+          ..write('recurrence: $recurrence, ')
+          ..write('workspaceId: $workspaceId, ')
+          ..write('projectId: $projectId, ')
+          ..write('projectStepId: $projectStepId, ')
+          ..write('captureId: $captureId, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('completedAt: $completedAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $NotesTable extends Notes with TableInfo<$NotesTable, Note> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $NotesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'),
+  );
+  static const VerificationMeta _bodyMeta = const VerificationMeta('body');
+  @override
+  late final GeneratedColumn<String> body = GeneratedColumn<String>(
+    'body',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 5000),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _projectIdMeta = const VerificationMeta('projectId');
+  @override
+  late final GeneratedColumn<int> projectId = GeneratedColumn<int>(
+    'project_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _captureIdMeta = const VerificationMeta('captureId');
+  @override
+  late final GeneratedColumn<int> captureId = GeneratedColumn<int>(
+    'capture_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta('updatedAt');
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, body, projectId, captureId, createdAt, updatedAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'notes';
+  @override
+  VerificationContext validateIntegrity(Insertable<Note> instance, {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('body')) {
+      context.handle(_bodyMeta, body.isAcceptableOrUnknown(data['body']!, _bodyMeta));
+    } else if (isInserting) {
+      context.missing(_bodyMeta);
+    }
+    if (data.containsKey('project_id')) {
+      context.handle(_projectIdMeta, projectId.isAcceptableOrUnknown(data['project_id']!, _projectIdMeta));
+    }
+    if (data.containsKey('capture_id')) {
+      context.handle(_captureIdMeta, captureId.isAcceptableOrUnknown(data['capture_id']!, _captureIdMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta, createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta, updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Note map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return Note(
+      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      body: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}body'])!,
+      projectId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}project_id']),
+      captureId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}capture_id']),
+      createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
+    );
+  }
+
+  @override
+  $NotesTable createAlias(String alias) {
+    return $NotesTable(attachedDatabase, alias);
+  }
+}
+
+class Note extends DataClass implements Insertable<Note> {
+  final int id;
+  final String body;
+  final int? projectId;
+  final int? captureId;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  const Note({
+    required this.id,
+    required this.body,
+    this.projectId,
+    this.captureId,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['body'] = Variable<String>(body);
+    if (!nullToAbsent || projectId != null) {
+      map['project_id'] = Variable<int>(projectId);
+    }
+    if (!nullToAbsent || captureId != null) {
+      map['capture_id'] = Variable<int>(captureId);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  NotesCompanion toCompanion(bool nullToAbsent) {
+    return NotesCompanion(
+      id: Value(id),
+      body: Value(body),
+      projectId: projectId == null && nullToAbsent ? const Value.absent() : Value(projectId),
+      captureId: captureId == null && nullToAbsent ? const Value.absent() : Value(captureId),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory Note.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return Note(
+      id: serializer.fromJson<int>(json['id']),
+      body: serializer.fromJson<String>(json['body']),
+      projectId: serializer.fromJson<int?>(json['projectId']),
+      captureId: serializer.fromJson<int?>(json['captureId']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'body': serializer.toJson<String>(body),
+      'projectId': serializer.toJson<int?>(projectId),
+      'captureId': serializer.toJson<int?>(captureId),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  Note copyWith({
+    int? id,
+    String? body,
+    Value<int?> projectId = const Value.absent(),
+    Value<int?> captureId = const Value.absent(),
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) => Note(
+    id: id ?? this.id,
+    body: body ?? this.body,
+    projectId: projectId.present ? projectId.value : this.projectId,
+    captureId: captureId.present ? captureId.value : this.captureId,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+  );
+  Note copyWithCompanion(NotesCompanion data) {
+    return Note(
+      id: data.id.present ? data.id.value : this.id,
+      body: data.body.present ? data.body.value : this.body,
+      projectId: data.projectId.present ? data.projectId.value : this.projectId,
+      captureId: data.captureId.present ? data.captureId.value : this.captureId,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('Note(')
+          ..write('id: $id, ')
+          ..write('body: $body, ')
+          ..write('projectId: $projectId, ')
+          ..write('captureId: $captureId, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, body, projectId, captureId, createdAt, updatedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Note &&
+          other.id == this.id &&
+          other.body == this.body &&
+          other.projectId == this.projectId &&
+          other.captureId == this.captureId &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class NotesCompanion extends UpdateCompanion<Note> {
+  final Value<int> id;
+  final Value<String> body;
+  final Value<int?> projectId;
+  final Value<int?> captureId;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  const NotesCompanion({
+    this.id = const Value.absent(),
+    this.body = const Value.absent(),
+    this.projectId = const Value.absent(),
+    this.captureId = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+  });
+  NotesCompanion.insert({
+    this.id = const Value.absent(),
+    required String body,
+    this.projectId = const Value.absent(),
+    this.captureId = const Value.absent(),
+    required DateTime createdAt,
+    required DateTime updatedAt,
+  }) : body = Value(body),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt);
+  static Insertable<Note> custom({
+    Expression<int>? id,
+    Expression<String>? body,
+    Expression<int>? projectId,
+    Expression<int>? captureId,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (body != null) 'body': body,
+      if (projectId != null) 'project_id': projectId,
+      if (captureId != null) 'capture_id': captureId,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+    });
+  }
+
+  NotesCompanion copyWith({
+    Value<int>? id,
+    Value<String>? body,
+    Value<int?>? projectId,
+    Value<int?>? captureId,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+  }) {
+    return NotesCompanion(
+      id: id ?? this.id,
+      body: body ?? this.body,
+      projectId: projectId ?? this.projectId,
+      captureId: captureId ?? this.captureId,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (body.present) {
+      map['body'] = Variable<String>(body.value);
+    }
+    if (projectId.present) {
+      map['project_id'] = Variable<int>(projectId.value);
+    }
+    if (captureId.present) {
+      map['capture_id'] = Variable<int>(captureId.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('NotesCompanion(')
+          ..write('id: $id, ')
+          ..write('body: $body, ')
+          ..write('projectId: $projectId, ')
+          ..write('captureId: $captureId, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -7013,6 +8102,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $BucketAllocationsTable bucketAllocations = $BucketAllocationsTable(this);
   late final $BudgetsTable budgets = $BudgetsTable(this);
   late final $CapturesTable captures = $CapturesTable(this);
+  late final $TasksTable tasks = $TasksTable(this);
+  late final $NotesTable notes = $NotesTable(this);
   late final Index txAccountTime = Index(
     'tx_account_time',
     'CREATE INDEX tx_account_time ON transactions (account_id, occurred_at)',
@@ -7037,6 +8128,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     bucketAllocations,
     budgets,
     captures,
+    tasks,
+    notes,
     txAccountTime,
     txTime,
     txBatch,
@@ -7050,6 +8143,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     WritePropagation(
       on: TableUpdateQuery.onTableName('transactions', limitUpdateKind: UpdateKind.delete),
       result: [TableUpdate('bucket_allocations', kind: UpdateKind.delete)],
+    ),
+    WritePropagation(
+      on: TableUpdateQuery.onTableName('workspaces', limitUpdateKind: UpdateKind.delete),
+      result: [TableUpdate('tasks', kind: UpdateKind.update)],
     ),
   ]);
 }
@@ -7146,6 +8243,19 @@ final class $$WorkspacesTableReferences extends BaseReferences<_$AppDatabase, $W
     ).filter((f) => f.workspaceId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_budgetsRefsTable($_db));
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+  }
+
+  static MultiTypedResultKey<$TasksTable, List<Task>> _tasksRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.tasks, aliasName: 'workspaces__id__tasks__workspace_id');
+
+  $$TasksTableProcessedTableManager get tasksRefs {
+    final manager = $$TasksTableTableManager(
+      $_db,
+      $_db.tasks,
+    ).filter((f) => f.workspaceId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_tasksRefsTable($_db));
     return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
   }
 }
@@ -7271,6 +8381,24 @@ class $$WorkspacesTableFilterComposer extends Composer<_$AppDatabase, $Workspace
           $$BudgetsTableFilterComposer(
             $db: $db,
             $table: $db.budgets,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> tasksRefs(Expression<bool> Function($$TasksTableFilterComposer f) f) {
+    final $$TasksTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.tasks,
+      getReferencedColumn: (t) => t.workspaceId,
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$TasksTableFilterComposer(
+            $db: $db,
+            $table: $db.tasks,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
@@ -7442,6 +8570,24 @@ class $$WorkspacesTableAnnotationComposer extends Composer<_$AppDatabase, $Works
     );
     return f(composer);
   }
+
+  Expression<T> tasksRefs<T extends Object>(Expression<T> Function($$TasksTableAnnotationComposer a) f) {
+    final $$TasksTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.tasks,
+      getReferencedColumn: (t) => t.workspaceId,
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$TasksTableAnnotationComposer(
+            $db: $db,
+            $table: $db.tasks,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$WorkspacesTableTableManager
@@ -7463,6 +8609,7 @@ class $$WorkspacesTableTableManager
             bool debtsRefs,
             bool transactionsRefs,
             bool budgetsRefs,
+            bool tasksRefs,
           })
         > {
   $$WorkspacesTableTableManager(_$AppDatabase db, $WorkspacesTable table)
@@ -7535,6 +8682,7 @@ class $$WorkspacesTableTableManager
                 debtsRefs = false,
                 transactionsRefs = false,
                 budgetsRefs = false,
+                tasksRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
@@ -7544,6 +8692,7 @@ class $$WorkspacesTableTableManager
                     if (debtsRefs) db.debts,
                     if (transactionsRefs) db.transactions,
                     if (budgetsRefs) db.budgets,
+                    if (tasksRefs) db.tasks,
                   ],
                   addJoins: null,
                   getPrefetchedDataCallback: (items) async {
@@ -7593,6 +8742,15 @@ class $$WorkspacesTableTableManager
                               referencedItems.where((e) => e.workspaceId == item.id),
                           typedResults: items,
                         ),
+                      if (tasksRefs)
+                        await $_getPrefetchedData<Workspace, $WorkspacesTable, Task>(
+                          currentTable: table,
+                          referencedTable: $$WorkspacesTableReferences._tasksRefsTable(db),
+                          managerFromTypedResult: (p0) => $$WorkspacesTableReferences(db, table, p0).tasksRefs,
+                          referencedItemsForCurrentItem: (item, referencedItems) =>
+                              referencedItems.where((e) => e.workspaceId == item.id),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -7619,6 +8777,7 @@ typedef $$WorkspacesTableProcessedTableManager =
         bool debtsRefs,
         bool transactionsRefs,
         bool budgetsRefs,
+        bool tasksRefs,
       })
     >;
 typedef $$AccountsTableCreateCompanionBuilder = AccountsCompanion Function({
@@ -12100,6 +13259,581 @@ typedef $$CapturesTableProcessedTableManager =
       Capture,
       PrefetchHooks Function()
     >;
+typedef $$TasksTableCreateCompanionBuilder = TasksCompanion Function({
+  Value<int> id,
+  required String title,
+  Value<String?> notes,
+  Value<String> kind,
+  Value<DateTime?> dueAt,
+  Value<bool> hasTime,
+  Value<String?> place,
+  Value<int> priority,
+  Value<String> status,
+  Value<String> recurrence,
+  Value<int?> workspaceId,
+  Value<int?> projectId,
+  Value<int?> projectStepId,
+  Value<int?> captureId,
+  required DateTime createdAt,
+  Value<DateTime?> completedAt,
+});
+typedef $$TasksTableUpdateCompanionBuilder = TasksCompanion Function({
+  Value<int> id,
+  Value<String> title,
+  Value<String?> notes,
+  Value<String> kind,
+  Value<DateTime?> dueAt,
+  Value<bool> hasTime,
+  Value<String?> place,
+  Value<int> priority,
+  Value<String> status,
+  Value<String> recurrence,
+  Value<int?> workspaceId,
+  Value<int?> projectId,
+  Value<int?> projectStepId,
+  Value<int?> captureId,
+  Value<DateTime> createdAt,
+  Value<DateTime?> completedAt,
+});
+
+final class $$TasksTableReferences extends BaseReferences<_$AppDatabase, $TasksTable, Task> {
+  $$TasksTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $WorkspacesTable _workspaceIdTable(_$AppDatabase db) =>
+      db.workspaces.createAlias('tasks__workspace_id__workspaces__id');
+
+  $$WorkspacesTableProcessedTableManager? get workspaceId {
+    final $_column = $_itemColumn<int>('workspace_id');
+    if ($_column == null) return null;
+    final manager = $$WorkspacesTableTableManager($_db, $_db.workspaces).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_workspaceIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $$TasksTableFilterComposer extends Composer<_$AppDatabase, $TasksTable> {
+  $$TasksTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get kind => $composableBuilder(column: $table.kind, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get dueAt =>
+      $composableBuilder(column: $table.dueAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get hasTime =>
+      $composableBuilder(column: $table.hasTime, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get place =>
+      $composableBuilder(column: $table.place, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get priority =>
+      $composableBuilder(column: $table.priority, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get recurrence =>
+      $composableBuilder(column: $table.recurrence, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get projectId =>
+      $composableBuilder(column: $table.projectId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get projectStepId =>
+      $composableBuilder(column: $table.projectStepId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get captureId =>
+      $composableBuilder(column: $table.captureId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get completedAt =>
+      $composableBuilder(column: $table.completedAt, builder: (column) => ColumnFilters(column));
+
+  $$WorkspacesTableFilterComposer get workspaceId {
+    final $$WorkspacesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.workspaceId,
+      referencedTable: $db.workspaces,
+      getReferencedColumn: (t) => t.id,
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$WorkspacesTableFilterComposer(
+            $db: $db,
+            $table: $db.workspaces,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$TasksTableOrderingComposer extends Composer<_$AppDatabase, $TasksTable> {
+  $$TasksTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get kind =>
+      $composableBuilder(column: $table.kind, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get dueAt =>
+      $composableBuilder(column: $table.dueAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get hasTime =>
+      $composableBuilder(column: $table.hasTime, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get place =>
+      $composableBuilder(column: $table.place, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get priority =>
+      $composableBuilder(column: $table.priority, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get recurrence =>
+      $composableBuilder(column: $table.recurrence, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get projectId =>
+      $composableBuilder(column: $table.projectId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get projectStepId =>
+      $composableBuilder(column: $table.projectStepId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get captureId =>
+      $composableBuilder(column: $table.captureId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get completedAt =>
+      $composableBuilder(column: $table.completedAt, builder: (column) => ColumnOrderings(column));
+
+  $$WorkspacesTableOrderingComposer get workspaceId {
+    final $$WorkspacesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.workspaceId,
+      referencedTable: $db.workspaces,
+      getReferencedColumn: (t) => t.id,
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$WorkspacesTableOrderingComposer(
+            $db: $db,
+            $table: $db.workspaces,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$TasksTableAnnotationComposer extends Composer<_$AppDatabase, $TasksTable> {
+  $$TasksTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get title => $composableBuilder(column: $table.title, builder: (column) => column);
+
+  GeneratedColumn<String> get notes => $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<String> get kind => $composableBuilder(column: $table.kind, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get dueAt => $composableBuilder(column: $table.dueAt, builder: (column) => column);
+
+  GeneratedColumn<bool> get hasTime => $composableBuilder(column: $table.hasTime, builder: (column) => column);
+
+  GeneratedColumn<String> get place => $composableBuilder(column: $table.place, builder: (column) => column);
+
+  GeneratedColumn<int> get priority => $composableBuilder(column: $table.priority, builder: (column) => column);
+
+  GeneratedColumn<String> get status => $composableBuilder(column: $table.status, builder: (column) => column);
+
+  GeneratedColumn<String> get recurrence => $composableBuilder(column: $table.recurrence, builder: (column) => column);
+
+  GeneratedColumn<int> get projectId => $composableBuilder(column: $table.projectId, builder: (column) => column);
+
+  GeneratedColumn<int> get projectStepId =>
+      $composableBuilder(column: $table.projectStepId, builder: (column) => column);
+
+  GeneratedColumn<int> get captureId => $composableBuilder(column: $table.captureId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt => $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get completedAt =>
+      $composableBuilder(column: $table.completedAt, builder: (column) => column);
+
+  $$WorkspacesTableAnnotationComposer get workspaceId {
+    final $$WorkspacesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.workspaceId,
+      referencedTable: $db.workspaces,
+      getReferencedColumn: (t) => t.id,
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$WorkspacesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.workspaces,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$TasksTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $TasksTable,
+          Task,
+          $$TasksTableFilterComposer,
+          $$TasksTableOrderingComposer,
+          $$TasksTableAnnotationComposer,
+          $$TasksTableCreateCompanionBuilder,
+          $$TasksTableUpdateCompanionBuilder,
+          (Task, $$TasksTableReferences),
+          Task,
+          PrefetchHooks Function({bool workspaceId})
+        > {
+  $$TasksTableTableManager(_$AppDatabase db, $TasksTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () => $$TasksTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () => $$TasksTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () => $$TasksTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> title = const Value.absent(),
+                Value<String?> notes = const Value.absent(),
+                Value<String> kind = const Value.absent(),
+                Value<DateTime?> dueAt = const Value.absent(),
+                Value<bool> hasTime = const Value.absent(),
+                Value<String?> place = const Value.absent(),
+                Value<int> priority = const Value.absent(),
+                Value<String> status = const Value.absent(),
+                Value<String> recurrence = const Value.absent(),
+                Value<int?> workspaceId = const Value.absent(),
+                Value<int?> projectId = const Value.absent(),
+                Value<int?> projectStepId = const Value.absent(),
+                Value<int?> captureId = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime?> completedAt = const Value.absent(),
+              }) => TasksCompanion(
+                id: id,
+                title: title,
+                notes: notes,
+                kind: kind,
+                dueAt: dueAt,
+                hasTime: hasTime,
+                place: place,
+                priority: priority,
+                status: status,
+                recurrence: recurrence,
+                workspaceId: workspaceId,
+                projectId: projectId,
+                projectStepId: projectStepId,
+                captureId: captureId,
+                createdAt: createdAt,
+                completedAt: completedAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String title,
+                Value<String?> notes = const Value.absent(),
+                Value<String> kind = const Value.absent(),
+                Value<DateTime?> dueAt = const Value.absent(),
+                Value<bool> hasTime = const Value.absent(),
+                Value<String?> place = const Value.absent(),
+                Value<int> priority = const Value.absent(),
+                Value<String> status = const Value.absent(),
+                Value<String> recurrence = const Value.absent(),
+                Value<int?> workspaceId = const Value.absent(),
+                Value<int?> projectId = const Value.absent(),
+                Value<int?> projectStepId = const Value.absent(),
+                Value<int?> captureId = const Value.absent(),
+                required DateTime createdAt,
+                Value<DateTime?> completedAt = const Value.absent(),
+              }) => TasksCompanion.insert(
+                id: id,
+                title: title,
+                notes: notes,
+                kind: kind,
+                dueAt: dueAt,
+                hasTime: hasTime,
+                place: place,
+                priority: priority,
+                status: status,
+                recurrence: recurrence,
+                workspaceId: workspaceId,
+                projectId: projectId,
+                projectStepId: projectStepId,
+                captureId: captureId,
+                createdAt: createdAt,
+                completedAt: completedAt,
+              ),
+          withReferenceMapper: (p0) =>
+              p0.map((e) => (e.readTable<$TasksTable, Task>(table), $$TasksTableReferences(db, table, e))).toList(),
+          prefetchHooksCallback: ({workspaceId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (workspaceId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.workspaceId,
+                        referencedTable: $$TasksTableReferences._workspaceIdTable(db),
+                        referencedColumn: $$TasksTableReferences._workspaceIdTable(db).id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$TasksTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $TasksTable,
+      Task,
+      $$TasksTableFilterComposer,
+      $$TasksTableOrderingComposer,
+      $$TasksTableAnnotationComposer,
+      $$TasksTableCreateCompanionBuilder,
+      $$TasksTableUpdateCompanionBuilder,
+      (Task, $$TasksTableReferences),
+      Task,
+      PrefetchHooks Function({bool workspaceId})
+    >;
+typedef $$NotesTableCreateCompanionBuilder = NotesCompanion Function({
+  Value<int> id,
+  required String body,
+  Value<int?> projectId,
+  Value<int?> captureId,
+  required DateTime createdAt,
+  required DateTime updatedAt,
+});
+typedef $$NotesTableUpdateCompanionBuilder = NotesCompanion Function({
+  Value<int> id,
+  Value<String> body,
+  Value<int?> projectId,
+  Value<int?> captureId,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
+});
+
+class $$NotesTableFilterComposer extends Composer<_$AppDatabase, $NotesTable> {
+  $$NotesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get body => $composableBuilder(column: $table.body, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get projectId =>
+      $composableBuilder(column: $table.projectId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get captureId =>
+      $composableBuilder(column: $table.captureId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$NotesTableOrderingComposer extends Composer<_$AppDatabase, $NotesTable> {
+  $$NotesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get body =>
+      $composableBuilder(column: $table.body, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get projectId =>
+      $composableBuilder(column: $table.projectId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get captureId =>
+      $composableBuilder(column: $table.captureId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$NotesTableAnnotationComposer extends Composer<_$AppDatabase, $NotesTable> {
+  $$NotesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get body => $composableBuilder(column: $table.body, builder: (column) => column);
+
+  GeneratedColumn<int> get projectId => $composableBuilder(column: $table.projectId, builder: (column) => column);
+
+  GeneratedColumn<int> get captureId => $composableBuilder(column: $table.captureId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt => $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt => $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+}
+
+class $$NotesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $NotesTable,
+          Note,
+          $$NotesTableFilterComposer,
+          $$NotesTableOrderingComposer,
+          $$NotesTableAnnotationComposer,
+          $$NotesTableCreateCompanionBuilder,
+          $$NotesTableUpdateCompanionBuilder,
+          (Note, BaseReferences<_$AppDatabase, $NotesTable, Note>),
+          Note,
+          PrefetchHooks Function()
+        > {
+  $$NotesTableTableManager(_$AppDatabase db, $NotesTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () => $$NotesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () => $$NotesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () => $$NotesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> body = const Value.absent(),
+                Value<int?> projectId = const Value.absent(),
+                Value<int?> captureId = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+              }) => NotesCompanion(
+                id: id,
+                body: body,
+                projectId: projectId,
+                captureId: captureId,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String body,
+                Value<int?> projectId = const Value.absent(),
+                Value<int?> captureId = const Value.absent(),
+                required DateTime createdAt,
+                required DateTime updatedAt,
+              }) => NotesCompanion.insert(
+                id: id,
+                body: body,
+                projectId: projectId,
+                captureId: captureId,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$NotesTable, Note>(table),
+                  BaseReferences<_$AppDatabase, $NotesTable, Note>(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$NotesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $NotesTable,
+      Note,
+      $$NotesTableFilterComposer,
+      $$NotesTableOrderingComposer,
+      $$NotesTableAnnotationComposer,
+      $$NotesTableCreateCompanionBuilder,
+      $$NotesTableUpdateCompanionBuilder,
+      (Note, BaseReferences<_$AppDatabase, $NotesTable, Note>),
+      Note,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -12120,4 +13854,6 @@ class $AppDatabaseManager {
       $$BucketAllocationsTableTableManager(_db, _db.bucketAllocations);
   $$BudgetsTableTableManager get budgets => $$BudgetsTableTableManager(_db, _db.budgets);
   $$CapturesTableTableManager get captures => $$CapturesTableTableManager(_db, _db.captures);
+  $$TasksTableTableManager get tasks => $$TasksTableTableManager(_db, _db.tasks);
+  $$NotesTableTableManager get notes => $$NotesTableTableManager(_db, _db.notes);
 }
