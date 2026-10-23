@@ -7,6 +7,7 @@ import '../core/theme/tokens.dart';
 import '../features/lock/lock_controller.dart';
 import '../features/lock/lock_screen.dart';
 import '../features/settings/settings_repository.dart';
+import '../features/vault/vault_session.dart';
 import 'providers.dart';
 import 'router.dart';
 
@@ -23,9 +24,13 @@ class _AppState extends ConsumerState<App> {
   @override
   void initState() {
     super.initState();
-    // Relock after the configured time in the background (spec §15).
+    // Relock after the configured time in the background (spec §15). The vault
+    // locks as soon as the app is hidden (spec §9.2).
     _lifecycle = AppLifecycleListener(
-      onHide: () => ref.read(lockControllerProvider.notifier).onPaused(DateTime.now()),
+      onHide: () {
+        ref.read(lockControllerProvider.notifier).onPaused(DateTime.now());
+        ref.read(vaultSessionProvider.notifier).lock();
+      },
       onShow: () {
         final seconds = ref.read(settingsProvider).value?.lockTimeoutSeconds ?? 300;
         ref.read(lockControllerProvider.notifier).onResumed(DateTime.now(), timeout: Duration(seconds: seconds));
@@ -41,6 +46,10 @@ class _AppState extends ConsumerState<App> {
 
   @override
   Widget build(BuildContext context) {
+    // Whenever the app lock closes, the vault closes with it.
+    ref.listen(lockControllerProvider, (_, next) {
+      if (next == LockStatus.locked) ref.read(vaultSessionProvider.notifier).lock();
+    });
     final settings = ref.watch(settingsProvider).value;
     if (settings == null) return ColoredBox(color: AppTokens.dark.bg);
 
