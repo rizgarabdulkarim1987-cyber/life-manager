@@ -53,6 +53,16 @@ flutter test integration_test -d <device-id>
 
 الحالة: لم تُشغّل بعد على هاتف حقيقي (لا يوجد هاتف موصول أثناء بناء المرحلة 1).
 
+## المرحلة 2: الذكاء الاصطناعي والصوت
+
+- **التحديث فوق المرحلة 1:** ثبّت الـ APK الجديد فوق القديم؛ بياناتك تبقى لأن التوقيع واحد. ومع ذلك أنشئ نسخة احتياطية قبل التحديث.
+- **مفتاح Groq (اختياري):** أنشئ مفتاحاً مجانياً من موقع Groq، ثم ألصقه في **الإعدادات ← الذكاء الاصطناعي**. يُحفظ في التخزين الآمن للهاتف فقط، ويدخل داخل النسخة الاحتياطية المشفّرة، ولا يظهر في أي سجل.
+- **النموذج الصوتي بدون إنترنت:** من نفس الشاشة نزّل النموذج عبر Wi-Fi. النموذج `small` حجمه نحو 465 ميغابايت و`base` نحو 141 ميغابايت. يُتحقق من سلامة الملف بعد التنزيل، ويمكن حذفه في أي وقت.
+- **ما الذي يُرسل إلى Groq؟** فقط تسجيلك الصوتي (عند التفريغ عبر Groq)، ونص ما قلته أو كتبته مع التاريخ والوقت وأسماء حساباتك ومساحات العمل والفئات والصناديق. لا أرصدة ولا معاملات سابقة ولا PIN ولا نسخ احتياطية ولا الخزنة. يسألك التطبيق قبل أول إرسال، ويمكنك الرفض فيبقى كل شيء على الهاتف.
+- **إيقاف الذكاء الاصطناعي عبر الإنترنت:** من **الإعدادات ← الذكاء الاصطناعي** أوقف «استخدام الذكاء الاصطناعي عبر الإنترنت»؛ يبقى المحلل المحلي والنموذج الصوتي على الهاتف يعملان، وتختفي أزرار «أكمل بالذكاء الاصطناعي».
+- **الأذونات:** الإنترنت، والميكروفون، والبصمة فقط.
+- **اختبارات الجهاز:** `whisper_device_test` وبقية اختبارات `integration_test` لم تُشغّل بعد على هاتف حقيقي: كان هاتف موصولاً أثناء بناء المرحلة 2 لكن لم تُشغَّل عليه لأن الاختبار يثبّت نسخة debug بتوقيع مختلف فوق تطبيقك المثبّت. شغّلها على هاتف اختبار.
+
 ---
 
 # Install and build — My Life Manager
@@ -109,3 +119,13 @@ flutter test integration_test -d <device-id>
 ```
 
 Status: not yet run on a real phone (no phone was connected while Phase 1 was built).
+
+## Phase 2: AI and voice
+
+- **Updating over Phase 1:** install the new APK over the old one. Your data stays because the signing key is the same; take a backup first anyway.
+- **Groq key (optional):** create a free key on the Groq website and paste it in **Settings → AI**. It is stored only in the phone's secure storage, travels inside the encrypted backup, and is never logged.
+- **Offline speech model:** download it from the same screen over Wi-Fi. `small` is about 465 MB and `base` about 141 MB. The file is verified after download and can be deleted at any time.
+- **What is sent to Groq:** only your voice recording (when transcribing with Groq), and the text you said or typed with today's date and time and the names of your accounts, workspaces, categories and buckets. Never balances, past transactions, the PIN, backups or the vault. The app asks before the first send; if you decline, everything stays on the phone.
+- **Turning online AI off:** in **Settings → AI** switch off "Use online AI". The on-phone parser and speech model keep working, and the "Finish with AI" buttons disappear.
+- **Permissions:** internet, microphone and biometrics only.
+- **On-device tests:** `whisper_device_test` and the rest of `integration_test` have not been run on a real phone yet. A phone was connected while Phase 2 was built, but the run installs a debug-signed build that would clash with an installed release app, so run them on a test phone.

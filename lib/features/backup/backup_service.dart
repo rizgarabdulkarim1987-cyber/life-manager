@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
@@ -8,12 +9,14 @@ import '../../core/crypto/kdf.dart';
 import '../../core/db/app_database.dart';
 import '../../core/logging/app_logger.dart';
 import '../../core/security/sensitive.dart';
+import '../capture/ai/ai_config.dart';
 import '../settings/settings_repository.dart';
 import 'backup_format.dart';
 import 'backup_payload.dart';
 import 'db_snapshot.dart';
 
 const _dbEntry = 'db/app.db';
+const _groqEntry = 'secrets/groq_api_key';
 
 String backupFileName(DateTime now) {
   String two(int n) => n.toString().padLeft(2, '0');
@@ -51,6 +54,7 @@ class BackupService {
     required this._dbKey,
     required this._settings,
     required this._appVersion,
+    this.groqKey,
   }) : _paths = RestorePaths(supportDir);
 
   final AppDatabase _db;
@@ -61,6 +65,9 @@ class BackupService {
   final SettingsRepository _settings;
   final String _appVersion;
 
+  /// Where the Groq key lives; its backup entry is written and restored only when this is set.
+  final GroqKeyStore? groqKey;
+
   bool _closed = false;
 
   /// True once a restore has closed the live database; the app must restart.
@@ -70,8 +77,9 @@ class BackupService {
   /// confirms the file was actually saved, via [recordExport].
   Future<Uint8List> createBackup(Sensitive<String> password, {KdfParams? kdf, DateTime? now}) async {
     final snapshot = await _snapshotter.exportPlain(_db);
+    final key = await groqKey?.read();
     return _codec.encode(
-      payload: buildPayload({_dbEntry: snapshot}),
+      payload: buildPayload({_dbEntry: snapshot, if (key != null) _groqEntry: utf8.encode(key.value)}),
       password: password,
       schemaVersion: _db.schemaVersion,
       appVersion: _appVersion,
@@ -111,7 +119,8 @@ class BackupService {
   }) async {
     // 1. Decrypt and verify in memory.
     final (header, payload) = await _codec.decode(file, password);
-    final snapshot = readPayload(payload)[_dbEntry];
+    final files = readPayload(payload);
+    final snapshot = files[_dbEntry];
     if (snapshot == null) throw const BackupCorruptException('no database in backup');
 
     final tmp = _paths.tmp;
@@ -170,6 +179,18 @@ class BackupService {
     } finally {
       // 5. The plain copy never outlives the restore.
       if (tmp.existsSync()) tmp.deleteSync(recursive: true);
+    }
+
+    // 6. The swap succeeded, so the key follows the data: the backup's key, or none if it had none.
+    final keys = groqKey;
+    if (keys != null) {
+      final saved = files[_groqEntry];
+      final text = saved == null ? '' : utf8.decode(saved, allowMalformed: true).trim();
+      if (text.isEmpty) {
+        await keys.clear();
+      } else {
+        await keys.write(Sensitive(text));
+      }
     }
   }
 

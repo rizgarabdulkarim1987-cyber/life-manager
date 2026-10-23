@@ -20,10 +20,22 @@
   "lockTimeout": "القفل بعد الخروج من التطبيق",
   "lockImmediately": "فوراً",
   "lockAfterMinutes": "{minutes, plural, =1{بعد دقيقة} =2{بعد دقيقتين} few{بعد {minutes} دقائق} other{بعد {minutes} دقيقة}}",
-  "@lockAfterMinutes": {"placeholders": {"minutes": {"type": "int"}}},
+  "@lockAfterMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "backupRestore": "النسخ الاحتياطي والاسترجاع",
   "lastBackup": "آخر نسخة: {date}",
-  "@lastBackup": {"placeholders": {"date": {"type": "String"}}},
+  "@lastBackup": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "neverBackedUp": "لم تُنشأ أي نسخة احتياطية بعد",
   "createBackup": "إنشاء نسخة احتياطية",
   "restoreBackup": "الاسترجاع من نسخة احتياطية",
@@ -35,15 +47,36 @@
   "backupCreated": "تم حفظ النسخة الاحتياطية",
   "restoreConfirmTitle": "استبدال كل البيانات الحالية؟",
   "restoreConfirmBody": "نسخة بتاريخ {date}، من إصدار {version}. كل ما في التطبيق الآن سيُستبدل بها.",
-  "@restoreConfirmBody": {"placeholders": {"date": {"type": "String"}, "version": {"type": "String"}}},
+  "@restoreConfirmBody": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "replace": "استبدال",
   "cancel": "إلغاء",
   "enterPin": "أدخل رمز PIN",
   "wrongPin": "الرمز غير صحيح",
   "attemptsLeft": "{count, plural, =1{بقيت محاولة واحدة قبل الإيقاف المؤقت} =2{بقيت محاولتان قبل الإيقاف المؤقت} few{بقيت {count} محاولات قبل الإيقاف المؤقت} other{بقيت {count} محاولة قبل الإيقاف المؤقت}}",
-  "@attemptsLeft": {"placeholders": {"count": {"type": "int"}}},
+  "@attemptsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "tryAgainIn": "محاولات كثيرة. حاول مجدداً بعد {time}",
-  "@tryAgainIn": {"placeholders": {"time": {"type": "String"}}},
+  "@tryAgainIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "unlockReason": "افتح مدير حياتي",
   "useFingerprint": "استخدم البصمة",
   "setupWelcome": "أهلاً بك",
@@ -61,7 +94,13 @@
   "skip": "تخطٍّ",
   "finish": "ابدأ",
   "comingInPhase": "يأتي في المرحلة {phase}",
-  "@comingInPhase": {"placeholders": {"phase": {"type": "int"}}},
+  "@comingInPhase": {
+    "placeholders": {
+      "phase": {
+        "type": "int"
+      }
+    }
+  },
   "seedPersonal": "شخصي",
   "seedBuzzify": "Buzzify",
   "seedEo": "Related / EO",
@@ -74,18 +113,752 @@
   "homeBuckets": "الصناديق",
   "homeTasks": "المهام",
   "privacy": "الخصوصية",
-  "privacyPhase1": "لا يخرج شيء من هذا الهاتف. التطبيق لا يملك صلاحية الإنترنت بعد.",
+  "privacyPhase1": "بياناتك تبقى على هذا التلفون. بس إذا شغّلت الذكاء الاصطناعي عبر الإنترنت ووافقت، ينرسل صوت أو نص التسجيل إلى Groq. الخزنة ما تطلع من التلفون أبداً.",
   "restoreTooNew": "هذه النسخة من إصدار أحدث للتطبيق. حدّث التطبيق أولاً.",
   "restoreWrongPassword": "كلمة المرور خاطئة، أو الملف تالف.",
   "restoreCorrupt": "الملف تالف أو ليس نسخة احتياطية من هذا التطبيق.",
   "restoreSuccess": "تم الاسترجاع. جارٍ إعادة التشغيل…",
-  "micSoon": "الإدخال الصوتي يأتي في المرحلة 2",
   "passwordStrengthWeak": "ضعيفة: اجعلها أطول، أو امزج حروفاً وأرقاماً ورموزاً",
   "passwordStrengthFair": "متوسطة",
   "passwordStrengthStrong": "قوية",
-  "backupPasswordHint": "ستحتاج كلمة المرور هذه عند الاسترجاع. إذا نسيتها فلا يمكن استعادتها.",
+  "backupPasswordHint": "ستحتاج كلمة المرور هذه عند الاسترجاع. إذا نسيتها فلا يمكن استعادتها. مفتاح Groq المحفوظ يُحفظ أيضاً داخل النسخة المشفّرة.",
   "somethingWentWrong": "حدث خطأ. حاول مرة أخرى.",
   "backupFailed": "تعذّر إنشاء النسخة الاحتياطية. بياناتك لم تتغير.",
   "startupFailed": "تعذّر فتح بياناتك. لم يُحذف أي شيء.",
-  "retry": "حاول مرة أخرى"
+  "retry": "حاول مرة أخرى",
+  "cat_food": "أكل",
+  "cat_transport": "مواصلات",
+  "cat_rent": "إيجار",
+  "cat_bills": "فواتير",
+  "cat_family": "العائلة",
+  "cat_shopping": "تسوّق",
+  "cat_health": "صحة",
+  "cat_business": "شغل",
+  "cat_marketing": "تسويق",
+  "cat_subscriptions": "اشتراكات",
+  "cat_other_expense": "مصروف آخر",
+  "cat_salary": "راتب",
+  "cat_business_income": "دخل الشغل",
+  "cat_freelance": "عمل حر",
+  "cat_client_payment": "دفعة عميل",
+  "cat_other_income": "دخل آخر",
+  "bucket_expenses": "المصاريف",
+  "bucket_emergency": "الطوارئ",
+  "bucket_investment": "الاستثمار",
+  "finIncome": "الدخل",
+  "finExpense": "المصاريف",
+  "finSurplus": "الفائض",
+  "finAllAccounts": "كل الحسابات",
+  "finHowConvertedHint": "اضغط حتى تشوف شلون انحسب",
+  "finNoTotal": "ماكو سعر صرف لـ {currencies}، فما نكدر نطلع مجموع واحد",
+  "@finNoTotal": {
+    "placeholders": {
+      "currencies": {
+        "type": "String"
+      }
+    }
+  },
+  "finSetRate": "حدد سعر الصرف",
+  "finRateTitle": "سعر الصرف",
+  "finRateLabel": "الدولار الواحد بالدينار",
+  "finRateInvalid": "اكتب سعر مثل 1310",
+  "save": "حفظ",
+  "finHowConverted": "شلون انحسب",
+  "finSameCurrency": "نفس العملة",
+  "finNoRate": "ماكو سعر",
+  "finRateLine": "1 {base} = {rate} {quote} · من {date}",
+  "@finRateLine": {
+    "placeholders": {
+      "base": {
+        "type": "String"
+      },
+      "rate": {
+        "type": "String"
+      },
+      "quote": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "finPerCurrency": "حسب العملة",
+  "finTotal": "المجموع",
+  "alertExpensesBucket": "سطل المصاريف وصل {percent}% هذا الشهر",
+  "@alertExpensesBucket": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "alertEmergencyReached": "صندوق الطوارئ وصل الهدف",
+  "alertEmergencyBelow": "صندوق الطوارئ نازل عن الهدف",
+  "alertUnallocated": "{count, plural, =1{دخل واحد ما متوزع على السطول} other{{count} دخل ما متوزعة على السطول}}",
+  "@alertUnallocated": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "alertBudget": "ميزانية {name} وصلت {percent}%",
+  "@alertBudget": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "alertDebtSoon": "{name}: الدفعة مستحقة {date}",
+  "@alertDebtSoon": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "alertDebtOverdue": "{name}: الدفعة متأخرة",
+  "@alertDebtOverdue": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "finHistory": "السجل",
+  "finAddAccount": "إضافة حساب",
+  "finAccountName": "الاسم",
+  "finNameRequired": "اكتب اسم",
+  "finWorkspace": "مساحة العمل",
+  "finCurrency": "العملة",
+  "finKind": "النوع",
+  "kindCash": "كاش",
+  "kindBank": "بنك",
+  "kindSavings": "توفير",
+  "kindCustom": "غيره",
+  "rename": "تغيير الاسم",
+  "archive": "أرشفة",
+  "finArchiveAccount": "تأرشف {name}؟ السجل مالته يبقى.",
+  "@finArchiveAccount": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "finBalance": "الرصيد",
+  "finAdjustBalance": "تعديل الرصيد",
+  "finAdjustHint": "اكتب المبلغ الموجود فعلاً بالحساب. الفرق ينحفظ كتعديل.",
+  "@finAdjustHint": {},
+  "finActualAmount": "المبلغ الفعلي",
+  "finAmountInvalid": "اكتب مبلغ مثل 25000",
+  "finSearch": "دوّر بالوصف",
+  "filterAll": "الكل",
+  "filterDates": "التاريخ",
+  "filterAccount": "الحساب",
+  "filterCategory": "الفئة",
+  "filterType": "النوع",
+  "clearFilters": "امسح الفلاتر",
+  "typeIncome": "دخل",
+  "typeExpense": "مصروف",
+  "typeRefund": "استرجاع",
+  "typeAdjustment": "تعديل",
+  "typeTransfer": "تحويل",
+  "typeOwnerDraw": "سحب شخصي",
+  "typeDebtPayment": "دفعة دين",
+  "finPending": "معلّق",
+  "finUncategorised": "بدون فئة",
+  "finNoTransactions": "ماكو معاملات بعد",
+  "finNoMatches": "ماكو معاملات تطابق الفلاتر",
+  "finDeleted": "انحذفت المعاملة",
+  "undo": "تراجع",
+  "finToday": "اليوم",
+  "finAddExpense": "إضافة مصروف",
+  "finAddIncome": "إضافة دخل",
+  "finAddRefund": "إضافة استرجاع",
+  "finAddTransfer": "تحويل",
+  "finEditTransaction": "تعديل المعاملة",
+  "finEditTransfer": "تعديل التحويل",
+  "finAmount": "المبلغ",
+  "finAmountRounded": "تقرّب حسب دقة {currency}",
+  "@finAmountRounded": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "finAccount": "الحساب",
+  "finChooseAccount": "اختار حساب",
+  "finCategory": "الفئة",
+  "finNoCategory": "بدون فئة",
+  "finDate": "التاريخ",
+  "finTime": "الوقت",
+  "finDescription": "الوصف",
+  "finNotReceived": "بعد ما استلمته",
+  "finNotReceivedHint": "الدخل المعلّق ما ينحسب بالرصيد",
+  "finAllocate": "وزّع على السطول",
+  "finAllocateNoRate": "حدد سعر {currency} أول حتى توزع هذا الدخل",
+  "@finAllocateNoRate": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "finAllocatePending": "بس الدخل المستلم يتوزع",
+  "finUnallocated": "غير موزع",
+  "finOverAllocated": "زايد بمقدار",
+  "finBucketTag": "مدفوع من سطل",
+  "finBucketNone": "صرف عادي",
+  "finClearAllocationsTitle": "تمسح توزيع السطول؟",
+  "finClearAllocationsBody": "هذا الدخل متوزع على السطول. تغيير المبلغ يمسح التوزيع، وتكدر توزعه مرة ثانية بعدين.",
+  "finClearAndSave": "امسح واحفظ",
+  "finFrom": "من",
+  "finTo": "إلى",
+  "finToAmount": "المبلغ المستلم",
+  "finRateField": "{quote} لكل 1 {base}",
+  "@finRateField": {
+    "placeholders": {
+      "quote": {
+        "type": "String"
+      },
+      "base": {
+        "type": "String"
+      }
+    }
+  },
+  "finTwoOfThree": "اكتب أي اثنين والثالث ينحسب",
+  "finOwnerDraw": "سحب شخصي (راتب)",
+  "finOwnerDrawHint": "ينحسب مصروف على الشغل ودخل للشخص",
+  "finSameAccount": "اختار حسابين مختلفين",
+  "finSaved": "انحفظ",
+  "finBuckets": "السطول",
+  "finBudgets": "الميزانيات",
+  "finDebts": "الديون",
+  "finAvailable": "المتوفر",
+  "finAllocated": "الموزع",
+  "finSpent": "المصروف",
+  "finTarget": "الهدف",
+  "finSetTarget": "حدد الهدف",
+  "finTargetHint": "اتركه فارغ إذا ما تريد هدف",
+  "finEditPercentages": "تعديل النسب",
+  "finPercentagesNote": "لازم مجموعها 100%. بس الدخل اللي توزعه بعد الحفظ ياخذ النسب الجديدة.",
+  "finPercentTotal": "المجموع {percent}%",
+  "@finPercentTotal": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "finBucketsUnconfirmed": "حدد نسبك قبل ما توزع الدخل على السطول.",
+  "finExpensesMonthly": "يتصفر كل شهر",
+  "finCarriesOver": "يتراكم",
+  "finAddBudget": "إضافة ميزانية",
+  "finEditBudget": "تعديل الميزانية",
+  "finBudgetNeedsScope": "اختار فئة أو مساحة عمل أو الاثنين",
+  "finAnyWorkspace": "كل مساحات العمل",
+  "finAnyCategory": "كل الفئات",
+  "finRemaining": "الباقي",
+  "finOfBudget": "من {amount}",
+  "@finOfBudget": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "finMissingRatesNote": "ما انحسب: {currencies} (ماكو سعر بهذيك التواريخ)",
+  "@finMissingRatesNote": {
+    "placeholders": {
+      "currencies": {
+        "type": "String"
+      }
+    }
+  },
+  "finNoBudgets": "ماكو ميزانيات بعد",
+  "finOwedToMe": "إلي",
+  "finOwedByMe": "علي",
+  "finAddDebt": "إضافة دين",
+  "finCounterparty": "الشخص أو الجهة",
+  "finStartDate": "تاريخ البداية",
+  "finRecordMoveNow": "سجّل حركة الفلوس هسه",
+  "finRecordMoveGiven": "الفلوس طلعت من هذا الحساب",
+  "finRecordMoveReceived": "الفلوس دخلت لهذا الحساب",
+  "finInstallments": "الأقساط",
+  "finInstallmentCount": "عدد الأقساط الشهرية (اختياري)",
+  "finFirstDue": "أول قسط",
+  "finNextDue": "القسط الجاي {date}",
+  "@finNextDue": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "finOverdue": "متأخر",
+  "finPaid": "مدفوع",
+  "finNoDebts": "ماكو شي",
+  "finRecordRepayment": "سجّل تسديد",
+  "finRepaymentTooBig": "لحد {amount}",
+  "@finRepaymentTooBig": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "finWrongCurrency": "اختار حساب بـ {currency}",
+  "@finWrongCurrency": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "finPayments": "الدفعات",
+  "finPrincipal": "أصل الدين",
+  "finRepayment": "تسديد",
+  "finClosed": "مسدّد",
+  "finNotes": "ملاحظات",
+  "finReports": "التقارير",
+  "repRange": "المدة",
+  "repThisMonth": "هالشهر",
+  "repLastMonth": "الشهر الماضي",
+  "repLastMonths": "آخر {count} أشهر",
+  "@repLastMonths": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "repCustom": "تواريخ أختارها",
+  "repGroupBy": "التجميع",
+  "repDaily": "يومي",
+  "repWeekly": "أسبوعي",
+  "repMonthly": "شهري",
+  "repAllWorkspaces": "كل مساحات العمل",
+  "repTabIncomeExpense": "الدخل والمصاريف",
+  "repTabCategory": "حسب الفئة",
+  "repTabWorkspace": "حسب مساحة العمل",
+  "repTabCashFlow": "حركة الفلوس",
+  "repTabBalance": "الرصيد عبر الوقت",
+  "repTabDebts": "الديون الباقية",
+  "repShowTable": "اعرضها جدول",
+  "repShowChart": "اعرضها رسم",
+  "repSkipped": "{count} ما انحسبت: ماكو سعر {currencies} بتواريخها",
+  "@repSkipped": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "currencies": {
+        "type": "String"
+      }
+    }
+  },
+  "repMoneyIn": "الداخل",
+  "repMoneyOut": "الطالع",
+  "repNet": "الصافي",
+  "repOther": "غيرها",
+  "repPeriodColumn": "الفترة",
+  "repBalance": "الرصيد",
+  "repNothing": "ماكو شي بهالمدة",
+  "repBucketsMonth": "{month}، بعملة {currency}",
+  "@repBucketsMonth": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      },
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "repExport": "تصدير",
+  "repExportCsv": "العمليات كملف CSV",
+  "repExportPdf": "التقرير كملف PDF",
+  "repNotEncrypted": "هالملف مو مشفّر. أي واحد يوصله يگدر يقراه.",
+  "repExportFailed": "ما گدرنا نحفظ الملف",
+  "setFinance": "المالية",
+  "setFinanceSettings": "العملة وأسعار الصرف",
+  "setFinanceSettingsHint": "العملة الأساسية، سعر الدولار، التنبيهات",
+  "setCategories": "الفئات",
+  "setCategoriesHint": "الأسماء والكلمات اللي تختارها",
+  "setWorkspaces": "مساحات العمل",
+  "setWorkspacesHint": "الأسماء، الأسماء الثانية، الصناديق",
+  "setBaseCurrency": "العملة الأساسية",
+  "setBaseCurrencyHint": "المجاميع والصناديق والتقارير تستخدمها إلا إذا اخترت غيرها.",
+  "setRateDate": "من {date}",
+  "@setRateDate": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "setRateHistory": "سجل الأسعار",
+  "setNoRates": "ماكو سعر بعد. الدولار والدينار يبقون منفصلين لحد ما تضيف سعر.",
+  "setRateSaved": "انحفظ السعر",
+  "setAlerts": "التنبيهات",
+  "setUnallocatedAlert": "ذكّرني بالدخل اللي ما توزّع على الصناديق",
+  "setUnallocatedAlertHint": "يطلع بشاشة المالية",
+  "setIncomeCategories": "الدخل",
+  "setExpenseCategories": "المصاريف",
+  "setAddCategory": "أضف فئة",
+  "setEditCategory": "عدّل الفئة",
+  "setKeywords": "الكلمات اللي تختار هالفئة",
+  "setBuiltInWords": "موجودة أصلاً",
+  "setYourWords": "كلماتك",
+  "setAddWord": "أضف كلمة",
+  "setRemoveWord": "احذف {word}",
+  "@setRemoveWord": {
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "setArchiveCategory": "تأرشف {name}؟ العمليات القديمة تبقى عليها.",
+  "@setArchiveCategory": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "setAddWorkspace": "أضف مساحة عمل",
+  "setEditWorkspace": "عدّل مساحة العمل",
+  "setIcon": "الأيقونة",
+  "setColour": "اللون",
+  "setAliases": "أسماء ثانية تگولها",
+  "setAliasesHint": "التسجيل الصوتي والسريع يتعرف عليها هم",
+  "setAddAlias": "أضف اسم",
+  "setCountsInBuckets": "تنحسب بالصناديق",
+  "setCountsInBucketsHint": "مصاريفها تنطلع من صندوق المصاريف",
+  "setArchiveWorkspace": "تأرشف {name}؟ سجلّها يبقى.",
+  "@setArchiveWorkspace": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "setArchiveBlocked": "أرشف حساباتها أول. {name} بعدها بيها حسابات شغالة.",
+  "@setArchiveBlocked": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "setArchived": "انأرشفت",
+  "ok": "تمام",
+  "impTitle": "استيراد",
+  "impEntry": "استيراد ملف",
+  "impStepFile": "اختار الملف",
+  "impStepColumns": "الأعمدة",
+  "impStepDefaults": "الافتراضي",
+  "impStepValues": "طابق القيم",
+  "impStepPreview": "راجع واستورد",
+  "impStepOpening": "الأرصدة اليوم",
+  "impStepOf": "الخطوة {n} من {total}",
+  "@impStepOf": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "impPickHint": "ملف ‎.xlsx‎ أو ‎.csv‎ من البنك أو من جدول قديم. ما ينحفظ شي لحد ما تدوس استيراد.",
+  "impPick": "اختار ملف",
+  "impPickAnother": "اختار ملف ثاني",
+  "impTooLarge": "الملف كلش كبير: أكثر من 50,000 سطر أو 64 عمود.",
+  "impUnreadable": "ما گدرنا نقرا الملف كـ ‎.xlsx‎ أو ‎.csv‎.",
+  "impSheet": "الورقة",
+  "impHeaderRow": "يا سطر بيه أسماء الأعمدة؟",
+  "impRowN": "السطر {n}",
+  "@impRowN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "impColDate": "التاريخ",
+  "impDateOrder": "ترتيب التاريخ",
+  "impDayFirst": "اليوم أول (31/12)",
+  "impMonthFirst": "الشهر أول (12/31)",
+  "impYearFirst": "السنة أول (2025-12-31)",
+  "impAmountMode": "شلون مكتوبة المبالغ",
+  "impSigned": "عمود واحد، السالب مصروف",
+  "impTypeColumn": "عمود واحد ويّا عمود للنوع",
+  "impSplit": "عمود للوارد وعمود للصادر",
+  "impColAmount": "المبلغ",
+  "impColIncome": "عمود الوارد",
+  "impColExpense": "عمود الصادر",
+  "impColType": "النوع",
+  "impColCurrency": "العملة",
+  "impColCategory": "الفئة",
+  "impColWorkspace": "مساحة العمل",
+  "impColAccount": "الحساب",
+  "impColDescription": "الوصف",
+  "impNone": "مو موجود بالملف",
+  "impColumnLetter": "العمود {letter}",
+  "@impColumnLetter": {
+    "placeholders": {
+      "letter": {
+        "type": "String"
+      }
+    }
+  },
+  "impNeedDateAmount": "اختار عمود التاريخ والمبلغ حتى تكمل.",
+  "impDefaultsHint": "تنستخدم للأسطر اللي ما بيها هالمعلومة.",
+  "impNoValues": "ماكو شي للمطابقة: الملف ما بيه عمود نوع أو فئة أو مساحة أو حساب.",
+  "impCreateNew": "سوّي جديد",
+  "impSkipRow": "تجاهل هالأسطر",
+  "impLeaveEmpty": "خليها فارغة",
+  "impUseDefault": "استخدم الافتراضي",
+  "impReady": "جاهزة",
+  "impDuplicates": "موجودة أصلاً",
+  "impProblems": "ما انقرت",
+  "impSkipDuplicates": "تجاهل الأسطر الموجودة أصلاً",
+  "impProblemDate": "ماكو تاريخ",
+  "impProblemAmount": "ماكو مبلغ",
+  "impProblemType": "نوع مو معروف",
+  "impProblemAccount": "ماكو حساب",
+  "impDuplicateTag": "موجودة",
+  "impFirstRows": "أول {count} أسطر",
+  "@impFirstRows": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "impImport": "استورد {count} سطر",
+  "@impImport": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "impImported": "انستوردت {count} سطر",
+  "@impImported": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "impOpeningHint": "اكتب شگد بكل حساب فعلاً اليوم. الفرق ينحفظ كتسوية.",
+  "impComputed": "بالتطبيق: {amount}",
+  "@impComputed": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "impActual": "الفعلي اليوم",
+  "impSaveBalances": "احفظ الأرصدة",
+  "impDone": "خلصت",
+  "impNext": "التالي",
+  "impBack": "رجوع",
+  "impPastImports": "الاستيرادات السابقة",
+  "impUndo": "تراجع",
+  "impUndoConfirm": "تحذف الـ {count} سطر اللي انستوردت من {name}؟",
+  "@impUndoConfirm": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "impUndone": "انلغى",
+  "impBatchLine": "{count} سطر · {date}",
+  "@impBatchLine": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "setAi": "الذكاء الاصطناعي عبر الإنترنت",
+  "setAiHint": "مفتاح Groq، النماذج، وشنو ينرسل",
+  "aiOnline": "استخدم الذكاء الاصطناعي عبر الإنترنت",
+  "aiOnlineHint": "إذا طفيته، كلشي يتفهم على التلفون، بدقة أقل شوية.",
+  "aiKey": "مفتاح Groq API",
+  "aiKeyHint": "مجاني من console.groq.com. ينحفظ مشفّر على هذا التلفون بس.",
+  "aiKeySaved": "المفتاح المحفوظ ••••{last4}",
+  "@aiKeySaved": {
+    "placeholders": {
+      "last4": {
+        "type": "String"
+      }
+    }
+  },
+  "aiKeyRemove": "احذف",
+  "aiKeyPaste": "لصق",
+  "aiKeySave": "احفظ المفتاح",
+  "aiTest": "جرّب المفتاح",
+  "aiTestOk": "المفتاح يشتغل.",
+  "aiTestUnauthorized": "Groq رفض هذا المفتاح. تأكد منه واحفظه مرة ثانية.",
+  "aiTestOffline": "ما گدرنا نوصل لـ Groq. تأكد من الإنترنت.",
+  "aiTestBusy": "Groq مشغول هسه. جرّب بعد دقيقة.",
+  "aiTestOther": "Groq ما جاوب مثل المتوقع. جرّب بعدين.",
+  "aiModels": "النماذج",
+  "aiSttModel": "نموذج تحويل الصوت لنص",
+  "aiLlmModel": "نموذج الفهم",
+  "aiModelsSave": "احفظ النماذج",
+  "aiModelsSaved": "انحفظت النماذج",
+  "aiConsents": "شنو ينرسل لـ Groq",
+  "aiConsentVoiceTitle": "الصوت إلى نص",
+  "aiConsentParseTitle": "تعبئة الاستمارة",
+  "aiConsentVoice": "تسجيل صوتك ينرسل إلى Groq حتى يتحول لنص.",
+  "aiConsentParse": "نص الحچيته، وتاريخ ووقت اليوم، وأسماء حساباتك ومساحات العمل والفئات والصناديق تنرسل إلى Groq حتى تتعبى الاستمارة. الأرصدة والمعاملات السابقة والخزنة ما تنرسل أبداً.",
+  "aiConsentGranted": "مسموح",
+  "aiConsentDeclined": "مو مسموح",
+  "aiConsentUnset": "بعد ما انسأل",
+  "aiConsentReset": "اسألني مرة ثانية",
+  "aiOfflineModel": "نموذج الكلام بدون إنترنت",
+  "aiOfflineModelHint": "يحوّل الكلام لنص على التلفون إذا الذكاء الاصطناعي طافي أو ما يوصل.",
+  "consentTitle": "نرسل هذا إلى Groq؟",
+  "consentWho": "شركة Groq تعالجه على سيرفرات بالولايات المتحدة.",
+  "consentNever": "ما ينرسل أبداً: أرصدتك، معاملاتك السابقة، الرمز، النسخ الاحتياطية أو الخزنة.",
+  "consentOff": "تگدر تطفيه بأي وقت من الإعدادات ← الذكاء الاصطناعي عبر الإنترنت.",
+  "consentAllow": "اسمح",
+  "consentDecline": "لا، خلّيه على التلفون",
+  "aiModelSmall": "صغير: أدق",
+  "aiModelBase": "أساسي: أسرع",
+  "aiModelSize": "{mb} ميغابايت",
+  "@aiModelSize": {
+    "placeholders": {
+      "mb": {
+        "type": "int"
+      }
+    }
+  },
+  "aiModelInstall": "نزّل ({mb} ميغابايت)",
+  "@aiModelInstall": {
+    "placeholders": {
+      "mb": {
+        "type": "int"
+      }
+    }
+  },
+  "aiModelInstalled": "منزّل ومفحوص",
+  "aiModelNotInstalled": "مو منزّل",
+  "aiModelDelete": "احذف",
+  "aiModelCancel": "وقّف",
+  "aiModelProgress": "دا ينزل… {percent}٪",
+  "@aiModelProgress": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "aiModelVerifying": "دا نفحص الملف…",
+  "aiModelFailed": "التنزيل توقف. جرّب مرة ثانية، والأحسن على الواي فاي.",
+  "aiModelMismatch": "الملف ما طابق وانحذف. جرّب مرة ثانية.",
+  "aiModelSorani": "بدون إنترنت، الكردي (السوراني) يتعرّف بدقة أقل من العربي والإنگليزي.",
+  "capMicTooltip": "سجّل بصوتك (اضغط مطوّلاً للكتابة)",
+  "capListening": "دا أسمعك…",
+  "capCapHint": "لحد دقيقتين",
+  "capStop": "خلصت",
+  "capProcessing": "دا أفهم شنو گلت…",
+  "capMicDenied": "المايك مو مسموح. اسمح بيه من إعدادات أندرويد.",
+  "capTypeHint": "اكتب شنو صار",
+  "capSend": "إرسال",
+  "capManual": "أو أضف يدوياً",
+  "capNote": "ملاحظة",
+  "capVaultItem": "عنصر بالخزنة",
+  "capSavedToInbox": "انحفظ بالوارد",
+  "capOpen": "افتح",
+  "capReason_noSpeechEngine": "ماكو محرك صوت بعد. شغّل الذكاء الاصطناعي أو نزّل نموذج من الإعدادات.",
+  "capReason_sttFailed": "ما گدرت أحوّل التسجيل لنص. انحفظ بالوارد.",
+  "capReason_empty": "ما انسمع شي.",
+  "capReason_lowConfidence": "ما متأكد شنو قصدك. انحفظ بالوارد.",
+  "capReviewTitle": "مراجعة",
+  "capTranscript": "اللي گلته",
+  "capParseAgain": "اقرأه مرة ثانية",
+  "capByAi": "عبّاه الذكاء الاصطناعي",
+  "capByRules": "انعبّى على الموبايل بدون إنترنت",
+  "capKeepCard": "احفظ هذا",
+  "capCheckThis": "تأكد من هذا",
+  "capMissingFields": "عبّي الحقول المؤشّرة أو طفّي هذا",
+  "capKeepInInbox": "خلّيه بالوارد",
+  "capInboxUntil": "يبقى بالوارد لحد المرحلة {phase}",
+  "@capInboxUntil": {
+    "placeholders": {
+      "phase": {
+        "type": "int"
+      }
+    }
+  },
+  "capDebt": "دين",
+  "capNewDebt": "دين جديد",
+  "capWhichDebt": "أي دين",
+  "capDrop": "منشال",
+  "capNothingFound": "ما لگيت شي ينحفظ. عدّل النص واقرأه مرة ثانية.",
+  "capAlreadyHandled": "تمت معالجة هذا الإدخال سابقاً (حُفظ أو حُذف).",
+  "capDone": "انحفظ",
+  "capInbox": "الوارد",
+  "capInboxEmpty": "ماكو شي ينتظر. أي شي تگوله أو تكتبه وما تحفظه يجي هنا.",
+  "capNotTranscribed": "تسجيل صوتي، بعده ما تحوّل لنص",
+  "capTranscribe": "حوّله لنص",
+  "capFinishAi": "كمّله بالذكاء الاصطناعي",
+  "capFinishAllAi": "كمّل الكل بالذكاء الاصطناعي",
+  "capFinishing": "دا أكمّل {n} من {total}…",
+  "@capFinishing": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "capOpenReview": "راجع",
+  "capDiscard": "احذف",
+  "capDiscardTitle": "تحذف هذا التسجيل؟",
+  "capDiscardBody": "ينحذف نصه وتسجيله. أي شي انحفظ منه ما يتغير.",
+  "capWillBecomeTask": "يصير مهمة بالمرحلة {phase}",
+  "@capWillBecomeTask": {
+    "placeholders": {
+      "phase": {
+        "type": "int"
+      }
+    }
+  },
+  "capWillBecomeNote": "يصير ملاحظة بالمرحلة {phase}",
+  "@capWillBecomeNote": {
+    "placeholders": {
+      "phase": {
+        "type": "int"
+      }
+    }
+  }
 }

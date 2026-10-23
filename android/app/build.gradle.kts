@@ -65,7 +65,7 @@ android {
 // Never fall back to debug keys for a release: an APK signed with another key
 // can't update the installed app.
 gradle.taskGraph.whenReady {
-    if (!hasReleaseKey && allTasks.any { it.name.contains("Release") }) {
+    if (!hasReleaseKey && allTasks.any { it.project.path == ":app" && it.name.contains("Release") }) {
         throw GradleException("android/key.properties is missing. See docs/INSTALL.md (Release signing).")
     }
 }

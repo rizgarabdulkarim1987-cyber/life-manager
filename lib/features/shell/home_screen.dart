@@ -8,6 +8,12 @@ import '../../app/providers.dart';
 import '../../core/db/app_database.dart';
 import '../../core/l10n/ckb_fallback_localizations.dart';
 import '../../core/theme/tokens.dart';
+import '../capture/data/capture_providers.dart';
+import '../finance/data/finance_providers.dart';
+import '../finance/ui/widgets/alerts_banner.dart';
+import '../../core/money/money.dart';
+import '../finance/ui/widgets/money_text.dart';
+import 'home_cards.dart';
 
 /// Seeded accounts grouped by workspace, in workspace then account order.
 final accountsByWorkspaceProvider = StreamProvider<List<(Workspace, List<Account>)>>((ref) {
@@ -25,8 +31,8 @@ final accountsByWorkspaceProvider = StreamProvider<List<(Workspace, List<Account
   });
 });
 
-/// Layout B: month numbers, chart, buckets and tasks, then accounts.
-/// In Phase 1 only the accounts card holds real data; the rest name their phase.
+/// Layout B: alerts, month numbers, chart, buckets, balance and tasks, then accounts.
+/// The tasks card is still a placeholder for its phase.
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
@@ -35,11 +41,19 @@ class HomeScreen extends ConsumerWidget {
     final l10n = context.l10n;
     final locale = Localizations.localeOf(context).toLanguageTag();
     final month = DateFormat.yMMMM(DateFormat.localeExists(locale) ? locale : 'ar').format(DateTime.now());
+    final alerts = ref.watch(financeAlertsProvider).value ?? const [];
+    final waiting = ref.watch(pendingCapturesProvider).value?.length ?? 0;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(month),
         actions: [
+          IconButton(
+            key: const ValueKey('open-inbox'),
+            tooltip: l10n.capInbox,
+            icon: Badge(isLabelVisible: waiting > 0, label: Text('$waiting'), child: const Icon(Icons.inbox_outlined)),
+            onPressed: () => context.push('/inbox'),
+          ),
           IconButton(
             key: const ValueKey('open-settings'),
             tooltip: l10n.settings,
@@ -52,9 +66,11 @@ class HomeScreen extends ConsumerWidget {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 4, 16, 112),
         children: [
-          _UpcomingSlot(icon: Icons.insights_rounded, title: l10n.homeMonthSummary, phase: 2),
-          _UpcomingSlot(icon: Icons.bar_chart_rounded, title: l10n.homeChart, phase: 2),
-          _UpcomingSlot(icon: Icons.savings_outlined, title: l10n.homeBuckets, phase: 2),
+          AlertsBanner(alerts, keyPrefix: 'home-'),
+          const HomeMonthCard(),
+          const HomeChartCard(),
+          const HomeBucketsCard(),
+          const HomeConsolidatedCard(),
           _UpcomingSlot(icon: Icons.task_alt_rounded, title: l10n.homeTasks, phase: 4),
           const SizedBox(height: 4),
           const _AccountsCard(),
@@ -132,6 +148,7 @@ class _AccountsCard extends ConsumerWidget {
     final k = context.tokens;
     final text = Theme.of(context).textTheme;
     final groups = ref.watch(accountsByWorkspaceProvider).value ?? const [];
+    final balances = ref.watch(balancesProvider).value ?? const {};
 
     return _Panel(
       key: const ValueKey('accounts-card'),
@@ -169,10 +186,11 @@ class _AccountsCard extends ConsumerWidget {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                      decoration: BoxDecoration(color: k.surfaceHigh, borderRadius: BorderRadius.circular(8)),
-                      child: Text(a.currencyCode, style: text.labelSmall?.copyWith(color: k.textMuted)),
+                    Flexible(
+                      child: FittedMoney(
+                        balances[a.id] ?? Money(a.openingBalanceMinor, a.currencyCode),
+                        style: text.bodyMedium?.copyWith(color: k.text),
+                      ),
                     ),
                   ],
                 ),

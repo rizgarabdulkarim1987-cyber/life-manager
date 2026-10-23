@@ -20,13 +20,6 @@ void main() {
     expect(home.dx, greaterThan(vault.dx));
   });
 
-  testWidgets('mic button says capture arrives in phase 2', (t) async {
-    await pumpApp(t, locale: 'en');
-    await t.tap(find.byKey(const ValueKey('mic-fab')));
-    await t.pumpAndSettle();
-    expect(find.text('Voice capture arrives in phase 2'), findsOneWidget);
-  });
-
   testWidgets('home lists the six seeded accounts', (t) async {
     await pumpApp(t, locale: 'en');
     await t.scrollUntilVisible(find.byKey(const ValueKey('accounts-card')), 200);

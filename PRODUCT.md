@@ -34,6 +34,7 @@ A private, single-owner life manager. Voice-first capture comes with a review st
 - History imported from the owner's Excel sheet.
 - Tasks shared in from WhatsApp; meeting notes turned into tasks.
 - Backups are files the owner moves to a laptop, a USB stick or a messenger.
+- Phase 2 is done: finance (accounts, transactions, transfers, buckets, budgets, debts, reports, Excel import) and voice or text capture with an offline rule parser, optional Groq online AI (key stored on the phone, carried inside encrypted backups) and on-device Whisper. Captures wait in an Inbox until reviewed.
 
 ## Capabilities and Constraints
 

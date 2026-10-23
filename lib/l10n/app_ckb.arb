@@ -20,10 +20,22 @@
   "lockTimeout": "قوفڵکردن دوای چوونە دەرەوە لە ئەپ",
   "lockImmediately": "یەکسەر",
   "lockAfterMinutes": "{minutes, plural, =1{دوای 1 خولەک} other{دوای {minutes} خولەک}}",
-  "@lockAfterMinutes": {"placeholders": {"minutes": {"type": "int"}}},
+  "@lockAfterMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "backupRestore": "پاشەکەوت و گەڕاندنەوە",
   "lastBackup": "دوایین پاشەکەوت: {date}",
-  "@lastBackup": {"placeholders": {"date": {"type": "String"}}},
+  "@lastBackup": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "neverBackedUp": "هێشتا هیچ پاشەکەوتێک نەکراوە",
   "createBackup": "دروستکردنی پاشەکەوت",
   "restoreBackup": "گەڕاندنەوە لە پاشەکەوت",
@@ -35,15 +47,36 @@
   "backupCreated": "پاشەکەوت هەڵگیرا",
   "restoreConfirmTitle": "هەموو داتای ئێستا بگۆڕدرێت؟",
   "restoreConfirmBody": "پاشەکەوتی {date}، وەشانی {version}. هەموو ئەوەی ئێستا لە ئەپەکەدایە دەگۆڕدرێت.",
-  "@restoreConfirmBody": {"placeholders": {"date": {"type": "String"}, "version": {"type": "String"}}},
+  "@restoreConfirmBody": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "replace": "گۆڕین",
   "cancel": "هەڵوەشاندنەوە",
   "enterPin": "PINەکەت بنووسە",
   "wrongPin": "PIN هەڵەیە",
   "attemptsLeft": "{count, plural, =1{1 هەوڵ ماوە پێش وەستان} other{{count} هەوڵ ماوە پێش وەستان}}",
-  "@attemptsLeft": {"placeholders": {"count": {"type": "int"}}},
+  "@attemptsLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "tryAgainIn": "هەوڵی زۆر. دوای {time} دووبارە هەوڵ بدەرەوە",
-  "@tryAgainIn": {"placeholders": {"time": {"type": "String"}}},
+  "@tryAgainIn": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "unlockReason": "کردنەوەی بەڕێوەبەری ژیانم",
   "useFingerprint": "پەنجەمۆر بەکاربهێنە",
   "setupWelcome": "بەخێربێیت",
@@ -61,7 +94,13 @@
   "skip": "تێپەڕاندن",
   "finish": "دەستپێبکە",
   "comingInPhase": "لە قۆناغی {phase} دێت",
-  "@comingInPhase": {"placeholders": {"phase": {"type": "int"}}},
+  "@comingInPhase": {
+    "placeholders": {
+      "phase": {
+        "type": "int"
+      }
+    }
+  },
   "seedPersonal": "کەسی",
   "seedBuzzify": "Buzzify",
   "seedEo": "Related / EO",
@@ -74,18 +113,752 @@
   "homeBuckets": "سندووقەکان",
   "homeTasks": "ئەرکەکان",
   "privacy": "تایبەتمەندی",
-  "privacyPhase1": "هیچ شتێک لەم مۆبایلە دەرناچێت. ئەپەکە هێشتا دەسەڵاتی ئینتەرنێتی نییە.",
+  "privacyPhase1": "زانیارییەکانت لەسەر ئەم مۆبایلە دەمێننەوە. تەنها ئەگەر زیرەکی دەستکردی ئۆنلاین هەڵبکەیت و ڕازی بیت، دەنگ یان دەقی تۆمارەکە بۆ Groq دەنێردرێت. گەنجینەکە هەرگیز لە مۆبایلەکە دەرناچێت.",
   "restoreTooNew": "ئەم پاشەکەوتە لە وەشانێکی نوێتری ئەپەکە دروستکراوە. سەرەتا ئەپەکە نوێ بکەرەوە.",
   "restoreWrongPassword": "وشەی نهێنی هەڵەیە، یان فایلەکە تێکچووە.",
   "restoreCorrupt": "ئەم فایلە تێکچووە یان پاشەکەوتی ئەم ئەپە نییە.",
   "restoreSuccess": "گەڕێندرایەوە. دووبارە دەستپێدەکاتەوە…",
-  "micSoon": "تۆمارکردنی دەنگی لە قۆناغی 2 دێت",
   "passwordStrengthWeak": "لاواز: درێژتری بکە، یان پیت و ژمارە و هێما تێکەڵ بکە",
   "passwordStrengthFair": "مامناوەند",
   "passwordStrengthStrong": "بەهێز",
-  "backupPasswordHint": "بۆ گەڕاندنەوە پێویستت بەم وشەی نهێنییە دەبێت. ئەگەر لەبیرت بچێت، ناگەڕێتەوە.",
+  "backupPasswordHint": "بۆ گەڕاندنەوە پێویستت بەم وشەی نهێنییە دەبێت. ئەگەر لەبیرت بچێت، ناگەڕێتەوە. کلیلی Groqی پاشەکەوتکراویش لەناو باکئەپە کۆدکراوەکەدایە.",
   "somethingWentWrong": "هەڵەیەک ڕوویدا. دووبارە هەوڵ بدەرەوە.",
   "backupFailed": "پاشەکەوت دروست نەکرا. داتاکانت نەگۆڕاون.",
   "startupFailed": "داتاکانت نەکرانەوە. هیچ شتێک نەسڕایەوە.",
-  "retry": "دووبارە هەوڵ بدەرەوە"
+  "retry": "دووبارە هەوڵ بدەرەوە",
+  "cat_food": "خواردن",
+  "cat_transport": "گواستنەوە",
+  "cat_rent": "کرێ",
+  "cat_bills": "پسوڵەکان",
+  "cat_family": "خێزان",
+  "cat_shopping": "بازاڕکردن",
+  "cat_health": "تەندروستی",
+  "cat_business": "کار",
+  "cat_marketing": "بازاڕگەری",
+  "cat_subscriptions": "بەشدارییەکان",
+  "cat_other_expense": "خەرجی تر",
+  "cat_salary": "مووچە",
+  "cat_business_income": "داهاتی کار",
+  "cat_freelance": "کاری ئازاد",
+  "cat_client_payment": "پارەی کڕیار",
+  "cat_other_income": "داهاتی تر",
+  "bucket_expenses": "خەرجییەکان",
+  "bucket_emergency": "فریاکەوتن",
+  "bucket_investment": "وەبەرهێنان",
+  "finIncome": "داهات",
+  "finExpense": "خەرجی",
+  "finSurplus": "زیادە",
+  "finAllAccounts": "هەموو هەژمارەکان",
+  "finHowConvertedHint": "دەست لێبدە بۆ بینینی گۆڕینەکە",
+  "finNoTotal": "هێشتا نرخی {currencies} نییە، بۆیە کۆی گشتی نییە",
+  "@finNoTotal": {
+    "placeholders": {
+      "currencies": {
+        "type": "String"
+      }
+    }
+  },
+  "finSetRate": "نرخ دابنێ",
+  "finRateTitle": "نرخی گۆڕینەوە",
+  "finRateLabel": "١ دۆلار بە دینار",
+  "finRateInvalid": "نرخێک بنووسە وەک 1310",
+  "save": "پاشەکەوت",
+  "finHowConverted": "چۆن گۆڕدرا",
+  "finSameCurrency": "هەمان دراو",
+  "finNoRate": "نرخ نییە",
+  "finRateLine": "1 {base} = {rate} {quote} · لە {date}",
+  "@finRateLine": {
+    "placeholders": {
+      "base": {
+        "type": "String"
+      },
+      "rate": {
+        "type": "String"
+      },
+      "quote": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "finPerCurrency": "بەپێی دراو",
+  "finTotal": "کۆ",
+  "alertExpensesBucket": "سەبەتەی خەرجی گەیشتە {percent}% ئەم مانگە",
+  "@alertExpensesBucket": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "alertEmergencyReached": "سندوقی فریاکەوتن گەیشتە ئامانج",
+  "alertEmergencyBelow": "سندوقی فریاکەوتن لە خوار ئامانجە",
+  "alertUnallocated": "{count, plural, =1{1 داهات دابەش نەکراوە} other{{count} داهات دابەش نەکراون}}",
+  "@alertUnallocated": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "alertBudget": "بودجەی {name} گەیشتە {percent}%",
+  "@alertBudget": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "alertDebtSoon": "{name}: پارەدان لە {date}",
+  "@alertDebtSoon": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "alertDebtOverdue": "{name}: پارەدان دواکەوتووە",
+  "@alertDebtOverdue": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "finHistory": "مێژوو",
+  "finAddAccount": "زیادکردنی هەژمار",
+  "finAccountName": "ناو",
+  "finNameRequired": "ناوێک بنووسە",
+  "finWorkspace": "شوێنی کار",
+  "finCurrency": "دراو",
+  "finKind": "جۆر",
+  "kindCash": "نەختینە",
+  "kindBank": "بانک",
+  "kindSavings": "پاشەکەوت",
+  "kindCustom": "تر",
+  "rename": "ناوگۆڕین",
+  "archive": "ئەرشیف",
+  "finArchiveAccount": "{name} ئەرشیف بکرێت؟ مێژووەکەی دەمێنێت.",
+  "@finArchiveAccount": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "finBalance": "باڵانس",
+  "finAdjustBalance": "ڕێکخستنی باڵانس",
+  "finAdjustHint": "بڕی ڕاستەقینەی ئەم هەژمارە بنووسە. جیاوازییەکە وەک ڕێکخستن پاشەکەوت دەکرێت.",
+  "@finAdjustHint": {},
+  "finActualAmount": "بڕی ڕاستەقینە",
+  "finAmountInvalid": "بڕێک بنووسە وەک 25000",
+  "finSearch": "گەڕان لە وەسفدا",
+  "filterAll": "هەموو",
+  "filterDates": "بەروار",
+  "filterAccount": "هەژمار",
+  "filterCategory": "پۆل",
+  "filterType": "جۆر",
+  "clearFilters": "پاککردنەوەی فلتەر",
+  "typeIncome": "داهات",
+  "typeExpense": "خەرجی",
+  "typeRefund": "گەڕاندنەوە",
+  "typeAdjustment": "ڕێکخستن",
+  "typeTransfer": "گواستنەوە",
+  "typeOwnerDraw": "کێشانی خاوەن",
+  "typeDebtPayment": "پارەدانی قەرز",
+  "finPending": "چاوەڕوان",
+  "finUncategorised": "بێ پۆل",
+  "finNoTransactions": "هێشتا هیچ مامەڵەیەک نییە",
+  "finNoMatches": "هیچ مامەڵەیەک لەگەڵ فلتەرەکان ناگونجێت",
+  "finDeleted": "مامەڵەکە سڕایەوە",
+  "undo": "گەڕانەوە",
+  "finToday": "ئەمڕۆ",
+  "finAddExpense": "زیادکردنی خەرجی",
+  "finAddIncome": "زیادکردنی داهات",
+  "finAddRefund": "زیادکردنی گەڕاندنەوە",
+  "finAddTransfer": "گواستنەوە",
+  "finEditTransaction": "دەستکاری مامەڵە",
+  "finEditTransfer": "دەستکاری گواستنەوە",
+  "finAmount": "بڕ",
+  "finAmountRounded": "بەپێی {currency} خڕکرایەوە",
+  "@finAmountRounded": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "finAccount": "هەژمار",
+  "finChooseAccount": "هەژمارێک هەڵبژێرە",
+  "finCategory": "پۆل",
+  "finNoCategory": "بێ پۆل",
+  "finDate": "بەروار",
+  "finTime": "کات",
+  "finDescription": "وەسف",
+  "finNotReceived": "هێشتا وەرنەگیراوە",
+  "finNotReceivedHint": "داهاتی چاوەڕوان لە باڵانسدا ناژمێردرێت",
+  "finAllocate": "دابەشکردن بۆ سەبەتەکان",
+  "finAllocateNoRate": "سەرەتا نرخی {currency} دابنێ بۆ دابەشکردن",
+  "@finAllocateNoRate": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "finAllocatePending": "تەنها داهاتی وەرگیراو دابەش دەکرێت",
+  "finUnallocated": "دابەش نەکراو",
+  "finOverAllocated": "زیادە بە",
+  "finBucketTag": "لە سەبەتە دراوە",
+  "finBucketNone": "خەرجی ئاسایی",
+  "finClearAllocationsTitle": "دابەشکردنی سەبەتەکان بسڕدرێتەوە؟",
+  "finClearAllocationsBody": "ئەم داهاتە دابەش کراوە. گۆڕینی بڕەکە دابەشکردنەکە دەسڕێتەوە؛ دواتر دەتوانیت دووبارە دابەشی بکەیت.",
+  "finClearAndSave": "بیسڕەوە و پاشەکەوت بکە",
+  "finFrom": "لە",
+  "finTo": "بۆ",
+  "finToAmount": "بڕی وەرگیراو",
+  "finRateField": "{quote} بۆ هەر 1 {base}",
+  "@finRateField": {
+    "placeholders": {
+      "quote": {
+        "type": "String"
+      },
+      "base": {
+        "type": "String"
+      }
+    }
+  },
+  "finTwoOfThree": "هەر دوانیان بنووسە؛ سێیەم دەژمێردرێت",
+  "finOwnerDraw": "کێشانی خاوەن (مووچە)",
+  "finOwnerDrawHint": "وەک خەرجی کار و داهاتی کەسی دەژمێردرێت",
+  "finSameAccount": "دوو هەژماری جیاواز هەڵبژێرە",
+  "finSaved": "پاشەکەوت کرا",
+  "finBuckets": "سەبەتەکان",
+  "finBudgets": "بودجەکان",
+  "finDebts": "قەرزەکان",
+  "finAvailable": "بەردەست",
+  "finAllocated": "دابەشکراو",
+  "finSpent": "خەرجکراو",
+  "finTarget": "ئامانج",
+  "finSetTarget": "ئامانج دابنێ",
+  "finTargetHint": "بەتاڵی بهێڵە بۆ بێ ئامانج",
+  "finEditPercentages": "دەستکاری ڕێژەکان",
+  "finPercentagesNote": "دەبێت کۆیان 100% بێت. تەنها ئەو داهاتەی دوای پاشەکەوت دابەشی دەکەیت ڕێژە نوێیەکان وەردەگرێت.",
+  "finPercentTotal": "کۆ {percent}%",
+  "@finPercentTotal": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "finBucketsUnconfirmed": "پێش دابەشکردنی داهات، ڕێژەکانی خۆت دابنێ.",
+  "finExpensesMonthly": "هەموو مانگێک سفر دەبێتەوە",
+  "finCarriesOver": "کۆدەبێتەوە",
+  "finAddBudget": "زیادکردنی بودجە",
+  "finEditBudget": "دەستکاری بودجە",
+  "finBudgetNeedsScope": "پۆلێک یان شوێنی کارێک یان هەردووکیان هەڵبژێرە",
+  "finAnyWorkspace": "هەموو شوێنەکانی کار",
+  "finAnyCategory": "هەموو پۆلەکان",
+  "finRemaining": "ماوە",
+  "finOfBudget": "لە {amount}",
+  "@finOfBudget": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "finMissingRatesNote": "نەژمێردرا: {currencies} (لەو بەروارانەدا نرخ نییە)",
+  "@finMissingRatesNote": {
+    "placeholders": {
+      "currencies": {
+        "type": "String"
+      }
+    }
+  },
+  "finNoBudgets": "هێشتا بودجە نییە",
+  "finOwedToMe": "قەرزی من لای خەڵک",
+  "finOwedByMe": "قەرزی خەڵک لای من",
+  "finAddDebt": "زیادکردنی قەرز",
+  "finCounterparty": "کەس یان کۆمپانیا",
+  "finStartDate": "دەستپێکردن",
+  "finRecordMoveNow": "ئێستا جووڵەی پارەکە تۆمار بکە",
+  "finRecordMoveGiven": "پارەکە لەم هەژمارە دەرچوو",
+  "finRecordMoveReceived": "پارەکە هاتە ئەم هەژمارە",
+  "finInstallments": "قیستەکان",
+  "finInstallmentCount": "ژمارەی قیستی مانگانە (ئارەزوومەندانە)",
+  "finFirstDue": "یەکەم قیست",
+  "finNextDue": "داهاتوو {date}",
+  "@finNextDue": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "finOverdue": "دواکەوتوو",
+  "finPaid": "دراوە",
+  "finNoDebts": "هیچ نییە",
+  "finRecordRepayment": "تۆمارکردنی گەڕاندنەوە",
+  "finRepaymentTooBig": "تا {amount}",
+  "@finRepaymentTooBig": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "finWrongCurrency": "هەژمارێک بە {currency} هەڵبژێرە",
+  "@finWrongCurrency": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "finPayments": "پارەدانەکان",
+  "finPrincipal": "بنەڕەت",
+  "finRepayment": "گەڕاندنەوە",
+  "finClosed": "تەواوبوو",
+  "finNotes": "تێبینی",
+  "finReports": "ڕاپۆرتەکان",
+  "repRange": "ماوە",
+  "repThisMonth": "ئەم مانگە",
+  "repLastMonth": "مانگی ڕابردوو",
+  "repLastMonths": "{count} مانگی ڕابردوو",
+  "@repLastMonths": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "repCustom": "بەرواری دیاریکراو",
+  "repGroupBy": "کۆکردنەوە",
+  "repDaily": "ڕۆژانە",
+  "repWeekly": "هەفتانە",
+  "repMonthly": "مانگانە",
+  "repAllWorkspaces": "هەموو شوێنەکانی کار",
+  "repTabIncomeExpense": "داهات و خەرجی",
+  "repTabCategory": "بەپێی پۆل",
+  "repTabWorkspace": "بەپێی شوێنی کار",
+  "repTabCashFlow": "جووڵەی پارە",
+  "repTabBalance": "باڵانس بە درێژایی کات",
+  "repTabDebts": "قەرزە ماوەکان",
+  "repShowTable": "وەک خشتە پیشانی بدە",
+  "repShowChart": "وەک هێڵکاری پیشانی بدە",
+  "repSkipped": "{count} نەژمێردران: لە بەروارەکانیاندا نرخی {currencies} نییە",
+  "@repSkipped": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "currencies": {
+        "type": "String"
+      }
+    }
+  },
+  "repMoneyIn": "هاتوو",
+  "repMoneyOut": "ڕۆیشتوو",
+  "repNet": "پوخت",
+  "repOther": "هیتر",
+  "repPeriodColumn": "ماوە",
+  "repBalance": "باڵانس",
+  "repNothing": "لەم ماوەیەدا هیچ نییە",
+  "repBucketsMonth": "{month}، بە {currency}",
+  "@repBucketsMonth": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      },
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "repExport": "هەناردن",
+  "repExportCsv": "مامەڵەکان وەک CSV",
+  "repExportPdf": "ڕاپۆرت وەک PDF",
+  "repNotEncrypted": "ئەم فایلە نهێنی نەکراوە. هەر کەسێک دەستی بکەوێت دەتوانێت بیخوێنێتەوە.",
+  "repExportFailed": "نەتوانرا فایلەکە پاشەکەوت بکرێت",
+  "setFinance": "دارایی",
+  "setFinanceSettings": "دراو و نرخەکان",
+  "setFinanceSettingsHint": "دراوی بنەڕەت، نرخی دۆلار، ئاگادارکردنەوە",
+  "setCategories": "پۆلەکان",
+  "setCategoriesHint": "ناوەکان و ئەو وشانەی هەڵیان دەبژێرن",
+  "setWorkspaces": "شوێنەکانی کار",
+  "setWorkspacesHint": "ناوەکان، ناوە دیکەکان، سندوقەکان",
+  "setBaseCurrency": "دراوی بنەڕەت",
+  "setBaseCurrencyHint": "کۆکان و سندوقەکان و ڕاپۆرتەکان بەکاری دەهێنن مەگەر یەکێکی تر هەڵبژێریت.",
+  "setRateDate": "لە {date}ەوە",
+  "@setRateDate": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "setRateHistory": "مێژووی نرخەکان",
+  "setNoRates": "هێشتا نرخ نییە. دۆلار و دینار جیا دەمێننەوە تا نرخێک زیاد دەکەیت.",
+  "setRateSaved": "نرخەکە پاشەکەوت کرا",
+  "setAlerts": "ئاگادارکردنەوەکان",
+  "setUnallocatedAlert": "بیرم بخەرەوە بە داهاتێک کە دابەش نەکراوە بۆ سندوقەکان",
+  "setUnallocatedAlertHint": "لە شاشەی دارایی دەردەکەوێت",
+  "setIncomeCategories": "داهات",
+  "setExpenseCategories": "خەرجی",
+  "setAddCategory": "پۆل زیاد بکە",
+  "setEditCategory": "پۆل دەستکاری بکە",
+  "setKeywords": "ئەو وشانەی ئەم پۆلە هەڵدەبژێرن",
+  "setBuiltInWords": "بنەڕەتی",
+  "setYourWords": "وشەکانی تۆ",
+  "setAddWord": "وشەیەک زیاد بکە",
+  "setRemoveWord": "{word} لاببە",
+  "@setRemoveWord": {
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "setArchiveCategory": "{name} ئەرشیف بکرێت؟ تۆمارە کۆنەکان دەیپارێزن.",
+  "@setArchiveCategory": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "setAddWorkspace": "شوێنی کار زیاد بکە",
+  "setEditWorkspace": "شوێنی کار دەستکاری بکە",
+  "setIcon": "ئایکۆن",
+  "setColour": "ڕەنگ",
+  "setAliases": "ناوە دیکەکان کە دەیڵێیت",
+  "setAliasesHint": "تۆمارکردنی دەنگی و خێرا ئەمانەش دەناسێتەوە",
+  "setAddAlias": "ناوێک زیاد بکە",
+  "setCountsInBuckets": "لە سندوقەکاندا دەژمێردرێت",
+  "setCountsInBucketsHint": "خەرجییەکانی لە سندوقی خەرجی دەبڕدرێن",
+  "setArchiveWorkspace": "{name} ئەرشیف بکرێت؟ مێژووەکەی دەمێنێت.",
+  "@setArchiveWorkspace": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "setArchiveBlocked": "سەرەتا هەژمارەکانی ئەرشیف بکە. {name} هێشتا هەژماری کارای هەیە.",
+  "@setArchiveBlocked": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "setArchived": "ئەرشیف کرا",
+  "ok": "باشە",
+  "impTitle": "هاوردەکردن",
+  "impEntry": "هاوردەکردنی فایل",
+  "impStepFile": "فایل هەڵبژێرە",
+  "impStepColumns": "ستوونەکان",
+  "impStepDefaults": "بنەڕەتەکان",
+  "impStepValues": "بەهاکان بگونجێنە",
+  "impStepPreview": "پشکنین و هاوردە",
+  "impStepOpening": "باڵانسی ئەمڕۆ",
+  "impStepOf": "هەنگاوی {n} لە {total}",
+  "@impStepOf": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "impPickHint": "فایلێکی ‎.xlsx‎ یان ‎.csv‎ لە بانک یان خشتەیەکی کۆن. هیچ پاشەکەوت ناکرێت تا هاوردە دانەگریت.",
+  "impPick": "فایل هەڵبژێرە",
+  "impPickAnother": "فایلێکی تر هەڵبژێرە",
+  "impTooLarge": "فایلەکە زۆر گەورەیە: زیاتر لە 50,000 ڕیز یان 64 ستوون.",
+  "impUnreadable": "نەتوانرا فایلەکە وەک ‎.xlsx‎ یان ‎.csv‎ بخوێنرێتەوە.",
+  "impSheet": "پەڕە",
+  "impHeaderRow": "کام ڕیز ناوی ستوونەکانی تێدایە؟",
+  "impRowN": "ڕیزی {n}",
+  "@impRowN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "impColDate": "بەروار",
+  "impDateOrder": "ڕیزبەندی بەروار",
+  "impDayFirst": "ڕۆژ سەرەتا (31/12)",
+  "impMonthFirst": "مانگ سەرەتا (12/31)",
+  "impYearFirst": "ساڵ سەرەتا (2025-12-31)",
+  "impAmountMode": "بڕەکان چۆن نووسراون",
+  "impSigned": "یەک ستوون، کەم واتە خەرجی",
+  "impTypeColumn": "یەک ستوون لەگەڵ ستوونی جۆر",
+  "impSplit": "ستوونی جیا بۆ داهات و خەرجی",
+  "impColAmount": "بڕ",
+  "impColIncome": "ستوونی داهات",
+  "impColExpense": "ستوونی خەرجی",
+  "impColType": "جۆر",
+  "impColCurrency": "دراو",
+  "impColCategory": "پۆل",
+  "impColWorkspace": "شوێنی کار",
+  "impColAccount": "هەژمار",
+  "impColDescription": "وەسف",
+  "impNone": "لە فایلەکەدا نییە",
+  "impColumnLetter": "ستوونی {letter}",
+  "@impColumnLetter": {
+    "placeholders": {
+      "letter": {
+        "type": "String"
+      }
+    }
+  },
+  "impNeedDateAmount": "ستوونی بەروار و بڕ هەڵبژێرە بۆ بەردەوامبوون.",
+  "impDefaultsHint": "بۆ ئەو ڕیزانە بەکاردێت کە ئەمەیان تێدا نییە.",
+  "impNoValues": "هیچ بۆ گونجاندن نییە: فایلەکە ستوونی جۆر، پۆل، شوێن یان هەژماری تێدا نییە.",
+  "impCreateNew": "نوێ دروست بکە",
+  "impSkipRow": "ئەم ڕیزانە بپەڕێنە",
+  "impLeaveEmpty": "بەتاڵی بهێڵە",
+  "impUseDefault": "بنەڕەت بەکاربهێنە",
+  "impReady": "ئامادە",
+  "impDuplicates": "پێشتر هەیە",
+  "impProblems": "نەخوێندرایەوە",
+  "impSkipDuplicates": "ئەو ڕیزانەی پێشتر هەن بپەڕێنە",
+  "impProblemDate": "بەروار نییە",
+  "impProblemAmount": "بڕ نییە",
+  "impProblemType": "جۆری نەناسراو",
+  "impProblemAccount": "هەژمار نییە",
+  "impDuplicateTag": "هەیە",
+  "impFirstRows": "یەکەم {count} ڕیز",
+  "@impFirstRows": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "impImport": "{count} ڕیز هاوردە بکە",
+  "@impImport": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "impImported": "{count} ڕیز هاوردە کرا",
+  "@impImported": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "impOpeningHint": "بنووسە هەر هەژمارێک بەڕاستی ئەمڕۆ چەندی تێدایە. جیاوازییەکە وەک ڕێکخستن پاشەکەوت دەکرێت.",
+  "impComputed": "لە ئەپەکەدا: {amount}",
+  "@impComputed": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "impActual": "ڕاستەقینەی ئەمڕۆ",
+  "impSaveBalances": "باڵانسەکان پاشەکەوت بکە",
+  "impDone": "تەواو",
+  "impNext": "دواتر",
+  "impBack": "گەڕانەوە",
+  "impPastImports": "هاوردە پێشووەکان",
+  "impUndo": "پاشگەزبوونەوە",
+  "impUndoConfirm": "ئەو {count} ڕیزەی لە {name} هاوردە کران لاببرێن؟",
+  "@impUndoConfirm": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "impUndone": "هەڵوەشێنرایەوە",
+  "impBatchLine": "{count} ڕیز · {date}",
+  "@impBatchLine": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "setAi": "زیرەکی دەستکردی ئۆنلاین",
+  "setAiHint": "کلیلی Groq، مۆدێلەکان و ئەوەی دەنێردرێت",
+  "aiOnline": "زیرەکی دەستکردی ئۆنلاین بەکاربهێنە",
+  "aiOnlineHint": "کاتێک کوژاوەیە، هەموو شتێک لەسەر مۆبایلەکە تێدەگات، کەمێک بە وردی کەمتر.",
+  "aiKey": "کلیلی Groq API",
+  "aiKeyHint": "بەخۆڕایی لە console.groq.com. تەنها لەسەر ئەم مۆبایلە بە نهێنی هەڵدەگیرێت.",
+  "aiKeySaved": "کلیلی هەڵگیراو ••••{last4}",
+  "@aiKeySaved": {
+    "placeholders": {
+      "last4": {
+        "type": "String"
+      }
+    }
+  },
+  "aiKeyRemove": "بیسڕەوە",
+  "aiKeyPaste": "لکاندن",
+  "aiKeySave": "کلیلەکە هەڵبگرە",
+  "aiTest": "کلیلەکە تاقی بکەرەوە",
+  "aiTestOk": "کلیلەکە کار دەکات.",
+  "aiTestUnauthorized": "Groq ئەم کلیلەی ڕەتکردەوە. بیپشکنە و دووبارە هەڵیبگرەوە.",
+  "aiTestOffline": "نەتوانرا بگەینە Groq. ئینتەرنێتەکە بپشکنە.",
+  "aiTestBusy": "Groq سەرقاڵە. دوای خولەکێک دووبارە هەوڵ بدەرەوە.",
+  "aiTestOther": "Groq وەک چاوەڕوانکراو وەڵامی نەدایەوە. دواتر هەوڵ بدەرەوە.",
+  "aiModels": "مۆدێلەکان",
+  "aiSttModel": "مۆدێلی دەنگ بۆ دەق",
+  "aiLlmModel": "مۆدێلی تێگەیشتن",
+  "aiModelsSave": "مۆدێلەکان هەڵبگرە",
+  "aiModelsSaved": "مۆدێلەکان هەڵگیران",
+  "aiConsents": "چی بۆ Groq دەنێردرێت",
+  "aiConsentVoiceTitle": "دەنگ بۆ دەق",
+  "aiConsentParseTitle": "پڕکردنەوەی فۆرمەکە",
+  "aiConsentVoice": "تۆماری دەنگەکەت بۆ Groq دەنێردرێت بۆ ئەوەی بکرێتە دەق.",
+  "aiConsentParse": "دەقی ئەوەی وتت، بەروار و کاتی ئەمڕۆ، و ناوی هەژمارەکان، شوێنەکانی کار، پۆلەکان و سندوقەکانت بۆ Groq دەنێردرێن بۆ پڕکردنەوەی فۆرمەکە. باڵانس، مامەڵە کۆنەکان و گەنجینەکە هەرگیز نانێردرێن.",
+  "aiConsentGranted": "ڕێگەپێدراو",
+  "aiConsentDeclined": "ڕێگەپێنەدراو",
+  "aiConsentUnset": "هێشتا نەپرسراوە",
+  "aiConsentReset": "دووبارە بپرسە",
+  "aiOfflineModel": "مۆدێلی قسەکردن بێ ئینتەرنێت",
+  "aiOfflineModelHint": "قسە دەکاتە دەق لەسەر مۆبایلەکە کاتێک زیرەکی ئۆنلاین کوژاوەیە یان ناگات.",
+  "consentTitle": "ئەمە بنێرین بۆ Groq؟",
+  "consentWho": "کۆمپانیای Groq لەسەر سێرڤەرەکانی ویلایەتە یەکگرتووەکان چارەسەری دەکات.",
+  "consentNever": "هەرگیز نانێردرێت: باڵانسەکانت، مامەڵە کۆنەکان، PIN، پاشەکەوتەکان یان گەنجینەکە.",
+  "consentOff": "هەر کاتێک دەتوانیت لە ڕێکخستنەکان ← زیرەکی دەستکردی ئۆنلاین بیکوژێنیتەوە.",
+  "consentAllow": "ڕێگە بدە",
+  "consentDecline": "نەخێر، با لەسەر مۆبایلەکە بمێنێت",
+  "aiModelSmall": "بچووک: وردتر",
+  "aiModelBase": "بنەڕەتی: خێراتر",
+  "aiModelSize": "{mb} مێگابایت",
+  "@aiModelSize": {
+    "placeholders": {
+      "mb": {
+        "type": "int"
+      }
+    }
+  },
+  "aiModelInstall": "دابەزاندن ({mb} مێگابایت)",
+  "@aiModelInstall": {
+    "placeholders": {
+      "mb": {
+        "type": "int"
+      }
+    }
+  },
+  "aiModelInstalled": "دابەزێنراو و پشکنراو",
+  "aiModelNotInstalled": "دانەبەزێنراوە",
+  "aiModelDelete": "بیسڕەوە",
+  "aiModelCancel": "ڕایگرە",
+  "aiModelProgress": "دادەبەزێت… {percent}%",
+  "@aiModelProgress": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "aiModelVerifying": "فایلەکە دەپشکنرێت…",
+  "aiModelFailed": "دابەزاندنەکە وەستا. دووبارە هەوڵ بدەرەوە، باشترە لەسەر Wi-Fi.",
+  "aiModelMismatch": "فایلەکە یەکی نەگرتەوە و سڕایەوە. دووبارە هەوڵ بدەرەوە.",
+  "aiModelSorani": "بێ ئینتەرنێت، کوردی (سۆرانی) بە وردی کەمتر لە عەرەبی و ئینگلیزی دەناسرێتەوە.",
+  "capMicTooltip": "بە دەنگ تۆمار بکە (بۆ نووسین دابگرە)",
+  "capListening": "گوێ دەگرم…",
+  "capCapHint": "تا دوو خولەک",
+  "capStop": "تەواو",
+  "capProcessing": "تێدەگەم…",
+  "capMicDenied": "مایکرۆفۆن ڕێگەپێنەدراوە. لە ڕێکخستنەکانی ئەندرۆید ڕێگەی پێبدە.",
+  "capTypeHint": "بنووسە چی ڕوویدا",
+  "capSend": "ناردن",
+  "capManual": "یان بە دەست زیاد بکە",
+  "capNote": "تێبینی",
+  "capVaultItem": "شتێک لە گەنجینە",
+  "capSavedToInbox": "لە سندوقی هاتوو پاشەکەوت کرا",
+  "capOpen": "بیکەرەوە",
+  "capReason_noSpeechEngine": "هێشتا بزوێنەری دەنگ نییە. AI ی ئۆنلاین هەڵبکە یان مۆدێلێکی ئۆفلاین لە ڕێکخستنەکان دابەزێنە.",
+  "capReason_sttFailed": "نەمتوانی تۆمارەکە بکەمە دەق. لە سندوقی هاتوو هەڵگیرا.",
+  "capReason_empty": "هیچ نەبیسترا.",
+  "capReason_lowConfidence": "دڵنیا نیم مەبەستت چییە. لە سندوقی هاتوو هەڵگیرا.",
+  "capReviewTitle": "پێداچوونەوە",
+  "capTranscript": "ئەوەی وتت",
+  "capParseAgain": "دووبارە بیخوێنەوە",
+  "capByAi": "AI ی ئۆنلاین پڕی کردەوە",
+  "capByRules": "لەسەر ئەم مۆبایلە بەبێ ئینتەرنێت پڕکرایەوە",
+  "capKeepCard": "ئەمە پاشەکەوت بکە",
+  "capCheckThis": "ئەمە بپشکنە",
+  "capMissingFields": "خانە دیاریکراوەکان پڕبکەوە یان ئەمە بکوژێنەوە",
+  "capKeepInInbox": "لە سندوقی هاتوو بیهێڵەوە",
+  "capInboxUntil": "لە سندوقی هاتوو دەمێنێتەوە تا قۆناغی {phase}",
+  "@capInboxUntil": {
+    "placeholders": {
+      "phase": {
+        "type": "int"
+      }
+    }
+  },
+  "capDebt": "قەرز",
+  "capNewDebt": "قەرزی نوێ",
+  "capWhichDebt": "کام قەرز",
+  "capDrop": "لابرا",
+  "capNothingFound": "هیچ شتێک بۆ پاشەکەوتکردن نەدۆزرایەوە. دەقەکە دەستکاری بکە و دووبارە بیخوێنەوە.",
+  "capAlreadyHandled": "ئەم تۆمارە پێشتر پاشەکەوت یان سڕاوەتەوە.",
+  "capDone": "پاشەکەوت کرا",
+  "capInbox": "سندوقی هاتوو",
+  "capInboxEmpty": "هیچ شتێک چاوەڕێ نییە. هەر شتێک بڵێیت یان بینووسیت و پاشەکەوتی نەکەیت دێتە ئێرە.",
+  "capNotTranscribed": "دەنگ، هێشتا نەکراوە بە دەق",
+  "capTranscribe": "بیکە بە دەق",
+  "capFinishAi": "بە AI تەواوی بکە",
+  "capFinishAllAi": "هەمووی بە AI تەواو بکە",
+  "capFinishing": "تەواوکردنی {n} لە {total}…",
+  "@capFinishing": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "capOpenReview": "پێداچوونەوە",
+  "capDiscard": "لابردن",
+  "capDiscardTitle": "ئەم تۆمارە لاببرێت؟",
+  "capDiscardBody": "دەق و دەنگەکەی دەسڕێتەوە. هیچ شتێکی پاشەکەوتکراو لێی ناگۆڕێت.",
+  "capWillBecomeTask": "دەبێتە ئەرک لە قۆناغی {phase}",
+  "@capWillBecomeTask": {
+    "placeholders": {
+      "phase": {
+        "type": "int"
+      }
+    }
+  },
+  "capWillBecomeNote": "دەبێتە تێبینی لە قۆناغی {phase}",
+  "@capWillBecomeNote": {
+    "placeholders": {
+      "phase": {
+        "type": "int"
+      }
+    }
+  }
 }
