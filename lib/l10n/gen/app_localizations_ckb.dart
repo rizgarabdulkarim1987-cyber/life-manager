@@ -1936,4 +1936,29 @@ class AppLocalizationsCkb extends AppLocalizations {
 
   @override
   String get finSuggestFailed => 'نەمتوانی پێشنیارێک بهێنم. دووبارە هەوڵ بدەوە.';
+
+  @override
+  String get aiConsentReceiptTitle => 'وێنەی پسوولەکان';
+
+  @override
+  String get aiConsentReceipt =>
+      'وێنەی پسوولەکە دەنێردرێت بۆ Groq بۆ خوێندنەوەی کۆی گشتی. هیچی تر لە ئەپەکەوە لەگەڵیدا ناچێت.';
+
+  @override
+  String get aiVisionModel => 'مۆدێلی خوێندنەوەی پسوولە (وێنە)';
+
+  @override
+  String get capReason_receiptKept =>
+      'نەمتوانی ئەم پسوولەیە بخوێنمەوە. خوێندنەوەی وێنە پێویستی بە زیرەکی دەستکردی ئۆنلاین و کلیلی پاشەکەوتکراو و ڕەزامەندیت هەیە بۆ وێنەی پسوولە.';
+
+  @override
+  String get composerCamera => 'وێنەی پسوولە بگرە';
+
+  @override
+  String get chatReceiptSent => 'وێنەی پسوولە';
+
+  @override
+  String chatReceiptKept(String reason) {
+    return 'وێنەی پسوولەکەم لە بەشی هاتووەکان هێشتەوە. $reason';
+  }
 }

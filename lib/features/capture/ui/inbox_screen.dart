@@ -20,6 +20,7 @@ import 'capture_sheet.dart' show showCaptureOutcome;
 import '../chat/describe.dart' show inboxReason;
 
 bool _hasAudio(Capture c) => c.audio != null && c.audio!.isNotEmpty;
+bool _hasImage(Capture c) => c.image != null && c.image!.isNotEmpty;
 bool _hasText(Capture c) => (c.transcript ?? '').trim().isNotEmpty;
 
 List<Proposal> _proposals(Capture c) {
@@ -34,12 +35,13 @@ List<Proposal> _proposals(Capture c) {
 }
 
 /// The features a capture needs from Groq to be finished online.
-List<AiFeature> _needs(Capture c) => [if (!_hasText(c) && _hasAudio(c)) AiFeature.voice, AiFeature.parse];
+List<AiFeature> _needs(Capture c) =>
+    _hasImage(c) ? const [AiFeature.receipt] : [if (!_hasText(c) && _hasAudio(c)) AiFeature.voice, AiFeature.parse];
 
 /// Online AI is on, a key is saved, and the owner has not said no to any of [needs].
 bool _aiAllowed(AppSetting? s, bool keySaved, List<AiFeature> needs) {
   if (s == null || !s.aiOnlineEnabled || !keySaved) return false;
-  return needs.every((f) => (f == AiFeature.voice ? s.aiVoiceConsent : s.aiParseConsent) != ConsentState.declined.name);
+  return needs.every((f) => consentOf(f, s) != ConsentState.declined.name);
 }
 
 /// A friendly line for why a capture is waiting; never the raw error type.
@@ -51,7 +53,8 @@ String? _reason(BuildContext context, Capture c, List<Proposal> ps, AppSetting? 
     return inboxReason(l, (s == null ? null : onlineVoiceGap(s, keySaved: keySaved)) ?? 'noSpeechEngine');
   }
   if (f != null) return inboxReason(l, 'sttFailed');
-  if (!_hasText(c)) return _hasAudio(c) ? null : l.capReason_empty;
+  if (_hasImage(c) && ps.isEmpty) return l.capReason_receiptKept;
+  if (!_hasText(c) && !_hasImage(c)) return _hasAudio(c) ? null : l.capReason_empty;
   final money = ps.whereType<MoneyProposal>();
   if (ps.isEmpty || (money.isNotEmpty && money.every((p) => p.confidence < kLowConfidence))) {
     return l.capReason_lowConfidence;
@@ -155,7 +158,7 @@ class _InboxScreenState extends ConsumerState<InboxScreen> {
     final keySaved = ref.watch(groqKeySavedProvider).value ?? false;
     final aiRows = [
       for (final c in captures ?? const <Capture>[])
-        if ((_hasText(c) || _hasAudio(c)) && _aiAllowed(settings, keySaved, _needs(c))) c,
+        if ((_hasText(c) || _hasAudio(c) || _hasImage(c)) && _aiAllowed(settings, keySaved, _needs(c))) c,
     ];
     final progress = _progress;
 

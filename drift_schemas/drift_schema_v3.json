@@ -560,6 +560,40 @@
             "default_dart": "const CustomExpression('0')",
             "default_client_dart": null,
             "dsl_features": []
+          },
+          {
+            "name": "groq_vision_model",
+            "getter_name": "groqVisionModel",
+            "moor_type": "string",
+            "nullable": false,
+            "customConstraints": null,
+            "default_dart": "const CustomExpression('\\'meta-llama/llama-4-scout-17b-16e-instruct\\'')",
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "ai_receipt_consent",
+            "getter_name": "aiReceiptConsent",
+            "moor_type": "string",
+            "nullable": true,
+            "customConstraints": null,
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": [
+              {
+                "check": {
+                  "dart_expression": {
+                    "elements": [
+                      {
+                        "lexeme": "aiReceiptConsent",
+                        "tag": "aiReceiptConsent"
+                      },
+                      ".isIn(const ['granted','declined'])"
+                    ]
+                  }
+                }
+              }
+            ]
           }
         ],
         "is_virtual": false,
@@ -2220,7 +2254,7 @@
                         "lexeme": "source",
                         "tag": "source"
                       },
-                      ".isIn(const ['voice','text'])"
+                      ".isIn(const ['voice','text','image'])"
                     ]
                   }
                 }
@@ -2254,6 +2288,16 @@
           {
             "name": "audio",
             "getter_name": "audio",
+            "moor_type": "blob",
+            "nullable": true,
+            "customConstraints": null,
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
+            "name": "image",
+            "getter_name": "image",
             "moor_type": "blob",
             "nullable": true,
             "customConstraints": null,
@@ -2437,7 +2481,7 @@
       "sql": [
         {
           "dialect": "sqlite",
-          "sql": "CREATE TABLE IF NOT EXISTS \"app_settings\" (\"id\" INTEGER NOT NULL DEFAULT 1 CHECK(\"id\" = 1), \"locale_code\" TEXT NOT NULL DEFAULT 'ar', \"theme_mode\" TEXT NOT NULL DEFAULT 'light', \"lock_timeout_seconds\" INTEGER NOT NULL DEFAULT 60, \"biometric_enabled\" INTEGER NOT NULL DEFAULT 0 CHECK (\"biometric_enabled\" IN (0, 1)), \"base_currency\" TEXT NOT NULL DEFAULT 'IQD', \"setup_completed\" INTEGER NOT NULL DEFAULT 0 CHECK (\"setup_completed\" IN (0, 1)), \"last_backup_at\" INTEGER NULL, \"ai_online_enabled\" INTEGER NOT NULL DEFAULT 1 CHECK (\"ai_online_enabled\" IN (0, 1)), \"ai_voice_consent\" TEXT NULL CHECK(\"ai_voice_consent\" IN ('granted', 'declined')), \"ai_parse_consent\" TEXT NULL CHECK(\"ai_parse_consent\" IN ('granted', 'declined')), \"groq_stt_model\" TEXT NOT NULL DEFAULT 'whisper-large-v3-turbo', \"groq_llm_model\" TEXT NOT NULL DEFAULT 'llama-3.3-70b-versatile', \"local_whisper_model\" TEXT NOT NULL DEFAULT 'small' CHECK(\"local_whisper_model\" IN ('small', 'base')), \"unallocated_income_alert\" INTEGER NOT NULL DEFAULT 0 CHECK (\"unallocated_income_alert\" IN (0, 1)), \"buckets_confirmed\" INTEGER NOT NULL DEFAULT 0 CHECK (\"buckets_confirmed\" IN (0, 1)), PRIMARY KEY (\"id\"));"
+          "sql": "CREATE TABLE IF NOT EXISTS \"app_settings\" (\"id\" INTEGER NOT NULL DEFAULT 1 CHECK(\"id\" = 1), \"locale_code\" TEXT NOT NULL DEFAULT 'ar', \"theme_mode\" TEXT NOT NULL DEFAULT 'light', \"lock_timeout_seconds\" INTEGER NOT NULL DEFAULT 60, \"biometric_enabled\" INTEGER NOT NULL DEFAULT 0 CHECK (\"biometric_enabled\" IN (0, 1)), \"base_currency\" TEXT NOT NULL DEFAULT 'IQD', \"setup_completed\" INTEGER NOT NULL DEFAULT 0 CHECK (\"setup_completed\" IN (0, 1)), \"last_backup_at\" INTEGER NULL, \"ai_online_enabled\" INTEGER NOT NULL DEFAULT 1 CHECK (\"ai_online_enabled\" IN (0, 1)), \"ai_voice_consent\" TEXT NULL CHECK(\"ai_voice_consent\" IN ('granted', 'declined')), \"ai_parse_consent\" TEXT NULL CHECK(\"ai_parse_consent\" IN ('granted', 'declined')), \"groq_stt_model\" TEXT NOT NULL DEFAULT 'whisper-large-v3-turbo', \"groq_llm_model\" TEXT NOT NULL DEFAULT 'llama-3.3-70b-versatile', \"local_whisper_model\" TEXT NOT NULL DEFAULT 'small' CHECK(\"local_whisper_model\" IN ('small', 'base')), \"unallocated_income_alert\" INTEGER NOT NULL DEFAULT 0 CHECK (\"unallocated_income_alert\" IN (0, 1)), \"buckets_confirmed\" INTEGER NOT NULL DEFAULT 0 CHECK (\"buckets_confirmed\" IN (0, 1)), \"groq_vision_model\" TEXT NOT NULL DEFAULT 'meta-llama/llama-4-scout-17b-16e-instruct', \"ai_receipt_consent\" TEXT NULL CHECK(\"ai_receipt_consent\" IN ('granted', 'declined')), PRIMARY KEY (\"id\"));"
         }
       ]
     },
@@ -2536,7 +2580,7 @@
       "sql": [
         {
           "dialect": "sqlite",
-          "sql": "CREATE TABLE IF NOT EXISTS \"captures\" (\"id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, \"source\" TEXT NOT NULL CHECK(\"source\" IN ('voice', 'text')), \"status\" TEXT NOT NULL CHECK(\"status\" IN ('pending', 'done', 'discarded')), \"audio\" BLOB NULL, \"transcript\" TEXT NULL, \"parsed_json\" TEXT NULL, \"parsed_by\" TEXT NULL CHECK(\"parsed_by\" IN ('ai', 'rules')), \"failure_type\" TEXT NULL, \"created_at\" INTEGER NOT NULL, \"updated_at\" INTEGER NOT NULL, \"undo_json\" TEXT NULL);"
+          "sql": "CREATE TABLE IF NOT EXISTS \"captures\" (\"id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, \"source\" TEXT NOT NULL CHECK(\"source\" IN ('voice', 'text', 'image')), \"status\" TEXT NOT NULL CHECK(\"status\" IN ('pending', 'done', 'discarded')), \"audio\" BLOB NULL, \"image\" BLOB NULL, \"transcript\" TEXT NULL, \"parsed_json\" TEXT NULL, \"parsed_by\" TEXT NULL CHECK(\"parsed_by\" IN ('ai', 'rules')), \"failure_type\" TEXT NULL, \"created_at\" INTEGER NOT NULL, \"updated_at\" INTEGER NOT NULL, \"undo_json\" TEXT NULL);"
         }
       ]
     },

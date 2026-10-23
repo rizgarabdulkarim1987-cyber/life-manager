@@ -27,6 +27,18 @@ class CaptureRepository {
         ),
       );
 
+  Future<int> createImage(Uint8List jpeg) => _db
+      .into(_db.captures)
+      .insert(
+        CapturesCompanion.insert(
+          source: 'image',
+          status: 'pending',
+          image: Value(jpeg),
+          createdAt: _now,
+          updatedAt: _now,
+        ),
+      );
+
   Future<int> createText(String text) => _db
       .into(_db.captures)
       .insert(
@@ -70,17 +82,24 @@ class CaptureRepository {
     return _write(id, CapturesCompanion(failureType: Value(errorType)));
   }
 
-  Future<void> markDone(int id) => _write(id, const CapturesCompanion(status: Value('done'), audio: Value(null)));
+  Future<void> markDone(int id) =>
+      _write(id, const CapturesCompanion(status: Value('done'), audio: Value(null), image: Value(null)));
 
   /// Marks a pending capture done; false when it was already handled (done, discarded or gone).
   Future<bool> markDoneIfPending(int id) async {
     final n = await (_db.update(_db.captures)..where((x) => x.id.equals(id) & x.status.equals('pending'))).write(
-      CapturesCompanion(status: const Value('done'), audio: const Value(null), updatedAt: Value(_now)),
+      CapturesCompanion(
+        status: const Value('done'),
+        audio: const Value(null),
+        image: const Value(null),
+        updatedAt: Value(_now),
+      ),
     );
     return n > 0;
   }
 
-  Future<void> discard(int id) => _write(id, const CapturesCompanion(status: Value('discarded'), audio: Value(null)));
+  Future<void> discard(int id) =>
+      _write(id, const CapturesCompanion(status: Value('discarded'), audio: Value(null), image: Value(null)));
 
   SimpleSelectStatement<$CapturesTable, Capture> _pending() =>
       _db.select(_db.captures)..where((c) => c.status.equals('pending'));

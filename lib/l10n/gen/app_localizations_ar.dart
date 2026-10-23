@@ -1935,4 +1935,28 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get finSuggestFailed => 'ما گدرت أجيب اقتراح. جرب مرة ثانية.';
+
+  @override
+  String get aiConsentReceiptTitle => 'صور الوصولات';
+
+  @override
+  String get aiConsentReceipt => 'تنرسل صورة الوصل إلى Groq حتى يقرأ المبلغ. ما يروح وياها أي شي ثاني من التطبيق.';
+
+  @override
+  String get aiVisionModel => 'نموذج قراءة الوصولات (الصور)';
+
+  @override
+  String get capReason_receiptKept =>
+      'ما كدرت أقرأ هذا الوصل. قراءة الصور تحتاج الذكاء الاصطناعي عبر الإنترنت ومفتاح محفوظ وموافقتك على صور الوصولات.';
+
+  @override
+  String get composerCamera => 'صوّر وصل';
+
+  @override
+  String get chatReceiptSent => 'صورة وصل';
+
+  @override
+  String chatReceiptKept(String reason) {
+    return 'خزنت صورة الوصل بالوارد. $reason';
+  }
 }

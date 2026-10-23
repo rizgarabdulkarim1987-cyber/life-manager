@@ -44,3 +44,21 @@ const kParseSystemPrompt =
     '"last_expense", "last_income" or a few words naming the entry, and for "edit" give only the new values.\n'
     '- Never give financial or investment advice, opinions or commentary.\n'
     '- Output only JSON.';
+
+/// For a receipt photo: the same names to choose from and the date, no transcript.
+Map<String, Object> buildReceiptPayload(Lexicon lex, DateTime now) =>
+    buildParsePayload('', lex, now)..remove('transcript');
+
+const kReceiptSystemPrompt =
+    'You read one photo of a shop receipt or bill for a personal finance app. '
+    'The user message is JSON with the local date and time ("now") and the names of the person\'s '
+    'accounts, workspaces and categories.\n'
+    'Answer with exactly this JSON shape and nothing else:\n'
+    '$kIntentSchema\n'
+    'Rules:\n'
+    '- Give one intent of type "expense": the receipt total as a decimal string in "amount", '
+    'its currency ("IQD" or "USD", null if unclear), the shop name in "description", '
+    'and the date printed on it as YYYY-MM-DD, otherwise null.\n'
+    '- Use only names from the given lists for account and category; otherwise null. Never invent a name.\n'
+    '- If the photo is not a receipt or the total is unreadable, answer {"intents":[]}.\n'
+    '- Output only JSON.';

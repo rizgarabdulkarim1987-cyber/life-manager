@@ -1207,6 +1207,26 @@ class $AppSettingsTableTable extends AppSettingsTable with TableInfo<$AppSetting
     defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("buckets_confirmed" IN (0, 1))'),
     defaultValue: const Constant(false),
   );
+  static const VerificationMeta _groqVisionModelMeta = const VerificationMeta('groqVisionModel');
+  @override
+  late final GeneratedColumn<String> groqVisionModel = GeneratedColumn<String>(
+    'groq_vision_model',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('meta-llama/llama-4-scout-17b-16e-instruct'),
+  );
+  static const VerificationMeta _aiReceiptConsentMeta = const VerificationMeta('aiReceiptConsent');
+  @override
+  late final GeneratedColumn<String> aiReceiptConsent = GeneratedColumn<String>(
+    'ai_receipt_consent',
+    aliasedName,
+    true,
+    check: () => aiReceiptConsent.isIn(const ['granted', 'declined']),
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -1225,6 +1245,8 @@ class $AppSettingsTableTable extends AppSettingsTable with TableInfo<$AppSetting
     localWhisperModel,
     unallocatedIncomeAlert,
     bucketsConfirmed,
+    groqVisionModel,
+    aiReceiptConsent,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -1310,6 +1332,18 @@ class $AppSettingsTableTable extends AppSettingsTable with TableInfo<$AppSetting
         bucketsConfirmed.isAcceptableOrUnknown(data['buckets_confirmed']!, _bucketsConfirmedMeta),
       );
     }
+    if (data.containsKey('groq_vision_model')) {
+      context.handle(
+        _groqVisionModelMeta,
+        groqVisionModel.isAcceptableOrUnknown(data['groq_vision_model']!, _groqVisionModelMeta),
+      );
+    }
+    if (data.containsKey('ai_receipt_consent')) {
+      context.handle(
+        _aiReceiptConsentMeta,
+        aiReceiptConsent.isAcceptableOrUnknown(data['ai_receipt_consent']!, _aiReceiptConsentMeta),
+      );
+    }
     return context;
   }
 
@@ -1359,6 +1393,14 @@ class $AppSettingsTableTable extends AppSettingsTable with TableInfo<$AppSetting
         DriftSqlType.bool,
         data['${effectivePrefix}buckets_confirmed'],
       )!,
+      groqVisionModel: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}groq_vision_model'],
+      )!,
+      aiReceiptConsent: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}ai_receipt_consent'],
+      ),
     );
   }
 
@@ -1385,6 +1427,8 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
   final String localWhisperModel;
   final bool unallocatedIncomeAlert;
   final bool bucketsConfirmed;
+  final String groqVisionModel;
+  final String? aiReceiptConsent;
   const AppSetting({
     required this.id,
     required this.localeCode,
@@ -1402,6 +1446,8 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
     required this.localWhisperModel,
     required this.unallocatedIncomeAlert,
     required this.bucketsConfirmed,
+    required this.groqVisionModel,
+    this.aiReceiptConsent,
   });
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -1428,6 +1474,10 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
     map['local_whisper_model'] = Variable<String>(localWhisperModel);
     map['unallocated_income_alert'] = Variable<bool>(unallocatedIncomeAlert);
     map['buckets_confirmed'] = Variable<bool>(bucketsConfirmed);
+    map['groq_vision_model'] = Variable<String>(groqVisionModel);
+    if (!nullToAbsent || aiReceiptConsent != null) {
+      map['ai_receipt_consent'] = Variable<String>(aiReceiptConsent);
+    }
     return map;
   }
 
@@ -1449,6 +1499,8 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
       localWhisperModel: Value(localWhisperModel),
       unallocatedIncomeAlert: Value(unallocatedIncomeAlert),
       bucketsConfirmed: Value(bucketsConfirmed),
+      groqVisionModel: Value(groqVisionModel),
+      aiReceiptConsent: aiReceiptConsent == null && nullToAbsent ? const Value.absent() : Value(aiReceiptConsent),
     );
   }
 
@@ -1471,6 +1523,8 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
       localWhisperModel: serializer.fromJson<String>(json['localWhisperModel']),
       unallocatedIncomeAlert: serializer.fromJson<bool>(json['unallocatedIncomeAlert']),
       bucketsConfirmed: serializer.fromJson<bool>(json['bucketsConfirmed']),
+      groqVisionModel: serializer.fromJson<String>(json['groqVisionModel']),
+      aiReceiptConsent: serializer.fromJson<String?>(json['aiReceiptConsent']),
     );
   }
   @override
@@ -1493,6 +1547,8 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
       'localWhisperModel': serializer.toJson<String>(localWhisperModel),
       'unallocatedIncomeAlert': serializer.toJson<bool>(unallocatedIncomeAlert),
       'bucketsConfirmed': serializer.toJson<bool>(bucketsConfirmed),
+      'groqVisionModel': serializer.toJson<String>(groqVisionModel),
+      'aiReceiptConsent': serializer.toJson<String?>(aiReceiptConsent),
     };
   }
 
@@ -1513,6 +1569,8 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
     String? localWhisperModel,
     bool? unallocatedIncomeAlert,
     bool? bucketsConfirmed,
+    String? groqVisionModel,
+    Value<String?> aiReceiptConsent = const Value.absent(),
   }) => AppSetting(
     id: id ?? this.id,
     localeCode: localeCode ?? this.localeCode,
@@ -1530,6 +1588,8 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
     localWhisperModel: localWhisperModel ?? this.localWhisperModel,
     unallocatedIncomeAlert: unallocatedIncomeAlert ?? this.unallocatedIncomeAlert,
     bucketsConfirmed: bucketsConfirmed ?? this.bucketsConfirmed,
+    groqVisionModel: groqVisionModel ?? this.groqVisionModel,
+    aiReceiptConsent: aiReceiptConsent.present ? aiReceiptConsent.value : this.aiReceiptConsent,
   );
   AppSetting copyWithCompanion(AppSettingsTableCompanion data) {
     return AppSetting(
@@ -1551,6 +1611,8 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
           ? data.unallocatedIncomeAlert.value
           : this.unallocatedIncomeAlert,
       bucketsConfirmed: data.bucketsConfirmed.present ? data.bucketsConfirmed.value : this.bucketsConfirmed,
+      groqVisionModel: data.groqVisionModel.present ? data.groqVisionModel.value : this.groqVisionModel,
+      aiReceiptConsent: data.aiReceiptConsent.present ? data.aiReceiptConsent.value : this.aiReceiptConsent,
     );
   }
 
@@ -1572,7 +1634,9 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
           ..write('groqLlmModel: $groqLlmModel, ')
           ..write('localWhisperModel: $localWhisperModel, ')
           ..write('unallocatedIncomeAlert: $unallocatedIncomeAlert, ')
-          ..write('bucketsConfirmed: $bucketsConfirmed')
+          ..write('bucketsConfirmed: $bucketsConfirmed, ')
+          ..write('groqVisionModel: $groqVisionModel, ')
+          ..write('aiReceiptConsent: $aiReceiptConsent')
           ..write(')'))
         .toString();
   }
@@ -1595,6 +1659,8 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
     localWhisperModel,
     unallocatedIncomeAlert,
     bucketsConfirmed,
+    groqVisionModel,
+    aiReceiptConsent,
   );
   @override
   bool operator ==(Object other) =>
@@ -1615,7 +1681,9 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
           other.groqLlmModel == this.groqLlmModel &&
           other.localWhisperModel == this.localWhisperModel &&
           other.unallocatedIncomeAlert == this.unallocatedIncomeAlert &&
-          other.bucketsConfirmed == this.bucketsConfirmed);
+          other.bucketsConfirmed == this.bucketsConfirmed &&
+          other.groqVisionModel == this.groqVisionModel &&
+          other.aiReceiptConsent == this.aiReceiptConsent);
 }
 
 class AppSettingsTableCompanion extends UpdateCompanion<AppSetting> {
@@ -1635,6 +1703,8 @@ class AppSettingsTableCompanion extends UpdateCompanion<AppSetting> {
   final Value<String> localWhisperModel;
   final Value<bool> unallocatedIncomeAlert;
   final Value<bool> bucketsConfirmed;
+  final Value<String> groqVisionModel;
+  final Value<String?> aiReceiptConsent;
   const AppSettingsTableCompanion({
     this.id = const Value.absent(),
     this.localeCode = const Value.absent(),
@@ -1652,6 +1722,8 @@ class AppSettingsTableCompanion extends UpdateCompanion<AppSetting> {
     this.localWhisperModel = const Value.absent(),
     this.unallocatedIncomeAlert = const Value.absent(),
     this.bucketsConfirmed = const Value.absent(),
+    this.groqVisionModel = const Value.absent(),
+    this.aiReceiptConsent = const Value.absent(),
   });
   AppSettingsTableCompanion.insert({
     this.id = const Value.absent(),
@@ -1670,6 +1742,8 @@ class AppSettingsTableCompanion extends UpdateCompanion<AppSetting> {
     this.localWhisperModel = const Value.absent(),
     this.unallocatedIncomeAlert = const Value.absent(),
     this.bucketsConfirmed = const Value.absent(),
+    this.groqVisionModel = const Value.absent(),
+    this.aiReceiptConsent = const Value.absent(),
   });
   static Insertable<AppSetting> custom({
     Expression<int>? id,
@@ -1688,6 +1762,8 @@ class AppSettingsTableCompanion extends UpdateCompanion<AppSetting> {
     Expression<String>? localWhisperModel,
     Expression<bool>? unallocatedIncomeAlert,
     Expression<bool>? bucketsConfirmed,
+    Expression<String>? groqVisionModel,
+    Expression<String>? aiReceiptConsent,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -1706,6 +1782,8 @@ class AppSettingsTableCompanion extends UpdateCompanion<AppSetting> {
       if (localWhisperModel != null) 'local_whisper_model': localWhisperModel,
       if (unallocatedIncomeAlert != null) 'unallocated_income_alert': unallocatedIncomeAlert,
       if (bucketsConfirmed != null) 'buckets_confirmed': bucketsConfirmed,
+      if (groqVisionModel != null) 'groq_vision_model': groqVisionModel,
+      if (aiReceiptConsent != null) 'ai_receipt_consent': aiReceiptConsent,
     });
   }
 
@@ -1726,6 +1804,8 @@ class AppSettingsTableCompanion extends UpdateCompanion<AppSetting> {
     Value<String>? localWhisperModel,
     Value<bool>? unallocatedIncomeAlert,
     Value<bool>? bucketsConfirmed,
+    Value<String>? groqVisionModel,
+    Value<String?>? aiReceiptConsent,
   }) {
     return AppSettingsTableCompanion(
       id: id ?? this.id,
@@ -1744,6 +1824,8 @@ class AppSettingsTableCompanion extends UpdateCompanion<AppSetting> {
       localWhisperModel: localWhisperModel ?? this.localWhisperModel,
       unallocatedIncomeAlert: unallocatedIncomeAlert ?? this.unallocatedIncomeAlert,
       bucketsConfirmed: bucketsConfirmed ?? this.bucketsConfirmed,
+      groqVisionModel: groqVisionModel ?? this.groqVisionModel,
+      aiReceiptConsent: aiReceiptConsent ?? this.aiReceiptConsent,
     );
   }
 
@@ -1798,6 +1880,12 @@ class AppSettingsTableCompanion extends UpdateCompanion<AppSetting> {
     if (bucketsConfirmed.present) {
       map['buckets_confirmed'] = Variable<bool>(bucketsConfirmed.value);
     }
+    if (groqVisionModel.present) {
+      map['groq_vision_model'] = Variable<String>(groqVisionModel.value);
+    }
+    if (aiReceiptConsent.present) {
+      map['ai_receipt_consent'] = Variable<String>(aiReceiptConsent.value);
+    }
     return map;
   }
 
@@ -1819,7 +1907,9 @@ class AppSettingsTableCompanion extends UpdateCompanion<AppSetting> {
           ..write('groqLlmModel: $groqLlmModel, ')
           ..write('localWhisperModel: $localWhisperModel, ')
           ..write('unallocatedIncomeAlert: $unallocatedIncomeAlert, ')
-          ..write('bucketsConfirmed: $bucketsConfirmed')
+          ..write('bucketsConfirmed: $bucketsConfirmed, ')
+          ..write('groqVisionModel: $groqVisionModel, ')
+          ..write('aiReceiptConsent: $aiReceiptConsent')
           ..write(')'))
         .toString();
   }
@@ -6332,7 +6422,7 @@ class $CapturesTable extends Captures with TableInfo<$CapturesTable, Capture> {
     'source',
     aliasedName,
     false,
-    check: () => source.isIn(const ['voice', 'text']),
+    check: () => source.isIn(const ['voice', 'text', 'image']),
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
@@ -6350,6 +6440,15 @@ class $CapturesTable extends Captures with TableInfo<$CapturesTable, Capture> {
   @override
   late final GeneratedColumn<Uint8List> audio = GeneratedColumn<Uint8List>(
     'audio',
+    aliasedName,
+    true,
+    type: DriftSqlType.blob,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _imageMeta = const VerificationMeta('image');
+  @override
+  late final GeneratedColumn<Uint8List> image = GeneratedColumn<Uint8List>(
+    'image',
     aliasedName,
     true,
     type: DriftSqlType.blob,
@@ -6425,6 +6524,7 @@ class $CapturesTable extends Captures with TableInfo<$CapturesTable, Capture> {
     source,
     status,
     audio,
+    image,
     transcript,
     parsedJson,
     parsedBy,
@@ -6457,6 +6557,9 @@ class $CapturesTable extends Captures with TableInfo<$CapturesTable, Capture> {
     }
     if (data.containsKey('audio')) {
       context.handle(_audioMeta, audio.isAcceptableOrUnknown(data['audio']!, _audioMeta));
+    }
+    if (data.containsKey('image')) {
+      context.handle(_imageMeta, image.isAcceptableOrUnknown(data['image']!, _imageMeta));
     }
     if (data.containsKey('transcript')) {
       context.handle(_transcriptMeta, transcript.isAcceptableOrUnknown(data['transcript']!, _transcriptMeta));
@@ -6496,6 +6599,7 @@ class $CapturesTable extends Captures with TableInfo<$CapturesTable, Capture> {
       source: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}source'])!,
       status: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}status'])!,
       audio: attachedDatabase.typeMapping.read(DriftSqlType.blob, data['${effectivePrefix}audio']),
+      image: attachedDatabase.typeMapping.read(DriftSqlType.blob, data['${effectivePrefix}image']),
       transcript: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}transcript']),
       parsedJson: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}parsed_json']),
       parsedBy: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}parsed_by']),
@@ -6517,6 +6621,9 @@ class Capture extends DataClass implements Insertable<Capture> {
   final String source;
   final String status;
   final Uint8List? audio;
+
+  /// A receipt photo (JPEG), dropped with the audio once the capture is closed.
+  final Uint8List? image;
   final String? transcript;
   final String? parsedJson;
   final String? parsedBy;
@@ -6533,6 +6640,7 @@ class Capture extends DataClass implements Insertable<Capture> {
     required this.source,
     required this.status,
     this.audio,
+    this.image,
     this.transcript,
     this.parsedJson,
     this.parsedBy,
@@ -6549,6 +6657,9 @@ class Capture extends DataClass implements Insertable<Capture> {
     map['status'] = Variable<String>(status);
     if (!nullToAbsent || audio != null) {
       map['audio'] = Variable<Uint8List>(audio);
+    }
+    if (!nullToAbsent || image != null) {
+      map['image'] = Variable<Uint8List>(image);
     }
     if (!nullToAbsent || transcript != null) {
       map['transcript'] = Variable<String>(transcript);
@@ -6576,6 +6687,7 @@ class Capture extends DataClass implements Insertable<Capture> {
       source: Value(source),
       status: Value(status),
       audio: audio == null && nullToAbsent ? const Value.absent() : Value(audio),
+      image: image == null && nullToAbsent ? const Value.absent() : Value(image),
       transcript: transcript == null && nullToAbsent ? const Value.absent() : Value(transcript),
       parsedJson: parsedJson == null && nullToAbsent ? const Value.absent() : Value(parsedJson),
       parsedBy: parsedBy == null && nullToAbsent ? const Value.absent() : Value(parsedBy),
@@ -6593,6 +6705,7 @@ class Capture extends DataClass implements Insertable<Capture> {
       source: serializer.fromJson<String>(json['source']),
       status: serializer.fromJson<String>(json['status']),
       audio: serializer.fromJson<Uint8List?>(json['audio']),
+      image: serializer.fromJson<Uint8List?>(json['image']),
       transcript: serializer.fromJson<String?>(json['transcript']),
       parsedJson: serializer.fromJson<String?>(json['parsedJson']),
       parsedBy: serializer.fromJson<String?>(json['parsedBy']),
@@ -6610,6 +6723,7 @@ class Capture extends DataClass implements Insertable<Capture> {
       'source': serializer.toJson<String>(source),
       'status': serializer.toJson<String>(status),
       'audio': serializer.toJson<Uint8List?>(audio),
+      'image': serializer.toJson<Uint8List?>(image),
       'transcript': serializer.toJson<String?>(transcript),
       'parsedJson': serializer.toJson<String?>(parsedJson),
       'parsedBy': serializer.toJson<String?>(parsedBy),
@@ -6625,6 +6739,7 @@ class Capture extends DataClass implements Insertable<Capture> {
     String? source,
     String? status,
     Value<Uint8List?> audio = const Value.absent(),
+    Value<Uint8List?> image = const Value.absent(),
     Value<String?> transcript = const Value.absent(),
     Value<String?> parsedJson = const Value.absent(),
     Value<String?> parsedBy = const Value.absent(),
@@ -6637,6 +6752,7 @@ class Capture extends DataClass implements Insertable<Capture> {
     source: source ?? this.source,
     status: status ?? this.status,
     audio: audio.present ? audio.value : this.audio,
+    image: image.present ? image.value : this.image,
     transcript: transcript.present ? transcript.value : this.transcript,
     parsedJson: parsedJson.present ? parsedJson.value : this.parsedJson,
     parsedBy: parsedBy.present ? parsedBy.value : this.parsedBy,
@@ -6651,6 +6767,7 @@ class Capture extends DataClass implements Insertable<Capture> {
       source: data.source.present ? data.source.value : this.source,
       status: data.status.present ? data.status.value : this.status,
       audio: data.audio.present ? data.audio.value : this.audio,
+      image: data.image.present ? data.image.value : this.image,
       transcript: data.transcript.present ? data.transcript.value : this.transcript,
       parsedJson: data.parsedJson.present ? data.parsedJson.value : this.parsedJson,
       parsedBy: data.parsedBy.present ? data.parsedBy.value : this.parsedBy,
@@ -6668,6 +6785,7 @@ class Capture extends DataClass implements Insertable<Capture> {
           ..write('source: $source, ')
           ..write('status: $status, ')
           ..write('audio: $audio, ')
+          ..write('image: $image, ')
           ..write('transcript: $transcript, ')
           ..write('parsedJson: $parsedJson, ')
           ..write('parsedBy: $parsedBy, ')
@@ -6685,6 +6803,7 @@ class Capture extends DataClass implements Insertable<Capture> {
     source,
     status,
     $driftBlobEquality.hash(audio),
+    $driftBlobEquality.hash(image),
     transcript,
     parsedJson,
     parsedBy,
@@ -6701,6 +6820,7 @@ class Capture extends DataClass implements Insertable<Capture> {
           other.source == this.source &&
           other.status == this.status &&
           $driftBlobEquality.equals(other.audio, this.audio) &&
+          $driftBlobEquality.equals(other.image, this.image) &&
           other.transcript == this.transcript &&
           other.parsedJson == this.parsedJson &&
           other.parsedBy == this.parsedBy &&
@@ -6715,6 +6835,7 @@ class CapturesCompanion extends UpdateCompanion<Capture> {
   final Value<String> source;
   final Value<String> status;
   final Value<Uint8List?> audio;
+  final Value<Uint8List?> image;
   final Value<String?> transcript;
   final Value<String?> parsedJson;
   final Value<String?> parsedBy;
@@ -6727,6 +6848,7 @@ class CapturesCompanion extends UpdateCompanion<Capture> {
     this.source = const Value.absent(),
     this.status = const Value.absent(),
     this.audio = const Value.absent(),
+    this.image = const Value.absent(),
     this.transcript = const Value.absent(),
     this.parsedJson = const Value.absent(),
     this.parsedBy = const Value.absent(),
@@ -6740,6 +6862,7 @@ class CapturesCompanion extends UpdateCompanion<Capture> {
     required String source,
     required String status,
     this.audio = const Value.absent(),
+    this.image = const Value.absent(),
     this.transcript = const Value.absent(),
     this.parsedJson = const Value.absent(),
     this.parsedBy = const Value.absent(),
@@ -6756,6 +6879,7 @@ class CapturesCompanion extends UpdateCompanion<Capture> {
     Expression<String>? source,
     Expression<String>? status,
     Expression<Uint8List>? audio,
+    Expression<Uint8List>? image,
     Expression<String>? transcript,
     Expression<String>? parsedJson,
     Expression<String>? parsedBy,
@@ -6769,6 +6893,7 @@ class CapturesCompanion extends UpdateCompanion<Capture> {
       if (source != null) 'source': source,
       if (status != null) 'status': status,
       if (audio != null) 'audio': audio,
+      if (image != null) 'image': image,
       if (transcript != null) 'transcript': transcript,
       if (parsedJson != null) 'parsed_json': parsedJson,
       if (parsedBy != null) 'parsed_by': parsedBy,
@@ -6784,6 +6909,7 @@ class CapturesCompanion extends UpdateCompanion<Capture> {
     Value<String>? source,
     Value<String>? status,
     Value<Uint8List?>? audio,
+    Value<Uint8List?>? image,
     Value<String?>? transcript,
     Value<String?>? parsedJson,
     Value<String?>? parsedBy,
@@ -6797,6 +6923,7 @@ class CapturesCompanion extends UpdateCompanion<Capture> {
       source: source ?? this.source,
       status: status ?? this.status,
       audio: audio ?? this.audio,
+      image: image ?? this.image,
       transcript: transcript ?? this.transcript,
       parsedJson: parsedJson ?? this.parsedJson,
       parsedBy: parsedBy ?? this.parsedBy,
@@ -6821,6 +6948,9 @@ class CapturesCompanion extends UpdateCompanion<Capture> {
     }
     if (audio.present) {
       map['audio'] = Variable<Uint8List>(audio.value);
+    }
+    if (image.present) {
+      map['image'] = Variable<Uint8List>(image.value);
     }
     if (transcript.present) {
       map['transcript'] = Variable<String>(transcript.value);
@@ -6853,6 +6983,7 @@ class CapturesCompanion extends UpdateCompanion<Capture> {
           ..write('source: $source, ')
           ..write('status: $status, ')
           ..write('audio: $audio, ')
+          ..write('image: $image, ')
           ..write('transcript: $transcript, ')
           ..write('parsedJson: $parsedJson, ')
           ..write('parsedBy: $parsedBy, ')
@@ -7813,6 +7944,8 @@ typedef $$AppSettingsTableTableCreateCompanionBuilder = AppSettingsTableCompanio
   Value<String> localWhisperModel,
   Value<bool> unallocatedIncomeAlert,
   Value<bool> bucketsConfirmed,
+  Value<String> groqVisionModel,
+  Value<String?> aiReceiptConsent,
 });
 typedef $$AppSettingsTableTableUpdateCompanionBuilder = AppSettingsTableCompanion Function({
   Value<int> id,
@@ -7831,6 +7964,8 @@ typedef $$AppSettingsTableTableUpdateCompanionBuilder = AppSettingsTableCompanio
   Value<String> localWhisperModel,
   Value<bool> unallocatedIncomeAlert,
   Value<bool> bucketsConfirmed,
+  Value<String> groqVisionModel,
+  Value<String?> aiReceiptConsent,
 });
 
 class $$AppSettingsTableTableFilterComposer extends Composer<_$AppDatabase, $AppSettingsTableTable> {
@@ -7887,6 +8022,12 @@ class $$AppSettingsTableTableFilterComposer extends Composer<_$AppDatabase, $App
 
   ColumnFilters<bool> get bucketsConfirmed =>
       $composableBuilder(column: $table.bucketsConfirmed, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get groqVisionModel =>
+      $composableBuilder(column: $table.groqVisionModel, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get aiReceiptConsent =>
+      $composableBuilder(column: $table.aiReceiptConsent, builder: (column) => ColumnFilters(column));
 }
 
 class $$AppSettingsTableTableOrderingComposer extends Composer<_$AppDatabase, $AppSettingsTableTable> {
@@ -7943,6 +8084,12 @@ class $$AppSettingsTableTableOrderingComposer extends Composer<_$AppDatabase, $A
 
   ColumnOrderings<bool> get bucketsConfirmed =>
       $composableBuilder(column: $table.bucketsConfirmed, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get groqVisionModel =>
+      $composableBuilder(column: $table.groqVisionModel, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get aiReceiptConsent =>
+      $composableBuilder(column: $table.aiReceiptConsent, builder: (column) => ColumnOrderings(column));
 }
 
 class $$AppSettingsTableTableAnnotationComposer extends Composer<_$AppDatabase, $AppSettingsTableTable> {
@@ -7997,6 +8144,12 @@ class $$AppSettingsTableTableAnnotationComposer extends Composer<_$AppDatabase, 
 
   GeneratedColumn<bool> get bucketsConfirmed =>
       $composableBuilder(column: $table.bucketsConfirmed, builder: (column) => column);
+
+  GeneratedColumn<String> get groqVisionModel =>
+      $composableBuilder(column: $table.groqVisionModel, builder: (column) => column);
+
+  GeneratedColumn<String> get aiReceiptConsent =>
+      $composableBuilder(column: $table.aiReceiptConsent, builder: (column) => column);
 }
 
 class $$AppSettingsTableTableTableManager
@@ -8040,6 +8193,8 @@ class $$AppSettingsTableTableTableManager
                 Value<String> localWhisperModel = const Value.absent(),
                 Value<bool> unallocatedIncomeAlert = const Value.absent(),
                 Value<bool> bucketsConfirmed = const Value.absent(),
+                Value<String> groqVisionModel = const Value.absent(),
+                Value<String?> aiReceiptConsent = const Value.absent(),
               }) => AppSettingsTableCompanion(
                 id: id,
                 localeCode: localeCode,
@@ -8057,6 +8212,8 @@ class $$AppSettingsTableTableTableManager
                 localWhisperModel: localWhisperModel,
                 unallocatedIncomeAlert: unallocatedIncomeAlert,
                 bucketsConfirmed: bucketsConfirmed,
+                groqVisionModel: groqVisionModel,
+                aiReceiptConsent: aiReceiptConsent,
               ),
           createCompanionCallback:
               ({
@@ -8076,6 +8233,8 @@ class $$AppSettingsTableTableTableManager
                 Value<String> localWhisperModel = const Value.absent(),
                 Value<bool> unallocatedIncomeAlert = const Value.absent(),
                 Value<bool> bucketsConfirmed = const Value.absent(),
+                Value<String> groqVisionModel = const Value.absent(),
+                Value<String?> aiReceiptConsent = const Value.absent(),
               }) => AppSettingsTableCompanion.insert(
                 id: id,
                 localeCode: localeCode,
@@ -8093,6 +8252,8 @@ class $$AppSettingsTableTableTableManager
                 localWhisperModel: localWhisperModel,
                 unallocatedIncomeAlert: unallocatedIncomeAlert,
                 bucketsConfirmed: bucketsConfirmed,
+                groqVisionModel: groqVisionModel,
+                aiReceiptConsent: aiReceiptConsent,
               ),
           withReferenceMapper: (p0) => p0
               .map(
@@ -11687,6 +11848,7 @@ typedef $$CapturesTableCreateCompanionBuilder = CapturesCompanion Function({
   required String source,
   required String status,
   Value<Uint8List?> audio,
+  Value<Uint8List?> image,
   Value<String?> transcript,
   Value<String?> parsedJson,
   Value<String?> parsedBy,
@@ -11700,6 +11862,7 @@ typedef $$CapturesTableUpdateCompanionBuilder = CapturesCompanion Function({
   Value<String> source,
   Value<String> status,
   Value<Uint8List?> audio,
+  Value<Uint8List?> image,
   Value<String?> transcript,
   Value<String?> parsedJson,
   Value<String?> parsedBy,
@@ -11727,6 +11890,9 @@ class $$CapturesTableFilterComposer extends Composer<_$AppDatabase, $CapturesTab
 
   ColumnFilters<Uint8List> get audio =>
       $composableBuilder(column: $table.audio, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<Uint8List> get image =>
+      $composableBuilder(column: $table.image, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get transcript =>
       $composableBuilder(column: $table.transcript, builder: (column) => ColumnFilters(column));
@@ -11769,6 +11935,9 @@ class $$CapturesTableOrderingComposer extends Composer<_$AppDatabase, $CapturesT
   ColumnOrderings<Uint8List> get audio =>
       $composableBuilder(column: $table.audio, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<Uint8List> get image =>
+      $composableBuilder(column: $table.image, builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<String> get transcript =>
       $composableBuilder(column: $table.transcript, builder: (column) => ColumnOrderings(column));
 
@@ -11806,6 +11975,8 @@ class $$CapturesTableAnnotationComposer extends Composer<_$AppDatabase, $Capture
   GeneratedColumn<String> get status => $composableBuilder(column: $table.status, builder: (column) => column);
 
   GeneratedColumn<Uint8List> get audio => $composableBuilder(column: $table.audio, builder: (column) => column);
+
+  GeneratedColumn<Uint8List> get image => $composableBuilder(column: $table.image, builder: (column) => column);
 
   GeneratedColumn<String> get transcript => $composableBuilder(column: $table.transcript, builder: (column) => column);
 
@@ -11852,6 +12023,7 @@ class $$CapturesTableTableManager
                 Value<String> source = const Value.absent(),
                 Value<String> status = const Value.absent(),
                 Value<Uint8List?> audio = const Value.absent(),
+                Value<Uint8List?> image = const Value.absent(),
                 Value<String?> transcript = const Value.absent(),
                 Value<String?> parsedJson = const Value.absent(),
                 Value<String?> parsedBy = const Value.absent(),
@@ -11864,6 +12036,7 @@ class $$CapturesTableTableManager
                 source: source,
                 status: status,
                 audio: audio,
+                image: image,
                 transcript: transcript,
                 parsedJson: parsedJson,
                 parsedBy: parsedBy,
@@ -11878,6 +12051,7 @@ class $$CapturesTableTableManager
                 required String source,
                 required String status,
                 Value<Uint8List?> audio = const Value.absent(),
+                Value<Uint8List?> image = const Value.absent(),
                 Value<String?> transcript = const Value.absent(),
                 Value<String?> parsedJson = const Value.absent(),
                 Value<String?> parsedBy = const Value.absent(),
@@ -11890,6 +12064,7 @@ class $$CapturesTableTableManager
                 source: source,
                 status: status,
                 audio: audio,
+                image: image,
                 transcript: transcript,
                 parsedJson: parsedJson,
                 parsedBy: parsedBy,

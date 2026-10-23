@@ -52,6 +52,8 @@ class AiSettingsScreen extends ConsumerWidget {
                     _ConsentRow(feature: AiFeature.voice, state: settings.aiVoiceConsent),
                     Divider(height: 1, color: context.tokens.border),
                     _ConsentRow(feature: AiFeature.parse, state: settings.aiParseConsent),
+                    Divider(height: 1, color: context.tokens.border),
+                    _ConsentRow(feature: AiFeature.receipt, state: settings.aiReceiptConsent),
                   ],
                 ),
                 SettingsSection(
@@ -272,10 +274,11 @@ class _ConsentRow extends ConsumerWidget {
           Row(
             children: [
               Expanded(
-                child: Text(
-                  feature == AiFeature.voice ? l.aiConsentVoiceTitle : l.aiConsentParseTitle,
-                  style: text.titleSmall?.copyWith(color: k.text),
-                ),
+                child: Text(switch (feature) {
+                  AiFeature.voice => l.aiConsentVoiceTitle,
+                  AiFeature.parse => l.aiConsentParseTitle,
+                  AiFeature.receipt => l.aiConsentReceiptTitle,
+                }, style: text.titleSmall?.copyWith(color: k.text)),
               ),
               Text(
                 label,
@@ -312,20 +315,22 @@ class _Models extends ConsumerStatefulWidget {
 class _ModelsState extends ConsumerState<_Models> {
   late final _stt = TextEditingController(text: widget.settings.groqSttModel);
   late final _llm = TextEditingController(text: widget.settings.groqLlmModel);
+  late final _vision = TextEditingController(text: widget.settings.groqVisionModel);
 
   @override
   void dispose() {
     _stt.dispose();
     _llm.dispose();
+    _vision.dispose();
     super.dispose();
   }
 
-  bool get _valid => _stt.text.trim().isNotEmpty && _llm.text.trim().isNotEmpty;
+  bool get _valid => _stt.text.trim().isNotEmpty && _llm.text.trim().isNotEmpty && _vision.text.trim().isNotEmpty;
 
   Future<void> _save() async {
     final l = context.l10n;
     final messenger = ScaffoldMessenger.of(context);
-    await ref.read(settingsRepositoryProvider).setGroqModels(stt: _stt.text, llm: _llm.text);
+    await ref.read(settingsRepositoryProvider).setGroqModels(stt: _stt.text, llm: _llm.text, vision: _vision.text);
     if (!mounted) return;
     FocusScope.of(context).unfocus();
     messenger.showSnackBar(SnackBar(content: Text(l.aiModelsSaved)));
@@ -357,6 +362,16 @@ class _ModelsState extends ConsumerState<_Models> {
             autocorrect: false,
             maxLength: 100,
             decoration: deco(l.aiLlmModel),
+            onChanged: (_) => setState(() {}),
+          ),
+          const SizedBox(height: 8),
+          TextField(
+            key: const ValueKey('vision-model'),
+            controller: _vision,
+            textDirection: TextDirection.ltr,
+            autocorrect: false,
+            maxLength: 100,
+            decoration: deco(l.aiVisionModel),
             onChanged: (_) => setState(() {}),
           ),
           const SizedBox(height: 8),

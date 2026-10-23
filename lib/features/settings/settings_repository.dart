@@ -6,7 +6,7 @@ import '../../core/db/app_database.dart';
 const kSupportedLocaleCodes = {'ar', 'en', 'ckb'};
 const kMaxLockTimeout = Duration(hours: 1);
 
-enum AiFeature { voice, parse }
+enum AiFeature { voice, parse, receipt }
 
 enum ConsentState { granted, declined }
 
@@ -58,14 +58,14 @@ class SettingsRepository {
   /// `null` resets the consent so the sheet shows again.
   Future<void> setConsent(AiFeature f, ConsentState? s) {
     final v = Value(s?.name);
-    return _write(
-      f == AiFeature.voice
-          ? AppSettingsTableCompanion(aiVoiceConsent: v)
-          : AppSettingsTableCompanion(aiParseConsent: v),
-    );
+    return _write(switch (f) {
+      AiFeature.voice => AppSettingsTableCompanion(aiVoiceConsent: v),
+      AiFeature.parse => AppSettingsTableCompanion(aiParseConsent: v),
+      AiFeature.receipt => AppSettingsTableCompanion(aiReceiptConsent: v),
+    });
   }
 
-  Future<void> setGroqModels({String? stt, String? llm}) {
+  Future<void> setGroqModels({String? stt, String? llm, String? vision}) {
     String check(String m) {
       final t = m.trim();
       if (t.isEmpty || t.length > 100) throw ArgumentError.value(m, 'model');
@@ -76,6 +76,7 @@ class SettingsRepository {
       AppSettingsTableCompanion(
         groqSttModel: stt == null ? const Value.absent() : Value(check(stt)),
         groqLlmModel: llm == null ? const Value.absent() : Value(check(llm)),
+        groqVisionModel: vision == null ? const Value.absent() : Value(check(vision)),
       ),
     );
   }

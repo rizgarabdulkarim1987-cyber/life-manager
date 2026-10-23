@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,6 +9,7 @@ import '../../../core/logging/app_logger.dart';
 import '../../../core/theme/motion.dart';
 import '../../../core/theme/tokens.dart';
 import '../ai/ai_config.dart';
+import '../camera/receipt_camera.dart';
 import '../chat/conversation.dart';
 import '../speech/recorder.dart';
 import 'capture_sheet.dart';
@@ -66,6 +68,21 @@ class _ComposerState extends ConsumerState<Composer> {
     _text.clear();
     _openChat();
     await _chat.send(t);
+  }
+
+  Future<void> _scan() async {
+    await askCaptureConsents(context, const [AiFeature.receipt]);
+    if (!mounted) return;
+    final Uint8List? jpeg;
+    try {
+      jpeg = await ref.read(receiptCameraProvider).take();
+    } on Exception catch (e) {
+      AppLogger.warn('receipt camera failed', e);
+      return;
+    }
+    if (jpeg == null || !mounted) return;
+    _openChat();
+    await _chat.sendImage(jpeg);
   }
 
   Future<void> _start() async {
@@ -213,6 +230,13 @@ class _ComposerState extends ConsumerState<Composer> {
           Expanded(
             child: Padding(padding: const EdgeInsets.only(bottom: 2), child: field),
           ),
+          if (!_recording && !hasText)
+            IconButton(
+              key: const ValueKey('composer-camera'),
+              tooltip: l.composerCamera,
+              onPressed: _scan,
+              icon: Icon(Icons.photo_camera_outlined, color: k.textMuted),
+            ),
           const SizedBox(width: 6),
           if (hasText && !_recording) send else mic,
         ],

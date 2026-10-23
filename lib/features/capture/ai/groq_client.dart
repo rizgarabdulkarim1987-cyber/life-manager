@@ -39,6 +39,7 @@ class GroqBadResponse extends GroqError {
 const kGroqBase = 'https://api.groq.com/openai/v1';
 const kChatTimeout = Duration(seconds: 15);
 const kSttTimeout = Duration(seconds: 30);
+const kVisionTimeout = Duration(seconds: 40);
 
 class GroqClient {
   GroqClient(this._http, this._keys);
@@ -91,6 +92,40 @@ class GroqClient {
       ],
     });
     final r = await _send(() => _http.postJson(Uri.parse('$kGroqBase/chat/completions'), headers, body, kChatTimeout));
+    final json = _decode(r.body);
+    if (json case {'choices': [{'message': {'content': final String content}}, ...]}) return content;
+    throw const GroqBadResponse();
+  }
+
+  /// A receipt photo: the text prompt plus the JPEG as an OpenAI-style `image_url` data URL.
+  Future<String> chatJsonWithImage({
+    required String model,
+    required String system,
+    required String user,
+    required Uint8List jpeg,
+  }) async {
+    final headers = {...await _auth(), 'Content-Type': 'application/json'};
+    final body = jsonEncode({
+      'model': model,
+      'temperature': 0,
+      'response_format': {'type': 'json_object'},
+      'messages': [
+        {'role': 'system', 'content': system},
+        {
+          'role': 'user',
+          'content': [
+            {'type': 'text', 'text': user},
+            {
+              'type': 'image_url',
+              'image_url': {'url': 'data:image/jpeg;base64,${base64Encode(jpeg)}'},
+            },
+          ],
+        },
+      ],
+    });
+    final r = await _send(
+      () => _http.postJson(Uri.parse('$kGroqBase/chat/completions'), headers, body, kVisionTimeout),
+    );
     final json = _decode(r.body);
     if (json case {'choices': [{'message': {'content': final String content}}, ...]}) return content;
     throw const GroqBadResponse();

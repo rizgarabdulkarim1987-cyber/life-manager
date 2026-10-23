@@ -105,8 +105,16 @@ class AppDatabase extends _$AppDatabase {
   /// Redesign (spec 2026-10-23): light and minimal by default, relock after a minute.
   Future<void> _toV3(Migrator m) async {
     // Rebuilt so the column defaults change too.
-    await m.alterTable(TableMigration(appSettingsTable));
+    await m.alterTable(
+      TableMigration(
+        appSettingsTable,
+        newColumns: [appSettingsTable.groqVisionModel, appSettingsTable.aiReceiptConsent],
+      ),
+    );
     await _addColumnOnce(m, captures, captures.undoJson);
+    await _addColumnOnce(m, captures, captures.image);
+    // The source check now allows 'image'.
+    await m.alterTable(TableMigration(captures));
     await customStatement("UPDATE app_settings SET theme_mode = 'light' WHERE theme_mode = 'dark'");
     await customStatement('UPDATE app_settings SET lock_timeout_seconds = 60 WHERE lock_timeout_seconds = 300');
     await _dropUnusedSeeds();

@@ -32,11 +32,17 @@ class GroqKeyStore {
   Future<void> clear() => _store.delete(kGroqKeyStoreKey);
 }
 
+/// What the owner answered for [f]: `granted`, `declined`, or null when never asked.
+String? consentOf(AiFeature f, AppSetting s) => switch (f) {
+  AiFeature.voice => s.aiVoiceConsent,
+  AiFeature.parse => s.aiParseConsent,
+  AiFeature.receipt => s.aiReceiptConsent,
+};
+
 /// True only when online AI is on, a key is saved and the owner agreed for [f].
 Future<bool> canUseOnline(AiFeature f, AppSetting s, GroqKeyStore keys) async {
   if (!s.aiOnlineEnabled) return false;
-  final consent = f == AiFeature.voice ? s.aiVoiceConsent : s.aiParseConsent;
-  if (consent != ConsentState.granted.name) return false;
+  if (consentOf(f, s) != ConsentState.granted.name) return false;
   return await keys.read() != null;
 }
 

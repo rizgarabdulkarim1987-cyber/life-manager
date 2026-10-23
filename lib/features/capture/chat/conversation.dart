@@ -138,6 +138,19 @@ class Conversation extends Notifier<List<ChatMessage>> {
     await _handle(outcome);
   }
 
+  /// A receipt photo: read online, then the same OK/No cards as text.
+  Future<void> sendImage(Uint8List jpeg) async {
+    _pending = null;
+    final (l, _) = await _context();
+    _add(UserMessage(l.chatReceiptSent));
+    final outcome = await ref.read(capturePipelineProvider).fromImage(jpeg);
+    if (outcome is SavedToInbox) {
+      _add(AssistantMessage(l.chatReceiptKept(inboxReason(l, outcome.reasonKey))));
+      return;
+    }
+    await _handle(outcome);
+  }
+
   Future<void> _handle(CaptureOutcome outcome) async {
     final capture = await CaptureRepository(_db).get(outcome.captureId);
     final json = capture?.parsedJson;

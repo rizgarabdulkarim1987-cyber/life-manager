@@ -1933,4 +1933,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get finSuggestFailed => 'Couldn\'t get a suggestion. Try again.';
+
+  @override
+  String get aiConsentReceiptTitle => 'Receipt photos';
+
+  @override
+  String get aiConsentReceipt =>
+      'A photo of a receipt is sent to Groq so it can read the total. Nothing else from the app goes with it.';
+
+  @override
+  String get aiVisionModel => 'Receipt model (photos)';
+
+  @override
+  String get capReason_receiptKept =>
+      'I couldn\'t read this receipt. Reading photos needs online AI, a saved key and your OK for receipt photos.';
+
+  @override
+  String get composerCamera => 'Scan a receipt';
+
+  @override
+  String get chatReceiptSent => 'Receipt photo';
+
+  @override
+  String chatReceiptKept(String reason) {
+    return 'I kept the receipt photo in the Inbox. $reason';
+  }
 }

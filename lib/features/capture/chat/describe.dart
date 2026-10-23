@@ -73,5 +73,6 @@ String inboxReason(AppLocalizations l, String key) => switch (key) {
   'noSpeechOffline' => l.capReason_noSpeechOffline,
   'sttFailed' => l.capReason_sttFailed,
   'empty' => l.capReason_empty,
+  'receiptKept' => l.capReason_receiptKept,
   _ => l.capReason_lowConfidence,
 };

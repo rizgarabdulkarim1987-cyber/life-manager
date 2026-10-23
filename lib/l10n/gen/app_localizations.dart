@@ -3584,6 +3584,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t get a suggestion. Try again.'**
   String get finSuggestFailed;
+
+  /// No description provided for @aiConsentReceiptTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt photos'**
+  String get aiConsentReceiptTitle;
+
+  /// No description provided for @aiConsentReceipt.
+  ///
+  /// In en, this message translates to:
+  /// **'A photo of a receipt is sent to Groq so it can read the total. Nothing else from the app goes with it.'**
+  String get aiConsentReceipt;
+
+  /// No description provided for @aiVisionModel.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt model (photos)'**
+  String get aiVisionModel;
+
+  /// No description provided for @capReason_receiptKept.
+  ///
+  /// In en, this message translates to:
+  /// **'I couldn\'t read this receipt. Reading photos needs online AI, a saved key and your OK for receipt photos.'**
+  String get capReason_receiptKept;
+
+  /// No description provided for @composerCamera.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan a receipt'**
+  String get composerCamera;
+
+  /// No description provided for @chatReceiptSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Receipt photo'**
+  String get chatReceiptSent;
+
+  /// No description provided for @chatReceiptKept.
+  ///
+  /// In en, this message translates to:
+  /// **'I kept the receipt photo in the Inbox. {reason}'**
+  String chatReceiptKept(String reason);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

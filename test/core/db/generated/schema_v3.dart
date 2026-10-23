@@ -405,6 +405,27 @@ class AppSettings extends Table with TableInfo {
         'NOT NULL DEFAULT 0 CHECK (buckets_confirmed IN (0, 1))',
     defaultValue: const CustomExpression('0'),
   );
+  late final GeneratedColumn<String> groqVisionModel = GeneratedColumn<String>(
+    'groq_vision_model',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    $customConstraints:
+        'NOT NULL DEFAULT \'meta-llama/llama-4-scout-17b-16e-instruct\'',
+    defaultValue: const CustomExpression(
+      '\'meta-llama/llama-4-scout-17b-16e-instruct\'',
+    ),
+  );
+  late final GeneratedColumn<String> aiReceiptConsent = GeneratedColumn<String>(
+    'ai_receipt_consent',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    $customConstraints:
+        'NULL CHECK (ai_receipt_consent IN (\'granted\', \'declined\'))',
+  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
@@ -423,6 +444,8 @@ class AppSettings extends Table with TableInfo {
     localWhisperModel,
     unallocatedIncomeAlert,
     bucketsConfirmed,
+    groqVisionModel,
+    aiReceiptConsent,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -1560,7 +1583,8 @@ class Captures extends Table with TableInfo {
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL CHECK (source IN (\'voice\', \'text\'))',
+    $customConstraints:
+        'NOT NULL CHECK (source IN (\'voice\', \'text\', \'image\'))',
   );
   late final GeneratedColumn<String> status = GeneratedColumn<String>(
     'status',
@@ -1574,6 +1598,15 @@ class Captures extends Table with TableInfo {
   late final GeneratedColumn<i2.Uint8List> audio =
       GeneratedColumn<i2.Uint8List>(
         'audio',
+        aliasedName,
+        true,
+        type: DriftSqlType.blob,
+        requiredDuringInsert: false,
+        $customConstraints: 'NULL',
+      );
+  late final GeneratedColumn<i2.Uint8List> image =
+      GeneratedColumn<i2.Uint8List>(
+        'image',
         aliasedName,
         true,
         type: DriftSqlType.blob,
@@ -1642,6 +1675,7 @@ class Captures extends Table with TableInfo {
     source,
     status,
     audio,
+    image,
     transcript,
     parsedJson,
     parsedBy,

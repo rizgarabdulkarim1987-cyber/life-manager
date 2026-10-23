@@ -957,5 +957,12 @@
   "finSuggestGoal": "هدفك (اختياري)",
   "finSuggestGoalHint": "مثلاً سيارة خلال سنتين، محل صغير",
   "finSuggestSplit": "اقترح لي تقسيم",
-  "finSuggestFailed": "ما گدرت أجيب اقتراح. جرب مرة ثانية."
+  "finSuggestFailed": "ما گدرت أجيب اقتراح. جرب مرة ثانية.",
+  "aiConsentReceiptTitle": "صور الوصولات",
+  "aiConsentReceipt": "تنرسل صورة الوصل إلى Groq حتى يقرأ المبلغ. ما يروح وياها أي شي ثاني من التطبيق.",
+  "aiVisionModel": "نموذج قراءة الوصولات (الصور)",
+  "capReason_receiptKept": "ما كدرت أقرأ هذا الوصل. قراءة الصور تحتاج الذكاء الاصطناعي عبر الإنترنت ومفتاح محفوظ وموافقتك على صور الوصولات.",
+  "composerCamera": "صوّر وصل",
+  "chatReceiptSent": "صورة وصل",
+  "chatReceiptKept": "خزنت صورة الوصل بالوارد. {reason}"
 }

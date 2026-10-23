@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui';
 
@@ -10,8 +11,10 @@ import '../../l10n/gen/app_localizations.dart';
 import '../settings/settings_repository.dart';
 import 'ai/ai_config.dart';
 import 'ai/groq_client.dart';
+import 'ai/ai_payload.dart';
 import 'ai/llm_parser.dart';
 import 'data/capture_repository.dart';
+import 'domain/intent_validator.dart';
 import 'domain/lexicon.dart';
 import 'domain/proposal.dart';
 import 'rules/rule_parser.dart';
@@ -71,6 +74,13 @@ class CapturePipeline {
     return _fromAudio(id, wav, await _settings.get(), online: true);
   }
 
+  /// A receipt photo. It is kept in the Inbox when online AI can't read it.
+  Future<CaptureOutcome> fromImage(Uint8List jpeg) async {
+    lastOnlineError = null;
+    final id = await _captures.createImage(jpeg);
+    return _fromImage(id, jpeg, await _settings.get(), online: true);
+  }
+
   Future<CaptureOutcome> fromText(String text) async {
     lastOnlineError = null;
     final id = await _captures.createText(text.trim());
@@ -86,10 +96,41 @@ class CapturePipeline {
     if (c == null) throw ArgumentError.value(captureId, 'captureId', 'unknown capture');
     final s = await _settings.get();
     final text = (c.transcript ?? '').trim();
+    final photo = c.image;
+    if (c.source == 'image' && photo != null && photo.isNotEmpty) {
+      return _fromImage(captureId, photo, s, online: allowOnline);
+    }
     if (text.isEmpty && c.audio != null && c.audio!.isNotEmpty) {
       return _fromAudio(captureId, c.audio!, s, online: allowOnline);
     }
     return _parse(captureId, text, s, online: allowOnline);
+  }
+
+  Future<CaptureOutcome> _fromImage(int id, Uint8List jpeg, AppSetting s, {required bool online}) async {
+    if (!online || !await canUseOnline(AiFeature.receipt, s, _keys)) return SavedToInbox(id, 'receiptKept');
+    try {
+      final lex = await loadLexicon(_db, lookupAppLocalizations(Locale(s.localeCode)));
+      final now = DateTime.now();
+      final content = await _client.chatJsonWithImage(
+        model: s.groqVisionModel,
+        system: kReceiptSystemPrompt,
+        user: jsonEncode(buildReceiptPayload(lex, now)),
+        jpeg: jpeg,
+      );
+      final proposals = validateIntents(jsonDecode(content), lex, now);
+      await _captures.setParsed(id, proposals, by: 'ai');
+      return proposals.isEmpty ? SavedToInbox(id, 'receiptKept') : ReadyForReview(id);
+    } on GroqError catch (e) {
+      lastOnlineError = e;
+      AppLogger.warn('receipt scan failed, kept in the inbox', e);
+      return SavedToInbox(id, 'receiptKept');
+    } on FormatException catch (e) {
+      AppLogger.warn('receipt answer was not JSON', e);
+      return SavedToInbox(id, 'receiptKept');
+    } on InvalidAiOutput catch (e) {
+      AppLogger.warn('receipt answer was off-schema', e);
+      return SavedToInbox(id, 'receiptKept');
+    }
   }
 
   Future<CaptureOutcome> _fromAudio(int id, Uint8List wav, AppSetting s, {required bool online}) async {

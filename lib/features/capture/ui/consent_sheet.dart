@@ -4,8 +4,11 @@ import '../../../core/l10n/ckb_fallback_localizations.dart';
 import '../../../core/theme/tokens.dart';
 import '../ai/ai_config.dart';
 
-String consentText(BuildContext context, AiFeature f) =>
-    f == AiFeature.voice ? context.l10n.aiConsentVoice : context.l10n.aiConsentParse;
+String consentText(BuildContext context, AiFeature f) => switch (f) {
+  AiFeature.voice => context.l10n.aiConsentVoice,
+  AiFeature.parse => context.l10n.aiConsentParse,
+  AiFeature.receipt => context.l10n.aiConsentReceipt,
+};
 
 /// Asks once, before anything about [f] leaves the phone. Null when dismissed.
 Future<ConsentState?> showConsentSheet(BuildContext context, AiFeature f) => showModalBottomSheet<ConsentState>(
@@ -50,7 +53,11 @@ class ConsentSheet extends StatelessWidget {
               Text(l.consentTitle, style: text.titleLarge?.copyWith(color: k.text)),
               const SizedBox(height: 4),
               point(
-                feature == AiFeature.voice ? Icons.mic_none_rounded : Icons.notes_rounded,
+                switch (feature) {
+                  AiFeature.voice => Icons.mic_none_rounded,
+                  AiFeature.parse => Icons.notes_rounded,
+                  AiFeature.receipt => Icons.receipt_long_rounded,
+                },
                 consentText(context, feature),
                 color: k.accent,
               ),

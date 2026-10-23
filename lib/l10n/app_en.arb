@@ -1160,5 +1160,19 @@
   "finSuggestGoal": "Your goal (optional)",
   "finSuggestGoalHint": "e.g. a car in two years, a small shop",
   "finSuggestSplit": "Suggest a split",
-  "finSuggestFailed": "Couldn't get a suggestion. Try again."
+  "finSuggestFailed": "Couldn't get a suggestion. Try again.",
+  "aiConsentReceiptTitle": "Receipt photos",
+  "aiConsentReceipt": "A photo of a receipt is sent to Groq so it can read the total. Nothing else from the app goes with it.",
+  "aiVisionModel": "Receipt model (photos)",
+  "capReason_receiptKept": "I couldn't read this receipt. Reading photos needs online AI, a saved key and your OK for receipt photos.",
+  "composerCamera": "Scan a receipt",
+  "chatReceiptSent": "Receipt photo",
+  "chatReceiptKept": "I kept the receipt photo in the Inbox. {reason}",
+  "@chatReceiptKept": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  }
 }
