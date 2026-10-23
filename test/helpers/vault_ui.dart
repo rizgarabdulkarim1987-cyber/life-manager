@@ -94,8 +94,23 @@ Future<VaultHarness> pumpVault(WidgetTester t, {String locale = 'en', bool bioAv
 Finder fieldIn(String key) =>
     find.descendant(of: find.byKey(ValueKey(key)), matching: find.byType(EditableText), matchRoot: true);
 
+/// Builds [f] when a small screen keeps it below the visible part of a lazy list.
+Future<void> _build(WidgetTester t, Finder f) async {
+  if (f.evaluate().isNotEmpty) return;
+  final page = find.byWidgetPredicate((w) => w is Scrollable && w.axis == Axis.vertical).first;
+  for (final step in [150.0, -150.0]) {
+    try {
+      await t.scrollUntilVisible(f, step, scrollable: page, maxScrolls: 400);
+      return;
+    } on StateError {
+      // Not that way; try the other.
+    }
+  }
+}
+
 Future<void> enter(WidgetTester t, String key, String text) async {
   final f = fieldIn(key);
+  await _build(t, f);
   await t.ensureVisible(f.first);
   await t.enterText(f.first, text);
   await settle(t);
@@ -103,6 +118,7 @@ Future<void> enter(WidgetTester t, String key, String text) async {
 
 Future<void> tapKey(WidgetTester t, String key) async {
   final f = find.byKey(ValueKey(key));
+  await _build(t, f);
   await t.ensureVisible(f.first);
   await t.pumpAndSettle();
   await t.tap(f.first);

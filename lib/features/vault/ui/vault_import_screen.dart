@@ -119,18 +119,18 @@ class _VaultImportScreenState extends ConsumerState<VaultImportScreen> {
     final cards = _cards;
     final keepCount = cards?.where((c) => c.keep).length ?? 0;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l.vltImport),
-        actions: [
-          if (cards != null)
-            TextButton(
-              key: const ValueKey('vault-import-save'),
-              onPressed: keepCount == 0 || _saving ? null : _save,
-              child: Text(l.vltSaveN(keepCount)),
+      appBar: AppBar(title: Text(l.vltImport)),
+      bottomNavigationBar: cards == null
+          ? null
+          : SafeArea(
+              minimum: const EdgeInsets.fromLTRB(16, 8, 16, 12),
+              child: FilledButton(
+                key: const ValueKey('vault-import-save'),
+                style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(52)),
+                onPressed: keepCount == 0 || _saving ? null : _save,
+                child: Text(l.vltSaveN(keepCount)),
+              ),
             ),
-          const SizedBox(width: 8),
-        ],
-      ),
       body: VaultPage(
         children: [
           if (cards == null) ...[
