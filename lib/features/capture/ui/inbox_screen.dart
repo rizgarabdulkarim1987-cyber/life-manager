@@ -278,8 +278,8 @@ class _InboxRow extends StatelessWidget {
     final voice = c.source == 'voice';
     final at = c.createdAt.toLocal();
     final later = [
-      if (ps.any((p) => p is TaskProposal)) l.capWillBecomeTask(4),
-      if (ps.any((p) => p is NoteProposal)) l.capWillBecomeNote(4),
+      if (ps.any((p) => p is TaskProposal)) l.capWillBeTask,
+      if (ps.any((p) => p is NoteProposal)) l.capWillBeNote,
     ];
 
     return Container(

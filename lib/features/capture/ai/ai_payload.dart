@@ -42,6 +42,10 @@ const kParseSystemPrompt =
     '- Use null for anything not said. Do not guess amounts.\n'
     '- "edit" and "delete" change or remove something already saved: set "target" to "last", '
     '"last_expense", "last_income" or a few words naming the entry, and for "edit" give only the new values.\n'
+    '- "reminder" is "remind me to ...", "appointment" is a meeting or visit at a time (give "place" when said), '
+    'and "task" is anything else to do. Put what to do in "title".\n'
+    '- "project_idea" is when the person describes an idea for a project or business: a short name in "title" '
+    'and what they said in "description".\n'
     '- Never give financial or investment advice, opinions or commentary.\n'
     '- Output only JSON.';
 

@@ -2093,4 +2093,31 @@ class AppLocalizationsCkb extends AppLocalizations {
 
   @override
   String get exactAlarmAllow => 'ڕێگە بدە';
+
+  @override
+  String chatTaskLine(String kind, String title, String when) {
+    return '$kind: «$title» — $when';
+  }
+
+  @override
+  String chatNoteLine(String text) {
+    return 'تێبینی: «$text»';
+  }
+
+  @override
+  String chatProjectLine(String title) {
+    return 'بیرۆکەی پڕۆژە: «$title» — وەک پڕۆژە دەیکەمەوە و پێکەوە پلانی بۆ دادەنێین.';
+  }
+
+  @override
+  String get chatNoDate => 'بێ بەروار';
+
+  @override
+  String get capWillBeTask => 'وەک ئەرک پاشەکەوت دەکرێت';
+
+  @override
+  String get capWillBeNote => 'وەک تێبینی پاشەکەوت دەکرێت';
+
+  @override
+  String get capSavesOnConfirm => 'کاتێک دووپاتی بکەیتەوە پاشەکەوت دەکرێت.';
 }

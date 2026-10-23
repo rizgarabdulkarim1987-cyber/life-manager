@@ -1008,5 +1008,12 @@
   "notifSnooze1h": "بعد ساعة",
   "notifTomorrow": "باجر 9:00",
   "exactAlarmWarning": "المنبّهات الدقيقة مطفية، فالتذكيرات ممكن توصل متأخرة دقايق.",
-  "exactAlarmAllow": "اسمح"
+  "exactAlarmAllow": "اسمح",
+  "chatTaskLine": "{kind}: «{title}» — {when}",
+  "chatNoteLine": "ملاحظة: «{text}»",
+  "chatProjectLine": "فكرة مشروع: «{title}» — أفتحه كمشروع ونخطط له سوا.",
+  "chatNoDate": "بدون تاريخ",
+  "capWillBeTask": "راح ينحفظ كمهمة",
+  "capWillBeNote": "راح ينحفظ كملاحظة",
+  "capSavesOnConfirm": "ينحفظ لما تأكد."
 }

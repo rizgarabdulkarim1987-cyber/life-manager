@@ -172,7 +172,11 @@ Map<String, Object?> _toJson(Proposal p) => _clean(switch (p) {
     'title': p.title,
     'due': _date(p.due),
     'workspaceId': p.workspaceId,
+    'taskKind': p.kind,
+    'place': p.place,
+    'hasTime': p.hasTime,
   },
+  ProjectIdeaProposal() => {'kind': 'project_idea', 'title': p.title, 'description': p.description},
   NoteProposal() => {'kind': 'note', 'text': p.text, 'workspaceId': p.workspaceId},
   EditProposal() => {
     'kind': 'edit',
@@ -229,7 +233,11 @@ Proposal _fromJson(Map<String, Object?> j) {
       confidence: i('confidence')!,
       due: _parse(j['due']),
       workspaceId: i('workspaceId'),
+      kind: s('taskKind') ?? 'task',
+      place: s('place'),
+      hasTime: j['hasTime'] == true,
     ),
+    'project_idea' => ProjectIdeaProposal(title: s('title')!, description: s('description')),
     'note' => NoteProposal(text: s('text')!, workspaceId: i('workspaceId')),
     'edit' => EditProposal(
       confidence: i('confidence')!,

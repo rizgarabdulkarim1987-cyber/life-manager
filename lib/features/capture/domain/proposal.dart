@@ -42,7 +42,7 @@ class TransferDraft {
   final String? transferKind;
 }
 
-enum IntentType { expense, income, transfer, task, debtPayment, note, edit, delete }
+enum IntentType { expense, income, transfer, task, debtPayment, note, edit, delete, projectIdea }
 
 /// Below this the review screen asks the owner to check the proposal.
 const kLowConfidence = 60;
@@ -212,7 +212,15 @@ class DebtProposal extends Proposal {
 }
 
 class TaskProposal extends Proposal {
-  const TaskProposal({required this.title, required this.confidence, this.due, this.workspaceId});
+  const TaskProposal({
+    required this.title,
+    required this.confidence,
+    this.due,
+    this.workspaceId,
+    this.kind = 'task',
+    this.place,
+    this.hasTime = false,
+  });
 
   @override
   IntentType get type => IntentType.task;
@@ -221,6 +229,25 @@ class TaskProposal extends Proposal {
   final String title;
   final DateTime? due;
   final int? workspaceId;
+
+  /// `task`, `reminder` or `appointment`.
+  final String kind;
+  final String? place;
+
+  /// Whether [due] carries a time of day, not just a date.
+  final bool hasTime;
+}
+
+/// «عندي فكرة مشروع …»: becomes a project the planner chat then works on.
+class ProjectIdeaProposal extends Proposal {
+  const ProjectIdeaProposal({required this.title, this.description});
+
+  @override
+  IntentType get type => IntentType.projectIdea;
+  @override
+  int get confidence => 100;
+  final String title;
+  final String? description;
 }
 
 class NoteProposal extends Proposal {

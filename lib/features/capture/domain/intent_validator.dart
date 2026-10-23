@@ -17,12 +17,12 @@ class InvalidAiOutput implements Exception {
 
 /// The JSON the model must answer with (also quoted in the prompt).
 const kIntentSchema =
-    '{"intents":[{"type":"expense|income|transfer|task|debt_payment|note|edit|delete",'
+    '{"intents":[{"type":"expense|income|transfer|task|reminder|appointment|project_idea|debt_payment|note|edit|delete",'
     '"amount":"<decimal string>|null","currency":"IQD|USD|null",'
     '"to_amount":"<decimal string>|null","to_currency":"IQD|USD|null",'
     '"workspace":"<name>|null","account":"<name>|null","to_account":"<name>|null",'
     '"category":"<name>|null","date":"YYYY-MM-DD|null","time":"HH:MM|null",'
-    '"description":"<text>|null","title":"<text>|null",'
+    '"description":"<text>|null","title":"<text>|null","place":"<text>|null",'
     '"counterparty":"<text>|null","debt_direction":"owed_to_me|owed_by_me|null",'
     '"debt_leg":"principal|repayment|null",'
     '"target":"last|last_expense|last_income|<words of the saved entry>|null"}]}';
@@ -30,7 +30,19 @@ const kIntentSchema =
 const kMaxIntents = 10;
 const kMaxAiString = 300;
 
-const _types = {'expense', 'income', 'transfer', 'task', 'debt_payment', 'note', 'edit', 'delete'};
+const _types = {
+  'expense',
+  'income',
+  'transfer',
+  'task',
+  'reminder',
+  'appointment',
+  'project_idea',
+  'debt_payment',
+  'note',
+  'edit',
+  'delete',
+};
 const _currencies = {'IQD', 'USD'};
 const _keys = {
   'type',
@@ -46,6 +58,7 @@ const _keys = {
   'time',
   'description',
   'title',
+  'place',
   'counterparty',
   'debt_direction',
   'debt_leg',
@@ -149,7 +162,11 @@ class _Resolver {
     'income' => _money(IntentType.income),
     'transfer' => _transfer(),
     'debt_payment' => _debt(),
-    'task' => _task(),
+    'task' || 'reminder' || 'appointment' => _task(f['type']!),
+    'project_idea' => ProjectIdeaProposal(
+      title: (f['title'] ?? f['description'] ?? '').trim(),
+      description: f['description'],
+    ),
     'edit' => EditProposal(
       confidence: 90,
       target: f['target'] ?? kTargetLast,
@@ -244,7 +261,7 @@ class _Resolver {
     );
   }
 
-  TaskProposal _task() {
+  TaskProposal _task(String kind) {
     final d = f['date'] == null ? null : _parseDate(f['date']!);
     final t = f['time'] == null ? null : _parseTime(f['time']!);
     DateTime? due;
@@ -260,6 +277,9 @@ class _Resolver {
       confidence: title.isEmpty ? 40 : 100,
       due: due,
       workspaceId: f['workspace'] == null ? null : workspaceId,
+      kind: kind,
+      place: f['place'],
+      hasTime: t != null,
     );
   }
 }

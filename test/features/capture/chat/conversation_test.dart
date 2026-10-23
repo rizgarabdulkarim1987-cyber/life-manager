@@ -271,4 +271,34 @@ void main() {
     await chat().send('salary');
     expect(last().cards, hasLength(1));
   });
+
+  group('tasks and notes in the chat', () {
+    test('a reminder shows a card and OK saves a real task; Undo removes it', () async {
+      await chat().send('ذكرني باجر الساعة 5 اخابر احمد');
+      final card = last().cards.single;
+      expect(card.text, contains('Reminder'));
+      expect(await f.db.select(f.db.tasks).get(), isEmpty, reason: 'nothing is saved before OK');
+      await chat().accept(card);
+      final task = (await f.db.select(f.db.tasks).get()).single;
+      expect((task.kind, task.title, task.hasTime), ('reminder', 'اخابر احمد', true));
+      await chat().undo(last().undoCaptureId!);
+      expect(await f.db.select(f.db.tasks).get(), isEmpty);
+    });
+
+    test('a note is saved on OK', () async {
+      await chat().send('ملاحظة رقم المهندس 0770');
+      await chat().accept(last().cards.single);
+      expect((await f.db.select(f.db.notes).get()).single.body, 'رقم المهندس 0770');
+    });
+
+    test('the AI can send an appointment with a place', () async {
+      await online([
+        {'type': 'appointment', 'title': 'Doctor', 'date': '2026-10-29', 'time': '10:00', 'place': 'Mansour'},
+      ]);
+      await chat().send('doctor thursday 10 in Mansour');
+      await chat().accept(last().cards.single);
+      final task = (await f.db.select(f.db.tasks).get()).single;
+      expect((task.kind, task.place, task.title), ('appointment', 'Mansour', 'Doctor'));
+    });
+  });
 }

@@ -88,6 +88,9 @@ final kTaskCues = phrases([
   'ذكرني', 'لازم', 'اتصل', 'موعد', 'اجتماع', 'remind', 'call', 'meeting', 'todo', 'بیرم بخەرەوە', 'پەیوەندی', //
 ]);
 final kNoteCues = phrases(['ملاحظه', 'ملاحظات', 'note', 'تێبینی']);
+final kAppointmentCues = phrases(['موعد', 'مواعيد', 'اجتماع', 'appointment', 'meeting', 'کاتی دیاریکراو', 'کۆبوونەوە']);
+final kReminderCues = phrases(['ذكرني', 'ذكريني', 'remind', 'بیرم بخەرەوە']);
+final kProjectIdeaCues = phrases(['فكره مشروع', 'فكره مشاريع', 'project idea', 'بیرۆکەی پڕۆژە']);
 
 // Changing or removing something already saved.
 final kDeleteCues = phrases(['احذف', 'احذفلي', 'امسح', 'امسحلي', 'شيل', 'delete', 'remove', 'بسڕەوە', 'بسرەوە']);

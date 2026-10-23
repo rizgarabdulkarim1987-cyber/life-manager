@@ -386,7 +386,11 @@ class Conversation extends Notifier<List<ChatMessage>> {
         return EditCommit(p);
       case DeleteProposal():
         return DeleteCommit(p);
-      case TaskProposal() || NoteProposal():
+      case TaskProposal():
+        return TaskCommit(p);
+      case NoteProposal():
+        return NoteCommit(p);
+      case ProjectIdeaProposal():
         return KeepInInbox(p);
     }
   }

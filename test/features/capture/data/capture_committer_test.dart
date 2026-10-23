@@ -309,4 +309,43 @@ void main() {
     final total = (await f.db.select(f.db.bucketAllocations).get()).fold<int>(0, (s, a) => s + a.amountBaseMinor);
     expect(total, 655000);
   });
+
+  group('tasks and notes', () {
+    test('a confirmed task and note are saved with their capture and Undo takes them back', () async {
+      final id = await repo.createText('ذكرني باجر 5 ثم ملاحظة');
+      await committer.commit(id, [
+        TaskCommit(
+          TaskProposal(
+            title: 'اتصل بأحمد',
+            confidence: 100,
+            due: DateTime(2026, 10, 24, 17),
+            hasTime: true,
+            kind: 'reminder',
+            place: 'المنصور',
+          ),
+        ),
+        const NoteCommit(NoteProposal(text: 'رقم المهندس')),
+      ]);
+      final tasks = await f.db.select(f.db.tasks).get();
+      expect(tasks.single.title, 'اتصل بأحمد');
+      expect(
+        (tasks.single.kind, tasks.single.hasTime, tasks.single.place, tasks.single.captureId),
+        ('reminder', true, 'المنصور', id),
+      );
+      expect(tasks.single.dueAt!.isAtSameMomentAs(DateTime(2026, 10, 24, 17)), isTrue);
+      expect((await f.db.select(f.db.notes).get()).single.body, 'رقم المهندس');
+      await committer.undo(id);
+      expect(await f.db.select(f.db.tasks).get(), isEmpty);
+      expect(await f.db.select(f.db.notes).get(), isEmpty);
+    });
+
+    test('an empty title is refused and nothing is written', () async {
+      final id = await repo.createText('x');
+      expect(
+        () => committer.commit(id, [const TaskCommit(TaskProposal(title: ' ', confidence: 40))]),
+        throwsArgumentError,
+      );
+      expect(await f.db.select(f.db.tasks).get(), isEmpty);
+    });
+  });
 }

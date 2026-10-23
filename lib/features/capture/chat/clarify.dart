@@ -86,7 +86,7 @@ Clarification? nextClarification(Proposal p, Lexicon lex) {
       }
     case EditProposal():
       if (p.changesNothing) return const Clarification(AskField.newAmount);
-    case TaskProposal() || NoteProposal() || DeleteProposal():
+    case TaskProposal() || NoteProposal() || DeleteProposal() || ProjectIdeaProposal():
       break;
   }
   return null;

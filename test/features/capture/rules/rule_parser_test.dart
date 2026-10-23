@@ -150,4 +150,41 @@ void main() {
     final d = (await parse('امسح التكسي')).single as DeleteProposal;
     expect(d.target, 'تكسي');
   });
+
+  group('life intents', () {
+    test('«ذكرني باجر الساعة 5 أخابر أحمد» is a reminder tomorrow at 17:00', () async {
+      final p = (await parse('ذكرني باجر الساعة 5 اخابر احمد')).single as TaskProposal;
+      expect((p.kind, p.due, p.hasTime), ('reminder', DateTime(2026, 10, 24, 17), true));
+      expect(p.title, 'اخابر احمد');
+    });
+
+    test('a morning marker keeps a small hour in the morning', () async {
+      final p = (await parse('ذكرني باجر الساعة 5 صباحا اصحى')).single as TaskProposal;
+      expect(p.due, DateTime(2026, 10, 24, 5));
+    });
+
+    test('«موعد طبيب الخميس 10 بالمنصور» is an appointment with its place', () async {
+      final p = (await parse('موعد طبيب الخميس 10 بالمنصور')).single as TaskProposal;
+      expect(p.kind, 'appointment');
+      expect(p.due, DateTime(2026, 10, 29, 10));
+      expect(p.hasTime, isTrue);
+      expect(p.place, 'المنصور');
+      expect(p.title, 'موعد طبيب');
+    });
+
+    test('a task with no time is a date only', () async {
+      final p = (await parse('لازم اسدد الايجار باجر')).single as TaskProposal;
+      expect((p.kind, p.due, p.hasTime), ('task', DateTime(2026, 10, 24), false));
+    });
+
+    test('«عندي فكرة مشروع محل قهوة» is a project idea', () async {
+      final p = (await parse('عندي فكرة مشروع محل قهوة صغير')).single as ProjectIdeaProposal;
+      expect(p.title, 'محل قهوة صغير');
+    });
+
+    test('«ملاحظة …» is still a note', () async {
+      final p = (await parse('ملاحظة رقم المهندس 0770')).single;
+      expect(p, isA<NoteProposal>());
+    });
+  });
 }

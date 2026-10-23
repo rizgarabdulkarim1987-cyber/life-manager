@@ -32,10 +32,17 @@ String describeProposal(Proposal p, Lexicon lex, AppLocalizations l, {Transactio
       final amount = money(p.amountMinor, p.currency ?? currencyOf(p.accountId));
       if (p.leg == 'repayment') return l.chatDebtRepay(who, amount);
       return p.direction == 'owed_by_me' ? l.chatDebtOwedByMe(who, amount) : l.chatDebtOwedToMe(who, amount);
-    case TaskProposal(:final title):
-      return l.chatLater(title);
+    case TaskProposal():
+      final kind = switch (p.kind) {
+        'appointment' => l.taskKindAppointment,
+        'reminder' => l.taskKindReminder,
+        _ => l.taskKindTask,
+      };
+      return l.chatTaskLine(kind, p.title, taskWhenText(p, l));
     case NoteProposal(:final text):
-      return l.chatLater(text);
+      return l.chatNoteLine(text);
+    case ProjectIdeaProposal(:final title):
+      return l.chatProjectLine(title);
     case DeleteProposal():
       return l.chatDeleteEntry(entryLabel(entry, lex, l));
     case EditProposal():
@@ -51,6 +58,17 @@ String describeProposal(Proposal p, Lexicon lex, AppLocalizations l, {Transactio
       }
       return l.chatEditDescription(name, p.newDescription ?? '');
   }
+}
+
+/// «24/10 17:00 · المنصور», or «no date».
+String taskWhenText(TaskProposal p, AppLocalizations l) {
+  final d = p.due;
+  final parts = [
+    if (d != null) '${d.day}/${d.month}',
+    if (d != null && p.hasTime) '${d.hour}:${d.minute.toString().padLeft(2, '0')}',
+    if ((p.place ?? '').isNotEmpty) p.place!,
+  ];
+  return parts.isEmpty ? l.chatNoDate : parts.join(' · ');
 }
 
 /// «تكسي on 22/10»: what the owner wrote, else its category.

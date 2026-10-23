@@ -1218,5 +1218,39 @@
   "notifSnooze1h": "In 1 hour",
   "notifTomorrow": "Tomorrow 9:00",
   "exactAlarmWarning": "Exact alarms are off, so reminders may come a few minutes late.",
-  "exactAlarmAllow": "Allow"
+  "exactAlarmAllow": "Allow",
+  "chatTaskLine": "{kind}: «{title}» — {when}",
+  "@chatTaskLine": {
+    "placeholders": {
+      "kind": {
+        "type": "String"
+      },
+      "title": {
+        "type": "String"
+      },
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "chatNoteLine": "Note: «{text}»",
+  "@chatNoteLine": {
+    "placeholders": {
+      "text": {
+        "type": "String"
+      }
+    }
+  },
+  "chatProjectLine": "Project idea: «{title}» — I'll open it as a project and we can plan it together.",
+  "@chatProjectLine": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "chatNoDate": "no date",
+  "capWillBeTask": "Will be saved as a task",
+  "capWillBeNote": "Will be saved as a note",
+  "capSavesOnConfirm": "Saved when you confirm."
 }

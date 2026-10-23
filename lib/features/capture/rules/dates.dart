@@ -32,6 +32,10 @@ final Map<String, int> _weekdays = {
 
 final _hourWords = _set(['ساعة', 'at', 'کاتژمێر']);
 final _morning = _set(['صبح', 'صباح', 'صباحا', 'فجر', 'am', 'بەیانی']);
+
+/// Whether the words say morning («صباحا», «am»).
+bool saysMorning(List<Tok> toks) => toks.any((t) => _in(t, _morning));
+
 final _evening = _set(['ليل', 'مساء', 'مساءا', 'عصر', 'ظهر', 'مغرب', 'pm', 'ئێوارە', 'شەو']);
 
 final Map<String, int> _hourNames = {

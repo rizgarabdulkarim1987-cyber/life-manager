@@ -1008,5 +1008,12 @@
   "notifSnooze1h": "دوای کاتژمێرێک",
   "notifTomorrow": "سبەینێ 9:00",
   "exactAlarmWarning": "زەنگە ورد‌ەکان کوژاونەتەوە، بۆیە بیرخستنەوەکان لەوانەیە چەند خولەکێک دوا بکەون.",
-  "exactAlarmAllow": "ڕێگە بدە"
+  "exactAlarmAllow": "ڕێگە بدە",
+  "chatTaskLine": "{kind}: «{title}» — {when}",
+  "chatNoteLine": "تێبینی: «{text}»",
+  "chatProjectLine": "بیرۆکەی پڕۆژە: «{title}» — وەک پڕۆژە دەیکەمەوە و پێکەوە پلانی بۆ دادەنێین.",
+  "chatNoDate": "بێ بەروار",
+  "capWillBeTask": "وەک ئەرک پاشەکەوت دەکرێت",
+  "capWillBeNote": "وەک تێبینی پاشەکەوت دەکرێت",
+  "capSavesOnConfirm": "کاتێک دووپاتی بکەیتەوە پاشەکەوت دەکرێت."
 }

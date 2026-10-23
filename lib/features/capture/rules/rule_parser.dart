@@ -1,5 +1,6 @@
 import '../../../core/money/amount_parse.dart';
 import '../../finance/ui/transfer_form_screen.dart' show rateFromAmounts, ratePair;
+import '../../../core/text/digits.dart';
 import '../domain/lexicon.dart';
 import '../domain/proposal.dart';
 import 'dates.dart';
@@ -152,6 +153,8 @@ class _Clause {
 
   Proposal? proposal() {
     if (toks.isEmpty) return null;
+    final idea = findPhrases(toks, kProjectIdeaCues).firstOrNull;
+    if (idea != null) return _projectIdea(toks[idea.$1 + idea.$2 - 1]);
     final note = findPhrases(toks, kNoteCues).firstOrNull;
     if (note != null) return NoteProposal(text: _after(text, toks[note.$1]), workspaceId: workspace?.id);
     if (has(kDeleteCues)) return DeleteProposal(confidence: 90, target: _target(kDeleteCues));
@@ -341,16 +344,84 @@ class _Clause {
     );
   }
 
+  ProjectIdeaProposal _projectIdea(Tok cueEnd) {
+    final rest = _after(text, cueEnd);
+    return ProjectIdeaProposal(title: rest.length > 120 ? rest.substring(0, 120).trim() : rest, description: rest);
+  }
+
+  /// The place of an appointment: «بالمنصور» or «في المنصور» and whatever follows.
+  (String, Set<int>)? _place() {
+    final inWord = normalizeForMatch('في');
+    final atWord = normalizeForMatch('عند');
+    for (var i = 0; i < toks.length; i++) {
+      if (dateIdx.contains(i)) continue;
+      final n = toks[i].norm;
+      final String first;
+      final Set<int> idx = {};
+      var from = i;
+      if (n.startsWith('بال') && n.length > 4) {
+        first = toks[i].text.substring(1);
+        idx.add(i);
+        from = i + 1;
+      } else if ((n == inWord || n == atWord) && i + 1 < toks.length && !dateIdx.contains(i + 1)) {
+        first = toks[i + 1].text;
+        idx.addAll([i, i + 1]);
+        from = i + 2;
+      } else {
+        continue;
+      }
+      final more = [
+        for (var k = from; k < toks.length; k++)
+          if (!dateIdx.contains(k)) toks[k].text,
+      ];
+      for (var k = from; k < toks.length; k++) {
+        if (!dateIdx.contains(k)) idx.add(k);
+      }
+      return ([first, ...more].join(' '), idx);
+    }
+    return null;
+  }
+
   TaskProposal _task(int confidence) {
-    DateTime? due;
+    final kind = has(kAppointmentCues) ? 'appointment' : (has(kReminderCues) ? 'reminder' : 'task');
+    final place = kind == 'appointment' ? _place() : null;
+    final taken = <int>{...dateIdx, ...?place?.$2};
+    var hour = when.hour;
+    var minute = when.minute;
     final d = when.date;
+    // «الخميس 10»: a bare number right after the day is the hour.
+    if (hour == null && d != null) {
+      for (final i in dateIdx.toList()..sort()) {
+        final next = i + 1;
+        if (next < toks.length && !taken.contains(next) && toks[next].isDigits) {
+          final h = int.tryParse(toks[next].norm);
+          if (h != null && h <= 24) {
+            hour = h;
+            minute = 0;
+            taken.add(next);
+            break;
+          }
+        }
+      }
+    }
+    // Nobody sets a 5 o'clock reminder for the small hours: 1–6 without «صباحا» means the afternoon.
+    if (hour != null && hour >= 1 && hour <= 6 && !saysMorning(toks)) hour += 12;
+    DateTime? due;
     if (d != null) {
-      due = DateTime(d.year, d.month, d.day, when.hour ?? 0, when.minute ?? 0);
-    } else if (when.hour != null) {
-      due = DateTime(now.year, now.month, now.day, when.hour!, when.minute ?? 0);
+      due = DateTime(d.year, d.month, d.day, hour ?? 0, minute ?? 0);
+    } else if (hour != null) {
+      due = DateTime(now.year, now.month, now.day, hour, minute ?? 0);
       if (due.isBefore(now)) due = due.add(const Duration(days: 1));
     }
-    final title = words({...dateIdx, ...phraseIdx(kTaskFraming)}) ?? text;
-    return TaskProposal(title: title, confidence: confidence, due: due, workspaceId: workspace?.id);
+    final title = words({...taken, ...phraseIdx(kTaskFraming)}) ?? text;
+    return TaskProposal(
+      title: title,
+      confidence: confidence,
+      due: due,
+      workspaceId: workspace?.id,
+      kind: kind,
+      place: place?.$1,
+      hasTime: hour != null,
+    );
   }
 }

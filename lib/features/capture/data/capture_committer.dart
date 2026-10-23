@@ -7,6 +7,8 @@ import '../../finance/data/buckets_repository.dart';
 import '../../finance/data/debts_repository.dart';
 import '../../finance/data/rates_repository.dart';
 import '../../finance/data/transactions_repository.dart';
+import '../../tasks/data/notes_repository.dart';
+import '../../tasks/data/tasks_repository.dart';
 import '../domain/proposal.dart';
 import 'capture_repository.dart';
 
@@ -49,6 +51,19 @@ class DeleteCommit extends CommitItem {
   final DeleteProposal p;
 }
 
+/// A task, reminder or appointment, saved as a row of its own.
+class TaskCommit extends CommitItem {
+  const TaskCommit(this.p);
+
+  final TaskProposal p;
+}
+
+class NoteCommit extends CommitItem {
+  const NoteCommit(this.p);
+
+  final NoteProposal p;
+}
+
 /// Not saved now: moved to a new pending capture so nothing is lost (Decision 3).
 class KeepInInbox extends CommitItem {
   const KeepInInbox(this.p);
@@ -66,13 +81,23 @@ class _UndoLog {
   final transactions = <int>[];
   final debts = <int>[];
   final closedDebts = <int>[];
+  final tasks = <int>[];
+  final notes = <int>[];
 
   /// Rows as they were before an edit or delete, with their bucket allocations.
   final restore = <Map<String, Object?>>[];
 
-  bool get isEmpty => transactions.isEmpty && debts.isEmpty && closedDebts.isEmpty && restore.isEmpty;
+  bool get isEmpty =>
+      transactions.isEmpty && debts.isEmpty && closedDebts.isEmpty && restore.isEmpty && tasks.isEmpty && notes.isEmpty;
 
-  String encode() => jsonEncode({'tx': transactions, 'debts': debts, 'closed': closedDebts, 'restore': restore});
+  String encode() => jsonEncode({
+    'tx': transactions,
+    'debts': debts,
+    'closed': closedDebts,
+    'restore': restore,
+    'tasks': tasks,
+    'notes': notes,
+  });
 
   static _UndoLog decode(String s) {
     final j = jsonDecode(s) as Map<String, Object?>;
@@ -81,6 +106,8 @@ class _UndoLog {
       ..transactions.addAll(ints('tx'))
       ..debts.addAll(ints('debts'))
       ..closedDebts.addAll(ints('closed'))
+      ..tasks.addAll(ints('tasks'))
+      ..notes.addAll(ints('notes'))
       ..restore.addAll([for (final r in (j['restore'] as List? ?? const [])) (r as Map).cast<String, Object?>()]);
   }
 }
@@ -140,6 +167,10 @@ class CaptureCommitter {
         if (p.txId == null || p.changesNothing) throw ArgumentError('an edit needs its entry and a change');
       case DeleteCommit(:final p):
         if (p.txId == null) throw ArgumentError('a delete needs its entry');
+      case TaskCommit(:final p):
+        if (p.title.trim().isEmpty) throw ArgumentError('a task needs a title');
+      case NoteCommit(:final p):
+        if (p.text.trim().isEmpty) throw ArgumentError('a note needs text');
       case KeepInInbox():
         break;
     }
@@ -158,6 +189,8 @@ class CaptureCommitter {
       await (_db.delete(_db.transactions)..where((t) => t.debtId.isIn(log.debts))).go();
       await (_db.delete(_db.debts)..where((d) => d.id.isIn(log.debts))).go();
     }
+    if (log.tasks.isNotEmpty) await (_db.delete(_db.tasks)..where((t) => t.id.isIn(log.tasks))).go();
+    if (log.notes.isNotEmpty) await (_db.delete(_db.notes)..where((n) => n.id.isIn(log.notes))).go();
     for (final r in log.restore.reversed) {
       final old = Transaction.fromJson((r['tx']! as Map).cast<String, Object?>());
       final allocations = [
@@ -257,6 +290,20 @@ class CaptureCommitter {
       case DeleteCommit(:final p):
         await _remember(p.txId!, log);
         await _tx.delete(p.txId!);
+      case TaskCommit(:final p):
+        log.tasks.add(
+          await TasksRepository(_db).add(
+            title: p.title,
+            kind: p.kind,
+            dueAt: p.due,
+            hasTime: p.hasTime,
+            place: p.place,
+            workspaceId: p.workspaceId,
+            captureId: captureId,
+          ),
+        );
+      case NoteCommit(:final p):
+        log.notes.add(await NotesRepository(_db).add(p.text, captureId: captureId));
       case KeepInInbox():
         break;
     }

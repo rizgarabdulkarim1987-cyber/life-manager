@@ -3890,6 +3890,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Allow'**
   String get exactAlarmAllow;
+
+  /// No description provided for @chatTaskLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{kind}: «{title}» — {when}'**
+  String chatTaskLine(String kind, String title, String when);
+
+  /// No description provided for @chatNoteLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Note: «{text}»'**
+  String chatNoteLine(String text);
+
+  /// No description provided for @chatProjectLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Project idea: «{title}» — I\'ll open it as a project and we can plan it together.'**
+  String chatProjectLine(String title);
+
+  /// No description provided for @chatNoDate.
+  ///
+  /// In en, this message translates to:
+  /// **'no date'**
+  String get chatNoDate;
+
+  /// No description provided for @capWillBeTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Will be saved as a task'**
+  String get capWillBeTask;
+
+  /// No description provided for @capWillBeNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Will be saved as a note'**
+  String get capWillBeNote;
+
+  /// No description provided for @capSavesOnConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved when you confirm.'**
+  String get capSavesOnConfirm;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

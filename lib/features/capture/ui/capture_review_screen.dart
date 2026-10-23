@@ -197,7 +197,7 @@ _Edit _edit(Proposal p) => switch (p) {
   MoneyProposal() => _MoneyEdit(p),
   TransferProposal() => _TransferEdit(p),
   DebtProposal() => _DebtEdit(p),
-  TaskProposal() || NoteProposal() || EditProposal() || DeleteProposal() => _LaterEdit(p),
+  TaskProposal() || NoteProposal() || EditProposal() || DeleteProposal() || ProjectIdeaProposal() => _LaterEdit(p),
 };
 
 class CaptureReviewScreen extends ConsumerStatefulWidget {
@@ -272,7 +272,11 @@ class _CaptureReviewScreenState extends ConsumerState<CaptureReviewScreen> {
     _MoneyEdit() => MoneyCommit(e.build(), e.type == IntentType.income && e.allocate ? e.allocation : null),
     _TransferEdit() => TransferCommit(e.build()),
     _DebtEdit() => DebtCommit(e.build(), e.leg == 'repayment' ? e.debtId : null),
-    _LaterEdit() => KeepInInbox(e.p),
+    _LaterEdit(:final p) => switch (p) {
+      TaskProposal() => TaskCommit(p),
+      NoteProposal() => NoteCommit(p),
+      _ => KeepInInbox(p),
+    },
   };
 
   Future<void> _save() async {
@@ -479,14 +483,22 @@ class _ProposalCard extends ConsumerWidget {
     _MoneyEdit(:final type) => type == IntentType.income ? l.typeIncome : l.typeExpense,
     _TransferEdit() => l.typeTransfer,
     _DebtEdit() => l.capDebt,
-    _LaterEdit(:final p) => p is TaskProposal ? l.navTasks : l.capNote,
+    _LaterEdit(:final p) => switch (p) {
+      TaskProposal() => l.navTasks,
+      ProjectIdeaProposal() => l.navProjects,
+      _ => l.capNote,
+    },
   };
 
   IconData get _icon => switch (edit) {
     _MoneyEdit(:final type) => type == IntentType.income ? Icons.north_east_rounded : Icons.south_west_rounded,
     _TransferEdit() => Icons.swap_horiz_rounded,
     _DebtEdit() => Icons.handshake_outlined,
-    _LaterEdit(:final p) => p is TaskProposal ? Icons.task_alt_outlined : Icons.sticky_note_2_outlined,
+    _LaterEdit(:final p) => switch (p) {
+      TaskProposal() => Icons.task_alt_outlined,
+      ProjectIdeaProposal() => Icons.rocket_launch_outlined,
+      _ => Icons.sticky_note_2_outlined,
+    },
   };
 
   Future<DateTime?> _pickDate(BuildContext context, DateTime? at) async {
@@ -894,10 +906,11 @@ class _ProposalCard extends ConsumerWidget {
     final k = context.tokens;
     final text = Theme.of(context).textTheme;
     final p = e.p;
-    final (title, due, phase) = switch (p) {
-      TaskProposal(:final title, :final due) => (title, due, 4),
-      NoteProposal(:final text) => (text, null, 4),
-      _ => ('', null, 4),
+    final (title, due, saves) = switch (p) {
+      TaskProposal(:final title, :final due) => (title, due, true),
+      NoteProposal(:final text) => (text, null, true),
+      ProjectIdeaProposal(:final title) => (title, null, false),
+      _ => ('', null, false),
     };
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -909,7 +922,7 @@ class _ProposalCard extends ConsumerWidget {
         ],
         const SizedBox(height: 8),
         Text(
-          l.capInboxUntil(phase),
+          saves ? l.capSavesOnConfirm : l.capInboxUntil(5),
           key: ValueKey('cap-later-$index'),
           style: text.bodySmall?.copyWith(color: k.textMuted),
         ),

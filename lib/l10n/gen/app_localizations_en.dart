@@ -2090,4 +2090,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get exactAlarmAllow => 'Allow';
+
+  @override
+  String chatTaskLine(String kind, String title, String when) {
+    return '$kind: «$title» — $when';
+  }
+
+  @override
+  String chatNoteLine(String text) {
+    return 'Note: «$text»';
+  }
+
+  @override
+  String chatProjectLine(String title) {
+    return 'Project idea: «$title» — I\'ll open it as a project and we can plan it together.';
+  }
+
+  @override
+  String get chatNoDate => 'no date';
+
+  @override
+  String get capWillBeTask => 'Will be saved as a task';
+
+  @override
+  String get capWillBeNote => 'Will be saved as a note';
+
+  @override
+  String get capSavesOnConfirm => 'Saved when you confirm.';
 }
