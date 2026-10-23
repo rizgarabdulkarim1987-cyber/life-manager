@@ -8,9 +8,7 @@ import 'package:life_manager/app/providers.dart';
 import 'package:life_manager/core/db/app_database.dart';
 import 'package:life_manager/core/db/seed.dart';
 import 'package:life_manager/core/security/money_privacy.dart';
-import 'package:life_manager/core/storage/secure_store.dart';
 import 'package:life_manager/features/lock/lock_controller.dart';
-import 'package:life_manager/features/lock/pin_service.dart';
 
 import 'fakes.dart';
 
@@ -27,7 +25,7 @@ const _names = SeedNames(
 Future<ProviderContainer> pumpApp(
   WidgetTester t, {
   String locale = 'ar',
-  bool bioAvailable = false,
+  FakeBiometric? bio,
   bool revealMoney = true,
   List<Override> overrides = const [],
 }) async {
@@ -37,13 +35,10 @@ Future<ProviderContainer> pumpApp(
   await db
       .update(db.appSettingsTable)
       .write(AppSettingsTableCompanion(setupCompleted: const Value(true), localeCode: Value(locale)));
-  final pins = PinService(InMemorySecureStore(), FakeKdf());
-  await pins.setPin('123456');
   final container = ProviderContainer(
     overrides: [
       appDatabaseProvider.overrideWithValue(db),
-      pinServiceProvider.overrideWithValue(pins),
-      biometricAuthenticatorProvider.overrideWithValue(FakeBiometric(available: bioAvailable, result: true)),
+      biometricAuthenticatorProvider.overrideWithValue(bio ?? FakeBiometric()),
       alwaysRevealMoneyProvider.overrideWithValue(revealMoney),
       ...overrides,
     ],

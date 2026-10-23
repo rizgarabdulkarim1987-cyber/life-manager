@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/providers.dart';
@@ -9,11 +8,11 @@ import '../../core/logging/app_logger.dart';
 import '../../core/theme/motion.dart';
 import '../../core/theme/tokens.dart';
 import '../lock/lock_controller.dart';
-import '../lock/lock_screen.dart';
 
-enum _Step { language, pin, biometric, warning }
+enum _Step { language, warning }
 
-/// First run: language, PIN, optional fingerprint, backup warning, then seed.
+/// First run: language, backup warning, then seed. Unlocking uses the phone's
+/// own face, fingerprint or screen lock, so there is no PIN to choose.
 /// Steps advance only through their own buttons, so validation can't be swiped past.
 class SetupFlow extends ConsumerStatefulWidget {
   const SetupFlow({super.key, required this.onDone});
@@ -26,70 +25,14 @@ class SetupFlow extends ConsumerStatefulWidget {
 
 class _SetupFlowState extends ConsumerState<SetupFlow> {
   _Step _step = _Step.language;
-  bool _bioAvailable = false;
-  bool _bioEnabled = false;
   bool _acknowledged = false;
   bool _busy = false;
 
-  // PIN entry state. The chosen PIN is held only until it is hashed at finish.
-  String _entered = '';
-  String? _firstPin;
-  bool _pinMismatch = false;
-  final _dots = GlobalKey<PinDotsState>();
-
-  @override
-  void initState() {
-    super.initState();
-    ref.read(biometricAuthenticatorProvider).isAvailable().then((v) {
-      if (mounted) setState(() => _bioAvailable = v);
-    });
-  }
-
-  List<_Step> get _steps => [_Step.language, _Step.pin, if (_bioAvailable) _Step.biometric, _Step.warning];
+  List<_Step> get _steps => _Step.values;
 
   void _next() {
     final i = _steps.indexOf(_step);
     setState(() => _step = _steps[i + 1]);
-  }
-
-  void _onDigit(String d) {
-    if (_entered.length >= kPinLength) return;
-    HapticFeedback.selectionClick();
-    setState(() {
-      _entered += d;
-      _pinMismatch = false;
-    });
-    if (_entered.length < kPinLength) return;
-
-    if (_firstPin == null) {
-      setState(() {
-        _firstPin = _entered;
-        _entered = '';
-      });
-    } else if (_firstPin == _entered) {
-      _entered = '';
-      _next();
-    } else {
-      HapticFeedback.heavyImpact();
-      _dots.currentState?.shake();
-      setState(() {
-        _firstPin = null;
-        _entered = '';
-        _pinMismatch = true;
-      });
-    }
-  }
-
-  void _onBackspace() {
-    if (_entered.isEmpty) return;
-    setState(() => _entered = _entered.substring(0, _entered.length - 1));
-  }
-
-  Future<void> _enableBiometric() async {
-    final ok = await ref.read(biometricAuthenticatorProvider).authenticate(context.l10n.unlockReason);
-    if (!mounted || !ok) return;
-    _bioEnabled = true;
-    _next();
   }
 
   Future<void> _finish() async {
@@ -99,7 +42,6 @@ class _SetupFlowState extends ConsumerState<SetupFlow> {
     final settings = ref.read(settingsRepositoryProvider);
 
     try {
-      await ref.read(pinServiceProvider).setPin(_firstPin!);
       await seedInitialData(
         db,
         SeedNames(
@@ -111,7 +53,6 @@ class _SetupFlowState extends ConsumerState<SetupFlow> {
           cashUsd: l10n.seedCashUsd,
         ),
       );
-      await settings.setBiometricEnabled(_bioEnabled);
       // Unlock before setup counts as done, so the lock screen never flashes
       // over the first home screen.
       ref.read(lockControllerProvider.notifier).unlock();
@@ -126,7 +67,6 @@ class _SetupFlowState extends ConsumerState<SetupFlow> {
       }
       return;
     }
-    _firstPin = null;
     if (!mounted) return;
     widget.onDone();
   }
@@ -158,10 +98,7 @@ class _SetupFlowState extends ConsumerState<SetupFlow> {
                     ),
                   );
                 },
-                child: KeyedSubtree(
-                  key: ValueKey('step-${_step == _Step.biometric ? 'bio' : _step.name}'),
-                  child: _buildStep(context),
-                ),
+                child: KeyedSubtree(key: ValueKey('step-${_step.name}'), child: _buildStep(context)),
               ),
             ),
           ],
@@ -172,8 +109,6 @@ class _SetupFlowState extends ConsumerState<SetupFlow> {
 
   Widget _buildStep(BuildContext context) => switch (_step) {
     _Step.language => _languageStep(context),
-    _Step.pin => _pinStep(context),
-    _Step.biometric => _biometricStep(context),
     _Step.warning => _warningStep(context),
   };
 
@@ -203,74 +138,6 @@ class _SetupFlowState extends ConsumerState<SetupFlow> {
           ),
       ],
       bottom: FilledButton(key: const ValueKey('setup-next'), onPressed: _next, child: Text(l10n.continueLabel)),
-    );
-  }
-
-  Widget _pinStep(BuildContext context) {
-    final l10n = context.l10n;
-    final text = Theme.of(context).textTheme;
-    final k = context.tokens;
-    return _StepBody(
-      centered: true,
-      top: [
-        Text(
-          _firstPin == null ? l10n.setupCreatePin : l10n.setupConfirmPin,
-          textAlign: TextAlign.center,
-          style: text.titleLarge?.copyWith(color: k.text),
-        ),
-        const SizedBox(height: 24),
-        PinDots(key: _dots, filled: _entered.length, error: _pinMismatch),
-        const SizedBox(height: 16),
-        SizedBox(
-          height: 48,
-          child: _pinMismatch
-              ? Text(
-                  l10n.pinMismatch,
-                  textAlign: TextAlign.center,
-                  style: text.bodyMedium?.copyWith(color: k.danger),
-                )
-              : null,
-        ),
-      ],
-      bottom: PinPad(
-        enabled: true,
-        onDigit: _onDigit,
-        onBackspace: _onBackspace,
-        onBiometric: null,
-        biometricLabel: '',
-      ),
-    );
-  }
-
-  Widget _biometricStep(BuildContext context) {
-    final l10n = context.l10n;
-    final text = Theme.of(context).textTheme;
-    final k = context.tokens;
-    return _StepBody(
-      centered: true,
-      top: [
-        Icon(Icons.fingerprint_rounded, size: 64, color: k.accent),
-        const SizedBox(height: 24),
-        Text(
-          l10n.setupEnableBiometrics,
-          textAlign: TextAlign.center,
-          style: text.titleLarge?.copyWith(color: k.text),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          l10n.setupEnableBiometricsBody,
-          textAlign: TextAlign.center,
-          style: text.bodyLarge?.copyWith(color: k.textMuted),
-        ),
-      ],
-      bottom: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          FilledButton(key: const ValueKey('bio-enable'), onPressed: _enableBiometric, child: Text(l10n.enable)),
-          const SizedBox(height: 8),
-          TextButton(key: const ValueKey('bio-skip'), onPressed: _next, child: Text(l10n.skip)),
-        ],
-      ),
     );
   }
 
@@ -315,11 +182,10 @@ class _SetupFlowState extends ConsumerState<SetupFlow> {
 
 /// Scrollable step layout: content on top, the action pinned to the bottom when it fits.
 class _StepBody extends StatelessWidget {
-  const _StepBody({required this.top, required this.bottom, this.centered = false});
+  const _StepBody({required this.top, required this.bottom});
 
   final List<Widget> top;
   final Widget bottom;
-  final bool centered;
 
   @override
   Widget build(BuildContext context) => LayoutBuilder(
@@ -331,7 +197,7 @@ class _StepBody extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Column(crossAxisAlignment: centered ? CrossAxisAlignment.center : CrossAxisAlignment.start, children: top),
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: top),
             const SizedBox(height: 24),
             bottom,
           ],

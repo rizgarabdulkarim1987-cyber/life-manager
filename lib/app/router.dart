@@ -23,6 +23,7 @@ import '../features/settings/ai_settings_screen.dart';
 import '../features/settings/categories_screen.dart';
 import '../features/settings/finance_settings_screen.dart';
 import '../core/security/money_privacy.dart';
+import '../features/lock/sensitive_gate.dart';
 import '../features/settings/settings_screen.dart';
 import '../features/settings/workspaces_screen.dart';
 import '../features/setup/setup_flow.dart';
@@ -65,7 +66,7 @@ GoRouter buildRouter({void Function()? onNavigate}) => GoRouter(
           routes: [
             GoRoute(
               path: '/finance',
-              builder: (_, _) => const FinanceOverviewScreen(),
+              builder: (_, _) => const SensitiveGate(fullScreen: true, child: FinanceOverviewScreen()),
               routes: [
                 // Forms cover the shell (no bottom bar or mic over the Save button).
                 GoRoute(

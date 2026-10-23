@@ -1607,4 +1607,38 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get hideAmounts => 'Hide amounts';
+
+  @override
+  String get lockedTitle => 'Locked';
+
+  @override
+  String get lockedHint => 'Use your face, fingerprint or screen lock';
+
+  @override
+  String get unlockButton => 'Unlock';
+
+  @override
+  String get noScreenLockTitle => 'Your phone has no screen lock';
+
+  @override
+  String get noScreenLockBody =>
+      'This app protects your money and notes with your phone\'s own lock. Turn on a PIN, pattern, fingerprint or face unlock first.';
+
+  @override
+  String get openSecuritySettings => 'Open security settings';
+
+  @override
+  String get sensitiveLocked => 'This section asks for your face or fingerprint again';
+
+  @override
+  String get faceUnlockNote =>
+      'If face unlock isn\'t offered, your phone doesn\'t share it with apps; fingerprint and screen lock still work.';
+
+  @override
+  String get lockSection => 'Lock';
+
+  @override
+  String lockAfterSeconds(int seconds) {
+    return 'After $seconds seconds';
+  }
 }

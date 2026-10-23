@@ -18,12 +18,12 @@ class FakeKdf implements Kdf {
 }
 
 class FakeBiometric implements BiometricAuthenticator {
-  FakeBiometric({required this.available, required this.result});
-  final bool available;
-  final bool result;
+  FakeBiometric({this.deviceSupported = true, this.result = true});
+  final bool deviceSupported;
+  bool result;
   int prompts = 0;
   @override
-  Future<bool> isAvailable() async => available;
+  Future<bool> deviceSecure() async => deviceSupported;
   @override
   Future<bool> authenticate(String reason) async {
     prompts++;

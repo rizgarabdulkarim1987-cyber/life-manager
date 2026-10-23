@@ -7,16 +7,10 @@ import '../../app/providers.dart';
 import '../../core/db/app_database.dart';
 import '../../core/l10n/ckb_fallback_localizations.dart';
 import '../../core/theme/tokens.dart';
-import '../lock/lock_controller.dart';
-import 'change_pin_screen.dart';
 import 'settings_repository.dart';
 import 'settings_section.dart';
 
-final biometricAvailableProvider = FutureProvider<bool>(
-  (ref) => ref.watch(biometricAuthenticatorProvider).isAvailable(),
-);
-
-const kLockTimeoutChoices = [0, 60, 300, 900, 1800];
+const kLockTimeoutChoices = [0, 30, 60, 300, 900];
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -151,30 +145,16 @@ class _ThemePicker extends ConsumerWidget {
   }
 }
 
-String lockTimeoutLabel(BuildContext context, int seconds) =>
-    seconds == 0 ? context.l10n.lockImmediately : context.l10n.lockAfterMinutes(seconds ~/ 60);
+String lockTimeoutLabel(BuildContext context, int seconds) => switch (seconds) {
+  0 => context.l10n.lockImmediately,
+  < 60 => context.l10n.lockAfterSeconds(seconds),
+  _ => context.l10n.lockAfterMinutes(seconds ~/ 60),
+};
 
 class _LockSettings extends ConsumerWidget {
   const _LockSettings({required this.settings});
 
   final AppSetting settings;
-
-  Future<void> _toggleBiometric(BuildContext context, WidgetRef ref, bool enable) async {
-    if (enable) {
-      final ok = await ref.read(biometricAuthenticatorProvider).authenticate(context.l10n.unlockReason);
-      if (!ok) return;
-    }
-    await ref.read(settingsRepositoryProvider).setBiometricEnabled(enable);
-  }
-
-  Future<void> _changePin(BuildContext context) async {
-    final messenger = ScaffoldMessenger.of(context);
-    final message = context.l10n.pinChanged;
-    final changed = await Navigator.of(context).push<bool>(MaterialPageRoute(builder: (_) => const ChangePinScreen()));
-    if (changed == true) {
-      messenger.showSnackBar(SnackBar(content: Text(message)));
-    }
-  }
 
   Future<void> _pickTimeout(BuildContext context, WidgetRef ref) async {
     final repo = ref.read(settingsRepositoryProvider);
@@ -203,29 +183,20 @@ class _LockSettings extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
-    final available = ref.watch(biometricAvailableProvider).value ?? false;
     return Column(
       children: [
-        SwitchListTile(
-          key: const ValueKey('bio-switch'),
-          secondary: const Icon(Icons.fingerprint_rounded),
-          title: Text(l10n.biometrics),
-          subtitle: available ? null : Text(l10n.biometricsUnavailable),
-          value: available && settings.biometricEnabled,
-          onChanged: available ? (v) => _toggleBiometric(context, ref, v) : null,
-        ),
-        ListTile(
-          key: const ValueKey('change-pin'),
-          leading: const Icon(Icons.pin_outlined),
-          title: Text(l10n.changePin),
-          onTap: () => _changePin(context),
-        ),
         ListTile(
           key: const ValueKey('lock-timeout'),
           leading: const Icon(Icons.timer_outlined),
           title: Text(l10n.lockTimeout),
           subtitle: Text(lockTimeoutLabel(context, settings.lockTimeoutSeconds)),
           onTap: () => _pickTimeout(context, ref),
+        ),
+        ListTile(
+          key: const ValueKey('face-unlock-note'),
+          leading: const Icon(Icons.face_unlock_outlined),
+          title: Text(l10n.lockedHint),
+          subtitle: Text(l10n.faceUnlockNote),
         ),
       ],
     );

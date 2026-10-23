@@ -37,7 +37,7 @@ Future<void> main() async {
   };
   runApp(
     RestartScope(
-      loading: ColoredBox(color: AppTokens.dark.bg),
+      loading: ColoredBox(color: AppTokens.light.bg),
       build: _openApp,
       failed: (retry) => StartupErrorScreen(onRetry: retry),
     ),
@@ -50,7 +50,12 @@ Future<Widget> _openApp() async {
   // Audio left behind by a crash or a killed app is removed before anything else runs.
   unawaited(sweepCaptureTmp());
   final supportDir = await getApplicationSupportDirectory();
-  final key = await obtainDatabaseKey(FlutterSecureStore());
+  final store = FlutterSecureStore();
+  final key = await obtainDatabaseKey(store);
+  // The app PIN is gone (redesign §8.1); drop its hash and failure counter.
+  for (final k in const ['app_pin_v1', 'app_pin_failures_v1']) {
+    unawaited(store.delete(k));
+  }
   // Finish or roll back a restore that was cut off before the app could restart.
   await BackupService.recoverInterruptedRestore(supportDir, key);
   final db = await openAppDatabase(file: appDatabaseFile(supportDir), hexKey: key);

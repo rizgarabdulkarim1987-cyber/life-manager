@@ -1611,4 +1611,38 @@ class AppLocalizationsCkb extends AppLocalizations {
 
   @override
   String get hideAmounts => 'شاردنەوەی بڕەکان';
+
+  @override
+  String get lockedTitle => 'داخراوە';
+
+  @override
+  String get lockedHint => 'بە ڕووخسار، پەنجەمۆر یان قوفڵی شاشە بیکەرەوە';
+
+  @override
+  String get unlockButton => 'کردنەوە';
+
+  @override
+  String get noScreenLockTitle => 'مۆبایلەکەت قوفڵی شاشەی نییە';
+
+  @override
+  String get noScreenLockBody =>
+      'ئەم ئەپە پارە و تێبینییەکانت بە قوفڵی مۆبایلەکەت دەپارێزێت. سەرەتا PIN، شێوە، پەنجەمۆر یان ڕووخسار چالاک بکە.';
+
+  @override
+  String get openSecuritySettings => 'ڕێکخستنەکانی ئاسایش بکەرەوە';
+
+  @override
+  String get sensitiveLocked => 'ئەم بەشە دووبارە پەنجەمۆر یان ڕووخسار دەخوازێت';
+
+  @override
+  String get faceUnlockNote =>
+      'ئەگەر ڕووخسار پیشان نەدرا، مۆبایلەکەت ڕێگەی پێ نادات بۆ ئەپەکان؛ پەنجەمۆر و قوفڵی شاشە کار دەکەن.';
+
+  @override
+  String get lockSection => 'قوفڵ';
+
+  @override
+  String lockAfterSeconds(int seconds) {
+    return 'دوای $seconds چرکە';
+  }
 }

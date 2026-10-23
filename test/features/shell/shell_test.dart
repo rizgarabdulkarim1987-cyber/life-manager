@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:life_manager/features/lock/lock_controller.dart';
 
 import '../../helpers/app_harness.dart';
+import '../../helpers/fakes.dart';
 
 void main() {
   testWidgets('shell shows four destinations and the mic button', (t) async {
@@ -46,10 +47,10 @@ void main() {
   });
 
   testWidgets('locked app shows the lock screen over the shell', (t) async {
-    final c = await pumpApp(t);
+    final c = await pumpApp(t, bio: FakeBiometric(result: false));
     c.read(lockControllerProvider.notifier).lockNow();
     await t.pumpAndSettle();
-    expect(find.byKey(const ValueKey('pin-key-1')), findsOneWidget);
+    expect(find.byKey(const ValueKey('lock-screen')), findsOneWidget);
     expect(find.byKey(const ValueKey('nav-0')), findsNothing);
   });
 

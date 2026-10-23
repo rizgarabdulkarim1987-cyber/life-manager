@@ -867,5 +867,15 @@
     }
   },
   "showAmounts": "إظهار المبالغ",
-  "hideAmounts": "إخفاء المبالغ"
+  "hideAmounts": "إخفاء المبالغ",
+  "lockedTitle": "التطبيق مقفول",
+  "lockedHint": "افتح بالوجه أو البصمة أو رمز الموبايل",
+  "unlockButton": "افتح",
+  "noScreenLockTitle": "موبايلك ما بي قفل شاشة",
+  "noScreenLockBody": "التطبيق يحمي فلوسك وملاحظاتك بقفل موبايلك نفسه. فعّل رمز أو نمط أو بصمة أو بصمة وجه أول شي.",
+  "openSecuritySettings": "افتح إعدادات الحماية",
+  "sensitiveLocked": "هذا القسم يطلب بصمتك مرة ثانية",
+  "faceUnlockNote": "إذا بصمة الوجه ما تطلع، فموبايلك ما يسمح بيها للتطبيقات. البصمة ورمز الموبايل يشتغلون.",
+  "lockSection": "القفل",
+  "lockAfterSeconds": "بعد {seconds} ثانية"
 }

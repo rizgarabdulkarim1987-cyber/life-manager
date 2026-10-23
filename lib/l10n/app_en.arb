@@ -867,5 +867,22 @@
     }
   },
   "showAmounts": "Show amounts",
-  "hideAmounts": "Hide amounts"
+  "hideAmounts": "Hide amounts",
+  "lockedTitle": "Locked",
+  "lockedHint": "Use your face, fingerprint or screen lock",
+  "unlockButton": "Unlock",
+  "noScreenLockTitle": "Your phone has no screen lock",
+  "noScreenLockBody": "This app protects your money and notes with your phone's own lock. Turn on a PIN, pattern, fingerprint or face unlock first.",
+  "openSecuritySettings": "Open security settings",
+  "sensitiveLocked": "This section asks for your face or fingerprint again",
+  "faceUnlockNote": "If face unlock isn't offered, your phone doesn't share it with apps; fingerprint and screen lock still work.",
+  "lockSection": "Lock",
+  "lockAfterSeconds": "After {seconds} seconds",
+  "@lockAfterSeconds": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  }
 }

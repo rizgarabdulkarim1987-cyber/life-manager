@@ -1612,4 +1612,37 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get hideAmounts => 'إخفاء المبالغ';
+
+  @override
+  String get lockedTitle => 'التطبيق مقفول';
+
+  @override
+  String get lockedHint => 'افتح بالوجه أو البصمة أو رمز الموبايل';
+
+  @override
+  String get unlockButton => 'افتح';
+
+  @override
+  String get noScreenLockTitle => 'موبايلك ما بي قفل شاشة';
+
+  @override
+  String get noScreenLockBody =>
+      'التطبيق يحمي فلوسك وملاحظاتك بقفل موبايلك نفسه. فعّل رمز أو نمط أو بصمة أو بصمة وجه أول شي.';
+
+  @override
+  String get openSecuritySettings => 'افتح إعدادات الحماية';
+
+  @override
+  String get sensitiveLocked => 'هذا القسم يطلب بصمتك مرة ثانية';
+
+  @override
+  String get faceUnlockNote => 'إذا بصمة الوجه ما تطلع، فموبايلك ما يسمح بيها للتطبيقات. البصمة ورمز الموبايل يشتغلون.';
+
+  @override
+  String get lockSection => 'القفل';
+
+  @override
+  String lockAfterSeconds(int seconds) {
+    return 'بعد $seconds ثانية';
+  }
 }

@@ -3044,6 +3044,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hide amounts'**
   String get hideAmounts;
+
+  /// No description provided for @lockedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Locked'**
+  String get lockedTitle;
+
+  /// No description provided for @lockedHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Use your face, fingerprint or screen lock'**
+  String get lockedHint;
+
+  /// No description provided for @unlockButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock'**
+  String get unlockButton;
+
+  /// No description provided for @noScreenLockTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your phone has no screen lock'**
+  String get noScreenLockTitle;
+
+  /// No description provided for @noScreenLockBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This app protects your money and notes with your phone\'s own lock. Turn on a PIN, pattern, fingerprint or face unlock first.'**
+  String get noScreenLockBody;
+
+  /// No description provided for @openSecuritySettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Open security settings'**
+  String get openSecuritySettings;
+
+  /// No description provided for @sensitiveLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'This section asks for your face or fingerprint again'**
+  String get sensitiveLocked;
+
+  /// No description provided for @faceUnlockNote.
+  ///
+  /// In en, this message translates to:
+  /// **'If face unlock isn\'t offered, your phone doesn\'t share it with apps; fingerprint and screen lock still work.'**
+  String get faceUnlockNote;
+
+  /// No description provided for @lockSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Lock'**
+  String get lockSection;
+
+  /// No description provided for @lockAfterSeconds.
+  ///
+  /// In en, this message translates to:
+  /// **'After {seconds} seconds'**
+  String lockAfterSeconds(int seconds);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
