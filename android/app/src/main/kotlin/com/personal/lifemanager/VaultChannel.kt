@@ -1,6 +1,12 @@
 package com.personal.lifemanager
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
+import android.os.PersistableBundle
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyPermanentlyInvalidatedException
 import android.security.keystore.KeyProperties
@@ -25,6 +31,10 @@ import javax.crypto.spec.GCMParameterSpec
  * biometric through BiometricPrompt with a CryptoObject; the device PIN is not
  * accepted, and adding a fingerprint invalidates the key.
  *
+ * Clipboard: copies are marked sensitive (EXTRA_IS_SENSITIVE, honoured from
+ * Android 13) and cleared after the delay unless another app's clip replaced
+ * ours. If the process dies first, the clip stays; the UI doesn't promise more.
+ *
  * Errors go back to Dart as codes only (invalidated, cancelled, lockout,
  * unavailable, failed). Nothing here logs, and no message carries data.
  */
@@ -35,7 +45,10 @@ class VaultChannel(private val activity: FragmentActivity) : MethodChannel.Metho
         private const val TRANSFORMATION = "AES/GCM/NoPadding"
         private const val IV_LENGTH = 12
         private const val TAG_BITS = 128
+        private const val EXTRA_IS_SENSITIVE = "android.content.extra.IS_SENSITIVE"
     }
+
+    private val main = Handler(Looper.getMainLooper())
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
         when (call.method) {
@@ -46,6 +59,7 @@ class VaultChannel(private val activity: FragmentActivity) : MethodChannel.Metho
                 deleteKey()
                 result.success(null)
             }
+            "copySecret" -> copySecret(call, result)
             else -> result.notImplemented()
         }
     }
@@ -189,6 +203,45 @@ class VaultChannel(private val activity: FragmentActivity) : MethodChannel.Metho
         } catch (_: Exception) {
             data.fill(0)
             reply { result.error("unavailable", null, null) }
+        }
+    }
+
+    private fun clipboard(): ClipboardManager =
+        activity.applicationContext.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+
+    private fun copySecret(call: MethodCall, result: MethodChannel.Result) {
+        val text = call.argument<String>("text")
+        val label = call.argument<String>("label")
+        val delay = call.argument<Number>("clearAfterMs")?.toLong() ?: 30_000L
+        if (text == null || label == null) {
+            result.error("failed", null, null)
+            return
+        }
+        try {
+            val clip = ClipData.newPlainText(label, text)
+            clip.description.extras = PersistableBundle().apply { putBoolean(EXTRA_IS_SENSITIVE, true) }
+            val cm = clipboard()
+            cm.setPrimaryClip(clip)
+            main.postDelayed({ clearIfOurs(cm, label) }, delay)
+            result.success(null)
+        } catch (_: Exception) {
+            result.error("failed", null, null)
+        }
+    }
+
+    /** Clears the clip unless it now carries another label. An unreadable clip (background
+     *  read restrictions) is cleared too: removing a secret beats keeping a stranger's text. */
+    private fun clearIfOurs(cm: ClipboardManager, label: String) {
+        try {
+            val current = cm.primaryClipDescription?.label?.toString()
+            if (current != null && current != label) return
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                cm.clearPrimaryClip()
+            } else {
+                cm.setPrimaryClip(ClipData.newPlainText("", ""))
+            }
+        } catch (_: Exception) {
+            // Nothing more can be done from here.
         }
     }
 }
