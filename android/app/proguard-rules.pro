@@ -4,3 +4,12 @@
 
 # BiometricPrompt callbacks are created reflectively by AndroidX.
 -keep class androidx.biometric.** { *; }
+
+# whisper_ggml (on-device speech) loads a forked ffmpeg-kit through JNI and reflection; its README
+# documents these rules, and the plugin also ships them as consumer rules. Kept here so a release
+# build does not depend on the plugin's rules being merged.
+-keep class com.antonkarpenko.ffmpegkit.** { *; }
+-dontwarn com.antonkarpenko.ffmpegkit.**
+-keepclasseswithmembernames class * {
+    native <methods>;
+}

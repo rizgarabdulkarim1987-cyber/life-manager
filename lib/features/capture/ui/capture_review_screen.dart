@@ -344,10 +344,11 @@ class _CaptureReviewScreenState extends ConsumerState<CaptureReviewScreen> {
             onChanged: (_) => setState(() {}),
           ),
           const SizedBox(height: 8),
-          Row(
+          Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               if (_by != null) _Badge(by: _by!),
-              const Spacer(),
               TextButton.icon(
                 key: const ValueKey('cap-reparse'),
                 onPressed: _busy || _transcript.text.trim().isEmpty ? null : _reparse,
@@ -432,9 +433,11 @@ class _Badge extends StatelessWidget {
         children: [
           Icon(ai ? Icons.cloud_outlined : Icons.phone_android_rounded, size: 14, color: ai ? k.accent : k.textMuted),
           const SizedBox(width: 6),
-          Text(
-            ai ? l.capByAi : l.capByRules,
-            style: Theme.of(context).textTheme.labelMedium?.copyWith(color: ai ? k.accent : k.textMuted),
+          Flexible(
+            child: Text(
+              ai ? l.capByAi : l.capByRules,
+              style: Theme.of(context).textTheme.labelMedium?.copyWith(color: ai ? k.accent : k.textMuted),
+            ),
           ),
         ],
       ),
