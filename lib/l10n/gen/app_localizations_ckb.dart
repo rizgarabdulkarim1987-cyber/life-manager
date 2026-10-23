@@ -1477,8 +1477,27 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get capOpen => 'بیکەرەوە';
 
   @override
-  String get capReason_noSpeechEngine =>
-      'هێشتا بزوێنەری دەنگ نییە. AI ی ئۆنلاین هەڵبکە یان مۆدێلێکی ئۆفلاین لە ڕێکخستنەکان دابەزێنە.';
+  String get capReason_noSpeechEngine => 'هێشتا نەکراوەتە دەق.';
+
+  @override
+  String get capReason_noSpeechOnlineOff =>
+      'زیرەکی دەستکردی ئۆنلاین کوژاوەیە و مۆدێلی قسەکردن بێ ئینتەرنێت دانەبەزێنراوە. لە ڕێکخستنەکان ← زیرەکی دەستکردی ئۆنلاین هەڵیبکە یان مۆدێلەکە دابەزێنە.';
+
+  @override
+  String get capReason_noSpeechNoKey =>
+      'هیچ کلیلێکی Groq هەڵنەگیراوە. لە ڕێکخستنەکان ← زیرەکی دەستکردی ئۆنلاین زیادی بکە، یان مۆدێلی قسەکردن بێ ئینتەرنێت لەوێ دابەزێنە.';
+
+  @override
+  String get capReason_noSpeechNotAsked =>
+      'هێشتا ڕێگە نەدراوە دەنگ بۆ Groq بنێردرێت. مایکەکە دابگرە و «ڕێگە بدە» هەڵبژێرە، یان مۆدێلی قسەکردن بێ ئینتەرنێت لە ڕێکخستنەکان ← زیرەکی دەستکردی ئۆنلاین دابەزێنە.';
+
+  @override
+  String get capReason_noSpeechDeclined =>
+      'هەڵتبژارد دەنگ بۆ Groq نەنێردرێت. لە ڕێکخستنەکان ← زیرەکی دەستکردی ئۆنلاین «دووبارە بپرسە» دابگرە، یان مۆدێلی قسەکردن بێ ئینتەرنێت لەوێ دابەزێنە.';
+
+  @override
+  String get capReason_noSpeechOffline =>
+      'مۆدێلی قسەکردن بێ ئینتەرنێت دانەبەزێنراوە. لە ڕێکخستنەکان ← زیرەکی دەستکردی ئۆنلاین دایبەزێنە.';
 
   @override
   String get capReason_sttFailed => 'نەمتوانی تۆمارەکە بکەمە دەق. لە سندوقی هاتوو هەڵگیرا.';

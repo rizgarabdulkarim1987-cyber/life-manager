@@ -53,6 +53,11 @@ Future<void> startTextCapture(BuildContext context) async {
 
 String inboxReason(AppLocalizations l, String key) => switch (key) {
   'noSpeechEngine' => l.capReason_noSpeechEngine,
+  'noSpeechOnlineOff' => l.capReason_noSpeechOnlineOff,
+  'noSpeechNoKey' => l.capReason_noSpeechNoKey,
+  'noSpeechNotAsked' => l.capReason_noSpeechNotAsked,
+  'noSpeechDeclined' => l.capReason_noSpeechDeclined,
+  'noSpeechOffline' => l.capReason_noSpeechOffline,
   'sttFailed' => l.capReason_sttFailed,
   'empty' => l.capReason_empty,
   _ => l.capReason_lowConfidence,

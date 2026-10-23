@@ -1478,7 +1478,27 @@ class AppLocalizationsAr extends AppLocalizations {
   String get capOpen => 'افتح';
 
   @override
-  String get capReason_noSpeechEngine => 'ماكو محرك صوت بعد. شغّل الذكاء الاصطناعي أو نزّل نموذج من الإعدادات.';
+  String get capReason_noSpeechEngine => 'بعد ما تحوّل لنص.';
+
+  @override
+  String get capReason_noSpeechOnlineOff =>
+      'الذكاء الاصطناعي عبر الإنترنت مطفي وماكو نموذج كلام بدون إنترنت. شغّله أو نزّل النموذج من الإعدادات ← الذكاء الاصطناعي عبر الإنترنت.';
+
+  @override
+  String get capReason_noSpeechNoKey =>
+      'ماكو مفتاح Groq محفوظ. ضيفه من الإعدادات ← الذكاء الاصطناعي عبر الإنترنت، أو نزّل نموذج الكلام بدون إنترنت من نفس المكان.';
+
+  @override
+  String get capReason_noSpeechNotAsked =>
+      'بعد ما سمحت يروح الصوت لـ Groq. اضغط المايك واختار «اسمح»، أو نزّل نموذج الكلام بدون إنترنت من الإعدادات ← الذكاء الاصطناعي عبر الإنترنت.';
+
+  @override
+  String get capReason_noSpeechDeclined =>
+      'اخترت ما ترسل الصوت لـ Groq. اضغط «اسألني مرة ثانية» بالإعدادات ← الذكاء الاصطناعي عبر الإنترنت، أو نزّل نموذج الكلام بدون إنترنت من نفس المكان.';
+
+  @override
+  String get capReason_noSpeechOffline =>
+      'ماكو نموذج كلام بدون إنترنت. نزّله من الإعدادات ← الذكاء الاصطناعي عبر الإنترنت.';
 
   @override
   String get capReason_sttFailed => 'ما گدرت أحوّل التسجيل لنص. انحفظ بالوارد.';

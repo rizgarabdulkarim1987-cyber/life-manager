@@ -29,7 +29,9 @@ class ReadyForReview extends CaptureOutcome {
   const ReadyForReview(super.captureId);
 }
 
-/// [reasonKey]: `noSpeechEngine`, `sttFailed`, `empty` or `lowConfidence`.
+/// [reasonKey]: `sttFailed`, `empty`, `lowConfidence`, or why there was no
+/// speech engine (`noSpeechOnlineOff`, `noSpeechNoKey`, `noSpeechNotAsked`,
+/// `noSpeechDeclined`, `noSpeechOffline`, else `noSpeechEngine`).
 class SavedToInbox extends CaptureOutcome {
   const SavedToInbox(super.captureId, this.reasonKey);
 
@@ -96,7 +98,8 @@ class CapturePipeline {
       text = await _transcribe(s, wav, online: online);
     } on SpeechUnavailable catch (e) {
       await _captures.setFailure(id, e.runtimeType.toString());
-      return SavedToInbox(id, 'noSpeechEngine');
+      final gap = online ? onlineVoiceGap(s, keySaved: await _keys.read() != null) : 'noSpeechOffline';
+      return SavedToInbox(id, gap ?? 'noSpeechEngine');
     } on _SttFailed catch (e) {
       await _captures.setFailure(id, e.type);
       return SavedToInbox(id, 'sttFailed');

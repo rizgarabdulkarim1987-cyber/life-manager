@@ -105,16 +105,41 @@ void main() {
       expect(row.parsedBy, 'rules');
     });
 
-    test('no engine → SavedToInbox noSpeechEngine with audio kept', () async {
+    test('no engine → SavedToInbox naming the missing key, audio kept', () async {
       final http = FakeHttpPort((_) => throw StateError('no network expected'));
       final out = await pipeline(http, local: (_) async => null).fromVoice(wav);
       expect(out, isA<SavedToInbox>());
       out as SavedToInbox;
-      expect(out.reasonKey, 'noSpeechEngine');
+      expect(out.reasonKey, 'noSpeechNoKey');
       final row = (await captures.get(out.captureId))!;
       expect(row.status, 'pending');
       expect(row.audio, wav);
       expect(row.failureType, 'SpeechUnavailable');
+      expect(http.requests, isEmpty);
+    });
+
+    test('no engine → the reason names what is missing', () async {
+      final http = FakeHttpPort((_) => throw StateError('no network expected'));
+      Future<String> reason() async =>
+          ((await pipeline(http, local: (_) async => null).fromVoice(wav)) as SavedToInbox).reasonKey;
+
+      await settings.setAiOnlineEnabled(false);
+      expect(await reason(), 'noSpeechOnlineOff');
+
+      await settings.setAiOnlineEnabled(true);
+      await keys.write(const Sensitive('gsk_1234'));
+      expect(await reason(), 'noSpeechNotAsked');
+
+      await settings.setConsent(AiFeature.voice, ConsentState.declined);
+      expect(await reason(), 'noSpeechDeclined');
+    });
+
+    test('offline retry with no model → noSpeechOffline even when online is allowed', () async {
+      await allowOnline();
+      final http = FakeHttpPort((_) => throw StateError('no network expected'));
+      final id = await captures.createVoice(wav);
+      final out = await pipeline(http, local: (_) async => null).reparse(id, allowOnline: false);
+      expect((out as SavedToInbox).reasonKey, 'noSpeechOffline');
       expect(http.requests, isEmpty);
     });
 

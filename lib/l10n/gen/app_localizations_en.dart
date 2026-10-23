@@ -1474,8 +1474,26 @@ class AppLocalizationsEn extends AppLocalizations {
   String get capOpen => 'Open';
 
   @override
-  String get capReason_noSpeechEngine =>
-      'No speech engine yet. Turn on online AI or install an offline model in Settings.';
+  String get capReason_noSpeechEngine => 'Not turned into text yet.';
+
+  @override
+  String get capReason_noSpeechOnlineOff =>
+      'Online AI is off and no offline speech model is installed. Turn on online AI or download the model in Settings → Online AI.';
+
+  @override
+  String get capReason_noSpeechNoKey =>
+      'No Groq key is saved. Add it in Settings → Online AI, or download the offline speech model there.';
+
+  @override
+  String get capReason_noSpeechNotAsked =>
+      'Voice isn\'t allowed to go to Groq yet. Tap the mic and choose Allow, or download the offline speech model in Settings → Online AI.';
+
+  @override
+  String get capReason_noSpeechDeclined =>
+      'You chose not to send voice to Groq. Tap Ask again in Settings → Online AI, or download the offline speech model there.';
+
+  @override
+  String get capReason_noSpeechOffline => 'No offline speech model is installed. Download it in Settings → Online AI.';
 
   @override
   String get capReason_sttFailed => 'Couldn\'t turn the recording into text. It is kept in the Inbox.';

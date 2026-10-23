@@ -2802,8 +2802,38 @@ abstract class AppLocalizations {
   /// No description provided for @capReason_noSpeechEngine.
   ///
   /// In en, this message translates to:
-  /// **'No speech engine yet. Turn on online AI or install an offline model in Settings.'**
+  /// **'Not turned into text yet.'**
   String get capReason_noSpeechEngine;
+
+  /// No description provided for @capReason_noSpeechOnlineOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Online AI is off and no offline speech model is installed. Turn on online AI or download the model in Settings → Online AI.'**
+  String get capReason_noSpeechOnlineOff;
+
+  /// No description provided for @capReason_noSpeechNoKey.
+  ///
+  /// In en, this message translates to:
+  /// **'No Groq key is saved. Add it in Settings → Online AI, or download the offline speech model there.'**
+  String get capReason_noSpeechNoKey;
+
+  /// No description provided for @capReason_noSpeechNotAsked.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice isn\'t allowed to go to Groq yet. Tap the mic and choose Allow, or download the offline speech model in Settings → Online AI.'**
+  String get capReason_noSpeechNotAsked;
+
+  /// No description provided for @capReason_noSpeechDeclined.
+  ///
+  /// In en, this message translates to:
+  /// **'You chose not to send voice to Groq. Tap Ask again in Settings → Online AI, or download the offline speech model there.'**
+  String get capReason_noSpeechDeclined;
+
+  /// No description provided for @capReason_noSpeechOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'No offline speech model is installed. Download it in Settings → Online AI.'**
+  String get capReason_noSpeechOffline;
 
   /// No description provided for @capReason_sttFailed.
   ///

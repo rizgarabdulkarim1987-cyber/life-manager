@@ -77,12 +77,18 @@ void main() {
 
     expect(find.byKey(ValueKey('inbox-row-$id')), findsOneWidget);
     expect(find.text('Voice, not transcribed yet'), findsOneWidget);
-    expect(find.textContaining('No speech engine yet'), findsOneWidget);
+    expect(find.textContaining('No Groq key is saved'), findsOneWidget);
     expect(find.textContaining('SpeechUnavailable'), findsNothing, reason: 'never the raw type');
     expect(find.byKey(ValueKey('inbox-transcribe-$id')), findsOneWidget);
     expect(find.byKey(ValueKey('inbox-ai-$id')), findsNothing, reason: 'no key saved');
 
     await saveKey(t, c);
+    expect(
+      find.textContaining('No Groq key is saved'),
+      findsNothing,
+      reason: 'the reason follows the current settings',
+    );
+    expect(find.textContaining('choose Allow'), findsOneWidget);
     expect(find.byKey(ValueKey('inbox-ai-$id')), findsOneWidget);
     expect(find.byKey(const ValueKey('inbox-ai-all')), findsOneWidget);
   });

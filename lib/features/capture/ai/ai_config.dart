@@ -40,6 +40,16 @@ Future<bool> canUseOnline(AiFeature f, AppSetting s, GroqKeyStore keys) async {
   return await keys.read() != null;
 }
 
+/// The first thing stopping voice from going to Groq, as a capture reason key;
+/// null when nothing is.
+String? onlineVoiceGap(AppSetting s, {required bool keySaved}) {
+  if (!s.aiOnlineEnabled) return 'noSpeechOnlineOff';
+  if (!keySaved) return 'noSpeechNoKey';
+  if (s.aiVoiceConsent == ConsentState.declined.name) return 'noSpeechDeclined';
+  if (s.aiVoiceConsent != ConsentState.granted.name) return 'noSpeechNotAsked';
+  return null;
+}
+
 final httpPortProvider = Provider<HttpPort>((ref) => PackageHttpPort());
 
 final groqKeyStoreProvider = Provider<GroqKeyStore>((ref) => GroqKeyStore(ref.watch(secureStoreProvider)));

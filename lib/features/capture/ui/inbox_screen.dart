@@ -42,10 +42,14 @@ bool _aiAllowed(AppSetting? s, bool keySaved, List<AiFeature> needs) {
 }
 
 /// A friendly line for why a capture is waiting; never the raw error type.
-String? _reason(BuildContext context, Capture c, List<Proposal> ps) {
+/// A missing speech engine is explained from the current settings, not the ones at capture time.
+String? _reason(BuildContext context, Capture c, List<Proposal> ps, AppSetting? s, bool keySaved) {
   final l = context.l10n;
   final f = c.failureType;
-  if (f != null) return inboxReason(l, f == 'SpeechUnavailable' ? 'noSpeechEngine' : 'sttFailed');
+  if (f == 'SpeechUnavailable') {
+    return inboxReason(l, (s == null ? null : onlineVoiceGap(s, keySaved: keySaved)) ?? 'noSpeechEngine');
+  }
+  if (f != null) return inboxReason(l, 'sttFailed');
   if (!_hasText(c)) return _hasAudio(c) ? null : l.capReason_empty;
   final money = ps.whereType<MoneyProposal>();
   if (ps.isEmpty || (money.isNotEmpty && money.every((p) => p.confidence < kLowConfidence))) {
@@ -221,6 +225,8 @@ class _InboxScreenState extends ConsumerState<InboxScreen> {
                   capture: c,
                   busy: _busy.contains(c.id) || progress != null,
                   aiAllowed: aiRows.contains(c),
+                  settings: settings,
+                  keySaved: keySaved,
                   onOpen: () => context.push('/capture/${c.id}'),
                   onOffline: () => _offline(c),
                   onAi: () => _finishWithAi(c),
@@ -238,6 +244,8 @@ class _InboxRow extends StatelessWidget {
     required this.capture,
     required this.busy,
     required this.aiAllowed,
+    required this.settings,
+    required this.keySaved,
     required this.onOpen,
     required this.onOffline,
     required this.onAi,
@@ -247,6 +255,8 @@ class _InboxRow extends StatelessWidget {
   final Capture capture;
   final bool busy;
   final bool aiAllowed;
+  final AppSetting? settings;
+  final bool keySaved;
   final VoidCallback onOpen;
   final VoidCallback onOffline;
   final VoidCallback onAi;
@@ -260,7 +270,7 @@ class _InboxRow extends StatelessWidget {
     final c = capture;
     final id = c.id;
     final ps = _proposals(c);
-    final reason = _reason(context, c, ps);
+    final reason = _reason(context, c, ps, settings, keySaved);
     final voice = c.source == 'voice';
     final at = c.createdAt.toLocal();
     final later = [
