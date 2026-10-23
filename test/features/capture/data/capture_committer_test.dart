@@ -170,4 +170,17 @@ void main() {
       (all[1].id, 'principal', 20000),
     ]);
   });
+
+  test('a second commit, or a commit after discard, writes nothing', () async {
+    final id = await voiceCapture();
+    await committer.commit(id, [MoneyCommit(expense(), null)]);
+    await expectLater(committer.commit(id, [MoneyCommit(expense(), null)]), throwsA(isA<CaptureAlreadyHandled>()));
+    expect(await f.db.select(f.db.transactions).get(), hasLength(1));
+
+    final other = await voiceCapture();
+    await repo.discard(other);
+    await expectLater(committer.commit(other, [MoneyCommit(expense(), null)]), throwsA(isA<CaptureAlreadyHandled>()));
+    expect(await f.db.select(f.db.transactions).get(), hasLength(1));
+    expect((await repo.get(other))!.status, 'discarded');
+  });
 }

@@ -72,6 +72,14 @@ class CaptureRepository {
 
   Future<void> markDone(int id) => _write(id, const CapturesCompanion(status: Value('done'), audio: Value(null)));
 
+  /// Marks a pending capture done; false when it was already handled (done, discarded or gone).
+  Future<bool> markDoneIfPending(int id) async {
+    final n = await (_db.update(_db.captures)..where((x) => x.id.equals(id) & x.status.equals('pending'))).write(
+      CapturesCompanion(status: const Value('done'), audio: const Value(null), updatedAt: Value(_now)),
+    );
+    return n > 0;
+  }
+
   Future<void> discard(int id) => _write(id, const CapturesCompanion(status: Value('discarded'), audio: Value(null)));
 
   SimpleSelectStatement<$CapturesTable, Capture> _pending() =>

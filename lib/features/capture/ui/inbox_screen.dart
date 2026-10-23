@@ -27,6 +27,8 @@ List<Proposal> _proposals(Capture c) {
     return decodeProposals(c.parsedJson!);
   } on FormatException {
     return const [];
+  } on ArgumentError {
+    return const [];
   }
 }
 

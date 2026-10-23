@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui' show PlatformDispatcher;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,6 +13,7 @@ import 'core/crypto/aead.dart';
 import 'core/crypto/kdf.dart';
 import 'core/db/app_database.dart';
 import 'core/db/db_key.dart';
+import 'core/logging/app_logger.dart';
 import 'core/storage/secure_store.dart';
 import 'core/theme/tokens.dart';
 import 'features/backup/backup_format.dart';
@@ -27,6 +29,12 @@ const kAppVersion = '1.1.0';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Uncaught errors are logged by type only: a database exception's text can carry the SQL with its values.
+  FlutterError.onError = (d) => AppLogger.error('flutter error', d.exception.runtimeType);
+  PlatformDispatcher.instance.onError = (e, _) {
+    AppLogger.error('uncaught', e.runtimeType);
+    return true;
+  };
   runApp(
     RestartScope(
       loading: ColoredBox(color: AppTokens.dark.bg),

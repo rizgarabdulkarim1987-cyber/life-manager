@@ -1534,6 +1534,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get capNothingFound => 'Nothing to save was found. Edit the text and read it again.';
 
   @override
+  String get capAlreadyHandled => 'This capture was already saved or discarded.';
+
+  @override
   String get capDone => 'Saved';
 
   @override

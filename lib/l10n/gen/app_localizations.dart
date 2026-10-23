@@ -2913,6 +2913,12 @@ abstract class AppLocalizations {
   /// **'Nothing to save was found. Edit the text and read it again.'**
   String get capNothingFound;
 
+  /// No description provided for @capAlreadyHandled.
+  ///
+  /// In en, this message translates to:
+  /// **'This capture was already saved or discarded.'**
+  String get capAlreadyHandled;
+
   /// No description provided for @capDone.
   ///
   /// In en, this message translates to:

@@ -23,7 +23,8 @@ ParsedAmount? parseDecimalToMinor(String s, String currency) {
 }
 
 /// [t] is a plain `-?digits(.digits)?` string; rounds half-even to [exponent].
-ParsedAmount decimalToMinor(String t, int exponent) {
+/// Null when the result does not fit in 62 bits (a mistyped or spoken-too-long number).
+ParsedAmount? decimalToMinor(String t, int exponent) {
   final negative = t.startsWith('-');
   final body = negative ? t.substring(1) : t;
   final dot = body.indexOf('.');
@@ -39,5 +40,6 @@ ParsedAmount decimalToMinor(String t, int exponent) {
     minor = divRoundHalfEven(digits, pow10(scale - exponent));
     rounded = frac.substring(exponent).replaceAll('0', '').isNotEmpty;
   }
+  if (minor.bitLength > 62) return null;
   return ParsedAmount((negative ? -minor : minor).toInt(), rounded: rounded);
 }

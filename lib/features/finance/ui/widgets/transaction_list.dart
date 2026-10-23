@@ -84,7 +84,7 @@ class _TransactionSliverListState extends ConsumerState<TransactionSliverList> {
     final messenger = ScaffoldMessenger.of(context);
     final l = context.l10n;
     setState(() => _hidden.add(t.id));
-    await repo.delete(t.id);
+    final allocations = await repo.delete(t.id);
     messenger.hideCurrentSnackBar();
     messenger.showSnackBar(
       SnackBar(
@@ -92,7 +92,7 @@ class _TransactionSliverListState extends ConsumerState<TransactionSliverList> {
         action: SnackBarAction(
           label: l.undo,
           onPressed: () async {
-            await repo.restore(t);
+            await repo.restore(t, allocations);
             if (mounted) setState(() => _hidden.remove(t.id));
           },
         ),

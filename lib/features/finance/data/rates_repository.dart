@@ -10,8 +10,8 @@ import '../../../core/text/digits.dart';
 int? parseRateE6(String s) {
   final t = normalizeDigits(s.trim()).replaceAll(RegExp('[,٬\\s]'), '').replaceAll('٫', '.');
   if (!RegExp(r'^\d+(\.\d{1,6})?$').hasMatch(t)) return null;
-  final v = decimalToMinor(t, 6).minor;
-  return v > 0 ? v : null;
+  final v = decimalToMinor(t, 6)?.minor;
+  return v != null && v > 0 ? v : null;
 }
 
 class ConvertedLine {

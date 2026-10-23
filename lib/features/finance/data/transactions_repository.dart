@@ -136,10 +136,20 @@ class TransactionsRepository {
     },
   );
 
-  Future<void> delete(int id) => (_db.delete(_db.transactions)..where((t) => t.id.equals(id))).go();
+  /// Deletes the row and returns its bucket allocations (they cascade), so an undo can bring them back.
+  Future<List<BucketAllocation>> delete(int id) => _db.transaction(() async {
+    final allocs = await (_db.select(_db.bucketAllocations)..where((a) => a.transactionId.equals(id))).get();
+    await (_db.delete(_db.transactions)..where((t) => t.id.equals(id))).go();
+    return allocs;
+  });
 
-  /// Re-inserts a row exactly as it was (undo after delete).
-  Future<void> restore(Transaction t) => _db.into(_db.transactions).insert(t);
+  /// Re-inserts a row exactly as it was, with its allocations (undo after delete).
+  Future<void> restore(Transaction t, [List<BucketAllocation> allocations = const []]) => _db.transaction(() async {
+    await _db.into(_db.transactions).insert(t);
+    for (final a in allocations) {
+      await _db.into(_db.bucketAllocations).insert(a);
+    }
+  });
 
   Stream<List<Transaction>> watch(TxFilter f) {
     final q = _db.select(_db.transactions)

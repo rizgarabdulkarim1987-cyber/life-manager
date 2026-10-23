@@ -153,7 +153,8 @@ BigInt? _digitsValue(Tok t) {
   if (!t.isDigits || t.norm.contains(':')) return null;
   final plain = t.norm.replaceAll(RegExp('[,٬]'), '').replaceAll('٫', '.');
   if (!RegExp(r'^\d+(\.\d+)?$').hasMatch(plain)) return null;
-  return BigInt.from(decimalToMinor(plain, 6).minor);
+  final v = decimalToMinor(plain, 6);
+  return v == null ? null : BigInt.from(v.minor);
 }
 
 String _format(BigInt micro) {

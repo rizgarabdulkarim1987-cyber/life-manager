@@ -65,7 +65,8 @@ String _plain(String t) {
 int? decimalTextToMinor(String text, String currency) {
   final t = _plain(normalizeDigits(text.trim()).replaceAll('−', '-'));
   if (!_plainDecimal.hasMatch(t)) return null;
-  final six = decimalToMinor(t, 6).minor;
+  final six = decimalToMinor(t, 6)?.minor;
+  if (six == null) return null;
   return divRoundHalfEven(BigInt.from(six), pow10(6 - currencyExponent(currency))).toInt();
 }
 

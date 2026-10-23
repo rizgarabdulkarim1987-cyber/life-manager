@@ -21,8 +21,8 @@ import 'widgets/usage_bar.dart';
 int? parsePercentBp(String s) {
   final t = normalizeDigits(s.trim()).replaceAll('٫', '.');
   if (!RegExp(r'^\d{1,3}(\.\d{1,2})?$').hasMatch(t)) return null;
-  final bp = decimalToMinor(t, 2).minor;
-  return bp <= 10000 ? bp : null;
+  final bp = decimalToMinor(t, 2)?.minor;
+  return bp != null && bp <= 10000 ? bp : null;
 }
 
 String formatBp(int bp) => bp % 100 == 0 ? '${bp ~/ 100}' : '${bp ~/ 100}.${(bp % 100).toString().padLeft(2, '0')}';

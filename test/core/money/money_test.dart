@@ -92,4 +92,10 @@ void main() {
       expect(formatMoney(const Money(5, 'IQD'), localeCode: 'en', showCode: false), '5');
     });
   });
+
+  test('numbers that do not fit are refused instead of clamped', () {
+    expect(parseDecimalToMinor('10000000000000000000', 'IQD'), isNull);
+    expect(decimalToMinor('99999999999999999999', 6), isNull);
+    expect(parseDecimalToMinor('999999999999', 'IQD')?.minor, 999999999999);
+  });
 }

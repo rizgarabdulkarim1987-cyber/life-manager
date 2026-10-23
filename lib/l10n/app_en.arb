@@ -822,6 +822,7 @@
   "capWhichDebt": "Which debt",
   "capDrop": "Dropped",
   "capNothingFound": "Nothing to save was found. Edit the text and read it again.",
+  "capAlreadyHandled": "This capture was already saved or discarded.",
   "capDone": "Saved",
   "capInbox": "Inbox",
   "capInboxEmpty": "Nothing waiting. Anything you say or type and don't save lands here.",

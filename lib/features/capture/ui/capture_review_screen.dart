@@ -243,7 +243,13 @@ class _CaptureReviewScreenState extends ConsumerState<CaptureReviewScreen> {
       if (c == null) return;
       if (firstTime) _transcript.text = c.transcript ?? '';
       _by = c.parsedBy;
-      _items = c.parsedJson == null ? const [] : [for (final p in decodeProposals(c.parsedJson!)) _edit(p)];
+      try {
+        _items = c.parsedJson == null ? const [] : [for (final p in decodeProposals(c.parsedJson!)) _edit(p)];
+      } on Exception {
+        _items = const [];
+      } on ArgumentError {
+        _items = const [];
+      }
       _gen++;
     });
   }
@@ -280,6 +286,9 @@ class _CaptureReviewScreenState extends ConsumerState<CaptureReviewScreen> {
       ]);
       messenger.showSnackBar(SnackBar(content: Text(l.capDone)));
       if (mounted) context.pop();
+    } on CaptureAlreadyHandled {
+      messenger.showSnackBar(SnackBar(content: Text(l.capAlreadyHandled)));
+      if (mounted) context.pop();
     } on Exception catch (e) {
       AppLogger.warn('capture save failed', e);
       if (mounted) setState(() => _busy = false);
@@ -289,11 +298,16 @@ class _CaptureReviewScreenState extends ConsumerState<CaptureReviewScreen> {
   /// Leaves the capture pending with what the owner has edited so far.
   Future<void> _keepInInbox() async {
     setState(() => _busy = true);
-    await _repo.setTranscript(widget.captureId, _transcript.text.trim());
-    if (_items.isNotEmpty) {
-      await _repo.setParsed(widget.captureId, [for (final e in _items) e.build()], by: _by ?? 'rules');
+    try {
+      await _repo.setTranscript(widget.captureId, _transcript.text.trim());
+      if (_items.isNotEmpty) {
+        await _repo.setParsed(widget.captureId, [for (final e in _items) e.build()], by: _by ?? 'rules');
+      }
+      if (mounted) context.pop();
+    } on Exception catch (e) {
+      AppLogger.warn('keep in inbox failed', e);
+      if (mounted) setState(() => _busy = false);
     }
-    if (mounted) context.pop();
   }
 
   @override

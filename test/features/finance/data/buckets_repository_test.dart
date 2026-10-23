@@ -130,4 +130,15 @@ void main() {
     await buckets.setTarget(id('emergency'), 500000);
     expect((await buckets.watch().first).firstWhere((b) => b.systemKey == 'emergency').targetMinor, 500000);
   });
+
+  test('deleting an allocated income and restoring it brings the allocations back', () async {
+    final t = await income(100000);
+    await buckets.allocate(t, {id('expenses'): 60000, id('emergency'): 30000, id('investment'): 10000});
+    final row = await (f.db.select(f.db.transactions)..where((x) => x.id.equals(t))).getSingle();
+    final allocs = await tx.delete(t);
+    expect(allocs, hasLength(3));
+    expect(await f.db.select(f.db.bucketAllocations).get(), isEmpty);
+    await tx.restore(row, allocs);
+    expect(await f.db.select(f.db.bucketAllocations).get(), hasLength(3));
+  });
 }

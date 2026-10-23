@@ -1537,6 +1537,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get capNothingFound => 'ما لگيت شي ينحفظ. عدّل النص واقرأه مرة ثانية.';
 
   @override
+  String get capAlreadyHandled => 'تمت معالجة هذا الإدخال سابقاً (حُفظ أو حُذف).';
+
+  @override
   String get capDone => 'انحفظ';
 
   @override

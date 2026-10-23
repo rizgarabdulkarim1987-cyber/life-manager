@@ -158,6 +158,7 @@ class _ImportWizardScreenState extends ConsumerState<ImportWizardScreen> {
 
   // Step 6
   List<int> _touched = const [];
+  int? _batchId;
   final _computed = <int, Money>{};
   final _actual = <int, int?>{};
 
@@ -375,7 +376,7 @@ class _ImportWizardScreenState extends ConsumerState<ImportWizardScreen> {
           createdAccounts: createdAcc,
           extraAccounts: extra,
         );
-        await svc.commit(_fileName!, planned, skipDuplicates: _skipDuplicates);
+        _batchId = await svc.commit(_fileName!, planned, skipDuplicates: _skipDuplicates);
         return planned;
       });
       final touched = {
@@ -401,17 +402,26 @@ class _ImportWizardScreenState extends ConsumerState<ImportWizardScreen> {
 
   Future<void> _saveBalances() async {
     final tx = ref.read(transactionsRepositoryProvider);
-    for (final id in _touched) {
-      final actual = _actual[id];
-      final computed = _computed[id];
-      if (actual == null || computed == null || actual == computed.minor) continue;
-      await tx.addSimple(
-        type: 'adjustment',
-        accountId: id,
-        amountMinor: actual - computed.minor,
-        occurredAt: DateTime.now().toUtc(),
-        description: kImportAdjustmentNote,
-      );
+    // Tagged with the batch, so undoing the import removes these too.
+    try {
+      await ref.read(appDatabaseProvider).transaction(() async {
+        for (final id in _touched) {
+          final actual = _actual[id];
+          final computed = _computed[id];
+          if (actual == null || computed == null || actual == computed.minor) continue;
+          await tx.addSimple(
+            type: 'adjustment',
+            accountId: id,
+            amountMinor: actual - computed.minor,
+            occurredAt: DateTime.now().toUtc(),
+            description: kImportAdjustmentNote,
+            importBatchId: _batchId,
+          );
+        }
+      });
+    } on Exception catch (e) {
+      AppLogger.error('import balances failed', e.runtimeType);
+      return;
     }
     if (mounted) Navigator.of(context).maybePop();
   }

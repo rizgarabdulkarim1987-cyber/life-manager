@@ -1537,6 +1537,9 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get capNothingFound => 'هیچ شتێک بۆ پاشەکەوتکردن نەدۆزرایەوە. دەقەکە دەستکاری بکە و دووبارە بیخوێنەوە.';
 
   @override
+  String get capAlreadyHandled => 'ئەم تۆمارە پێشتر پاشەکەوت یان سڕاوەتەوە.';
+
+  @override
   String get capDone => 'پاشەکەوت کرا';
 
   @override

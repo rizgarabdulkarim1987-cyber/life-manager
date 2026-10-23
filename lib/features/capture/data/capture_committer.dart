@@ -40,6 +40,11 @@ class KeepInInbox extends CommitItem {
   final Proposal p;
 }
 
+/// The capture was already saved or discarded, so nothing was written.
+class CaptureAlreadyHandled implements Exception {
+  const CaptureAlreadyHandled();
+}
+
 class CaptureCommitter {
   CaptureCommitter(this._db)
     : _tx = TransactionsRepository(_db),
@@ -61,12 +66,13 @@ class CaptureCommitter {
     final capture = await _captures.get(captureId);
     if (capture == null) throw ArgumentError.value(captureId, 'captureId', 'unknown capture');
     await _db.transaction(() async {
+      // First, so a second Save (or a Save after Discard) writes nothing and the whole thing rolls back.
+      if (!await _captures.markDoneIfPending(captureId)) throw const CaptureAlreadyHandled();
       for (final item in items) {
         await _write(captureId, item);
       }
       final kept = [for (final i in items.whereType<KeepInInbox>()) i.p];
       if (kept.isNotEmpty) await _captures.createKept(capture.transcript, kept, by: capture.parsedBy);
-      await _captures.markDone(captureId);
     });
   }
 
