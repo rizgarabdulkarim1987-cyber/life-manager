@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:drift/drift.dart' hide isNull, isNotNull;
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -39,6 +41,25 @@ void main() {
     await svc.commitSetUp(pending);
   });
   tearDown(() => db.close());
+
+  test('the key copy handed to the Keystore is wiped afterwards', () async {
+    final seen = <Uint8List>[];
+    final spy = _SpyKeystore(seen);
+    final s2 = VaultKeyService(
+      db: db,
+      wrapper: KeyWrapper(FakeKdf(), const AesGcmAead()),
+      throttle: UnlockThrottle(InMemorySecureStore()),
+      kdf: FakeKdf(),
+      bioWraps: wraps,
+      keystore: spy,
+    );
+    final k = await s2.unlockWithPassword(_pw);
+    await s2.enableBiometric(k, _text);
+    expect(seen, hasLength(1));
+    expect(seen.single.every((b) => b == 0), isTrue);
+    expect(k.bytes.any((b) => b != 0), isTrue, reason: 'the live key itself is untouched');
+    k.destroy();
+  });
 
   test('enable, then unlock with the fingerprint gives the vault key', () async {
     final k = await svc.unlockWithPassword(_pw);
@@ -120,4 +141,16 @@ void main() {
     keystore.failNext = const VaultBiometricCancelled();
     await expectLater(svc.confirmWithBiometric(k, _text), throwsA(isA<VaultBiometricCancelled>()));
   });
+}
+
+class _SpyKeystore extends FakeBiometricKeyStore {
+  _SpyKeystore(this.seen);
+
+  final List<Uint8List> seen;
+
+  @override
+  Future<Uint8List> encrypt(Uint8List data, BioPromptText t) {
+    seen.add(data);
+    return super.encrypt(data, t);
+  }
 }

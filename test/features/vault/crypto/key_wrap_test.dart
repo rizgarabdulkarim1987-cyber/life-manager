@@ -96,6 +96,7 @@ void main() {
       checkVaultKdf(const KdfParams(memoryKiB: 65536, iterations: 8));
       for (final p in const [
         KdfParams(memoryKiB: 4 * 1024 * 1024, iterations: 3),
+        KdfParams(memoryKiB: 512 * 1024, iterations: 3),
         KdfParams(memoryKiB: 65536, iterations: 50),
         KdfParams(memoryKiB: 1024, iterations: 3),
         KdfParams(memoryKiB: 65536, iterations: 3, parallelism: 64),

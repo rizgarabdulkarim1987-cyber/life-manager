@@ -74,7 +74,10 @@ class KeyWrapper {
   Future<VaultKey> _open(Uint8List blob, Uint8List kek, String kind, String vaultId) async {
     try {
       final plain = await _aead.open(decodeBlob(blob), kek, aad: _aad(kind, vaultId));
-      if (plain.length != 32) throw const VaultCorrupt();
+      if (plain.length != 32) {
+        plain.fillRange(0, plain.length, 0);
+        throw const VaultCorrupt();
+      }
       return VaultKey(plain);
     } on AeadAuthException {
       throw const VaultWrongSecret();

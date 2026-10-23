@@ -42,7 +42,8 @@ final class PlatformBiometricKeyStore implements BiometricKeyStore {
     'invalidated' => const VaultBiometricInvalidated(),
     'cancelled' => const VaultBiometricCancelled(),
     'unavailable' => const VaultBiometricUnavailable(),
-    'lockout' => const VaultLockedOut(Duration.zero),
+    // Android's own fingerprint lockout has no countdown we can show; the master password is the way in.
+    'lockout' => const VaultBiometricUnavailable(),
     _ => const VaultWrongSecret(),
   };
 

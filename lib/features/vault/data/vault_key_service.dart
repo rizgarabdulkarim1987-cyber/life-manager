@@ -229,8 +229,13 @@ class VaultKeyService {
   Future<void> enableBiometric(VaultKey vdk, BioPromptText t) async {
     if (!await _keystore.isAvailable()) throw const VaultBiometricUnavailable();
     final id = await vaultId();
-    final blob = await _keystore.encrypt(Uint8List.fromList(vdk.bytes), t);
-    await _bioWraps.write(BioWrap(vaultId: id, blob: blob));
+    final copy = Uint8List.fromList(vdk.bytes);
+    try {
+      final blob = await _keystore.encrypt(copy, t);
+      await _bioWraps.write(BioWrap(vaultId: id, blob: blob));
+    } finally {
+      copy.fillRange(0, copy.length, 0);
+    }
   }
 
   Future<void> disableBiometric() => forgetDeviceKeys();

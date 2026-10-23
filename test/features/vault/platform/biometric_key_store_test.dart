@@ -40,7 +40,7 @@ void main() {
       'invalidated': isA<VaultBiometricInvalidated>(),
       'cancelled': isA<VaultBiometricCancelled>(),
       'unavailable': isA<VaultBiometricUnavailable>(),
-      'lockout': isA<VaultLockedOut>(),
+      'lockout': isA<VaultBiometricUnavailable>(),
       'failed': isA<VaultWrongSecret>(),
       'something-new': isA<VaultWrongSecret>(),
     };

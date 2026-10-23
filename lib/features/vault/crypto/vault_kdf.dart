@@ -37,7 +37,7 @@ Future<KdfParams> calibrateVaultKdf(Kdf kdf, {Future<Duration> Function(Future<v
 void checkVaultKdf(KdfParams p) {
   final ok =
       p.memoryKiB >= kFallbackKdfParams.memoryKiB &&
-      p.memoryKiB <= 1024 * 1024 &&
+      p.memoryKiB <= 256 * 1024 &&
       p.iterations >= 1 &&
       p.iterations <= 10 &&
       p.parallelism >= 1 &&
