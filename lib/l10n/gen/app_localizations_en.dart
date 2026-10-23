@@ -264,7 +264,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get passwordStrengthStrong => 'Strong';
 
   @override
-  String get backupPasswordHint => 'You will need this password to restore. If you forget it, it cannot be recovered.';
+  String get backupPasswordHint =>
+      'You will need this password to restore. If you forget it, it cannot be recovered. A saved Groq key is kept inside the encrypted backup too.';
 
   @override
   String get somethingWentWrong => 'Something went wrong. Please try again.';

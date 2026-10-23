@@ -13,12 +13,16 @@ import 'package:life_manager/core/theme/app_theme.dart';
 import 'package:life_manager/features/backup/backup_format.dart';
 import 'package:life_manager/features/backup/backup_screen.dart';
 import 'package:life_manager/features/backup/backup_service.dart';
+import 'package:life_manager/features/capture/ai/ai_config.dart';
 
 class FakeBackupService implements BackupService {
   String? createdWith;
   String? restoredWith;
   Exception? restoreError = const BackupWrongPasswordException();
   int exportsRecorded = 0;
+
+  @override
+  GroqKeyStore? get groqKey => null;
 
   @override
   bool get databaseClosed => false;

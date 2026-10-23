@@ -19,9 +19,12 @@ String alertRoute(FinanceAlert a) => switch (a) {
 
 /// One line per alert, each opening the screen it is about.
 class AlertsBanner extends ConsumerWidget {
-  const AlertsBanner(this.alerts, {super.key});
+  const AlertsBanner(this.alerts, {super.key, this.keyPrefix = ''});
 
   final List<FinanceAlert> alerts;
+
+  /// Keeps keys unique when two screens show the banner at once (Home and Finance).
+  final String keyPrefix;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -62,7 +65,7 @@ class AlertsBanner extends ConsumerWidget {
 
     final text = Theme.of(context).textTheme;
     return Container(
-      key: const ValueKey('alerts-banner'),
+      key: ValueKey('${keyPrefix}alerts-banner'),
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         color: k.surface,
@@ -74,7 +77,7 @@ class AlertsBanner extends ConsumerWidget {
         children: [
           for (final a in alerts)
             InkWell(
-              key: ValueKey('alert-${a.key}'),
+              key: ValueKey('${keyPrefix}alert-${a.key}'),
               onTap: () => context.push(alertRoute(a)),
               child: ConstrainedBox(
                 constraints: const BoxConstraints(minHeight: 48),

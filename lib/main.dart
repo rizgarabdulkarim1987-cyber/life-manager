@@ -18,6 +18,7 @@ import 'features/backup/backup_format.dart';
 import 'features/backup/backup_screen.dart';
 import 'features/backup/backup_service.dart';
 import 'features/backup/db_snapshot.dart';
+import 'features/capture/ai/ai_config.dart';
 import 'features/capture/speech/recorder.dart';
 import 'features/settings/settings_repository.dart';
 
@@ -53,6 +54,7 @@ Future<Widget> _openApp() async {
     dbKey: key,
     settings: SettingsRepository(db),
     appVersion: kAppVersion,
+    groqKey: GroqKeyStore(FlutterSecureStore()),
   );
   return ProviderScope(
     overrides: [appDatabaseProvider.overrideWithValue(db), backupServiceProvider.overrideWithValue(backup)],

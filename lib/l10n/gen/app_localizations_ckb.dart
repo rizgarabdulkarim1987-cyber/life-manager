@@ -264,7 +264,8 @@ class AppLocalizationsCkb extends AppLocalizations {
   String get passwordStrengthStrong => 'بەهێز';
 
   @override
-  String get backupPasswordHint => 'بۆ گەڕاندنەوە پێویستت بەم وشەی نهێنییە دەبێت. ئەگەر لەبیرت بچێت، ناگەڕێتەوە.';
+  String get backupPasswordHint =>
+      'بۆ گەڕاندنەوە پێویستت بەم وشەی نهێنییە دەبێت. ئەگەر لەبیرت بچێت، ناگەڕێتەوە. کلیلی Groqی پاشەکەوتکراویش لەناو باکئەپە کۆدکراوەکەدایە.';
 
   @override
   String get somethingWentWrong => 'هەڵەیەک ڕوویدا. دووبارە هەوڵ بدەرەوە.';

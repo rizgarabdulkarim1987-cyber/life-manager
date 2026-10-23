@@ -142,6 +142,23 @@ final monthSummaryProvider = FutureProvider<ReportResult<IncomeExpense>>((ref) a
   return ReportResult(r.data.single, skippedCount: r.skippedCount, missingRates: r.missingRates);
 });
 
+/// Income and expense for the last six months (this one included) in the base currency, oldest first.
+final lastSixMonthsProvider = FutureProvider<ReportResult<List<IncomeExpense>>>((ref) async {
+  ref.watch(balancesProvider);
+  ref.watch(ratesHistoryProvider);
+  final settings = await ref.watch(settingsProvider.future);
+  final now = DateTime.now();
+  final from = DateTime(now.year, now.month - 5);
+  final to = DateTime(now.year, now.month + 1);
+  final data = await ref.watch(reportsQueryProvider).load(to: to);
+  return incomeVsExpense(
+    data.transactions,
+    ReportScope(from: from, to: to, currency: settings.baseCurrency),
+    Period.month,
+    data.context,
+  );
+});
+
 /// Active accounts grouped under their workspace, in workspace order.
 final accountGroupsProvider = Provider<AsyncValue<List<(Workspace, List<Account>)>>>((ref) {
   final ws = ref.watch(workspacesProvider);

@@ -268,7 +268,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get passwordStrengthStrong => 'قوية';
 
   @override
-  String get backupPasswordHint => 'ستحتاج كلمة المرور هذه عند الاسترجاع. إذا نسيتها فلا يمكن استعادتها.';
+  String get backupPasswordHint =>
+      'ستحتاج كلمة المرور هذه عند الاسترجاع. إذا نسيتها فلا يمكن استعادتها. مفتاح Groq المحفوظ يُحفظ أيضاً داخل النسخة المشفّرة.';
 
   @override
   String get somethingWentWrong => 'حدث خطأ. حاول مرة أخرى.';

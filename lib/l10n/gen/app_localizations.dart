@@ -552,7 +552,7 @@ abstract class AppLocalizations {
   /// No description provided for @backupPasswordHint.
   ///
   /// In en, this message translates to:
-  /// **'You will need this password to restore. If you forget it, it cannot be recovered.'**
+  /// **'You will need this password to restore. If you forget it, it cannot be recovered. A saved Groq key is kept inside the encrypted backup too.'**
   String get backupPasswordHint;
 
   /// No description provided for @somethingWentWrong.
