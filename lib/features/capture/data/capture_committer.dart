@@ -7,6 +7,7 @@ import '../../finance/data/buckets_repository.dart';
 import '../../finance/data/debts_repository.dart';
 import '../../finance/data/rates_repository.dart';
 import '../../finance/data/transactions_repository.dart';
+import '../../projects/data/projects_repository.dart';
 import '../../tasks/data/notes_repository.dart';
 import '../../tasks/data/tasks_repository.dart';
 import '../domain/proposal.dart';
@@ -64,6 +65,13 @@ class NoteCommit extends CommitItem {
   final NoteProposal p;
 }
 
+/// A project idea becomes a project in the idea state, ready for the planner chat.
+class ProjectCommit extends CommitItem {
+  const ProjectCommit(this.p);
+
+  final ProjectIdeaProposal p;
+}
+
 /// Not saved now: moved to a new pending capture so nothing is lost (Decision 3).
 class KeepInInbox extends CommitItem {
   const KeepInInbox(this.p);
@@ -83,12 +91,19 @@ class _UndoLog {
   final closedDebts = <int>[];
   final tasks = <int>[];
   final notes = <int>[];
+  final projects = <int>[];
 
   /// Rows as they were before an edit or delete, with their bucket allocations.
   final restore = <Map<String, Object?>>[];
 
   bool get isEmpty =>
-      transactions.isEmpty && debts.isEmpty && closedDebts.isEmpty && restore.isEmpty && tasks.isEmpty && notes.isEmpty;
+      transactions.isEmpty &&
+      debts.isEmpty &&
+      closedDebts.isEmpty &&
+      restore.isEmpty &&
+      tasks.isEmpty &&
+      notes.isEmpty &&
+      projects.isEmpty;
 
   String encode() => jsonEncode({
     'tx': transactions,
@@ -97,6 +112,7 @@ class _UndoLog {
     'restore': restore,
     'tasks': tasks,
     'notes': notes,
+    'projects': projects,
   });
 
   static _UndoLog decode(String s) {
@@ -108,6 +124,7 @@ class _UndoLog {
       ..closedDebts.addAll(ints('closed'))
       ..tasks.addAll(ints('tasks'))
       ..notes.addAll(ints('notes'))
+      ..projects.addAll(ints('projects'))
       ..restore.addAll([for (final r in (j['restore'] as List? ?? const [])) (r as Map).cast<String, Object?>()]);
   }
 }
@@ -171,6 +188,8 @@ class CaptureCommitter {
         if (p.title.trim().isEmpty) throw ArgumentError('a task needs a title');
       case NoteCommit(:final p):
         if (p.text.trim().isEmpty) throw ArgumentError('a note needs text');
+      case ProjectCommit(:final p):
+        if (p.title.trim().isEmpty) throw ArgumentError('a project needs a title');
       case KeepInInbox():
         break;
     }
@@ -191,6 +210,9 @@ class CaptureCommitter {
     }
     if (log.tasks.isNotEmpty) await (_db.delete(_db.tasks)..where((t) => t.id.isIn(log.tasks))).go();
     if (log.notes.isNotEmpty) await (_db.delete(_db.notes)..where((n) => n.id.isIn(log.notes))).go();
+    for (final id in log.projects) {
+      await ProjectsRepository(_db).delete(id);
+    }
     for (final r in log.restore.reversed) {
       final old = Transaction.fromJson((r['tx']! as Map).cast<String, Object?>());
       final allocations = [
@@ -304,6 +326,10 @@ class CaptureCommitter {
         );
       case NoteCommit(:final p):
         log.notes.add(await NotesRepository(_db).add(p.text, captureId: captureId));
+      case ProjectCommit(:final p):
+        log.projects.add(
+          await ProjectsRepository(_db).create(title: p.title, description: p.description, captureId: captureId),
+        );
       case KeepInInbox():
         break;
     }

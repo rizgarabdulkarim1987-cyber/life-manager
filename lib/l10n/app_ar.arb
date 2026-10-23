@@ -1015,5 +1015,6 @@
   "chatNoDate": "بدون تاريخ",
   "capWillBeTask": "راح ينحفظ كمهمة",
   "capWillBeNote": "راح ينحفظ كملاحظة",
-  "capSavesOnConfirm": "ينحفظ لما تأكد."
+  "capSavesOnConfirm": "ينحفظ لما تأكد.",
+  "chatOpenProject": "افتح المشروع"
 }

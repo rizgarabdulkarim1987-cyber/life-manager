@@ -23,6 +23,7 @@ Map<String, Object> buildParsePayload(String transcript, Lexicon lex, DateTime n
     for (final c in lex.categories) {'name': c.name, 'kind': c.kind},
   ],
   'buckets': [for (final b in lex.buckets) b.name],
+  'projects': lex.projects,
 };
 
 const kParseSystemPrompt =
@@ -30,7 +31,7 @@ const kParseSystemPrompt =
     'to their personal finance and tasks app. The transcript may mix Iraqi Arabic, '
     'Kurdish (Sorani) and English, and may contain several intents. '
     'The user message is JSON with the transcript, the local date and time ("now", '
-    '"utcOffset"), and the names of the person\'s accounts, workspaces, categories and buckets.\n'
+    '"utcOffset"), and the names of the person\'s accounts, workspaces, categories, buckets and projects.\n'
     'Answer with exactly this JSON shape and nothing else:\n'
     '$kIntentSchema\n'
     'Rules:\n'
@@ -50,8 +51,9 @@ const kParseSystemPrompt =
     '- Output only JSON.';
 
 /// For a receipt photo: the same names to choose from and the date, no transcript.
-Map<String, Object> buildReceiptPayload(Lexicon lex, DateTime now) =>
-    buildParsePayload('', lex, now)..remove('transcript');
+Map<String, Object> buildReceiptPayload(Lexicon lex, DateTime now) => buildParsePayload('', lex, now)
+  ..remove('transcript')
+  ..remove('projects');
 
 const kReceiptSystemPrompt =
     'You read one photo of a shop receipt or bill for a personal finance app. '

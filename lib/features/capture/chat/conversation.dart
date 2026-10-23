@@ -55,7 +55,14 @@ class UserMessage extends ChatMessage {
 }
 
 class AssistantMessage extends ChatMessage {
-  const AssistantMessage(this.text, {this.cards = const [], this.replies = const [], this.asksFor, this.undoCaptureId});
+  const AssistantMessage(
+    this.text, {
+    this.cards = const [],
+    this.replies = const [],
+    this.asksFor,
+    this.undoCaptureId,
+    this.openProjectId,
+  });
 
   final String text;
   final List<ProposalCard> cards;
@@ -67,12 +74,16 @@ class AssistantMessage extends ChatMessage {
   /// Set on the "Saved" message: Undo takes this capture back.
   final int? undoCaptureId;
 
+  /// Set when saving made a project: a button opens it.
+  final int? openProjectId;
+
   AssistantMessage copyWith({List<ProposalCard>? cards}) => AssistantMessage(
     text,
     cards: cards ?? this.cards,
     replies: replies,
     asksFor: asksFor,
     undoCaptureId: undoCaptureId,
+    openProjectId: openProjectId,
   );
 }
 
@@ -364,7 +375,10 @@ class Conversation extends Notifier<List<ChatMessage>> {
         cards: [for (final c in cards) c.state == CardState.accepted ? c.copyWith(state: CardState.saved) : c],
       ),
     );
-    _add(AssistantMessage(l.chatSaved, undoCaptureId: card.captureId));
+    final project = await (_db.select(
+      _db.projects,
+    )..where((p) => p.captureId.equals(card.captureId))).getSingleOrNull();
+    _add(AssistantMessage(l.chatSaved, undoCaptureId: card.captureId, openProjectId: project?.id));
   }
 
   Future<CommitItem> _commitItem(Proposal p) async {
@@ -391,7 +405,7 @@ class Conversation extends Notifier<List<ChatMessage>> {
       case NoteProposal():
         return NoteCommit(p);
       case ProjectIdeaProposal():
-        return KeepInInbox(p);
+        return ProjectCommit(p);
     }
   }
 

@@ -2120,4 +2120,7 @@ class AppLocalizationsCkb extends AppLocalizations {
 
   @override
   String get capSavesOnConfirm => 'کاتێک دووپاتی بکەیتەوە پاشەکەوت دەکرێت.';
+
+  @override
+  String get chatOpenProject => 'پڕۆژەکە بکەرەوە';
 }

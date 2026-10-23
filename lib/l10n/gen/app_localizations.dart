@@ -3932,6 +3932,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Saved when you confirm.'**
   String get capSavesOnConfirm;
+
+  /// No description provided for @chatOpenProject.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the project'**
+  String get chatOpenProject;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

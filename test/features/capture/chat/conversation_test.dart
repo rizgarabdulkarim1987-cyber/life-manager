@@ -291,6 +291,18 @@ void main() {
       expect((await f.db.select(f.db.notes).get()).single.body, 'رقم المهندس 0770');
     });
 
+    test('project idea opens a project after OK, with a button to open it, and Undo removes it', () async {
+      await chat().send('عندي فكرة مشروع محل قهوة صغير');
+      expect(last().cards.single.proposal, isA<ProjectIdeaProposal>());
+      expect(await f.db.select(f.db.projects).get(), isEmpty, reason: 'nothing is saved before OK');
+      await chat().accept(last().cards.single);
+      final project = (await f.db.select(f.db.projects).get()).single;
+      expect((project.title, project.status), ('محل قهوة صغير', 'idea'));
+      expect(last().openProjectId, project.id);
+      await chat().undo(last().undoCaptureId!);
+      expect(await f.db.select(f.db.projects).get(), isEmpty);
+    });
+
     test('the AI can send an appointment with a place', () async {
       await online([
         {'type': 'appointment', 'title': 'Doctor', 'date': '2026-10-29', 'time': '10:00', 'place': 'Mansour'},

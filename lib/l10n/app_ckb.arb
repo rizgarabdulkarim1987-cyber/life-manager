@@ -1015,5 +1015,6 @@
   "chatNoDate": "بێ بەروار",
   "capWillBeTask": "وەک ئەرک پاشەکەوت دەکرێت",
   "capWillBeNote": "وەک تێبینی پاشەکەوت دەکرێت",
-  "capSavesOnConfirm": "کاتێک دووپاتی بکەیتەوە پاشەکەوت دەکرێت."
+  "capSavesOnConfirm": "کاتێک دووپاتی بکەیتەوە پاشەکەوت دەکرێت.",
+  "chatOpenProject": "پڕۆژەکە بکەرەوە"
 }

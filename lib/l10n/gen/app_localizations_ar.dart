@@ -2118,4 +2118,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get capSavesOnConfirm => 'ينحفظ لما تأكد.';
+
+  @override
+  String get chatOpenProject => 'افتح المشروع';
 }

@@ -151,6 +151,16 @@ class _AssistantBubble extends ConsumerWidget {
                   ],
                 ),
               ),
+            if (m.openProjectId != null)
+              TextButton.icon(
+                key: ValueKey('open-project-${m.openProjectId}'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  context.go('/projects/${m.openProjectId}');
+                },
+                icon: const Icon(Icons.rocket_launch_outlined, size: 18),
+                label: Text(l.chatOpenProject),
+              ),
             if (m.undoCaptureId != null)
               TextButton.icon(
                 key: ValueKey('undo-${m.undoCaptureId}'),

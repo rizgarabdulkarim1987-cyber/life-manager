@@ -2117,4 +2117,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get capSavesOnConfirm => 'Saved when you confirm.';
+
+  @override
+  String get chatOpenProject => 'Open the project';
 }

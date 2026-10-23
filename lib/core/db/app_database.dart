@@ -12,11 +12,13 @@ import 'capture_tables.dart';
 import 'finance_seed.dart';
 import 'finance_tables.dart';
 import 'life_tables.dart';
+import 'project_tables.dart';
 import 'tables.dart';
 
 export 'capture_tables.dart';
 export 'finance_tables.dart';
 export 'life_tables.dart';
+export 'project_tables.dart';
 export 'tables.dart';
 
 part 'app_database.g.dart';
@@ -39,6 +41,9 @@ part 'app_database.g.dart';
     Captures,
     Tasks,
     Notes,
+    Projects,
+    ProjectSteps,
+    ProjectMessages,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -129,6 +134,9 @@ class AppDatabase extends _$AppDatabase {
     await m.alterTable(TableMigration(captures));
     await _createOnce(m, tasks);
     await _createOnce(m, notes);
+    await _createOnce(m, projects);
+    await _createOnce(m, projectSteps);
+    await _createOnce(m, projectMessages);
     await customStatement("UPDATE app_settings SET theme_mode = 'light' WHERE theme_mode = 'dark'");
     await customStatement('UPDATE app_settings SET lock_timeout_seconds = 60 WHERE lock_timeout_seconds = 300');
     await _dropUnusedSeeds();
