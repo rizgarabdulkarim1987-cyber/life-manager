@@ -1016,5 +1016,68 @@
   "capWillBeTask": "وەک ئەرک پاشەکەوت دەکرێت",
   "capWillBeNote": "وەک تێبینی پاشەکەوت دەکرێت",
   "capSavesOnConfirm": "کاتێک دووپاتی بکەیتەوە پاشەکەوت دەکرێت.",
-  "chatOpenProject": "پڕۆژەکە بکەرەوە"
+  "chatOpenProject": "پڕۆژەکە بکەرەوە",
+  "projectsEmpty": "هێشتا پڕۆژە نییە. + دابگرە یان بیرۆکەکەت بە چات بڵێ.",
+  "projectNew": "پڕۆژەی نوێ",
+  "projectNameLabel": "ناوی پڕۆژە",
+  "projectDescLabel": "چییە؟ (ئارەزوومەندانە)",
+  "projectStatusIdea": "بیرۆکە",
+  "projectStatusPlanning": "پلاندانان",
+  "projectStatusActive": "کارا",
+  "projectStatusDone": "تەواو",
+  "projectStatusDropped": "وازلێهێنراو",
+  "projectProgress": "{done} لە {total} هەنگاو تەواو بوون",
+  "@projectProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "projectNoSteps": "هێشتا پلان نییە. لە خوارەوە بە پلانداڕێژ بڵێ.",
+  "projectStepsToTasks": "هەموو هەنگاوەکان بکە بە ئەرک",
+  "projectStepToTask": "بیکە بە ئەرک",
+  "projectTasksMade": "{count} ئەرک زیادکرا",
+  "@projectTasksMade": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "projectCost": "تێچوون",
+  "projectCostNone": "هێشتا تێچوون نییە.",
+  "projectCostSet": "تێچوون دیاری بکە",
+  "projectCostNoRate": "هێشتا نرخی ئاڵوگۆڕ بۆ ئەم دراوە نییە.",
+  "projectInInvestment": "لە وەبەرهێنان",
+  "projectStillMissing": "هێشتا کەمە",
+  "projectCovered": "سەبەتەی وەبەرهێنان داپۆشی دەکات.",
+  "projectMonthsToGo": "نزیکەی {months} مانگ بە خێرایی ئاسایی تۆ.",
+  "@projectMonthsToGo": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      }
+    }
+  },
+  "projectNoPace": "لە ٣ مانگی ڕابردوودا هیچ بۆ وەبەرهێنان نەچووە، بۆیە کات ناکرێت حیساب بکرێت.",
+  "projectPlannerHint": "بە پلانداڕێژ بڵێ…",
+  "projectPlannerSend": "بنێرە",
+  "projectPlannerOffline": "پلانداڕێژ پێویستی بە زیرەکی دەستکردی ئۆنلاینە. لە ڕێکخستنەکان بیکەرەوە و ڕێگەی پێبدە.",
+  "projectPlannerFailed": "پلانداڕێژ وەڵامی نەدایەوە. دووبارە هەوڵ بدەرەوە.",
+  "projectPlanProposed": "پلانێک بە {count} هەنگاو",
+  "@projectPlanProposed": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "projectPlanUse": "ئەم پلانە بەکاربهێنە",
+  "projectPlanSaved": "پلان پاشەکەوت کرا.",
+  "projectDelete": "پڕۆژە بسڕەوە",
+  "projectDeleteAsk": "ئەم پڕۆژەیە بسڕدرێتەوە؟ هەنگاو و چاتەکە دەسڕدرێنەوە، ئەرکە دروستکراوەکان دەمێننەوە."
 }

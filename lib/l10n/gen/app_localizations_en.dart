@@ -2120,4 +2120,108 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get chatOpenProject => 'Open the project';
+
+  @override
+  String get projectsEmpty => 'No projects yet. Tap + or tell the chat your idea.';
+
+  @override
+  String get projectNew => 'New project';
+
+  @override
+  String get projectNameLabel => 'Project name';
+
+  @override
+  String get projectDescLabel => 'What is it? (optional)';
+
+  @override
+  String get projectStatusIdea => 'Idea';
+
+  @override
+  String get projectStatusPlanning => 'Planning';
+
+  @override
+  String get projectStatusActive => 'Running';
+
+  @override
+  String get projectStatusDone => 'Done';
+
+  @override
+  String get projectStatusDropped => 'Dropped';
+
+  @override
+  String projectProgress(int done, int total) {
+    return '$done of $total steps done';
+  }
+
+  @override
+  String get projectNoSteps => 'No plan yet. Tell the planner below about your idea.';
+
+  @override
+  String get projectStepsToTasks => 'Make all steps tasks';
+
+  @override
+  String get projectStepToTask => 'Make a task';
+
+  @override
+  String projectTasksMade(int count) {
+    return '$count tasks added';
+  }
+
+  @override
+  String get projectCost => 'Cost';
+
+  @override
+  String get projectCostNone => 'No cost yet.';
+
+  @override
+  String get projectCostSet => 'Set the cost';
+
+  @override
+  String get projectCostNoRate => 'No exchange rate for this currency yet.';
+
+  @override
+  String get projectInInvestment => 'In Investment';
+
+  @override
+  String get projectStillMissing => 'Still missing';
+
+  @override
+  String get projectCovered => 'The Investment bucket covers it.';
+
+  @override
+  String projectMonthsToGo(int months) {
+    return 'About $months months at your usual pace.';
+  }
+
+  @override
+  String get projectNoPace => 'Nothing went to Investment in the last 3 months, so no date can be worked out.';
+
+  @override
+  String get projectPlannerHint => 'Tell the planner about it…';
+
+  @override
+  String get projectPlannerSend => 'Send';
+
+  @override
+  String get projectPlannerOffline => 'The planner needs online AI. Turn it on in Settings, then allow it.';
+
+  @override
+  String get projectPlannerFailed => 'The planner did not answer. Try again.';
+
+  @override
+  String projectPlanProposed(int count) {
+    return 'A plan with $count steps';
+  }
+
+  @override
+  String get projectPlanUse => 'Use this plan';
+
+  @override
+  String get projectPlanSaved => 'Plan saved.';
+
+  @override
+  String get projectDelete => 'Delete project';
+
+  @override
+  String get projectDeleteAsk => 'Delete this project? Its steps and chat go; tasks already made stay.';
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../core/l10n/ckb_fallback_localizations.dart';
 import '../features/backup/backup_screen.dart';
 import '../features/capture/domain/proposal.dart';
 import '../features/capture/ui/capture_review_screen.dart';
@@ -30,8 +29,9 @@ import '../features/setup/setup_flow.dart';
 import '../features/setup/splash_screen.dart';
 import '../features/shell/home_screen.dart';
 import '../features/tasks/ui/task_form_screen.dart';
+import '../features/projects/ui/project_detail_screen.dart';
+import '../features/projects/ui/projects_screen.dart';
 import '../features/tasks/ui/tasks_screen.dart';
-import '../features/shell/placeholder_screen.dart';
 import '../features/shell/shell_scaffold.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -170,8 +170,14 @@ GoRouter buildRouter({void Function()? onNavigate}) => GoRouter(
           routes: [
             GoRoute(
               path: '/projects',
-              builder: (context, _) =>
-                  PlaceholderScreen(title: context.l10n.navProjects, phase: 3, icon: Icons.rocket_launch_outlined),
+              builder: (_, _) => const ProjectsScreen(),
+              routes: [
+                GoRoute(
+                  path: ':id',
+                  parentNavigatorKey: _rootKey,
+                  builder: (_, state) => ProjectDetailScreen(projectId: int.parse(state.pathParameters['id']!)),
+                ),
+              ],
             ),
           ],
         ),

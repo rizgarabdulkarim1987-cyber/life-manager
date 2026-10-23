@@ -75,6 +75,7 @@ class TasksRepository {
     final t = await get(id);
     if (t == null || t.status == 'done') return null;
     await update(id, TasksCompanion(status: const Value('done'), completedAt: Value(_now)));
+    await _markStep(id, true);
     final due = t.dueAt;
     if (t.recurrence == 'none' || due == null) return null;
     return add(
@@ -95,7 +96,15 @@ class TasksRepository {
   Future<void> setDue(int id, DateTime? due, {bool hasTime = false}) =>
       update(id, TasksCompanion(dueAt: Value(due), hasTime: Value(due != null && hasTime)));
 
-  Future<void> reopen(int id) => update(id, const TasksCompanion(status: Value('open'), completedAt: Value(null)));
+  /// A project step made from this task follows its state.
+  Future<void> _markStep(int taskId, bool done) => (_db.update(
+    _db.projectSteps,
+  )..where((s) => s.taskId.equals(taskId))).write(ProjectStepsCompanion(done: Value(done)));
+
+  Future<void> reopen(int id) => _db.transaction(() async {
+    await update(id, const TasksCompanion(status: Value('open'), completedAt: Value(null)));
+    await _markStep(id, false);
+  });
 
   /// Deletes and returns the row, so Undo can [restore] it.
   Future<Task?> delete(int id) async {

@@ -2121,4 +2121,109 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get chatOpenProject => 'افتح المشروع';
+
+  @override
+  String get projectsEmpty => 'ماكو مشاريع بعد. اضغط + أو كلّم الدردشة عن فكرتك.';
+
+  @override
+  String get projectNew => 'مشروع جديد';
+
+  @override
+  String get projectNameLabel => 'اسم المشروع';
+
+  @override
+  String get projectDescLabel => 'شنو هو؟ (اختياري)';
+
+  @override
+  String get projectStatusIdea => 'فكرة';
+
+  @override
+  String get projectStatusPlanning => 'تخطيط';
+
+  @override
+  String get projectStatusActive => 'شغّال';
+
+  @override
+  String get projectStatusDone => 'خلص';
+
+  @override
+  String get projectStatusDropped => 'مُلغى';
+
+  @override
+  String projectProgress(int done, int total) {
+    return '$done من $total خطوات خلصت';
+  }
+
+  @override
+  String get projectNoSteps => 'ماكو خطة بعد. كلّم المخطِّط تحت عن فكرتك.';
+
+  @override
+  String get projectStepsToTasks => 'حوّل كل الخطوات لمهام';
+
+  @override
+  String get projectStepToTask => 'سوّيها مهمة';
+
+  @override
+  String projectTasksMade(int count) {
+    return 'انضافت $count مهام';
+  }
+
+  @override
+  String get projectCost => 'الكلفة';
+
+  @override
+  String get projectCostNone => 'ماكو كلفة بعد.';
+
+  @override
+  String get projectCostSet => 'حدّد الكلفة';
+
+  @override
+  String get projectCostNoRate => 'ماكو سعر صرف لهالعملة بعد.';
+
+  @override
+  String get projectInInvestment => 'بالاستثمار';
+
+  @override
+  String get projectStillMissing => 'باقي ناقص';
+
+  @override
+  String get projectCovered => 'سلة الاستثمار تغطيها.';
+
+  @override
+  String projectMonthsToGo(int months) {
+    return 'تقريباً $months أشهر بوتيرتك المعتادة.';
+  }
+
+  @override
+  String get projectNoPace => 'ماكو شي راح للاستثمار بآخر ٣ أشهر، فما نگدر نحسب موعد.';
+
+  @override
+  String get projectPlannerHint => 'كلّم المخطِّط عنها…';
+
+  @override
+  String get projectPlannerSend => 'أرسل';
+
+  @override
+  String get projectPlannerOffline =>
+      'المخطِّط يحتاج الذكاء الاصطناعي عبر الإنترنت. شغّله من الإعدادات وبعدين اسمح له.';
+
+  @override
+  String get projectPlannerFailed => 'المخطِّط ما جاوب. جرّب مرة ثانية.';
+
+  @override
+  String projectPlanProposed(int count) {
+    return 'خطة من $count خطوة';
+  }
+
+  @override
+  String get projectPlanUse => 'اعتمد هالخطة';
+
+  @override
+  String get projectPlanSaved => 'انحفظت الخطة.';
+
+  @override
+  String get projectDelete => 'احذف المشروع';
+
+  @override
+  String get projectDeleteAsk => 'تحذف هالمشروع؟ خطواته والدردشة تنحذف، والمهام اللي انسوّت تبقى.';
 }

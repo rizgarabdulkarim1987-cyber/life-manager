@@ -2123,4 +2123,109 @@ class AppLocalizationsCkb extends AppLocalizations {
 
   @override
   String get chatOpenProject => 'پڕۆژەکە بکەرەوە';
+
+  @override
+  String get projectsEmpty => 'هێشتا پڕۆژە نییە. + دابگرە یان بیرۆکەکەت بە چات بڵێ.';
+
+  @override
+  String get projectNew => 'پڕۆژەی نوێ';
+
+  @override
+  String get projectNameLabel => 'ناوی پڕۆژە';
+
+  @override
+  String get projectDescLabel => 'چییە؟ (ئارەزوومەندانە)';
+
+  @override
+  String get projectStatusIdea => 'بیرۆکە';
+
+  @override
+  String get projectStatusPlanning => 'پلاندانان';
+
+  @override
+  String get projectStatusActive => 'کارا';
+
+  @override
+  String get projectStatusDone => 'تەواو';
+
+  @override
+  String get projectStatusDropped => 'وازلێهێنراو';
+
+  @override
+  String projectProgress(int done, int total) {
+    return '$done لە $total هەنگاو تەواو بوون';
+  }
+
+  @override
+  String get projectNoSteps => 'هێشتا پلان نییە. لە خوارەوە بە پلانداڕێژ بڵێ.';
+
+  @override
+  String get projectStepsToTasks => 'هەموو هەنگاوەکان بکە بە ئەرک';
+
+  @override
+  String get projectStepToTask => 'بیکە بە ئەرک';
+
+  @override
+  String projectTasksMade(int count) {
+    return '$count ئەرک زیادکرا';
+  }
+
+  @override
+  String get projectCost => 'تێچوون';
+
+  @override
+  String get projectCostNone => 'هێشتا تێچوون نییە.';
+
+  @override
+  String get projectCostSet => 'تێچوون دیاری بکە';
+
+  @override
+  String get projectCostNoRate => 'هێشتا نرخی ئاڵوگۆڕ بۆ ئەم دراوە نییە.';
+
+  @override
+  String get projectInInvestment => 'لە وەبەرهێنان';
+
+  @override
+  String get projectStillMissing => 'هێشتا کەمە';
+
+  @override
+  String get projectCovered => 'سەبەتەی وەبەرهێنان داپۆشی دەکات.';
+
+  @override
+  String projectMonthsToGo(int months) {
+    return 'نزیکەی $months مانگ بە خێرایی ئاسایی تۆ.';
+  }
+
+  @override
+  String get projectNoPace => 'لە ٣ مانگی ڕابردوودا هیچ بۆ وەبەرهێنان نەچووە، بۆیە کات ناکرێت حیساب بکرێت.';
+
+  @override
+  String get projectPlannerHint => 'بە پلانداڕێژ بڵێ…';
+
+  @override
+  String get projectPlannerSend => 'بنێرە';
+
+  @override
+  String get projectPlannerOffline =>
+      'پلانداڕێژ پێویستی بە زیرەکی دەستکردی ئۆنلاینە. لە ڕێکخستنەکان بیکەرەوە و ڕێگەی پێبدە.';
+
+  @override
+  String get projectPlannerFailed => 'پلانداڕێژ وەڵامی نەدایەوە. دووبارە هەوڵ بدەرەوە.';
+
+  @override
+  String projectPlanProposed(int count) {
+    return 'پلانێک بە $count هەنگاو';
+  }
+
+  @override
+  String get projectPlanUse => 'ئەم پلانە بەکاربهێنە';
+
+  @override
+  String get projectPlanSaved => 'پلان پاشەکەوت کرا.';
+
+  @override
+  String get projectDelete => 'پڕۆژە بسڕەوە';
+
+  @override
+  String get projectDeleteAsk => 'ئەم پڕۆژەیە بسڕدرێتەوە؟ هەنگاو و چاتەکە دەسڕدرێنەوە، ئەرکە دروستکراوەکان دەمێننەوە.';
 }

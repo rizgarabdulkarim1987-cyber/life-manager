@@ -128,6 +128,42 @@ class ProjectsRepository {
     _db.projectSteps,
   )..where((s) => s.id.equals(stepId))).write(ProjectStepsCompanion(taskId: Value(taskId)));
 
+  /// Makes a task from the step (due on its date) and links the two; returns the task id,
+  /// or the existing one when the step already has a live task.
+  Future<int?> makeTask(int stepId) => _db.transaction(() async {
+    final step = await (_db.select(_db.projectSteps)..where((s) => s.id.equals(stepId))).getSingleOrNull();
+    if (step == null) return null;
+    if (step.taskId != null) {
+      final live = await (_db.select(_db.tasks)..where((t) => t.id.equals(step.taskId!))).getSingleOrNull();
+      if (live != null) return live.id;
+    }
+    final id = await _db
+        .into(_db.tasks)
+        .insert(
+          TasksCompanion.insert(
+            title: step.title,
+            createdAt: _now,
+            dueAt: Value(step.dueDate),
+            projectId: Value(step.projectId),
+            projectStepId: Value(step.id),
+          ),
+        );
+    await linkTask(stepId, id);
+    return id;
+  });
+
+  /// A task for every step that is not done and has none yet; returns how many were made.
+  Future<int> makeAllTasks(int projectId) => _db.transaction(() async {
+    var made = 0;
+    for (final s in await stepsOf(projectId)) {
+      if (s.done) continue;
+      final before = s.taskId;
+      final id = await makeTask(s.id);
+      if (id != null && id != before) made++;
+    }
+    return made;
+  });
+
   // ---- chat
 
   Future<int> addMessage(int projectId, String role, String body) => _db

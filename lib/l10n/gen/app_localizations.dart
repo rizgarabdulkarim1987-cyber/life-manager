@@ -3938,6 +3938,198 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Open the project'**
   String get chatOpenProject;
+
+  /// No description provided for @projectsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No projects yet. Tap + or tell the chat your idea.'**
+  String get projectsEmpty;
+
+  /// No description provided for @projectNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New project'**
+  String get projectNew;
+
+  /// No description provided for @projectNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Project name'**
+  String get projectNameLabel;
+
+  /// No description provided for @projectDescLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'What is it? (optional)'**
+  String get projectDescLabel;
+
+  /// No description provided for @projectStatusIdea.
+  ///
+  /// In en, this message translates to:
+  /// **'Idea'**
+  String get projectStatusIdea;
+
+  /// No description provided for @projectStatusPlanning.
+  ///
+  /// In en, this message translates to:
+  /// **'Planning'**
+  String get projectStatusPlanning;
+
+  /// No description provided for @projectStatusActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Running'**
+  String get projectStatusActive;
+
+  /// No description provided for @projectStatusDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get projectStatusDone;
+
+  /// No description provided for @projectStatusDropped.
+  ///
+  /// In en, this message translates to:
+  /// **'Dropped'**
+  String get projectStatusDropped;
+
+  /// No description provided for @projectProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {total} steps done'**
+  String projectProgress(int done, int total);
+
+  /// No description provided for @projectNoSteps.
+  ///
+  /// In en, this message translates to:
+  /// **'No plan yet. Tell the planner below about your idea.'**
+  String get projectNoSteps;
+
+  /// No description provided for @projectStepsToTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'Make all steps tasks'**
+  String get projectStepsToTasks;
+
+  /// No description provided for @projectStepToTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Make a task'**
+  String get projectStepToTask;
+
+  /// No description provided for @projectTasksMade.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} tasks added'**
+  String projectTasksMade(int count);
+
+  /// No description provided for @projectCost.
+  ///
+  /// In en, this message translates to:
+  /// **'Cost'**
+  String get projectCost;
+
+  /// No description provided for @projectCostNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No cost yet.'**
+  String get projectCostNone;
+
+  /// No description provided for @projectCostSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Set the cost'**
+  String get projectCostSet;
+
+  /// No description provided for @projectCostNoRate.
+  ///
+  /// In en, this message translates to:
+  /// **'No exchange rate for this currency yet.'**
+  String get projectCostNoRate;
+
+  /// No description provided for @projectInInvestment.
+  ///
+  /// In en, this message translates to:
+  /// **'In Investment'**
+  String get projectInInvestment;
+
+  /// No description provided for @projectStillMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Still missing'**
+  String get projectStillMissing;
+
+  /// No description provided for @projectCovered.
+  ///
+  /// In en, this message translates to:
+  /// **'The Investment bucket covers it.'**
+  String get projectCovered;
+
+  /// No description provided for @projectMonthsToGo.
+  ///
+  /// In en, this message translates to:
+  /// **'About {months} months at your usual pace.'**
+  String projectMonthsToGo(int months);
+
+  /// No description provided for @projectNoPace.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing went to Investment in the last 3 months, so no date can be worked out.'**
+  String get projectNoPace;
+
+  /// No description provided for @projectPlannerHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell the planner about it…'**
+  String get projectPlannerHint;
+
+  /// No description provided for @projectPlannerSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get projectPlannerSend;
+
+  /// No description provided for @projectPlannerOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'The planner needs online AI. Turn it on in Settings, then allow it.'**
+  String get projectPlannerOffline;
+
+  /// No description provided for @projectPlannerFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The planner did not answer. Try again.'**
+  String get projectPlannerFailed;
+
+  /// No description provided for @projectPlanProposed.
+  ///
+  /// In en, this message translates to:
+  /// **'A plan with {count} steps'**
+  String projectPlanProposed(int count);
+
+  /// No description provided for @projectPlanUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Use this plan'**
+  String get projectPlanUse;
+
+  /// No description provided for @projectPlanSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan saved.'**
+  String get projectPlanSaved;
+
+  /// No description provided for @projectDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete project'**
+  String get projectDelete;
+
+  /// No description provided for @projectDeleteAsk.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this project? Its steps and chat go; tasks already made stay.'**
+  String get projectDeleteAsk;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

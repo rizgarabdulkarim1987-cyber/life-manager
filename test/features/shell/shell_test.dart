@@ -21,11 +21,11 @@ void main() {
     expect(home.dx, greaterThan(projects.dx));
   });
 
-  testWidgets('tabs switch to placeholder screens', (t) async {
+  testWidgets('the Projects tab opens the projects screen', (t) async {
     await pumpApp(t, locale: 'en');
     await t.tap(find.byKey(const ValueKey('nav-3')));
     await t.pumpAndSettle();
-    expect(find.text('Arrives in phase 3'), findsOneWidget);
+    expect(find.byKey(const ValueKey('projects-empty')), findsOneWidget);
   });
 
   testWidgets('settings icon opens settings', (t) async {

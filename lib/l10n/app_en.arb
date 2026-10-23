@@ -1253,5 +1253,68 @@
   "capWillBeTask": "Will be saved as a task",
   "capWillBeNote": "Will be saved as a note",
   "capSavesOnConfirm": "Saved when you confirm.",
-  "chatOpenProject": "Open the project"
+  "chatOpenProject": "Open the project",
+  "projectsEmpty": "No projects yet. Tap + or tell the chat your idea.",
+  "projectNew": "New project",
+  "projectNameLabel": "Project name",
+  "projectDescLabel": "What is it? (optional)",
+  "projectStatusIdea": "Idea",
+  "projectStatusPlanning": "Planning",
+  "projectStatusActive": "Running",
+  "projectStatusDone": "Done",
+  "projectStatusDropped": "Dropped",
+  "projectProgress": "{done} of {total} steps done",
+  "@projectProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "projectNoSteps": "No plan yet. Tell the planner below about your idea.",
+  "projectStepsToTasks": "Make all steps tasks",
+  "projectStepToTask": "Make a task",
+  "projectTasksMade": "{count} tasks added",
+  "@projectTasksMade": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "projectCost": "Cost",
+  "projectCostNone": "No cost yet.",
+  "projectCostSet": "Set the cost",
+  "projectCostNoRate": "No exchange rate for this currency yet.",
+  "projectInInvestment": "In Investment",
+  "projectStillMissing": "Still missing",
+  "projectCovered": "The Investment bucket covers it.",
+  "projectMonthsToGo": "About {months} months at your usual pace.",
+  "@projectMonthsToGo": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      }
+    }
+  },
+  "projectNoPace": "Nothing went to Investment in the last 3 months, so no date can be worked out.",
+  "projectPlannerHint": "Tell the planner about it…",
+  "projectPlannerSend": "Send",
+  "projectPlannerOffline": "The planner needs online AI. Turn it on in Settings, then allow it.",
+  "projectPlannerFailed": "The planner did not answer. Try again.",
+  "projectPlanProposed": "A plan with {count} steps",
+  "@projectPlanProposed": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "projectPlanUse": "Use this plan",
+  "projectPlanSaved": "Plan saved.",
+  "projectDelete": "Delete project",
+  "projectDeleteAsk": "Delete this project? Its steps and chat go; tasks already made stay."
 }

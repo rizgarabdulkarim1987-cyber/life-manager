@@ -1016,5 +1016,68 @@
   "capWillBeTask": "راح ينحفظ كمهمة",
   "capWillBeNote": "راح ينحفظ كملاحظة",
   "capSavesOnConfirm": "ينحفظ لما تأكد.",
-  "chatOpenProject": "افتح المشروع"
+  "chatOpenProject": "افتح المشروع",
+  "projectsEmpty": "ماكو مشاريع بعد. اضغط + أو كلّم الدردشة عن فكرتك.",
+  "projectNew": "مشروع جديد",
+  "projectNameLabel": "اسم المشروع",
+  "projectDescLabel": "شنو هو؟ (اختياري)",
+  "projectStatusIdea": "فكرة",
+  "projectStatusPlanning": "تخطيط",
+  "projectStatusActive": "شغّال",
+  "projectStatusDone": "خلص",
+  "projectStatusDropped": "مُلغى",
+  "projectProgress": "{done} من {total} خطوات خلصت",
+  "@projectProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "projectNoSteps": "ماكو خطة بعد. كلّم المخطِّط تحت عن فكرتك.",
+  "projectStepsToTasks": "حوّل كل الخطوات لمهام",
+  "projectStepToTask": "سوّيها مهمة",
+  "projectTasksMade": "انضافت {count} مهام",
+  "@projectTasksMade": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "projectCost": "الكلفة",
+  "projectCostNone": "ماكو كلفة بعد.",
+  "projectCostSet": "حدّد الكلفة",
+  "projectCostNoRate": "ماكو سعر صرف لهالعملة بعد.",
+  "projectInInvestment": "بالاستثمار",
+  "projectStillMissing": "باقي ناقص",
+  "projectCovered": "سلة الاستثمار تغطيها.",
+  "projectMonthsToGo": "تقريباً {months} أشهر بوتيرتك المعتادة.",
+  "@projectMonthsToGo": {
+    "placeholders": {
+      "months": {
+        "type": "int"
+      }
+    }
+  },
+  "projectNoPace": "ماكو شي راح للاستثمار بآخر ٣ أشهر، فما نگدر نحسب موعد.",
+  "projectPlannerHint": "كلّم المخطِّط عنها…",
+  "projectPlannerSend": "أرسل",
+  "projectPlannerOffline": "المخطِّط يحتاج الذكاء الاصطناعي عبر الإنترنت. شغّله من الإعدادات وبعدين اسمح له.",
+  "projectPlannerFailed": "المخطِّط ما جاوب. جرّب مرة ثانية.",
+  "projectPlanProposed": "خطة من {count} خطوة",
+  "@projectPlanProposed": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "projectPlanUse": "اعتمد هالخطة",
+  "projectPlanSaved": "انحفظت الخطة.",
+  "projectDelete": "احذف المشروع",
+  "projectDeleteAsk": "تحذف هالمشروع؟ خطواته والدردشة تنحذف، والمهام اللي انسوّت تبقى."
 }
