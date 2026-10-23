@@ -1534,4 +1534,49 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get capDone => 'Saved';
+
+  @override
+  String get capInbox => 'Inbox';
+
+  @override
+  String get capInboxEmpty => 'Nothing waiting. Anything you say or type and don\'t save lands here.';
+
+  @override
+  String get capNotTranscribed => 'Voice, not transcribed yet';
+
+  @override
+  String get capTranscribe => 'Transcribe';
+
+  @override
+  String get capFinishAi => 'Finish with AI';
+
+  @override
+  String get capFinishAllAi => 'Finish all with AI';
+
+  @override
+  String capFinishing(int n, int total) {
+    return 'Finishing $n of $total…';
+  }
+
+  @override
+  String get capOpenReview => 'Review';
+
+  @override
+  String get capDiscard => 'Discard';
+
+  @override
+  String get capDiscardTitle => 'Discard this capture?';
+
+  @override
+  String get capDiscardBody => 'Its text and recording are deleted. Nothing saved from it changes.';
+
+  @override
+  String capWillBecomeTask(int phase) {
+    return 'Will become a task in phase $phase';
+  }
+
+  @override
+  String capWillBecomeNote(int phase) {
+    return 'Will become a note in phase $phase';
+  }
 }

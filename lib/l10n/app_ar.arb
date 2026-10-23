@@ -822,5 +822,42 @@
   "capWhichDebt": "أي دين",
   "capDrop": "منشال",
   "capNothingFound": "ما لگيت شي ينحفظ. عدّل النص واقرأه مرة ثانية.",
-  "capDone": "انحفظ"
+  "capDone": "انحفظ",
+  "capInbox": "الوارد",
+  "capInboxEmpty": "ماكو شي ينتظر. أي شي تگوله أو تكتبه وما تحفظه يجي هنا.",
+  "capNotTranscribed": "تسجيل صوتي، بعده ما تحوّل لنص",
+  "capTranscribe": "حوّله لنص",
+  "capFinishAi": "كمّله بالذكاء الاصطناعي",
+  "capFinishAllAi": "كمّل الكل بالذكاء الاصطناعي",
+  "capFinishing": "دا أكمّل {n} من {total}…",
+  "@capFinishing": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "capOpenReview": "راجع",
+  "capDiscard": "احذف",
+  "capDiscardTitle": "تحذف هذا التسجيل؟",
+  "capDiscardBody": "ينحذف نصه وتسجيله. أي شي انحفظ منه ما يتغير.",
+  "capWillBecomeTask": "يصير مهمة بالمرحلة {phase}",
+  "@capWillBecomeTask": {
+    "placeholders": {
+      "phase": {
+        "type": "int"
+      }
+    }
+  },
+  "capWillBecomeNote": "يصير ملاحظة بالمرحلة {phase}",
+  "@capWillBecomeNote": {
+    "placeholders": {
+      "phase": {
+        "type": "int"
+      }
+    }
+  }
 }

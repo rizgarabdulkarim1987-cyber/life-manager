@@ -1537,4 +1537,49 @@ class AppLocalizationsCkb extends AppLocalizations {
 
   @override
   String get capDone => 'پاشەکەوت کرا';
+
+  @override
+  String get capInbox => 'سندوقی هاتوو';
+
+  @override
+  String get capInboxEmpty => 'هیچ شتێک چاوەڕێ نییە. هەر شتێک بڵێیت یان بینووسیت و پاشەکەوتی نەکەیت دێتە ئێرە.';
+
+  @override
+  String get capNotTranscribed => 'دەنگ، هێشتا نەکراوە بە دەق';
+
+  @override
+  String get capTranscribe => 'بیکە بە دەق';
+
+  @override
+  String get capFinishAi => 'بە AI تەواوی بکە';
+
+  @override
+  String get capFinishAllAi => 'هەمووی بە AI تەواو بکە';
+
+  @override
+  String capFinishing(int n, int total) {
+    return 'تەواوکردنی $n لە $total…';
+  }
+
+  @override
+  String get capOpenReview => 'پێداچوونەوە';
+
+  @override
+  String get capDiscard => 'لابردن';
+
+  @override
+  String get capDiscardTitle => 'ئەم تۆمارە لاببرێت؟';
+
+  @override
+  String get capDiscardBody => 'دەق و دەنگەکەی دەسڕێتەوە. هیچ شتێکی پاشەکەوتکراو لێی ناگۆڕێت.';
+
+  @override
+  String capWillBecomeTask(int phase) {
+    return 'دەبێتە ئەرک لە قۆناغی $phase';
+  }
+
+  @override
+  String capWillBecomeNote(int phase) {
+    return 'دەبێتە تێبینی لە قۆناغی $phase';
+  }
 }

@@ -20,8 +20,12 @@ class LlmParser implements IntentParser {
   /// `ai` or `rules`, for the capture's `parsedBy`.
   String lastParsedBy = 'rules';
 
+  /// The Groq failure behind the last fallback, if that is what it was.
+  GroqError? lastError;
+
   @override
   Future<List<Proposal>> parse(String transcript, Lexicon lex, DateTime now) async {
+    lastError = null;
     try {
       final content = await _client.chatJson(
         model: _model(),
@@ -34,6 +38,7 @@ class LlmParser implements IntentParser {
     } on Exception catch (e) {
       if (e is! GroqError && e is! FormatException && e is! InvalidAiOutput) rethrow;
       AppLogger.warn('online parse failed, using rules', e);
+      if (e is GroqError) lastError = e;
       lastParsedBy = 'rules';
       return _fallback.parse(transcript, lex, now);
     }

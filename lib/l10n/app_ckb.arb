@@ -822,5 +822,42 @@
   "capWhichDebt": "کام قەرز",
   "capDrop": "لابرا",
   "capNothingFound": "هیچ شتێک بۆ پاشەکەوتکردن نەدۆزرایەوە. دەقەکە دەستکاری بکە و دووبارە بیخوێنەوە.",
-  "capDone": "پاشەکەوت کرا"
+  "capDone": "پاشەکەوت کرا",
+  "capInbox": "سندوقی هاتوو",
+  "capInboxEmpty": "هیچ شتێک چاوەڕێ نییە. هەر شتێک بڵێیت یان بینووسیت و پاشەکەوتی نەکەیت دێتە ئێرە.",
+  "capNotTranscribed": "دەنگ، هێشتا نەکراوە بە دەق",
+  "capTranscribe": "بیکە بە دەق",
+  "capFinishAi": "بە AI تەواوی بکە",
+  "capFinishAllAi": "هەمووی بە AI تەواو بکە",
+  "capFinishing": "تەواوکردنی {n} لە {total}…",
+  "@capFinishing": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "capOpenReview": "پێداچوونەوە",
+  "capDiscard": "لابردن",
+  "capDiscardTitle": "ئەم تۆمارە لاببرێت؟",
+  "capDiscardBody": "دەق و دەنگەکەی دەسڕێتەوە. هیچ شتێکی پاشەکەوتکراو لێی ناگۆڕێت.",
+  "capWillBecomeTask": "دەبێتە ئەرک لە قۆناغی {phase}",
+  "@capWillBecomeTask": {
+    "placeholders": {
+      "phase": {
+        "type": "int"
+      }
+    }
+  },
+  "capWillBecomeNote": "دەبێتە تێبینی لە قۆناغی {phase}",
+  "@capWillBecomeNote": {
+    "placeholders": {
+      "phase": {
+        "type": "int"
+      }
+    }
+  }
 }

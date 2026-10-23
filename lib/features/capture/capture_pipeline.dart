@@ -58,14 +58,42 @@ class CapturePipeline {
   final SettingsRepository _settings;
   final Future<SpeechToText?> Function(AppSetting s)? _localEngine;
 
+  /// The Groq failure seen during the last call, if any (the Inbox stops "finish all" on a rejected key).
+  GroqError? lastOnlineError;
+
   Future<SpeechToText?> _local(AppSetting s) => _localEngine?.call(s) ?? localSpeechEngine(s, _models);
 
   Future<CaptureOutcome> fromVoice(Uint8List wav) async {
+    lastOnlineError = null;
     final id = await _captures.createVoice(wav);
+    return _fromAudio(id, wav, await _settings.get(), online: true);
+  }
+
+  Future<CaptureOutcome> fromText(String text) async {
+    lastOnlineError = null;
+    final id = await _captures.createText(text.trim());
+    return _parse(id, text.trim(), await _settings.get(), online: true);
+  }
+
+  /// Runs a pending capture again: transcribes its kept audio when it has no
+  /// text yet, then parses the current transcript (after the owner edited it).
+  /// [allowOnline] false keeps everything on the phone (the Inbox's offline retry).
+  Future<CaptureOutcome> reparse(int captureId, {bool allowOnline = true}) async {
+    lastOnlineError = null;
+    final c = await _captures.get(captureId);
+    if (c == null) throw ArgumentError.value(captureId, 'captureId', 'unknown capture');
     final s = await _settings.get();
+    final text = (c.transcript ?? '').trim();
+    if (text.isEmpty && c.audio != null && c.audio!.isNotEmpty) {
+      return _fromAudio(captureId, c.audio!, s, online: allowOnline);
+    }
+    return _parse(captureId, text, s, online: allowOnline);
+  }
+
+  Future<CaptureOutcome> _fromAudio(int id, Uint8List wav, AppSetting s, {required bool online}) async {
     final String text;
     try {
-      text = await _transcribe(s, wav);
+      text = await _transcribe(s, wav, online: online);
     } on SpeechUnavailable catch (e) {
       await _captures.setFailure(id, e.runtimeType.toString());
       return SavedToInbox(id, 'noSpeechEngine');
@@ -74,24 +102,12 @@ class CapturePipeline {
       return SavedToInbox(id, 'sttFailed');
     }
     await _captures.setTranscript(id, text);
-    return _parse(id, text, s);
-  }
-
-  Future<CaptureOutcome> fromText(String text) async {
-    final id = await _captures.createText(text.trim());
-    return _parse(id, text.trim(), await _settings.get());
-  }
-
-  /// Parses the capture's current transcript again (after the owner edited it).
-  Future<CaptureOutcome> reparse(int captureId) async {
-    final c = await _captures.get(captureId);
-    if (c == null) throw ArgumentError.value(captureId, 'captureId', 'unknown capture');
-    return _parse(captureId, (c.transcript ?? '').trim(), await _settings.get());
+    return _parse(id, text, s, online: online);
   }
 
   /// Groq when allowed; a Groq failure tries the offline model once.
-  Future<String> _transcribe(AppSetting s, Uint8List wav) async {
-    final engine = await pickSpeechEngine(s, _keys, _client, _models);
+  Future<String> _transcribe(AppSetting s, Uint8List wav, {required bool online}) async {
+    final engine = online ? await pickSpeechEngine(s, _keys, _client, _models) : const NoSpeechEngine();
     if (engine is NoSpeechEngine) {
       final local = await _local(s);
       if (local == null) throw const SpeechUnavailable();
@@ -100,6 +116,7 @@ class CapturePipeline {
     try {
       return (await engine.transcribe(wav)).trim();
     } on GroqError catch (e) {
+      lastOnlineError = e;
       AppLogger.warn('online speech failed, trying the offline model', e);
       final local = await _local(s);
       if (local == null) throw _SttFailed(e.runtimeType.toString());
@@ -118,16 +135,17 @@ class CapturePipeline {
     }
   }
 
-  Future<CaptureOutcome> _parse(int id, String text, AppSetting s) async {
+  Future<CaptureOutcome> _parse(int id, String text, AppSetting s, {required bool online}) async {
     if (text.isEmpty) return SavedToInbox(id, 'empty');
     final lex = await loadLexicon(_db, lookupAppLocalizations(Locale(s.localeCode)));
     const rules = RuleParser();
     final List<Proposal> proposals;
     final String by;
-    if (await canUseOnline(AiFeature.parse, s, _keys)) {
+    if (online && await canUseOnline(AiFeature.parse, s, _keys)) {
       final llm = LlmParser(_client, () => s.groqLlmModel, rules);
       proposals = await llm.parse(text, lex, DateTime.now());
       by = llm.lastParsedBy;
+      lastOnlineError ??= llm.lastError;
     } else {
       proposals = await rules.parse(text, lex, DateTime.now());
       by = 'rules';

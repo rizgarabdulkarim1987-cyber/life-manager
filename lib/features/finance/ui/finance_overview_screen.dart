@@ -7,6 +7,7 @@ import '../../../app/providers.dart';
 import '../../../core/l10n/ckb_fallback_localizations.dart';
 import '../../../core/money/money.dart';
 import '../../../core/theme/tokens.dart';
+import '../../capture/data/capture_providers.dart';
 import '../data/finance_providers.dart';
 import 'ui_format.dart';
 import 'widgets/alerts_banner.dart';
@@ -34,6 +35,7 @@ final kFinanceEntries = <FinanceEntry>[
   FinanceEntry('budgets', Icons.donut_small_outlined, (l) => l.finBudgets, '/finance/budgets'),
   FinanceEntry('debts', Icons.handshake_outlined, (l) => l.finDebts, '/finance/debts'),
   FinanceEntry('import', Icons.upload_file_rounded, (l) => l.impEntry, '/finance/import'),
+  FinanceEntry('inbox-tile', Icons.inbox_outlined, (l) => l.capInbox, '/inbox'),
 ];
 
 class FinanceOverviewScreen extends ConsumerWidget {
@@ -225,12 +227,13 @@ class _ConsolidatedPanel extends ConsumerWidget {
   }
 }
 
-class _Entries extends StatelessWidget {
+class _Entries extends ConsumerWidget {
   const _Entries();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final k = context.tokens;
+    final waiting = ref.watch(pendingCapturesProvider).value?.length ?? 0;
     final text = Theme.of(context).textTheme;
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
@@ -269,6 +272,7 @@ class _Entries extends StatelessWidget {
                                   style: text.labelLarge?.copyWith(color: k.text),
                                 ),
                               ),
+                              if (e.id == 'inbox-tile' && waiting > 0) Badge(label: Text('$waiting')),
                             ],
                           ),
                         ),

@@ -2918,6 +2918,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Saved'**
   String get capDone;
+
+  /// No description provided for @capInbox.
+  ///
+  /// In en, this message translates to:
+  /// **'Inbox'**
+  String get capInbox;
+
+  /// No description provided for @capInboxEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing waiting. Anything you say or type and don\'t save lands here.'**
+  String get capInboxEmpty;
+
+  /// No description provided for @capNotTranscribed.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice, not transcribed yet'**
+  String get capNotTranscribed;
+
+  /// No description provided for @capTranscribe.
+  ///
+  /// In en, this message translates to:
+  /// **'Transcribe'**
+  String get capTranscribe;
+
+  /// No description provided for @capFinishAi.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish with AI'**
+  String get capFinishAi;
+
+  /// No description provided for @capFinishAllAi.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish all with AI'**
+  String get capFinishAllAi;
+
+  /// No description provided for @capFinishing.
+  ///
+  /// In en, this message translates to:
+  /// **'Finishing {n} of {total}…'**
+  String capFinishing(int n, int total);
+
+  /// No description provided for @capOpenReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get capOpenReview;
+
+  /// No description provided for @capDiscard.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard'**
+  String get capDiscard;
+
+  /// No description provided for @capDiscardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard this capture?'**
+  String get capDiscardTitle;
+
+  /// No description provided for @capDiscardBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Its text and recording are deleted. Nothing saved from it changes.'**
+  String get capDiscardBody;
+
+  /// No description provided for @capWillBecomeTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Will become a task in phase {phase}'**
+  String capWillBecomeTask(int phase);
+
+  /// No description provided for @capWillBecomeNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Will become a note in phase {phase}'**
+  String capWillBecomeNote(int phase);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

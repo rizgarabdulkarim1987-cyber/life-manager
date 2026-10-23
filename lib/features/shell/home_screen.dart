@@ -8,6 +8,7 @@ import '../../app/providers.dart';
 import '../../core/db/app_database.dart';
 import '../../core/l10n/ckb_fallback_localizations.dart';
 import '../../core/theme/tokens.dart';
+import '../capture/data/capture_providers.dart';
 
 /// Seeded accounts grouped by workspace, in workspace then account order.
 final accountsByWorkspaceProvider = StreamProvider<List<(Workspace, List<Account>)>>((ref) {
@@ -35,11 +36,18 @@ class HomeScreen extends ConsumerWidget {
     final l10n = context.l10n;
     final locale = Localizations.localeOf(context).toLanguageTag();
     final month = DateFormat.yMMMM(DateFormat.localeExists(locale) ? locale : 'ar').format(DateTime.now());
+    final waiting = ref.watch(pendingCapturesProvider).value?.length ?? 0;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(month),
         actions: [
+          IconButton(
+            key: const ValueKey('open-inbox'),
+            tooltip: l10n.capInbox,
+            icon: Badge(isLabelVisible: waiting > 0, label: Text('$waiting'), child: const Icon(Icons.inbox_outlined)),
+            onPressed: () => context.push('/inbox'),
+          ),
           IconButton(
             key: const ValueKey('open-settings'),
             tooltip: l10n.settings,

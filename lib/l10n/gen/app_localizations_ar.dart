@@ -1537,4 +1537,49 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get capDone => 'انحفظ';
+
+  @override
+  String get capInbox => 'الوارد';
+
+  @override
+  String get capInboxEmpty => 'ماكو شي ينتظر. أي شي تگوله أو تكتبه وما تحفظه يجي هنا.';
+
+  @override
+  String get capNotTranscribed => 'تسجيل صوتي، بعده ما تحوّل لنص';
+
+  @override
+  String get capTranscribe => 'حوّله لنص';
+
+  @override
+  String get capFinishAi => 'كمّله بالذكاء الاصطناعي';
+
+  @override
+  String get capFinishAllAi => 'كمّل الكل بالذكاء الاصطناعي';
+
+  @override
+  String capFinishing(int n, int total) {
+    return 'دا أكمّل $n من $total…';
+  }
+
+  @override
+  String get capOpenReview => 'راجع';
+
+  @override
+  String get capDiscard => 'احذف';
+
+  @override
+  String get capDiscardTitle => 'تحذف هذا التسجيل؟';
+
+  @override
+  String get capDiscardBody => 'ينحذف نصه وتسجيله. أي شي انحفظ منه ما يتغير.';
+
+  @override
+  String capWillBecomeTask(int phase) {
+    return 'يصير مهمة بالمرحلة $phase';
+  }
+
+  @override
+  String capWillBecomeNote(int phase) {
+    return 'يصير ملاحظة بالمرحلة $phase';
+  }
 }

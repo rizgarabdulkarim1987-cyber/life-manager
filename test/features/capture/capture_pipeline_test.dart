@@ -193,4 +193,40 @@ void main() {
       expect((decodeProposals(row.parsedJson!).single as MoneyProposal).amountMinor, 25000);
     });
   });
+
+  group('reparse for the Inbox', () {
+    test('a voice capture with no transcript is transcribed from its stored audio', () async {
+      final local = _FakeStt('دفعت 40 الف تكسي');
+      final p = pipeline(FakeHttpPort((_) => throw StateError('no network expected')), local: (_) async => null);
+      final id = (await p.fromVoice(wav)).captureId;
+      final later = pipeline(FakeHttpPort((_) => throw StateError('no network expected')), local: (_) async => local);
+      final out = await later.reparse(id);
+      expect(out, isA<ReadyForReview>());
+      expect(local.calls, 1);
+      final row = (await captures.get(id))!;
+      expect(row.transcript, 'دفعت 40 الف تكسي');
+      expect(row.failureType, isNull);
+    });
+
+    test('allowOnline: false never touches the network even when AI is allowed', () async {
+      await allowOnline();
+      final http = FakeHttpPort((_) => throw StateError('no network expected'));
+      final id = await captures.createText('دفعت 40 الف تكسي');
+      final out = await pipeline(http).reparse(id, allowOnline: false);
+      expect(out, isA<ReadyForReview>());
+      expect(http.requests, isEmpty);
+      expect((await captures.get(id))!.parsedBy, 'rules');
+    });
+
+    test('lastOnlineError reports a rejected key', () async {
+      await allowOnline();
+      final p = pipeline(FakeHttpPort((_) => const HttpReply(401, '{}')));
+      final id = await captures.createText('دفعت 40 الف تكسي');
+      await p.reparse(id);
+      expect(p.lastOnlineError, isA<GroqUnauthorized>());
+      final ok = pipeline(FakeHttpPort((_) => throw StateError('offline path')));
+      await ok.reparse(id, allowOnline: false);
+      expect(ok.lastOnlineError, isNull);
+    });
+  });
 }

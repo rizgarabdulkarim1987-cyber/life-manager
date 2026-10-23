@@ -822,5 +822,42 @@
   "capWhichDebt": "Which debt",
   "capDrop": "Dropped",
   "capNothingFound": "Nothing to save was found. Edit the text and read it again.",
-  "capDone": "Saved"
+  "capDone": "Saved",
+  "capInbox": "Inbox",
+  "capInboxEmpty": "Nothing waiting. Anything you say or type and don't save lands here.",
+  "capNotTranscribed": "Voice, not transcribed yet",
+  "capTranscribe": "Transcribe",
+  "capFinishAi": "Finish with AI",
+  "capFinishAllAi": "Finish all with AI",
+  "capFinishing": "Finishing {n} of {total}…",
+  "@capFinishing": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "capOpenReview": "Review",
+  "capDiscard": "Discard",
+  "capDiscardTitle": "Discard this capture?",
+  "capDiscardBody": "Its text and recording are deleted. Nothing saved from it changes.",
+  "capWillBecomeTask": "Will become a task in phase {phase}",
+  "@capWillBecomeTask": {
+    "placeholders": {
+      "phase": {
+        "type": "int"
+      }
+    }
+  },
+  "capWillBecomeNote": "Will become a note in phase {phase}",
+  "@capWillBecomeNote": {
+    "placeholders": {
+      "phase": {
+        "type": "int"
+      }
+    }
+  }
 }
