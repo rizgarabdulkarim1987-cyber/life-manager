@@ -877,5 +877,8 @@
   "sensitiveLocked": "هذا القسم يطلب بصمتك مرة ثانية",
   "faceUnlockNote": "إذا بصمة الوجه ما تطلع، فموبايلك ما يسمح بيها للتطبيقات. البصمة ورمز الموبايل يشتغلون.",
   "lockSection": "القفل",
-  "lockAfterSeconds": "بعد {seconds} ثانية"
+  "lockAfterSeconds": "بعد {seconds} ثانية",
+  "delete": "حذف",
+  "finDeletedMany": "انحذفت {count} معاملات",
+  "selectedCount": "{count} مختارة"
 }

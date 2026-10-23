@@ -71,6 +71,37 @@ void main() {
     expect(find.text('أكل'), findsOneWidget);
   });
 
+  testWidgets('the undo snackbar stays for 10 seconds', (t) async {
+    final c = await pumpApp(t, locale: 'en');
+    final (_, _, food) = await seed(c);
+    await openHistory(t);
+    await t.drag(find.byKey(ValueKey('tx-$food')), const Offset(-600, 0));
+    await t.pumpAndSettle();
+    expect(t.widget<SnackBar>(find.byType(SnackBar)).duration, const Duration(seconds: 10));
+  });
+
+  testWidgets('long press selects rows, one delete removes them all, undo brings them back', (t) async {
+    final c = await pumpApp(t, locale: 'en');
+    final (p, b, food) = await seed(c);
+    final accounts = AccountsRepository(dbOf(c));
+    final before = ((await accounts.balanceOf(p)).minor, (await accounts.balanceOf(b)).minor);
+    await openHistory(t);
+    await t.longPress(find.byKey(ValueKey('tx-$food')));
+    await t.pumpAndSettle();
+    await t.tap(find.text('Ads'));
+    await t.pumpAndSettle();
+    expect(find.byKey(const ValueKey('selection-count')), findsOneWidget);
+    await t.tap(find.byKey(const ValueKey('select-delete')));
+    await t.pumpAndSettle();
+    expect(find.text('أكل'), findsNothing);
+    expect(find.text('Ads'), findsNothing);
+    await t.tap(find.text('Undo'));
+    await t.pumpAndSettle();
+    expect(((await accounts.balanceOf(p)).minor, (await accounts.balanceOf(b)).minor), before);
+    expect(find.text('أكل'), findsOneWidget);
+    expect(find.text('Ads'), findsOneWidget);
+  });
+
   testWidgets('history fits 320 px in Kurdish', (t) async {
     t.view.physicalSize = const Size(320 * 3, 640 * 3);
     t.view.devicePixelRatio = 3;

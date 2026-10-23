@@ -884,5 +884,22 @@
         "type": "int"
       }
     }
+  },
+  "delete": "Delete",
+  "finDeletedMany": "{count} transactions deleted",
+  "@finDeletedMany": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "selectedCount": "{count} selected",
+  "@selectedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

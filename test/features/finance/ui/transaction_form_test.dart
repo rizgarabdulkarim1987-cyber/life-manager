@@ -94,6 +94,32 @@ void main() {
     expect(await t.runAsync(() => dbOf(c).select(dbOf(c).bucketAllocations).get()), isEmpty);
   });
 
+  testWidgets('an open expense deletes from its own screen, with undo', (t) async {
+    final c = await pumpApp(t, locale: 'en');
+    final acc = await accountId(c, 'Personal', 'IQD');
+    final id = await txRepo(c).addSimple(
+      type: 'expense',
+      accountId: acc,
+      amountMinor: 4000,
+      occurredAt: DateTime.now().toUtc(),
+      description: 'Taxi',
+    );
+    await pushRoute(t, c, '/finance/tx/$id');
+    await t.tap(find.byKey(const ValueKey('tx-delete')));
+    await settle(t);
+    expect(find.byKey(const ValueKey('tx-save')), findsNothing, reason: 'the form closes');
+    expect(await txRepo(c).get(id), isNull);
+    await t.tap(find.text('Undo'));
+    await settle(t);
+    expect(await txRepo(c).get(id), isNotNull);
+  });
+
+  testWidgets('a new transaction has no delete button', (t) async {
+    final c = await pumpApp(t, locale: 'en');
+    await pushRoute(t, c, '/finance/tx/new?type=expense');
+    expect(find.byKey(const ValueKey('tx-delete')), findsNothing);
+  });
+
   testWidgets('expense form fits 320 px in Kurdish', (t) async {
     t.view.physicalSize = const Size(320 * 3, 640 * 3);
     t.view.devicePixelRatio = 3;

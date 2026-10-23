@@ -877,5 +877,8 @@
   "sensitiveLocked": "ئەم بەشە دووبارە پەنجەمۆر یان ڕووخسار دەخوازێت",
   "faceUnlockNote": "ئەگەر ڕووخسار پیشان نەدرا، مۆبایلەکەت ڕێگەی پێ نادات بۆ ئەپەکان؛ پەنجەمۆر و قوفڵی شاشە کار دەکەن.",
   "lockSection": "قوفڵ",
-  "lockAfterSeconds": "دوای {seconds} چرکە"
+  "lockAfterSeconds": "دوای {seconds} چرکە",
+  "delete": "سڕینەوە",
+  "finDeletedMany": "{count} مامەڵە سڕایەوە",
+  "selectedCount": "{count} هەڵبژێردراو"
 }

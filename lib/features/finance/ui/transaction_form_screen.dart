@@ -20,6 +20,7 @@ import 'widgets/account_picker.dart';
 import 'widgets/allocation_editor.dart';
 import 'widgets/amount_field.dart';
 import 'widgets/money_text.dart';
+import 'widgets/undo_snack.dart';
 
 const kFormTypes = ['expense', 'income', 'refund'];
 
@@ -239,6 +240,18 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
           _ => l.finAddExpense,
         };
 
+  /// Deletes the open row, closes the form and offers Undo on the screen below.
+  Future<void> _deleteOpen() async {
+    final t = _editing!;
+    final repo = ref.read(transactionsRepositoryProvider);
+    final messenger = ScaffoldMessenger.of(context);
+    final l = context.l10n;
+    final navigator = Navigator.of(context);
+    final allocations = await repo.delete(t.id);
+    if (navigator.canPop()) navigator.pop();
+    showUndoSnack(messenger, l, message: l.finDeleted, onUndo: () => repo.restore(t, allocations));
+  }
+
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
@@ -260,7 +273,18 @@ class _TransactionFormScreenState extends ConsumerState<TransactionFormScreen> {
     final locale = dateLocaleOf(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text(_title(l))),
+      appBar: AppBar(
+        title: Text(_title(l)),
+        actions: [
+          if (_editing != null)
+            IconButton(
+              key: const ValueKey('tx-delete'),
+              tooltip: l.delete,
+              icon: Icon(Icons.delete_outline_rounded, color: k.danger),
+              onPressed: _deleteOpen,
+            ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
         children: [
