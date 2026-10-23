@@ -1,4 +1,4 @@
-import 'package:drift/drift.dart' show OrderingTerm;
+import 'package:drift/drift.dart' show OrderingTerm, TableUpdateQuery;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -12,12 +12,22 @@ import '../capture/ui/composer.dart';
 import '../finance/data/categories_repository.dart' show categoryLabel;
 import '../finance/data/finance_providers.dart';
 import '../finance/ui/widgets/undo_snack.dart';
+import '../projects/data/projects_providers.dart';
+import '../tasks/data/tasks_providers.dart';
+import '../tasks/data/tasks_repository.dart' show TaskView;
+import '../tasks/ui/tasks_screen.dart' show TaskTile;
 import 'tips.dart';
 
 /// Recomputed whenever a transaction changes.
-final homeTipsProvider = StreamProvider<List<Tip>>((ref) {
+final homeTipsProvider = StreamProvider<List<Tip>>((ref) async* {
   final db = ref.watch(appDatabaseProvider);
-  return db.select(db.transactions).watch().asyncMap((_) => computeTips(db, DateTime.now()));
+  yield await computeTips(db, DateTime.now());
+  final changes = db.tableUpdates(
+    TableUpdateQuery.onAllTables([db.transactions, db.tasks, db.projectSteps, db.projects, db.budgets, db.buckets]),
+  );
+  await for (final _ in changes) {
+    yield await computeTips(db, DateTime.now());
+  }
 });
 
 /// The last five incomes and expenses, newest recorded first.
@@ -29,10 +39,6 @@ final recentEntriesProvider = StreamProvider<List<Transaction>>((ref) {
         ..limit(5))
       .watch();
 });
-
-/// Extra Home sections from other parts of the app (today's tasks, projects).
-final homeTodayBuilder = <Widget Function()>[];
-final homeProjectsBuilder = <Widget Function()>[];
 
 /// Home (redesign §9.4): the big composer, one tip, today, recent entries and
 /// projects. No amounts here at all: money lives behind Finance's lock.
@@ -69,17 +75,9 @@ class HomeScreen extends ConsumerWidget {
           const Composer(large: true),
           const SizedBox(height: 16),
           const _TipCard(),
-          _Section(
-            key: const ValueKey('home-today'),
-            title: l.homeToday,
-            child: homeTodayBuilder.isEmpty ? _Empty(l.homeTodayEmpty) : homeTodayBuilder.first(),
-          ),
+          _Section(key: const ValueKey('home-today'), title: l.homeToday, child: const _TodayList()),
           const _RecentCard(),
-          _Section(
-            key: const ValueKey('home-projects'),
-            title: l.homeProjects,
-            child: homeProjectsBuilder.isEmpty ? _Empty(l.homeProjectsEmpty) : homeProjectsBuilder.first(),
-          ),
+          _Section(key: const ValueKey('home-projects'), title: l.homeProjects, child: const _ProjectsList()),
         ],
       ),
     );
@@ -247,6 +245,57 @@ class _RecentCardState extends ConsumerState<_RecentCard> {
                   ),
               ],
             ),
+    );
+  }
+}
+
+/// Overdue and due-today tasks, at most five.
+class _TodayList extends ConsumerWidget {
+  const _TodayList();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final overdue = ref.watch(taskViewProvider(TaskView.overdue)).value ?? const <Task>[];
+    final today = ref.watch(taskViewProvider(TaskView.today)).value ?? const <Task>[];
+    final rows = [...overdue, ...today].take(5).toList();
+    if (rows.isEmpty) return _Empty(context.l10n.homeTodayEmpty);
+    return Column(children: [for (final t in rows) TaskTile(task: t)]);
+  }
+}
+
+/// Projects still in play, with how far along each is; at most three.
+class _ProjectsList extends ConsumerWidget {
+  const _ProjectsList();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l = context.l10n;
+    final k = context.tokens;
+    final open = [
+      for (final p in ref.watch(projectsProvider).value ?? const <Project>[])
+        if (p.status != 'done' && p.status != 'dropped') p,
+    ].take(3).toList();
+    if (open.isEmpty) return _Empty(l.homeProjectsEmpty);
+    return Column(
+      children: [
+        for (final p in open)
+          Consumer(
+            builder: (context, ref, _) {
+              final steps = ref.watch(projectStepsProvider(p.id)).value ?? const <ProjectStep>[];
+              final done = steps.where((s) => s.done).length;
+              return ListTile(
+                key: ValueKey('home-project-${p.id}'),
+                contentPadding: EdgeInsets.zero,
+                onTap: () => context.push('/projects/${p.id}'),
+                title: Text(p.title, maxLines: 1, overflow: TextOverflow.ellipsis),
+                subtitle: steps.isEmpty
+                    ? null
+                    : Text(l.projectProgress(done, steps.length), style: TextStyle(color: k.textMuted)),
+                trailing: const Icon(Icons.chevron_right_rounded),
+              );
+            },
+          ),
+      ],
     );
   }
 }

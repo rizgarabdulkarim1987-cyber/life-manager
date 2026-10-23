@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:drift/drift.dart';
+
 import '../../core/db/app_database.dart';
 import '../../l10n/gen/app_localizations.dart';
 import '../finance/data/budgets_repository.dart';
@@ -32,6 +34,8 @@ Future<List<Tip>> computeTips(AppDatabase db, DateTime now) async {
     tips.addAll(await source(db, now));
   }
 
+  tips.addAll(await _taskTips(db, now));
+
   final settings = await db.select(db.appSettingsTable).getSingleOrNull();
   final l = lookupAppLocalizations(Locale(settings?.localeCode ?? 'ar'));
   final categories = {for (final c in await db.select(db.categories).get()) c.id: categoryLabel(c, l)};
@@ -61,3 +65,32 @@ String tipText(Tip t, AppLocalizations l) => switch (t.kind) {
   TipKind.emergencyLow => l.tipEmergencyLow,
   TipKind.allClear => l.tipAllClear,
 };
+
+/// Overdue tasks, and a project step due within the week: names and counts only.
+Future<List<Tip>> _taskTips(AppDatabase db, DateTime now) async {
+  final today = DateTime(now.year, now.month, now.day);
+  final tips = <Tip>[];
+  final overdue = await (db.select(
+    db.tasks,
+  )..where((t) => t.status.equals('open') & t.dueAt.isSmallerThanValue(today.toUtc()))).get();
+  if (overdue.isNotEmpty) tips.add(Tip(TipKind.overdueTasks, ['${overdue.length}']));
+
+  final weekEnd = DateTime(today.year, today.month, today.day + 8);
+  final soon =
+      await (db.select(db.projectSteps).join([
+              innerJoin(db.projects, db.projects.id.equalsExp(db.projectSteps.projectId)),
+            ])
+            ..where(
+              db.projectSteps.done.equals(false) &
+                  db.projects.status.isNotIn(const ['done', 'dropped']) &
+                  db.projectSteps.dueDate.isBiggerOrEqualValue(today.toUtc()) &
+                  db.projectSteps.dueDate.isSmallerThanValue(weekEnd.toUtc()),
+            )
+            ..orderBy([OrderingTerm.asc(db.projectSteps.dueDate)])
+            ..limit(1))
+          .get();
+  for (final r in soon) {
+    tips.add(Tip(TipKind.projectStepSoon, [r.readTable(db.projectSteps).title, r.readTable(db.projects).title]));
+  }
+  return tips;
+}
