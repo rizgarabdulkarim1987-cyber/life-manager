@@ -9,11 +9,13 @@ import 'capture_tables.dart';
 import 'finance_seed.dart';
 import 'finance_tables.dart';
 import 'tables.dart';
+import 'task_tables.dart';
 import 'vault_tables.dart';
 
 export 'capture_tables.dart';
 export 'finance_tables.dart';
 export 'tables.dart';
+export 'task_tables.dart';
 export 'vault_tables.dart';
 
 part 'app_database.g.dart';
@@ -37,13 +39,15 @@ part 'app_database.g.dart';
     VaultMeta,
     VaultKeyWraps,
     VaultItems,
+    MeetingNotes,
+    Tasks,
   ],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase(super.e);
 
   @override
-  int get schemaVersion => 3;
+  int get schemaVersion => 4;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -93,6 +97,12 @@ class AppDatabase extends _$AppDatabase {
           await m.createTable(t);
         }
         await m.createIndex(vaultItemTitle);
+      }
+      if (from < 4) {
+        await m.createTable(meetingNotes);
+        await m.createTable(tasks);
+        await m.createIndex(taskDue);
+        await m.createIndex(taskParent);
       }
     },
     beforeOpen: (details) async {

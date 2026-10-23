@@ -137,4 +137,18 @@ void main() {
     expect(await db.select(db.categories).get(), hasLength(16));
     await db.close();
   });
+
+  test('v3 → v4 keeps the vault and adds empty task tables', () async {
+    final schema = await verifier.schemaAt(3);
+    final raw = schema.rawDatabase;
+    raw.execute(
+      "INSERT INTO vault_meta (id, vault_id, check_blob, created_at) VALUES (1, '${'a' * 32}', x'00', 1761177600)",
+    );
+    final db = AppDatabase(schema.newConnection());
+    await verifier.migrateAndValidate(db, 4);
+    expect(await db.select(db.vaultMeta).get(), hasLength(1));
+    expect(await db.select(db.tasks).get(), isEmpty);
+    expect(await db.select(db.meetingNotes).get(), isEmpty);
+    await db.close();
+  });
 }

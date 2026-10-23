@@ -35,8 +35,8 @@ void main() {
         ),
       );
 
-  test('a fresh database is on schema 3 with empty vault tables', () async {
-    expect(db.schemaVersion, 3);
+  test('a fresh database is on schema 4 with empty vault tables', () async {
+    expect(db.schemaVersion, 4);
     expect(await db.select(db.vaultItems).get(), isEmpty);
     expect(await db.select(db.vaultKeyWraps).get(), isEmpty);
     expect(await db.select(db.vaultMeta).get(), isEmpty);
@@ -69,17 +69,23 @@ void main() {
   });
 
   test('vault_meta accepts only id 1', () async {
-    await db.into(db.vaultMeta).insert(VaultMetaCompanion.insert(vaultId: 'b' * 32, checkBlob: Uint8List(45), createdAt: now));
+    await db
+        .into(db.vaultMeta)
+        .insert(VaultMetaCompanion.insert(vaultId: 'b' * 32, checkBlob: Uint8List(45), createdAt: now));
     expect(
       () => db
           .into(db.vaultMeta)
-          .insert(VaultMetaCompanion.insert(id: const Value(2), vaultId: 'c' * 32, checkBlob: Uint8List(45), createdAt: now)),
+          .insert(
+            VaultMetaCompanion.insert(id: const Value(2), vaultId: 'c' * 32, checkBlob: Uint8List(45), createdAt: now),
+          ),
       throwsA(isA<SqliteException>()),
     );
   });
 
   test('vaultAutoLockSeconds defaults to 120 and only takes 60/120/300/600', () async {
-    await db.into(db.appSettingsTable).insert(const AppSettingsTableCompanion(id: Value(1)), mode: InsertMode.insertOrIgnore);
+    await db
+        .into(db.appSettingsTable)
+        .insert(const AppSettingsTableCompanion(id: Value(1)), mode: InsertMode.insertOrIgnore);
     expect((await db.select(db.appSettingsTable).getSingle()).vaultAutoLockSeconds, 120);
     expect(
       () => db.update(db.appSettingsTable).write(const AppSettingsTableCompanion(vaultAutoLockSeconds: Value(45))),
