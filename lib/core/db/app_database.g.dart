@@ -1207,6 +1207,17 @@ class $AppSettingsTableTable extends AppSettingsTable with TableInfo<$AppSetting
     defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("buckets_confirmed" IN (0, 1))'),
     defaultValue: const Constant(false),
   );
+  static const VerificationMeta _vaultAutoLockSecondsMeta = const VerificationMeta('vaultAutoLockSeconds');
+  @override
+  late final GeneratedColumn<int> vaultAutoLockSeconds = GeneratedColumn<int>(
+    'vault_auto_lock_seconds',
+    aliasedName,
+    false,
+    check: () => vaultAutoLockSeconds.isIn(const [60, 120, 300, 600]),
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(120),
+  );
   static const VerificationMeta _groqVisionModelMeta = const VerificationMeta('groqVisionModel');
   @override
   late final GeneratedColumn<String> groqVisionModel = GeneratedColumn<String>(
@@ -1245,6 +1256,7 @@ class $AppSettingsTableTable extends AppSettingsTable with TableInfo<$AppSetting
     localWhisperModel,
     unallocatedIncomeAlert,
     bucketsConfirmed,
+    vaultAutoLockSeconds,
     groqVisionModel,
     aiReceiptConsent,
   ];
@@ -1332,6 +1344,12 @@ class $AppSettingsTableTable extends AppSettingsTable with TableInfo<$AppSetting
         bucketsConfirmed.isAcceptableOrUnknown(data['buckets_confirmed']!, _bucketsConfirmedMeta),
       );
     }
+    if (data.containsKey('vault_auto_lock_seconds')) {
+      context.handle(
+        _vaultAutoLockSecondsMeta,
+        vaultAutoLockSeconds.isAcceptableOrUnknown(data['vault_auto_lock_seconds']!, _vaultAutoLockSecondsMeta),
+      );
+    }
     if (data.containsKey('groq_vision_model')) {
       context.handle(
         _groqVisionModelMeta,
@@ -1393,6 +1411,10 @@ class $AppSettingsTableTable extends AppSettingsTable with TableInfo<$AppSetting
         DriftSqlType.bool,
         data['${effectivePrefix}buckets_confirmed'],
       )!,
+      vaultAutoLockSeconds: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}vault_auto_lock_seconds'],
+      )!,
       groqVisionModel: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}groq_vision_model'],
@@ -1427,6 +1449,7 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
   final String localWhisperModel;
   final bool unallocatedIncomeAlert;
   final bool bucketsConfirmed;
+  final int vaultAutoLockSeconds;
   final String groqVisionModel;
   final String? aiReceiptConsent;
   const AppSetting({
@@ -1446,6 +1469,7 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
     required this.localWhisperModel,
     required this.unallocatedIncomeAlert,
     required this.bucketsConfirmed,
+    required this.vaultAutoLockSeconds,
     required this.groqVisionModel,
     this.aiReceiptConsent,
   });
@@ -1474,6 +1498,7 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
     map['local_whisper_model'] = Variable<String>(localWhisperModel);
     map['unallocated_income_alert'] = Variable<bool>(unallocatedIncomeAlert);
     map['buckets_confirmed'] = Variable<bool>(bucketsConfirmed);
+    map['vault_auto_lock_seconds'] = Variable<int>(vaultAutoLockSeconds);
     map['groq_vision_model'] = Variable<String>(groqVisionModel);
     if (!nullToAbsent || aiReceiptConsent != null) {
       map['ai_receipt_consent'] = Variable<String>(aiReceiptConsent);
@@ -1499,6 +1524,7 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
       localWhisperModel: Value(localWhisperModel),
       unallocatedIncomeAlert: Value(unallocatedIncomeAlert),
       bucketsConfirmed: Value(bucketsConfirmed),
+      vaultAutoLockSeconds: Value(vaultAutoLockSeconds),
       groqVisionModel: Value(groqVisionModel),
       aiReceiptConsent: aiReceiptConsent == null && nullToAbsent ? const Value.absent() : Value(aiReceiptConsent),
     );
@@ -1523,6 +1549,7 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
       localWhisperModel: serializer.fromJson<String>(json['localWhisperModel']),
       unallocatedIncomeAlert: serializer.fromJson<bool>(json['unallocatedIncomeAlert']),
       bucketsConfirmed: serializer.fromJson<bool>(json['bucketsConfirmed']),
+      vaultAutoLockSeconds: serializer.fromJson<int>(json['vaultAutoLockSeconds']),
       groqVisionModel: serializer.fromJson<String>(json['groqVisionModel']),
       aiReceiptConsent: serializer.fromJson<String?>(json['aiReceiptConsent']),
     );
@@ -1547,6 +1574,7 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
       'localWhisperModel': serializer.toJson<String>(localWhisperModel),
       'unallocatedIncomeAlert': serializer.toJson<bool>(unallocatedIncomeAlert),
       'bucketsConfirmed': serializer.toJson<bool>(bucketsConfirmed),
+      'vaultAutoLockSeconds': serializer.toJson<int>(vaultAutoLockSeconds),
       'groqVisionModel': serializer.toJson<String>(groqVisionModel),
       'aiReceiptConsent': serializer.toJson<String?>(aiReceiptConsent),
     };
@@ -1569,6 +1597,7 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
     String? localWhisperModel,
     bool? unallocatedIncomeAlert,
     bool? bucketsConfirmed,
+    int? vaultAutoLockSeconds,
     String? groqVisionModel,
     Value<String?> aiReceiptConsent = const Value.absent(),
   }) => AppSetting(
@@ -1588,6 +1617,7 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
     localWhisperModel: localWhisperModel ?? this.localWhisperModel,
     unallocatedIncomeAlert: unallocatedIncomeAlert ?? this.unallocatedIncomeAlert,
     bucketsConfirmed: bucketsConfirmed ?? this.bucketsConfirmed,
+    vaultAutoLockSeconds: vaultAutoLockSeconds ?? this.vaultAutoLockSeconds,
     groqVisionModel: groqVisionModel ?? this.groqVisionModel,
     aiReceiptConsent: aiReceiptConsent.present ? aiReceiptConsent.value : this.aiReceiptConsent,
   );
@@ -1611,6 +1641,9 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
           ? data.unallocatedIncomeAlert.value
           : this.unallocatedIncomeAlert,
       bucketsConfirmed: data.bucketsConfirmed.present ? data.bucketsConfirmed.value : this.bucketsConfirmed,
+      vaultAutoLockSeconds: data.vaultAutoLockSeconds.present
+          ? data.vaultAutoLockSeconds.value
+          : this.vaultAutoLockSeconds,
       groqVisionModel: data.groqVisionModel.present ? data.groqVisionModel.value : this.groqVisionModel,
       aiReceiptConsent: data.aiReceiptConsent.present ? data.aiReceiptConsent.value : this.aiReceiptConsent,
     );
@@ -1635,6 +1668,7 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
           ..write('localWhisperModel: $localWhisperModel, ')
           ..write('unallocatedIncomeAlert: $unallocatedIncomeAlert, ')
           ..write('bucketsConfirmed: $bucketsConfirmed, ')
+          ..write('vaultAutoLockSeconds: $vaultAutoLockSeconds, ')
           ..write('groqVisionModel: $groqVisionModel, ')
           ..write('aiReceiptConsent: $aiReceiptConsent')
           ..write(')'))
@@ -1659,6 +1693,7 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
     localWhisperModel,
     unallocatedIncomeAlert,
     bucketsConfirmed,
+    vaultAutoLockSeconds,
     groqVisionModel,
     aiReceiptConsent,
   );
@@ -1682,6 +1717,7 @@ class AppSetting extends DataClass implements Insertable<AppSetting> {
           other.localWhisperModel == this.localWhisperModel &&
           other.unallocatedIncomeAlert == this.unallocatedIncomeAlert &&
           other.bucketsConfirmed == this.bucketsConfirmed &&
+          other.vaultAutoLockSeconds == this.vaultAutoLockSeconds &&
           other.groqVisionModel == this.groqVisionModel &&
           other.aiReceiptConsent == this.aiReceiptConsent);
 }
@@ -1703,6 +1739,7 @@ class AppSettingsTableCompanion extends UpdateCompanion<AppSetting> {
   final Value<String> localWhisperModel;
   final Value<bool> unallocatedIncomeAlert;
   final Value<bool> bucketsConfirmed;
+  final Value<int> vaultAutoLockSeconds;
   final Value<String> groqVisionModel;
   final Value<String?> aiReceiptConsent;
   const AppSettingsTableCompanion({
@@ -1722,6 +1759,7 @@ class AppSettingsTableCompanion extends UpdateCompanion<AppSetting> {
     this.localWhisperModel = const Value.absent(),
     this.unallocatedIncomeAlert = const Value.absent(),
     this.bucketsConfirmed = const Value.absent(),
+    this.vaultAutoLockSeconds = const Value.absent(),
     this.groqVisionModel = const Value.absent(),
     this.aiReceiptConsent = const Value.absent(),
   });
@@ -1742,6 +1780,7 @@ class AppSettingsTableCompanion extends UpdateCompanion<AppSetting> {
     this.localWhisperModel = const Value.absent(),
     this.unallocatedIncomeAlert = const Value.absent(),
     this.bucketsConfirmed = const Value.absent(),
+    this.vaultAutoLockSeconds = const Value.absent(),
     this.groqVisionModel = const Value.absent(),
     this.aiReceiptConsent = const Value.absent(),
   });
@@ -1762,6 +1801,7 @@ class AppSettingsTableCompanion extends UpdateCompanion<AppSetting> {
     Expression<String>? localWhisperModel,
     Expression<bool>? unallocatedIncomeAlert,
     Expression<bool>? bucketsConfirmed,
+    Expression<int>? vaultAutoLockSeconds,
     Expression<String>? groqVisionModel,
     Expression<String>? aiReceiptConsent,
   }) {
@@ -1782,6 +1822,7 @@ class AppSettingsTableCompanion extends UpdateCompanion<AppSetting> {
       if (localWhisperModel != null) 'local_whisper_model': localWhisperModel,
       if (unallocatedIncomeAlert != null) 'unallocated_income_alert': unallocatedIncomeAlert,
       if (bucketsConfirmed != null) 'buckets_confirmed': bucketsConfirmed,
+      if (vaultAutoLockSeconds != null) 'vault_auto_lock_seconds': vaultAutoLockSeconds,
       if (groqVisionModel != null) 'groq_vision_model': groqVisionModel,
       if (aiReceiptConsent != null) 'ai_receipt_consent': aiReceiptConsent,
     });
@@ -1804,6 +1845,7 @@ class AppSettingsTableCompanion extends UpdateCompanion<AppSetting> {
     Value<String>? localWhisperModel,
     Value<bool>? unallocatedIncomeAlert,
     Value<bool>? bucketsConfirmed,
+    Value<int>? vaultAutoLockSeconds,
     Value<String>? groqVisionModel,
     Value<String?>? aiReceiptConsent,
   }) {
@@ -1824,6 +1866,7 @@ class AppSettingsTableCompanion extends UpdateCompanion<AppSetting> {
       localWhisperModel: localWhisperModel ?? this.localWhisperModel,
       unallocatedIncomeAlert: unallocatedIncomeAlert ?? this.unallocatedIncomeAlert,
       bucketsConfirmed: bucketsConfirmed ?? this.bucketsConfirmed,
+      vaultAutoLockSeconds: vaultAutoLockSeconds ?? this.vaultAutoLockSeconds,
       groqVisionModel: groqVisionModel ?? this.groqVisionModel,
       aiReceiptConsent: aiReceiptConsent ?? this.aiReceiptConsent,
     );
@@ -1880,6 +1923,9 @@ class AppSettingsTableCompanion extends UpdateCompanion<AppSetting> {
     if (bucketsConfirmed.present) {
       map['buckets_confirmed'] = Variable<bool>(bucketsConfirmed.value);
     }
+    if (vaultAutoLockSeconds.present) {
+      map['vault_auto_lock_seconds'] = Variable<int>(vaultAutoLockSeconds.value);
+    }
     if (groqVisionModel.present) {
       map['groq_vision_model'] = Variable<String>(groqVisionModel.value);
     }
@@ -1908,6 +1954,7 @@ class AppSettingsTableCompanion extends UpdateCompanion<AppSetting> {
           ..write('localWhisperModel: $localWhisperModel, ')
           ..write('unallocatedIncomeAlert: $unallocatedIncomeAlert, ')
           ..write('bucketsConfirmed: $bucketsConfirmed, ')
+          ..write('vaultAutoLockSeconds: $vaultAutoLockSeconds, ')
           ..write('groqVisionModel: $groqVisionModel, ')
           ..write('aiReceiptConsent: $aiReceiptConsent')
           ..write(')'))
@@ -9313,6 +9360,1328 @@ class ProjectMessagesCompanion extends UpdateCompanion<ProjectMessage> {
   }
 }
 
+class $VaultMetaTable extends VaultMeta with TableInfo<$VaultMetaTable, VaultMetaRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $VaultMetaTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    check: () => id.equals(1),
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(1),
+  );
+  static const VerificationMeta _vaultIdMeta = const VerificationMeta('vaultId');
+  @override
+  late final GeneratedColumn<String> vaultId = GeneratedColumn<String>(
+    'vault_id',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(minTextLength: 32, maxTextLength: 32),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _checkBlobMeta = const VerificationMeta('checkBlob');
+  @override
+  late final GeneratedColumn<Uint8List> checkBlob = GeneratedColumn<Uint8List>(
+    'check_blob',
+    aliasedName,
+    false,
+    type: DriftSqlType.blob,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, vaultId, checkBlob, createdAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'vault_meta';
+  @override
+  VerificationContext validateIntegrity(Insertable<VaultMetaRow> instance, {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('vault_id')) {
+      context.handle(_vaultIdMeta, vaultId.isAcceptableOrUnknown(data['vault_id']!, _vaultIdMeta));
+    } else if (isInserting) {
+      context.missing(_vaultIdMeta);
+    }
+    if (data.containsKey('check_blob')) {
+      context.handle(_checkBlobMeta, checkBlob.isAcceptableOrUnknown(data['check_blob']!, _checkBlobMeta));
+    } else if (isInserting) {
+      context.missing(_checkBlobMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta, createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  VaultMetaRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return VaultMetaRow(
+      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      vaultId: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}vault_id'])!,
+      checkBlob: attachedDatabase.typeMapping.read(DriftSqlType.blob, data['${effectivePrefix}check_blob'])!,
+      createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+    );
+  }
+
+  @override
+  $VaultMetaTable createAlias(String alias) {
+    return $VaultMetaTable(attachedDatabase, alias);
+  }
+}
+
+class VaultMetaRow extends DataClass implements Insertable<VaultMetaRow> {
+  final int id;
+  final String vaultId;
+  final Uint8List checkBlob;
+  final DateTime createdAt;
+  const VaultMetaRow({required this.id, required this.vaultId, required this.checkBlob, required this.createdAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['vault_id'] = Variable<String>(vaultId);
+    map['check_blob'] = Variable<Uint8List>(checkBlob);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  VaultMetaCompanion toCompanion(bool nullToAbsent) {
+    return VaultMetaCompanion(
+      id: Value(id),
+      vaultId: Value(vaultId),
+      checkBlob: Value(checkBlob),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory VaultMetaRow.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return VaultMetaRow(
+      id: serializer.fromJson<int>(json['id']),
+      vaultId: serializer.fromJson<String>(json['vaultId']),
+      checkBlob: serializer.fromJson<Uint8List>(json['checkBlob']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'vaultId': serializer.toJson<String>(vaultId),
+      'checkBlob': serializer.toJson<Uint8List>(checkBlob),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  VaultMetaRow copyWith({int? id, String? vaultId, Uint8List? checkBlob, DateTime? createdAt}) => VaultMetaRow(
+    id: id ?? this.id,
+    vaultId: vaultId ?? this.vaultId,
+    checkBlob: checkBlob ?? this.checkBlob,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  VaultMetaRow copyWithCompanion(VaultMetaCompanion data) {
+    return VaultMetaRow(
+      id: data.id.present ? data.id.value : this.id,
+      vaultId: data.vaultId.present ? data.vaultId.value : this.vaultId,
+      checkBlob: data.checkBlob.present ? data.checkBlob.value : this.checkBlob,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('VaultMetaRow(')
+          ..write('id: $id, ')
+          ..write('vaultId: $vaultId, ')
+          ..write('checkBlob: $checkBlob, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, vaultId, $driftBlobEquality.hash(checkBlob), createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is VaultMetaRow &&
+          other.id == this.id &&
+          other.vaultId == this.vaultId &&
+          $driftBlobEquality.equals(other.checkBlob, this.checkBlob) &&
+          other.createdAt == this.createdAt);
+}
+
+class VaultMetaCompanion extends UpdateCompanion<VaultMetaRow> {
+  final Value<int> id;
+  final Value<String> vaultId;
+  final Value<Uint8List> checkBlob;
+  final Value<DateTime> createdAt;
+  const VaultMetaCompanion({
+    this.id = const Value.absent(),
+    this.vaultId = const Value.absent(),
+    this.checkBlob = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  VaultMetaCompanion.insert({
+    this.id = const Value.absent(),
+    required String vaultId,
+    required Uint8List checkBlob,
+    required DateTime createdAt,
+  }) : vaultId = Value(vaultId),
+       checkBlob = Value(checkBlob),
+       createdAt = Value(createdAt);
+  static Insertable<VaultMetaRow> custom({
+    Expression<int>? id,
+    Expression<String>? vaultId,
+    Expression<Uint8List>? checkBlob,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (vaultId != null) 'vault_id': vaultId,
+      if (checkBlob != null) 'check_blob': checkBlob,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  VaultMetaCompanion copyWith({
+    Value<int>? id,
+    Value<String>? vaultId,
+    Value<Uint8List>? checkBlob,
+    Value<DateTime>? createdAt,
+  }) {
+    return VaultMetaCompanion(
+      id: id ?? this.id,
+      vaultId: vaultId ?? this.vaultId,
+      checkBlob: checkBlob ?? this.checkBlob,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (vaultId.present) {
+      map['vault_id'] = Variable<String>(vaultId.value);
+    }
+    if (checkBlob.present) {
+      map['check_blob'] = Variable<Uint8List>(checkBlob.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('VaultMetaCompanion(')
+          ..write('id: $id, ')
+          ..write('vaultId: $vaultId, ')
+          ..write('checkBlob: $checkBlob, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $VaultKeyWrapsTable extends VaultKeyWraps with TableInfo<$VaultKeyWrapsTable, VaultKeyWrapRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $VaultKeyWrapsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'),
+  );
+  static const VerificationMeta _kindMeta = const VerificationMeta('kind');
+  @override
+  late final GeneratedColumn<String> kind = GeneratedColumn<String>(
+    'kind',
+    aliasedName,
+    false,
+    check: () => kind.isIn(const ['password', 'recovery']),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'),
+  );
+  static const VerificationMeta _kdfJsonMeta = const VerificationMeta('kdfJson');
+  @override
+  late final GeneratedColumn<String> kdfJson = GeneratedColumn<String>(
+    'kdf_json',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _saltMeta = const VerificationMeta('salt');
+  @override
+  late final GeneratedColumn<Uint8List> salt = GeneratedColumn<Uint8List>(
+    'salt',
+    aliasedName,
+    false,
+    type: DriftSqlType.blob,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _sealedKeyMeta = const VerificationMeta('sealedKey');
+  @override
+  late final GeneratedColumn<Uint8List> sealedKey = GeneratedColumn<Uint8List>(
+    'sealed_key',
+    aliasedName,
+    false,
+    type: DriftSqlType.blob,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, kind, kdfJson, salt, sealedKey, createdAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'vault_key_wraps';
+  @override
+  VerificationContext validateIntegrity(Insertable<VaultKeyWrapRow> instance, {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('kind')) {
+      context.handle(_kindMeta, kind.isAcceptableOrUnknown(data['kind']!, _kindMeta));
+    } else if (isInserting) {
+      context.missing(_kindMeta);
+    }
+    if (data.containsKey('kdf_json')) {
+      context.handle(_kdfJsonMeta, kdfJson.isAcceptableOrUnknown(data['kdf_json']!, _kdfJsonMeta));
+    }
+    if (data.containsKey('salt')) {
+      context.handle(_saltMeta, salt.isAcceptableOrUnknown(data['salt']!, _saltMeta));
+    } else if (isInserting) {
+      context.missing(_saltMeta);
+    }
+    if (data.containsKey('sealed_key')) {
+      context.handle(_sealedKeyMeta, sealedKey.isAcceptableOrUnknown(data['sealed_key']!, _sealedKeyMeta));
+    } else if (isInserting) {
+      context.missing(_sealedKeyMeta);
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta, createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  VaultKeyWrapRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return VaultKeyWrapRow(
+      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      kind: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}kind'])!,
+      kdfJson: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}kdf_json']),
+      salt: attachedDatabase.typeMapping.read(DriftSqlType.blob, data['${effectivePrefix}salt'])!,
+      sealedKey: attachedDatabase.typeMapping.read(DriftSqlType.blob, data['${effectivePrefix}sealed_key'])!,
+      createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+    );
+  }
+
+  @override
+  $VaultKeyWrapsTable createAlias(String alias) {
+    return $VaultKeyWrapsTable(attachedDatabase, alias);
+  }
+}
+
+class VaultKeyWrapRow extends DataClass implements Insertable<VaultKeyWrapRow> {
+  final int id;
+  final String kind;
+  final String? kdfJson;
+  final Uint8List salt;
+  final Uint8List sealedKey;
+  final DateTime createdAt;
+  const VaultKeyWrapRow({
+    required this.id,
+    required this.kind,
+    this.kdfJson,
+    required this.salt,
+    required this.sealedKey,
+    required this.createdAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['kind'] = Variable<String>(kind);
+    if (!nullToAbsent || kdfJson != null) {
+      map['kdf_json'] = Variable<String>(kdfJson);
+    }
+    map['salt'] = Variable<Uint8List>(salt);
+    map['sealed_key'] = Variable<Uint8List>(sealedKey);
+    map['created_at'] = Variable<DateTime>(createdAt);
+    return map;
+  }
+
+  VaultKeyWrapsCompanion toCompanion(bool nullToAbsent) {
+    return VaultKeyWrapsCompanion(
+      id: Value(id),
+      kind: Value(kind),
+      kdfJson: kdfJson == null && nullToAbsent ? const Value.absent() : Value(kdfJson),
+      salt: Value(salt),
+      sealedKey: Value(sealedKey),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory VaultKeyWrapRow.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return VaultKeyWrapRow(
+      id: serializer.fromJson<int>(json['id']),
+      kind: serializer.fromJson<String>(json['kind']),
+      kdfJson: serializer.fromJson<String?>(json['kdfJson']),
+      salt: serializer.fromJson<Uint8List>(json['salt']),
+      sealedKey: serializer.fromJson<Uint8List>(json['sealedKey']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'kind': serializer.toJson<String>(kind),
+      'kdfJson': serializer.toJson<String?>(kdfJson),
+      'salt': serializer.toJson<Uint8List>(salt),
+      'sealedKey': serializer.toJson<Uint8List>(sealedKey),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+    };
+  }
+
+  VaultKeyWrapRow copyWith({
+    int? id,
+    String? kind,
+    Value<String?> kdfJson = const Value.absent(),
+    Uint8List? salt,
+    Uint8List? sealedKey,
+    DateTime? createdAt,
+  }) => VaultKeyWrapRow(
+    id: id ?? this.id,
+    kind: kind ?? this.kind,
+    kdfJson: kdfJson.present ? kdfJson.value : this.kdfJson,
+    salt: salt ?? this.salt,
+    sealedKey: sealedKey ?? this.sealedKey,
+    createdAt: createdAt ?? this.createdAt,
+  );
+  VaultKeyWrapRow copyWithCompanion(VaultKeyWrapsCompanion data) {
+    return VaultKeyWrapRow(
+      id: data.id.present ? data.id.value : this.id,
+      kind: data.kind.present ? data.kind.value : this.kind,
+      kdfJson: data.kdfJson.present ? data.kdfJson.value : this.kdfJson,
+      salt: data.salt.present ? data.salt.value : this.salt,
+      sealedKey: data.sealedKey.present ? data.sealedKey.value : this.sealedKey,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('VaultKeyWrapRow(')
+          ..write('id: $id, ')
+          ..write('kind: $kind, ')
+          ..write('kdfJson: $kdfJson, ')
+          ..write('salt: $salt, ')
+          ..write('sealedKey: $sealedKey, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(id, kind, kdfJson, $driftBlobEquality.hash(salt), $driftBlobEquality.hash(sealedKey), createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is VaultKeyWrapRow &&
+          other.id == this.id &&
+          other.kind == this.kind &&
+          other.kdfJson == this.kdfJson &&
+          $driftBlobEquality.equals(other.salt, this.salt) &&
+          $driftBlobEquality.equals(other.sealedKey, this.sealedKey) &&
+          other.createdAt == this.createdAt);
+}
+
+class VaultKeyWrapsCompanion extends UpdateCompanion<VaultKeyWrapRow> {
+  final Value<int> id;
+  final Value<String> kind;
+  final Value<String?> kdfJson;
+  final Value<Uint8List> salt;
+  final Value<Uint8List> sealedKey;
+  final Value<DateTime> createdAt;
+  const VaultKeyWrapsCompanion({
+    this.id = const Value.absent(),
+    this.kind = const Value.absent(),
+    this.kdfJson = const Value.absent(),
+    this.salt = const Value.absent(),
+    this.sealedKey = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  VaultKeyWrapsCompanion.insert({
+    this.id = const Value.absent(),
+    required String kind,
+    this.kdfJson = const Value.absent(),
+    required Uint8List salt,
+    required Uint8List sealedKey,
+    required DateTime createdAt,
+  }) : kind = Value(kind),
+       salt = Value(salt),
+       sealedKey = Value(sealedKey),
+       createdAt = Value(createdAt);
+  static Insertable<VaultKeyWrapRow> custom({
+    Expression<int>? id,
+    Expression<String>? kind,
+    Expression<String>? kdfJson,
+    Expression<Uint8List>? salt,
+    Expression<Uint8List>? sealedKey,
+    Expression<DateTime>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (kind != null) 'kind': kind,
+      if (kdfJson != null) 'kdf_json': kdfJson,
+      if (salt != null) 'salt': salt,
+      if (sealedKey != null) 'sealed_key': sealedKey,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  VaultKeyWrapsCompanion copyWith({
+    Value<int>? id,
+    Value<String>? kind,
+    Value<String?>? kdfJson,
+    Value<Uint8List>? salt,
+    Value<Uint8List>? sealedKey,
+    Value<DateTime>? createdAt,
+  }) {
+    return VaultKeyWrapsCompanion(
+      id: id ?? this.id,
+      kind: kind ?? this.kind,
+      kdfJson: kdfJson ?? this.kdfJson,
+      salt: salt ?? this.salt,
+      sealedKey: sealedKey ?? this.sealedKey,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (kind.present) {
+      map['kind'] = Variable<String>(kind.value);
+    }
+    if (kdfJson.present) {
+      map['kdf_json'] = Variable<String>(kdfJson.value);
+    }
+    if (salt.present) {
+      map['salt'] = Variable<Uint8List>(salt.value);
+    }
+    if (sealedKey.present) {
+      map['sealed_key'] = Variable<Uint8List>(sealedKey.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('VaultKeyWrapsCompanion(')
+          ..write('id: $id, ')
+          ..write('kind: $kind, ')
+          ..write('kdfJson: $kdfJson, ')
+          ..write('salt: $salt, ')
+          ..write('sealedKey: $sealedKey, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $VaultItemsTable extends VaultItems with TableInfo<$VaultItemsTable, VaultItem> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $VaultItemsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'),
+  );
+  static const VerificationMeta _uidMeta = const VerificationMeta('uid');
+  @override
+  late final GeneratedColumn<String> uid = GeneratedColumn<String>(
+    'uid',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(minTextLength: 32, maxTextLength: 32),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'),
+  );
+  static const VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
+  late final GeneratedColumn<String> title = GeneratedColumn<String>(
+    'title',
+    aliasedName,
+    false,
+    additionalChecks: GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 120),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _urlMeta = const VerificationMeta('url');
+  @override
+  late final GeneratedColumn<String> url = GeneratedColumn<String>(
+    'url',
+    aliasedName,
+    true,
+    additionalChecks: GeneratedColumn.checkTextLength(maxTextLength: 2000),
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _usernameMeta = const VerificationMeta('username');
+  @override
+  late final GeneratedColumn<String> username = GeneratedColumn<String>(
+    'username',
+    aliasedName,
+    true,
+    additionalChecks: GeneratedColumn.checkTextLength(maxTextLength: 200),
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _emailMeta = const VerificationMeta('email');
+  @override
+  late final GeneratedColumn<String> email = GeneratedColumn<String>(
+    'email',
+    aliasedName,
+    true,
+    additionalChecks: GeneratedColumn.checkTextLength(maxTextLength: 200),
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _categoryMeta = const VerificationMeta('category');
+  @override
+  late final GeneratedColumn<String> category = GeneratedColumn<String>(
+    'category',
+    aliasedName,
+    false,
+    check: () => category.isIn(kVaultCategories),
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _workspaceIdMeta = const VerificationMeta('workspaceId');
+  @override
+  late final GeneratedColumn<int> workspaceId = GeneratedColumn<int>(
+    'workspace_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways('REFERENCES workspaces (id) ON DELETE RESTRICT'),
+  );
+  static const VerificationMeta _favoriteMeta = const VerificationMeta('favorite');
+  @override
+  late final GeneratedColumn<bool> favorite = GeneratedColumn<bool>(
+    'favorite',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("favorite" IN (0, 1))'),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _passwordBlobMeta = const VerificationMeta('passwordBlob');
+  @override
+  late final GeneratedColumn<Uint8List> passwordBlob = GeneratedColumn<Uint8List>(
+    'password_blob',
+    aliasedName,
+    true,
+    type: DriftSqlType.blob,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _notesBlobMeta = const VerificationMeta('notesBlob');
+  @override
+  late final GeneratedColumn<Uint8List> notesBlob = GeneratedColumn<Uint8List>(
+    'notes_blob',
+    aliasedName,
+    true,
+    type: DriftSqlType.blob,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _recoveryCodesBlobMeta = const VerificationMeta('recoveryCodesBlob');
+  @override
+  late final GeneratedColumn<Uint8List> recoveryCodesBlob = GeneratedColumn<Uint8List>(
+    'recovery_codes_blob',
+    aliasedName,
+    true,
+    type: DriftSqlType.blob,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _passwordChangedAtMeta = const VerificationMeta('passwordChangedAt');
+  @override
+  late final GeneratedColumn<DateTime> passwordChangedAt = GeneratedColumn<DateTime>(
+    'password_changed_at',
+    aliasedName,
+    true,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMeta = const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<DateTime> createdAt = GeneratedColumn<DateTime>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMeta = const VerificationMeta('updatedAt');
+  @override
+  late final GeneratedColumn<DateTime> updatedAt = GeneratedColumn<DateTime>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    uid,
+    title,
+    url,
+    username,
+    email,
+    category,
+    workspaceId,
+    favorite,
+    passwordBlob,
+    notesBlob,
+    recoveryCodesBlob,
+    passwordChangedAt,
+    createdAt,
+    updatedAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'vault_items';
+  @override
+  VerificationContext validateIntegrity(Insertable<VaultItem> instance, {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('uid')) {
+      context.handle(_uidMeta, uid.isAcceptableOrUnknown(data['uid']!, _uidMeta));
+    } else if (isInserting) {
+      context.missing(_uidMeta);
+    }
+    if (data.containsKey('title')) {
+      context.handle(_titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
+    } else if (isInserting) {
+      context.missing(_titleMeta);
+    }
+    if (data.containsKey('url')) {
+      context.handle(_urlMeta, url.isAcceptableOrUnknown(data['url']!, _urlMeta));
+    }
+    if (data.containsKey('username')) {
+      context.handle(_usernameMeta, username.isAcceptableOrUnknown(data['username']!, _usernameMeta));
+    }
+    if (data.containsKey('email')) {
+      context.handle(_emailMeta, email.isAcceptableOrUnknown(data['email']!, _emailMeta));
+    }
+    if (data.containsKey('category')) {
+      context.handle(_categoryMeta, category.isAcceptableOrUnknown(data['category']!, _categoryMeta));
+    } else if (isInserting) {
+      context.missing(_categoryMeta);
+    }
+    if (data.containsKey('workspace_id')) {
+      context.handle(_workspaceIdMeta, workspaceId.isAcceptableOrUnknown(data['workspace_id']!, _workspaceIdMeta));
+    }
+    if (data.containsKey('favorite')) {
+      context.handle(_favoriteMeta, favorite.isAcceptableOrUnknown(data['favorite']!, _favoriteMeta));
+    }
+    if (data.containsKey('password_blob')) {
+      context.handle(_passwordBlobMeta, passwordBlob.isAcceptableOrUnknown(data['password_blob']!, _passwordBlobMeta));
+    }
+    if (data.containsKey('notes_blob')) {
+      context.handle(_notesBlobMeta, notesBlob.isAcceptableOrUnknown(data['notes_blob']!, _notesBlobMeta));
+    }
+    if (data.containsKey('recovery_codes_blob')) {
+      context.handle(
+        _recoveryCodesBlobMeta,
+        recoveryCodesBlob.isAcceptableOrUnknown(data['recovery_codes_blob']!, _recoveryCodesBlobMeta),
+      );
+    }
+    if (data.containsKey('password_changed_at')) {
+      context.handle(
+        _passwordChangedAtMeta,
+        passwordChangedAt.isAcceptableOrUnknown(data['password_changed_at']!, _passwordChangedAtMeta),
+      );
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta, createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    if (data.containsKey('updated_at')) {
+      context.handle(_updatedAtMeta, updatedAt.isAcceptableOrUnknown(data['updated_at']!, _updatedAtMeta));
+    } else if (isInserting) {
+      context.missing(_updatedAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  VaultItem map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return VaultItem(
+      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      uid: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}uid'])!,
+      title: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}title'])!,
+      url: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}url']),
+      username: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}username']),
+      email: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}email']),
+      category: attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}category'])!,
+      workspaceId: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}workspace_id']),
+      favorite: attachedDatabase.typeMapping.read(DriftSqlType.bool, data['${effectivePrefix}favorite'])!,
+      passwordBlob: attachedDatabase.typeMapping.read(DriftSqlType.blob, data['${effectivePrefix}password_blob']),
+      notesBlob: attachedDatabase.typeMapping.read(DriftSqlType.blob, data['${effectivePrefix}notes_blob']),
+      recoveryCodesBlob: attachedDatabase.typeMapping.read(
+        DriftSqlType.blob,
+        data['${effectivePrefix}recovery_codes_blob'],
+      ),
+      passwordChangedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}password_changed_at'],
+      ),
+      createdAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}created_at'])!,
+      updatedAt: attachedDatabase.typeMapping.read(DriftSqlType.dateTime, data['${effectivePrefix}updated_at'])!,
+    );
+  }
+
+  @override
+  $VaultItemsTable createAlias(String alias) {
+    return $VaultItemsTable(attachedDatabase, alias);
+  }
+}
+
+class VaultItem extends DataClass implements Insertable<VaultItem> {
+  final int id;
+  final String uid;
+  final String title;
+  final String? url;
+  final String? username;
+  final String? email;
+  final String category;
+  final int? workspaceId;
+  final bool favorite;
+  final Uint8List? passwordBlob;
+  final Uint8List? notesBlob;
+  final Uint8List? recoveryCodesBlob;
+  final DateTime? passwordChangedAt;
+  final DateTime createdAt;
+  final DateTime updatedAt;
+  const VaultItem({
+    required this.id,
+    required this.uid,
+    required this.title,
+    this.url,
+    this.username,
+    this.email,
+    required this.category,
+    this.workspaceId,
+    required this.favorite,
+    this.passwordBlob,
+    this.notesBlob,
+    this.recoveryCodesBlob,
+    this.passwordChangedAt,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['uid'] = Variable<String>(uid);
+    map['title'] = Variable<String>(title);
+    if (!nullToAbsent || url != null) {
+      map['url'] = Variable<String>(url);
+    }
+    if (!nullToAbsent || username != null) {
+      map['username'] = Variable<String>(username);
+    }
+    if (!nullToAbsent || email != null) {
+      map['email'] = Variable<String>(email);
+    }
+    map['category'] = Variable<String>(category);
+    if (!nullToAbsent || workspaceId != null) {
+      map['workspace_id'] = Variable<int>(workspaceId);
+    }
+    map['favorite'] = Variable<bool>(favorite);
+    if (!nullToAbsent || passwordBlob != null) {
+      map['password_blob'] = Variable<Uint8List>(passwordBlob);
+    }
+    if (!nullToAbsent || notesBlob != null) {
+      map['notes_blob'] = Variable<Uint8List>(notesBlob);
+    }
+    if (!nullToAbsent || recoveryCodesBlob != null) {
+      map['recovery_codes_blob'] = Variable<Uint8List>(recoveryCodesBlob);
+    }
+    if (!nullToAbsent || passwordChangedAt != null) {
+      map['password_changed_at'] = Variable<DateTime>(passwordChangedAt);
+    }
+    map['created_at'] = Variable<DateTime>(createdAt);
+    map['updated_at'] = Variable<DateTime>(updatedAt);
+    return map;
+  }
+
+  VaultItemsCompanion toCompanion(bool nullToAbsent) {
+    return VaultItemsCompanion(
+      id: Value(id),
+      uid: Value(uid),
+      title: Value(title),
+      url: url == null && nullToAbsent ? const Value.absent() : Value(url),
+      username: username == null && nullToAbsent ? const Value.absent() : Value(username),
+      email: email == null && nullToAbsent ? const Value.absent() : Value(email),
+      category: Value(category),
+      workspaceId: workspaceId == null && nullToAbsent ? const Value.absent() : Value(workspaceId),
+      favorite: Value(favorite),
+      passwordBlob: passwordBlob == null && nullToAbsent ? const Value.absent() : Value(passwordBlob),
+      notesBlob: notesBlob == null && nullToAbsent ? const Value.absent() : Value(notesBlob),
+      recoveryCodesBlob: recoveryCodesBlob == null && nullToAbsent ? const Value.absent() : Value(recoveryCodesBlob),
+      passwordChangedAt: passwordChangedAt == null && nullToAbsent ? const Value.absent() : Value(passwordChangedAt),
+      createdAt: Value(createdAt),
+      updatedAt: Value(updatedAt),
+    );
+  }
+
+  factory VaultItem.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return VaultItem(
+      id: serializer.fromJson<int>(json['id']),
+      uid: serializer.fromJson<String>(json['uid']),
+      title: serializer.fromJson<String>(json['title']),
+      url: serializer.fromJson<String?>(json['url']),
+      username: serializer.fromJson<String?>(json['username']),
+      email: serializer.fromJson<String?>(json['email']),
+      category: serializer.fromJson<String>(json['category']),
+      workspaceId: serializer.fromJson<int?>(json['workspaceId']),
+      favorite: serializer.fromJson<bool>(json['favorite']),
+      passwordBlob: serializer.fromJson<Uint8List?>(json['passwordBlob']),
+      notesBlob: serializer.fromJson<Uint8List?>(json['notesBlob']),
+      recoveryCodesBlob: serializer.fromJson<Uint8List?>(json['recoveryCodesBlob']),
+      passwordChangedAt: serializer.fromJson<DateTime?>(json['passwordChangedAt']),
+      createdAt: serializer.fromJson<DateTime>(json['createdAt']),
+      updatedAt: serializer.fromJson<DateTime>(json['updatedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'uid': serializer.toJson<String>(uid),
+      'title': serializer.toJson<String>(title),
+      'url': serializer.toJson<String?>(url),
+      'username': serializer.toJson<String?>(username),
+      'email': serializer.toJson<String?>(email),
+      'category': serializer.toJson<String>(category),
+      'workspaceId': serializer.toJson<int?>(workspaceId),
+      'favorite': serializer.toJson<bool>(favorite),
+      'passwordBlob': serializer.toJson<Uint8List?>(passwordBlob),
+      'notesBlob': serializer.toJson<Uint8List?>(notesBlob),
+      'recoveryCodesBlob': serializer.toJson<Uint8List?>(recoveryCodesBlob),
+      'passwordChangedAt': serializer.toJson<DateTime?>(passwordChangedAt),
+      'createdAt': serializer.toJson<DateTime>(createdAt),
+      'updatedAt': serializer.toJson<DateTime>(updatedAt),
+    };
+  }
+
+  VaultItem copyWith({
+    int? id,
+    String? uid,
+    String? title,
+    Value<String?> url = const Value.absent(),
+    Value<String?> username = const Value.absent(),
+    Value<String?> email = const Value.absent(),
+    String? category,
+    Value<int?> workspaceId = const Value.absent(),
+    bool? favorite,
+    Value<Uint8List?> passwordBlob = const Value.absent(),
+    Value<Uint8List?> notesBlob = const Value.absent(),
+    Value<Uint8List?> recoveryCodesBlob = const Value.absent(),
+    Value<DateTime?> passwordChangedAt = const Value.absent(),
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) => VaultItem(
+    id: id ?? this.id,
+    uid: uid ?? this.uid,
+    title: title ?? this.title,
+    url: url.present ? url.value : this.url,
+    username: username.present ? username.value : this.username,
+    email: email.present ? email.value : this.email,
+    category: category ?? this.category,
+    workspaceId: workspaceId.present ? workspaceId.value : this.workspaceId,
+    favorite: favorite ?? this.favorite,
+    passwordBlob: passwordBlob.present ? passwordBlob.value : this.passwordBlob,
+    notesBlob: notesBlob.present ? notesBlob.value : this.notesBlob,
+    recoveryCodesBlob: recoveryCodesBlob.present ? recoveryCodesBlob.value : this.recoveryCodesBlob,
+    passwordChangedAt: passwordChangedAt.present ? passwordChangedAt.value : this.passwordChangedAt,
+    createdAt: createdAt ?? this.createdAt,
+    updatedAt: updatedAt ?? this.updatedAt,
+  );
+  VaultItem copyWithCompanion(VaultItemsCompanion data) {
+    return VaultItem(
+      id: data.id.present ? data.id.value : this.id,
+      uid: data.uid.present ? data.uid.value : this.uid,
+      title: data.title.present ? data.title.value : this.title,
+      url: data.url.present ? data.url.value : this.url,
+      username: data.username.present ? data.username.value : this.username,
+      email: data.email.present ? data.email.value : this.email,
+      category: data.category.present ? data.category.value : this.category,
+      workspaceId: data.workspaceId.present ? data.workspaceId.value : this.workspaceId,
+      favorite: data.favorite.present ? data.favorite.value : this.favorite,
+      passwordBlob: data.passwordBlob.present ? data.passwordBlob.value : this.passwordBlob,
+      notesBlob: data.notesBlob.present ? data.notesBlob.value : this.notesBlob,
+      recoveryCodesBlob: data.recoveryCodesBlob.present ? data.recoveryCodesBlob.value : this.recoveryCodesBlob,
+      passwordChangedAt: data.passwordChangedAt.present ? data.passwordChangedAt.value : this.passwordChangedAt,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+      updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('VaultItem(')
+          ..write('id: $id, ')
+          ..write('uid: $uid, ')
+          ..write('title: $title, ')
+          ..write('url: $url, ')
+          ..write('username: $username, ')
+          ..write('email: $email, ')
+          ..write('category: $category, ')
+          ..write('workspaceId: $workspaceId, ')
+          ..write('favorite: $favorite, ')
+          ..write('passwordBlob: $passwordBlob, ')
+          ..write('notesBlob: $notesBlob, ')
+          ..write('recoveryCodesBlob: $recoveryCodesBlob, ')
+          ..write('passwordChangedAt: $passwordChangedAt, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    uid,
+    title,
+    url,
+    username,
+    email,
+    category,
+    workspaceId,
+    favorite,
+    $driftBlobEquality.hash(passwordBlob),
+    $driftBlobEquality.hash(notesBlob),
+    $driftBlobEquality.hash(recoveryCodesBlob),
+    passwordChangedAt,
+    createdAt,
+    updatedAt,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is VaultItem &&
+          other.id == this.id &&
+          other.uid == this.uid &&
+          other.title == this.title &&
+          other.url == this.url &&
+          other.username == this.username &&
+          other.email == this.email &&
+          other.category == this.category &&
+          other.workspaceId == this.workspaceId &&
+          other.favorite == this.favorite &&
+          $driftBlobEquality.equals(other.passwordBlob, this.passwordBlob) &&
+          $driftBlobEquality.equals(other.notesBlob, this.notesBlob) &&
+          $driftBlobEquality.equals(other.recoveryCodesBlob, this.recoveryCodesBlob) &&
+          other.passwordChangedAt == this.passwordChangedAt &&
+          other.createdAt == this.createdAt &&
+          other.updatedAt == this.updatedAt);
+}
+
+class VaultItemsCompanion extends UpdateCompanion<VaultItem> {
+  final Value<int> id;
+  final Value<String> uid;
+  final Value<String> title;
+  final Value<String?> url;
+  final Value<String?> username;
+  final Value<String?> email;
+  final Value<String> category;
+  final Value<int?> workspaceId;
+  final Value<bool> favorite;
+  final Value<Uint8List?> passwordBlob;
+  final Value<Uint8List?> notesBlob;
+  final Value<Uint8List?> recoveryCodesBlob;
+  final Value<DateTime?> passwordChangedAt;
+  final Value<DateTime> createdAt;
+  final Value<DateTime> updatedAt;
+  const VaultItemsCompanion({
+    this.id = const Value.absent(),
+    this.uid = const Value.absent(),
+    this.title = const Value.absent(),
+    this.url = const Value.absent(),
+    this.username = const Value.absent(),
+    this.email = const Value.absent(),
+    this.category = const Value.absent(),
+    this.workspaceId = const Value.absent(),
+    this.favorite = const Value.absent(),
+    this.passwordBlob = const Value.absent(),
+    this.notesBlob = const Value.absent(),
+    this.recoveryCodesBlob = const Value.absent(),
+    this.passwordChangedAt = const Value.absent(),
+    this.createdAt = const Value.absent(),
+    this.updatedAt = const Value.absent(),
+  });
+  VaultItemsCompanion.insert({
+    this.id = const Value.absent(),
+    required String uid,
+    required String title,
+    this.url = const Value.absent(),
+    this.username = const Value.absent(),
+    this.email = const Value.absent(),
+    required String category,
+    this.workspaceId = const Value.absent(),
+    this.favorite = const Value.absent(),
+    this.passwordBlob = const Value.absent(),
+    this.notesBlob = const Value.absent(),
+    this.recoveryCodesBlob = const Value.absent(),
+    this.passwordChangedAt = const Value.absent(),
+    required DateTime createdAt,
+    required DateTime updatedAt,
+  }) : uid = Value(uid),
+       title = Value(title),
+       category = Value(category),
+       createdAt = Value(createdAt),
+       updatedAt = Value(updatedAt);
+  static Insertable<VaultItem> custom({
+    Expression<int>? id,
+    Expression<String>? uid,
+    Expression<String>? title,
+    Expression<String>? url,
+    Expression<String>? username,
+    Expression<String>? email,
+    Expression<String>? category,
+    Expression<int>? workspaceId,
+    Expression<bool>? favorite,
+    Expression<Uint8List>? passwordBlob,
+    Expression<Uint8List>? notesBlob,
+    Expression<Uint8List>? recoveryCodesBlob,
+    Expression<DateTime>? passwordChangedAt,
+    Expression<DateTime>? createdAt,
+    Expression<DateTime>? updatedAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (uid != null) 'uid': uid,
+      if (title != null) 'title': title,
+      if (url != null) 'url': url,
+      if (username != null) 'username': username,
+      if (email != null) 'email': email,
+      if (category != null) 'category': category,
+      if (workspaceId != null) 'workspace_id': workspaceId,
+      if (favorite != null) 'favorite': favorite,
+      if (passwordBlob != null) 'password_blob': passwordBlob,
+      if (notesBlob != null) 'notes_blob': notesBlob,
+      if (recoveryCodesBlob != null) 'recovery_codes_blob': recoveryCodesBlob,
+      if (passwordChangedAt != null) 'password_changed_at': passwordChangedAt,
+      if (createdAt != null) 'created_at': createdAt,
+      if (updatedAt != null) 'updated_at': updatedAt,
+    });
+  }
+
+  VaultItemsCompanion copyWith({
+    Value<int>? id,
+    Value<String>? uid,
+    Value<String>? title,
+    Value<String?>? url,
+    Value<String?>? username,
+    Value<String?>? email,
+    Value<String>? category,
+    Value<int?>? workspaceId,
+    Value<bool>? favorite,
+    Value<Uint8List?>? passwordBlob,
+    Value<Uint8List?>? notesBlob,
+    Value<Uint8List?>? recoveryCodesBlob,
+    Value<DateTime?>? passwordChangedAt,
+    Value<DateTime>? createdAt,
+    Value<DateTime>? updatedAt,
+  }) {
+    return VaultItemsCompanion(
+      id: id ?? this.id,
+      uid: uid ?? this.uid,
+      title: title ?? this.title,
+      url: url ?? this.url,
+      username: username ?? this.username,
+      email: email ?? this.email,
+      category: category ?? this.category,
+      workspaceId: workspaceId ?? this.workspaceId,
+      favorite: favorite ?? this.favorite,
+      passwordBlob: passwordBlob ?? this.passwordBlob,
+      notesBlob: notesBlob ?? this.notesBlob,
+      recoveryCodesBlob: recoveryCodesBlob ?? this.recoveryCodesBlob,
+      passwordChangedAt: passwordChangedAt ?? this.passwordChangedAt,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (uid.present) {
+      map['uid'] = Variable<String>(uid.value);
+    }
+    if (title.present) {
+      map['title'] = Variable<String>(title.value);
+    }
+    if (url.present) {
+      map['url'] = Variable<String>(url.value);
+    }
+    if (username.present) {
+      map['username'] = Variable<String>(username.value);
+    }
+    if (email.present) {
+      map['email'] = Variable<String>(email.value);
+    }
+    if (category.present) {
+      map['category'] = Variable<String>(category.value);
+    }
+    if (workspaceId.present) {
+      map['workspace_id'] = Variable<int>(workspaceId.value);
+    }
+    if (favorite.present) {
+      map['favorite'] = Variable<bool>(favorite.value);
+    }
+    if (passwordBlob.present) {
+      map['password_blob'] = Variable<Uint8List>(passwordBlob.value);
+    }
+    if (notesBlob.present) {
+      map['notes_blob'] = Variable<Uint8List>(notesBlob.value);
+    }
+    if (recoveryCodesBlob.present) {
+      map['recovery_codes_blob'] = Variable<Uint8List>(recoveryCodesBlob.value);
+    }
+    if (passwordChangedAt.present) {
+      map['password_changed_at'] = Variable<DateTime>(passwordChangedAt.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<DateTime>(createdAt.value);
+    }
+    if (updatedAt.present) {
+      map['updated_at'] = Variable<DateTime>(updatedAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('VaultItemsCompanion(')
+          ..write('id: $id, ')
+          ..write('uid: $uid, ')
+          ..write('title: $title, ')
+          ..write('url: $url, ')
+          ..write('username: $username, ')
+          ..write('email: $email, ')
+          ..write('category: $category, ')
+          ..write('workspaceId: $workspaceId, ')
+          ..write('favorite: $favorite, ')
+          ..write('passwordBlob: $passwordBlob, ')
+          ..write('notesBlob: $notesBlob, ')
+          ..write('recoveryCodesBlob: $recoveryCodesBlob, ')
+          ..write('passwordChangedAt: $passwordChangedAt, ')
+          ..write('createdAt: $createdAt, ')
+          ..write('updatedAt: $updatedAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -9335,12 +10704,16 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $ProjectsTable projects = $ProjectsTable(this);
   late final $ProjectStepsTable projectSteps = $ProjectStepsTable(this);
   late final $ProjectMessagesTable projectMessages = $ProjectMessagesTable(this);
+  late final $VaultMetaTable vaultMeta = $VaultMetaTable(this);
+  late final $VaultKeyWrapsTable vaultKeyWraps = $VaultKeyWrapsTable(this);
+  late final $VaultItemsTable vaultItems = $VaultItemsTable(this);
   late final Index txAccountTime = Index(
     'tx_account_time',
     'CREATE INDEX tx_account_time ON transactions (account_id, occurred_at)',
   );
   late final Index txTime = Index('tx_time', 'CREATE INDEX tx_time ON transactions (occurred_at)');
   late final Index txBatch = Index('tx_batch', 'CREATE INDEX tx_batch ON transactions (import_batch_id)');
+  late final Index vaultItemTitle = Index('vault_item_title', 'CREATE INDEX vault_item_title ON vault_items (title)');
   @override
   Iterable<TableInfo<Table, Object?>> get allTables => allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
@@ -9364,9 +10737,13 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     projects,
     projectSteps,
     projectMessages,
+    vaultMeta,
+    vaultKeyWraps,
+    vaultItems,
     txAccountTime,
     txTime,
     txBatch,
+    vaultItemTitle,
   ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
@@ -9498,6 +10875,19 @@ final class $$WorkspacesTableReferences extends BaseReferences<_$AppDatabase, $W
     ).filter((f) => f.workspaceId.id.sqlEquals($_itemColumn<int>('id')!));
 
     final cache = $_typedResult.readTableOrNull(_tasksRefsTable($_db));
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
+  }
+
+  static MultiTypedResultKey<$VaultItemsTable, List<VaultItem>> _vaultItemsRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(db.vaultItems, aliasName: 'workspaces__id__vault_items__workspace_id');
+
+  $$VaultItemsTableProcessedTableManager get vaultItemsRefs {
+    final manager = $$VaultItemsTableTableManager(
+      $_db,
+      $_db.vaultItems,
+    ).filter((f) => f.workspaceId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_vaultItemsRefsTable($_db));
     return ProcessedTableManager(manager.$state.copyWith(prefetchedData: cache));
   }
 }
@@ -9641,6 +11031,24 @@ class $$WorkspacesTableFilterComposer extends Composer<_$AppDatabase, $Workspace
           $$TasksTableFilterComposer(
             $db: $db,
             $table: $db.tasks,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> vaultItemsRefs(Expression<bool> Function($$VaultItemsTableFilterComposer f) f) {
+    final $$VaultItemsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.vaultItems,
+      getReferencedColumn: (t) => t.workspaceId,
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$VaultItemsTableFilterComposer(
+            $db: $db,
+            $table: $db.vaultItems,
             $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
             joinBuilder: joinBuilder,
             $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
@@ -9830,6 +11238,24 @@ class $$WorkspacesTableAnnotationComposer extends Composer<_$AppDatabase, $Works
     );
     return f(composer);
   }
+
+  Expression<T> vaultItemsRefs<T extends Object>(Expression<T> Function($$VaultItemsTableAnnotationComposer a) f) {
+    final $$VaultItemsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.vaultItems,
+      getReferencedColumn: (t) => t.workspaceId,
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$VaultItemsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.vaultItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
 }
 
 class $$WorkspacesTableTableManager
@@ -9852,6 +11278,7 @@ class $$WorkspacesTableTableManager
             bool transactionsRefs,
             bool budgetsRefs,
             bool tasksRefs,
+            bool vaultItemsRefs,
           })
         > {
   $$WorkspacesTableTableManager(_$AppDatabase db, $WorkspacesTable table)
@@ -9925,6 +11352,7 @@ class $$WorkspacesTableTableManager
                 transactionsRefs = false,
                 budgetsRefs = false,
                 tasksRefs = false,
+                vaultItemsRefs = false,
               }) {
                 return PrefetchHooks(
                   db: db,
@@ -9935,6 +11363,7 @@ class $$WorkspacesTableTableManager
                     if (transactionsRefs) db.transactions,
                     if (budgetsRefs) db.budgets,
                     if (tasksRefs) db.tasks,
+                    if (vaultItemsRefs) db.vaultItems,
                   ],
                   addJoins: null,
                   getPrefetchedDataCallback: (items) async {
@@ -9993,6 +11422,15 @@ class $$WorkspacesTableTableManager
                               referencedItems.where((e) => e.workspaceId == item.id),
                           typedResults: items,
                         ),
+                      if (vaultItemsRefs)
+                        await $_getPrefetchedData<Workspace, $WorkspacesTable, VaultItem>(
+                          currentTable: table,
+                          referencedTable: $$WorkspacesTableReferences._vaultItemsRefsTable(db),
+                          managerFromTypedResult: (p0) => $$WorkspacesTableReferences(db, table, p0).vaultItemsRefs,
+                          referencedItemsForCurrentItem: (item, referencedItems) =>
+                              referencedItems.where((e) => e.workspaceId == item.id),
+                          typedResults: items,
+                        ),
                     ];
                   },
                 );
@@ -10020,6 +11458,7 @@ typedef $$WorkspacesTableProcessedTableManager =
         bool transactionsRefs,
         bool budgetsRefs,
         bool tasksRefs,
+        bool vaultItemsRefs,
       })
     >;
 typedef $$AccountsTableCreateCompanionBuilder = AccountsCompanion Function({
@@ -10345,6 +11784,7 @@ typedef $$AppSettingsTableTableCreateCompanionBuilder = AppSettingsTableCompanio
   Value<String> localWhisperModel,
   Value<bool> unallocatedIncomeAlert,
   Value<bool> bucketsConfirmed,
+  Value<int> vaultAutoLockSeconds,
   Value<String> groqVisionModel,
   Value<String?> aiReceiptConsent,
 });
@@ -10365,6 +11805,7 @@ typedef $$AppSettingsTableTableUpdateCompanionBuilder = AppSettingsTableCompanio
   Value<String> localWhisperModel,
   Value<bool> unallocatedIncomeAlert,
   Value<bool> bucketsConfirmed,
+  Value<int> vaultAutoLockSeconds,
   Value<String> groqVisionModel,
   Value<String?> aiReceiptConsent,
 });
@@ -10423,6 +11864,9 @@ class $$AppSettingsTableTableFilterComposer extends Composer<_$AppDatabase, $App
 
   ColumnFilters<bool> get bucketsConfirmed =>
       $composableBuilder(column: $table.bucketsConfirmed, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get vaultAutoLockSeconds =>
+      $composableBuilder(column: $table.vaultAutoLockSeconds, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get groqVisionModel =>
       $composableBuilder(column: $table.groqVisionModel, builder: (column) => ColumnFilters(column));
@@ -10486,6 +11930,9 @@ class $$AppSettingsTableTableOrderingComposer extends Composer<_$AppDatabase, $A
   ColumnOrderings<bool> get bucketsConfirmed =>
       $composableBuilder(column: $table.bucketsConfirmed, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<int> get vaultAutoLockSeconds =>
+      $composableBuilder(column: $table.vaultAutoLockSeconds, builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<String> get groqVisionModel =>
       $composableBuilder(column: $table.groqVisionModel, builder: (column) => ColumnOrderings(column));
 
@@ -10546,6 +11993,9 @@ class $$AppSettingsTableTableAnnotationComposer extends Composer<_$AppDatabase, 
   GeneratedColumn<bool> get bucketsConfirmed =>
       $composableBuilder(column: $table.bucketsConfirmed, builder: (column) => column);
 
+  GeneratedColumn<int> get vaultAutoLockSeconds =>
+      $composableBuilder(column: $table.vaultAutoLockSeconds, builder: (column) => column);
+
   GeneratedColumn<String> get groqVisionModel =>
       $composableBuilder(column: $table.groqVisionModel, builder: (column) => column);
 
@@ -10594,6 +12044,7 @@ class $$AppSettingsTableTableTableManager
                 Value<String> localWhisperModel = const Value.absent(),
                 Value<bool> unallocatedIncomeAlert = const Value.absent(),
                 Value<bool> bucketsConfirmed = const Value.absent(),
+                Value<int> vaultAutoLockSeconds = const Value.absent(),
                 Value<String> groqVisionModel = const Value.absent(),
                 Value<String?> aiReceiptConsent = const Value.absent(),
               }) => AppSettingsTableCompanion(
@@ -10613,6 +12064,7 @@ class $$AppSettingsTableTableTableManager
                 localWhisperModel: localWhisperModel,
                 unallocatedIncomeAlert: unallocatedIncomeAlert,
                 bucketsConfirmed: bucketsConfirmed,
+                vaultAutoLockSeconds: vaultAutoLockSeconds,
                 groqVisionModel: groqVisionModel,
                 aiReceiptConsent: aiReceiptConsent,
               ),
@@ -10634,6 +12086,7 @@ class $$AppSettingsTableTableTableManager
                 Value<String> localWhisperModel = const Value.absent(),
                 Value<bool> unallocatedIncomeAlert = const Value.absent(),
                 Value<bool> bucketsConfirmed = const Value.absent(),
+                Value<int> vaultAutoLockSeconds = const Value.absent(),
                 Value<String> groqVisionModel = const Value.absent(),
                 Value<String?> aiReceiptConsent = const Value.absent(),
               }) => AppSettingsTableCompanion.insert(
@@ -10653,6 +12106,7 @@ class $$AppSettingsTableTableTableManager
                 localWhisperModel: localWhisperModel,
                 unallocatedIncomeAlert: unallocatedIncomeAlert,
                 bucketsConfirmed: bucketsConfirmed,
+                vaultAutoLockSeconds: vaultAutoLockSeconds,
                 groqVisionModel: groqVisionModel,
                 aiReceiptConsent: aiReceiptConsent,
               ),
@@ -15976,6 +17430,700 @@ typedef $$ProjectMessagesTableProcessedTableManager =
       ProjectMessage,
       PrefetchHooks Function({bool projectId})
     >;
+typedef $$VaultMetaTableCreateCompanionBuilder = VaultMetaCompanion Function({
+  Value<int> id,
+  required String vaultId,
+  required Uint8List checkBlob,
+  required DateTime createdAt,
+});
+typedef $$VaultMetaTableUpdateCompanionBuilder = VaultMetaCompanion Function({
+  Value<int> id,
+  Value<String> vaultId,
+  Value<Uint8List> checkBlob,
+  Value<DateTime> createdAt,
+});
+
+class $$VaultMetaTableFilterComposer extends Composer<_$AppDatabase, $VaultMetaTable> {
+  $$VaultMetaTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get vaultId =>
+      $composableBuilder(column: $table.vaultId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<Uint8List> get checkBlob =>
+      $composableBuilder(column: $table.checkBlob, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$VaultMetaTableOrderingComposer extends Composer<_$AppDatabase, $VaultMetaTable> {
+  $$VaultMetaTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get vaultId =>
+      $composableBuilder(column: $table.vaultId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<Uint8List> get checkBlob =>
+      $composableBuilder(column: $table.checkBlob, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$VaultMetaTableAnnotationComposer extends Composer<_$AppDatabase, $VaultMetaTable> {
+  $$VaultMetaTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get vaultId => $composableBuilder(column: $table.vaultId, builder: (column) => column);
+
+  GeneratedColumn<Uint8List> get checkBlob => $composableBuilder(column: $table.checkBlob, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt => $composableBuilder(column: $table.createdAt, builder: (column) => column);
+}
+
+class $$VaultMetaTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $VaultMetaTable,
+          VaultMetaRow,
+          $$VaultMetaTableFilterComposer,
+          $$VaultMetaTableOrderingComposer,
+          $$VaultMetaTableAnnotationComposer,
+          $$VaultMetaTableCreateCompanionBuilder,
+          $$VaultMetaTableUpdateCompanionBuilder,
+          (VaultMetaRow, BaseReferences<_$AppDatabase, $VaultMetaTable, VaultMetaRow>),
+          VaultMetaRow,
+          PrefetchHooks Function()
+        > {
+  $$VaultMetaTableTableManager(_$AppDatabase db, $VaultMetaTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () => $$VaultMetaTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () => $$VaultMetaTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () => $$VaultMetaTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> vaultId = const Value.absent(),
+            Value<Uint8List> checkBlob = const Value.absent(),
+            Value<DateTime> createdAt = const Value.absent(),
+          }) => VaultMetaCompanion(id: id, vaultId: vaultId, checkBlob: checkBlob, createdAt: createdAt),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String vaultId,
+            required Uint8List checkBlob,
+            required DateTime createdAt,
+          }) => VaultMetaCompanion.insert(id: id, vaultId: vaultId, checkBlob: checkBlob, createdAt: createdAt),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$VaultMetaTable, VaultMetaRow>(table),
+                  BaseReferences<_$AppDatabase, $VaultMetaTable, VaultMetaRow>(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$VaultMetaTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $VaultMetaTable,
+      VaultMetaRow,
+      $$VaultMetaTableFilterComposer,
+      $$VaultMetaTableOrderingComposer,
+      $$VaultMetaTableAnnotationComposer,
+      $$VaultMetaTableCreateCompanionBuilder,
+      $$VaultMetaTableUpdateCompanionBuilder,
+      (VaultMetaRow, BaseReferences<_$AppDatabase, $VaultMetaTable, VaultMetaRow>),
+      VaultMetaRow,
+      PrefetchHooks Function()
+    >;
+typedef $$VaultKeyWrapsTableCreateCompanionBuilder = VaultKeyWrapsCompanion Function({
+  Value<int> id,
+  required String kind,
+  Value<String?> kdfJson,
+  required Uint8List salt,
+  required Uint8List sealedKey,
+  required DateTime createdAt,
+});
+typedef $$VaultKeyWrapsTableUpdateCompanionBuilder = VaultKeyWrapsCompanion Function({
+  Value<int> id,
+  Value<String> kind,
+  Value<String?> kdfJson,
+  Value<Uint8List> salt,
+  Value<Uint8List> sealedKey,
+  Value<DateTime> createdAt,
+});
+
+class $$VaultKeyWrapsTableFilterComposer extends Composer<_$AppDatabase, $VaultKeyWrapsTable> {
+  $$VaultKeyWrapsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get kind => $composableBuilder(column: $table.kind, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get kdfJson =>
+      $composableBuilder(column: $table.kdfJson, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<Uint8List> get salt =>
+      $composableBuilder(column: $table.salt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<Uint8List> get sealedKey =>
+      $composableBuilder(column: $table.sealedKey, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$VaultKeyWrapsTableOrderingComposer extends Composer<_$AppDatabase, $VaultKeyWrapsTable> {
+  $$VaultKeyWrapsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get kind =>
+      $composableBuilder(column: $table.kind, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get kdfJson =>
+      $composableBuilder(column: $table.kdfJson, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<Uint8List> get salt =>
+      $composableBuilder(column: $table.salt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<Uint8List> get sealedKey =>
+      $composableBuilder(column: $table.sealedKey, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$VaultKeyWrapsTableAnnotationComposer extends Composer<_$AppDatabase, $VaultKeyWrapsTable> {
+  $$VaultKeyWrapsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get kind => $composableBuilder(column: $table.kind, builder: (column) => column);
+
+  GeneratedColumn<String> get kdfJson => $composableBuilder(column: $table.kdfJson, builder: (column) => column);
+
+  GeneratedColumn<Uint8List> get salt => $composableBuilder(column: $table.salt, builder: (column) => column);
+
+  GeneratedColumn<Uint8List> get sealedKey => $composableBuilder(column: $table.sealedKey, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt => $composableBuilder(column: $table.createdAt, builder: (column) => column);
+}
+
+class $$VaultKeyWrapsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $VaultKeyWrapsTable,
+          VaultKeyWrapRow,
+          $$VaultKeyWrapsTableFilterComposer,
+          $$VaultKeyWrapsTableOrderingComposer,
+          $$VaultKeyWrapsTableAnnotationComposer,
+          $$VaultKeyWrapsTableCreateCompanionBuilder,
+          $$VaultKeyWrapsTableUpdateCompanionBuilder,
+          (VaultKeyWrapRow, BaseReferences<_$AppDatabase, $VaultKeyWrapsTable, VaultKeyWrapRow>),
+          VaultKeyWrapRow,
+          PrefetchHooks Function()
+        > {
+  $$VaultKeyWrapsTableTableManager(_$AppDatabase db, $VaultKeyWrapsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () => $$VaultKeyWrapsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () => $$VaultKeyWrapsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () => $$VaultKeyWrapsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> kind = const Value.absent(),
+                Value<String?> kdfJson = const Value.absent(),
+                Value<Uint8List> salt = const Value.absent(),
+                Value<Uint8List> sealedKey = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+              }) => VaultKeyWrapsCompanion(
+                id: id,
+                kind: kind,
+                kdfJson: kdfJson,
+                salt: salt,
+                sealedKey: sealedKey,
+                createdAt: createdAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String kind,
+                Value<String?> kdfJson = const Value.absent(),
+                required Uint8List salt,
+                required Uint8List sealedKey,
+                required DateTime createdAt,
+              }) => VaultKeyWrapsCompanion.insert(
+                id: id,
+                kind: kind,
+                kdfJson: kdfJson,
+                salt: salt,
+                sealedKey: sealedKey,
+                createdAt: createdAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$VaultKeyWrapsTable, VaultKeyWrapRow>(table),
+                  BaseReferences<_$AppDatabase, $VaultKeyWrapsTable, VaultKeyWrapRow>(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$VaultKeyWrapsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $VaultKeyWrapsTable,
+      VaultKeyWrapRow,
+      $$VaultKeyWrapsTableFilterComposer,
+      $$VaultKeyWrapsTableOrderingComposer,
+      $$VaultKeyWrapsTableAnnotationComposer,
+      $$VaultKeyWrapsTableCreateCompanionBuilder,
+      $$VaultKeyWrapsTableUpdateCompanionBuilder,
+      (VaultKeyWrapRow, BaseReferences<_$AppDatabase, $VaultKeyWrapsTable, VaultKeyWrapRow>),
+      VaultKeyWrapRow,
+      PrefetchHooks Function()
+    >;
+typedef $$VaultItemsTableCreateCompanionBuilder = VaultItemsCompanion Function({
+  Value<int> id,
+  required String uid,
+  required String title,
+  Value<String?> url,
+  Value<String?> username,
+  Value<String?> email,
+  required String category,
+  Value<int?> workspaceId,
+  Value<bool> favorite,
+  Value<Uint8List?> passwordBlob,
+  Value<Uint8List?> notesBlob,
+  Value<Uint8List?> recoveryCodesBlob,
+  Value<DateTime?> passwordChangedAt,
+  required DateTime createdAt,
+  required DateTime updatedAt,
+});
+typedef $$VaultItemsTableUpdateCompanionBuilder = VaultItemsCompanion Function({
+  Value<int> id,
+  Value<String> uid,
+  Value<String> title,
+  Value<String?> url,
+  Value<String?> username,
+  Value<String?> email,
+  Value<String> category,
+  Value<int?> workspaceId,
+  Value<bool> favorite,
+  Value<Uint8List?> passwordBlob,
+  Value<Uint8List?> notesBlob,
+  Value<Uint8List?> recoveryCodesBlob,
+  Value<DateTime?> passwordChangedAt,
+  Value<DateTime> createdAt,
+  Value<DateTime> updatedAt,
+});
+
+final class $$VaultItemsTableReferences extends BaseReferences<_$AppDatabase, $VaultItemsTable, VaultItem> {
+  $$VaultItemsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $WorkspacesTable _workspaceIdTable(_$AppDatabase db) =>
+      db.workspaces.createAlias('vault_items__workspace_id__workspaces__id');
+
+  $$WorkspacesTableProcessedTableManager? get workspaceId {
+    final $_column = $_itemColumn<int>('workspace_id');
+    if ($_column == null) return null;
+    final manager = $$WorkspacesTableTableManager($_db, $_db.workspaces).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_workspaceIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $$VaultItemsTableFilterComposer extends Composer<_$AppDatabase, $VaultItemsTable> {
+  $$VaultItemsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get uid => $composableBuilder(column: $table.uid, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get url => $composableBuilder(column: $table.url, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get username =>
+      $composableBuilder(column: $table.username, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get email =>
+      $composableBuilder(column: $table.email, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get category =>
+      $composableBuilder(column: $table.category, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get favorite =>
+      $composableBuilder(column: $table.favorite, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<Uint8List> get passwordBlob =>
+      $composableBuilder(column: $table.passwordBlob, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<Uint8List> get notesBlob =>
+      $composableBuilder(column: $table.notesBlob, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<Uint8List> get recoveryCodesBlob =>
+      $composableBuilder(column: $table.recoveryCodesBlob, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get passwordChangedAt =>
+      $composableBuilder(column: $table.passwordChangedAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnFilters(column));
+
+  $$WorkspacesTableFilterComposer get workspaceId {
+    final $$WorkspacesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.workspaceId,
+      referencedTable: $db.workspaces,
+      getReferencedColumn: (t) => t.id,
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$WorkspacesTableFilterComposer(
+            $db: $db,
+            $table: $db.workspaces,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$VaultItemsTableOrderingComposer extends Composer<_$AppDatabase, $VaultItemsTable> {
+  $$VaultItemsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get uid =>
+      $composableBuilder(column: $table.uid, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get title =>
+      $composableBuilder(column: $table.title, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get url =>
+      $composableBuilder(column: $table.url, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get username =>
+      $composableBuilder(column: $table.username, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get email =>
+      $composableBuilder(column: $table.email, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get category =>
+      $composableBuilder(column: $table.category, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get favorite =>
+      $composableBuilder(column: $table.favorite, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<Uint8List> get passwordBlob =>
+      $composableBuilder(column: $table.passwordBlob, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<Uint8List> get notesBlob =>
+      $composableBuilder(column: $table.notesBlob, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<Uint8List> get recoveryCodesBlob =>
+      $composableBuilder(column: $table.recoveryCodesBlob, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get passwordChangedAt =>
+      $composableBuilder(column: $table.passwordChangedAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get updatedAt =>
+      $composableBuilder(column: $table.updatedAt, builder: (column) => ColumnOrderings(column));
+
+  $$WorkspacesTableOrderingComposer get workspaceId {
+    final $$WorkspacesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.workspaceId,
+      referencedTable: $db.workspaces,
+      getReferencedColumn: (t) => t.id,
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$WorkspacesTableOrderingComposer(
+            $db: $db,
+            $table: $db.workspaces,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$VaultItemsTableAnnotationComposer extends Composer<_$AppDatabase, $VaultItemsTable> {
+  $$VaultItemsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id => $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get uid => $composableBuilder(column: $table.uid, builder: (column) => column);
+
+  GeneratedColumn<String> get title => $composableBuilder(column: $table.title, builder: (column) => column);
+
+  GeneratedColumn<String> get url => $composableBuilder(column: $table.url, builder: (column) => column);
+
+  GeneratedColumn<String> get username => $composableBuilder(column: $table.username, builder: (column) => column);
+
+  GeneratedColumn<String> get email => $composableBuilder(column: $table.email, builder: (column) => column);
+
+  GeneratedColumn<String> get category => $composableBuilder(column: $table.category, builder: (column) => column);
+
+  GeneratedColumn<bool> get favorite => $composableBuilder(column: $table.favorite, builder: (column) => column);
+
+  GeneratedColumn<Uint8List> get passwordBlob =>
+      $composableBuilder(column: $table.passwordBlob, builder: (column) => column);
+
+  GeneratedColumn<Uint8List> get notesBlob => $composableBuilder(column: $table.notesBlob, builder: (column) => column);
+
+  GeneratedColumn<Uint8List> get recoveryCodesBlob =>
+      $composableBuilder(column: $table.recoveryCodesBlob, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get passwordChangedAt =>
+      $composableBuilder(column: $table.passwordChangedAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdAt => $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedAt => $composableBuilder(column: $table.updatedAt, builder: (column) => column);
+
+  $$WorkspacesTableAnnotationComposer get workspaceId {
+    final $$WorkspacesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.workspaceId,
+      referencedTable: $db.workspaces,
+      getReferencedColumn: (t) => t.id,
+      builder: (joinBuilder, {$addJoinBuilderToRootComposer, $removeJoinBuilderFromRootComposer}) =>
+          $$WorkspacesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.workspaces,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer: $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$VaultItemsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $VaultItemsTable,
+          VaultItem,
+          $$VaultItemsTableFilterComposer,
+          $$VaultItemsTableOrderingComposer,
+          $$VaultItemsTableAnnotationComposer,
+          $$VaultItemsTableCreateCompanionBuilder,
+          $$VaultItemsTableUpdateCompanionBuilder,
+          (VaultItem, $$VaultItemsTableReferences),
+          VaultItem,
+          PrefetchHooks Function({bool workspaceId})
+        > {
+  $$VaultItemsTableTableManager(_$AppDatabase db, $VaultItemsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () => $$VaultItemsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () => $$VaultItemsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () => $$VaultItemsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> uid = const Value.absent(),
+                Value<String> title = const Value.absent(),
+                Value<String?> url = const Value.absent(),
+                Value<String?> username = const Value.absent(),
+                Value<String?> email = const Value.absent(),
+                Value<String> category = const Value.absent(),
+                Value<int?> workspaceId = const Value.absent(),
+                Value<bool> favorite = const Value.absent(),
+                Value<Uint8List?> passwordBlob = const Value.absent(),
+                Value<Uint8List?> notesBlob = const Value.absent(),
+                Value<Uint8List?> recoveryCodesBlob = const Value.absent(),
+                Value<DateTime?> passwordChangedAt = const Value.absent(),
+                Value<DateTime> createdAt = const Value.absent(),
+                Value<DateTime> updatedAt = const Value.absent(),
+              }) => VaultItemsCompanion(
+                id: id,
+                uid: uid,
+                title: title,
+                url: url,
+                username: username,
+                email: email,
+                category: category,
+                workspaceId: workspaceId,
+                favorite: favorite,
+                passwordBlob: passwordBlob,
+                notesBlob: notesBlob,
+                recoveryCodesBlob: recoveryCodesBlob,
+                passwordChangedAt: passwordChangedAt,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String uid,
+                required String title,
+                Value<String?> url = const Value.absent(),
+                Value<String?> username = const Value.absent(),
+                Value<String?> email = const Value.absent(),
+                required String category,
+                Value<int?> workspaceId = const Value.absent(),
+                Value<bool> favorite = const Value.absent(),
+                Value<Uint8List?> passwordBlob = const Value.absent(),
+                Value<Uint8List?> notesBlob = const Value.absent(),
+                Value<Uint8List?> recoveryCodesBlob = const Value.absent(),
+                Value<DateTime?> passwordChangedAt = const Value.absent(),
+                required DateTime createdAt,
+                required DateTime updatedAt,
+              }) => VaultItemsCompanion.insert(
+                id: id,
+                uid: uid,
+                title: title,
+                url: url,
+                username: username,
+                email: email,
+                category: category,
+                workspaceId: workspaceId,
+                favorite: favorite,
+                passwordBlob: passwordBlob,
+                notesBlob: notesBlob,
+                recoveryCodesBlob: recoveryCodesBlob,
+                passwordChangedAt: passwordChangedAt,
+                createdAt: createdAt,
+                updatedAt: updatedAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable<$VaultItemsTable, VaultItem>(table), $$VaultItemsTableReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: ({workspaceId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (workspaceId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.workspaceId,
+                        referencedTable: $$VaultItemsTableReferences._workspaceIdTable(db),
+                        referencedColumn: $$VaultItemsTableReferences._workspaceIdTable(db).id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$VaultItemsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $VaultItemsTable,
+      VaultItem,
+      $$VaultItemsTableFilterComposer,
+      $$VaultItemsTableOrderingComposer,
+      $$VaultItemsTableAnnotationComposer,
+      $$VaultItemsTableCreateCompanionBuilder,
+      $$VaultItemsTableUpdateCompanionBuilder,
+      (VaultItem, $$VaultItemsTableReferences),
+      VaultItem,
+      PrefetchHooks Function({bool workspaceId})
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -16002,4 +18150,7 @@ class $AppDatabaseManager {
   $$ProjectStepsTableTableManager get projectSteps => $$ProjectStepsTableTableManager(_db, _db.projectSteps);
   $$ProjectMessagesTableTableManager get projectMessages =>
       $$ProjectMessagesTableTableManager(_db, _db.projectMessages);
+  $$VaultMetaTableTableManager get vaultMeta => $$VaultMetaTableTableManager(_db, _db.vaultMeta);
+  $$VaultKeyWrapsTableTableManager get vaultKeyWraps => $$VaultKeyWrapsTableTableManager(_db, _db.vaultKeyWraps);
+  $$VaultItemsTableTableManager get vaultItems => $$VaultItemsTableTableManager(_db, _db.vaultItems);
 }

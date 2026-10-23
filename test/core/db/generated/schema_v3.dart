@@ -281,8 +281,8 @@ class AppSettings extends Table with TableInfo {
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
-    $customConstraints: 'NOT NULL DEFAULT \'light\'',
-    defaultValue: const CustomExpression('\'light\''),
+    $customConstraints: 'NOT NULL DEFAULT \'dark\'',
+    defaultValue: const CustomExpression('\'dark\''),
   );
   late final GeneratedColumn<int> lockTimeoutSeconds = GeneratedColumn<int>(
     'lock_timeout_seconds',
@@ -290,8 +290,8 @@ class AppSettings extends Table with TableInfo {
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    $customConstraints: 'NOT NULL DEFAULT 60',
-    defaultValue: const CustomExpression('60'),
+    $customConstraints: 'NOT NULL DEFAULT 300',
+    defaultValue: const CustomExpression('300'),
   );
   late final GeneratedColumn<int> biometricEnabled = GeneratedColumn<int>(
     'biometric_enabled',
@@ -405,26 +405,14 @@ class AppSettings extends Table with TableInfo {
         'NOT NULL DEFAULT 0 CHECK (buckets_confirmed IN (0, 1))',
     defaultValue: const CustomExpression('0'),
   );
-  late final GeneratedColumn<String> groqVisionModel = GeneratedColumn<String>(
-    'groq_vision_model',
+  late final GeneratedColumn<int> vaultAutoLockSeconds = GeneratedColumn<int>(
+    'vault_auto_lock_seconds',
     aliasedName,
     false,
-    type: DriftSqlType.string,
+    type: DriftSqlType.int,
     requiredDuringInsert: false,
-    $customConstraints:
-        'NOT NULL DEFAULT \'meta-llama/llama-4-scout-17b-16e-instruct\'',
-    defaultValue: const CustomExpression(
-      '\'meta-llama/llama-4-scout-17b-16e-instruct\'',
-    ),
-  );
-  late final GeneratedColumn<String> aiReceiptConsent = GeneratedColumn<String>(
-    'ai_receipt_consent',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-    $customConstraints:
-        'NULL CHECK (ai_receipt_consent IN (\'granted\', \'declined\'))',
+    $customConstraints: 'NOT NULL DEFAULT 120 CHECK (vault_auto_lock_seconds IN (60, 120, 300, 600))',
+    defaultValue: const CustomExpression('120'),
   );
   @override
   List<GeneratedColumn> get $columns => [
@@ -444,8 +432,7 @@ class AppSettings extends Table with TableInfo {
     localWhisperModel,
     unallocatedIncomeAlert,
     bucketsConfirmed,
-    groqVisionModel,
-    aiReceiptConsent,
+    vaultAutoLockSeconds,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -1583,8 +1570,7 @@ class Captures extends Table with TableInfo {
     false,
     type: DriftSqlType.string,
     requiredDuringInsert: true,
-    $customConstraints:
-        'NOT NULL CHECK (source IN (\'voice\', \'text\', \'image\'))',
+    $customConstraints: 'NOT NULL CHECK (source IN (\'voice\', \'text\'))',
   );
   late final GeneratedColumn<String> status = GeneratedColumn<String>(
     'status',
@@ -1598,15 +1584,6 @@ class Captures extends Table with TableInfo {
   late final GeneratedColumn<i2.Uint8List> audio =
       GeneratedColumn<i2.Uint8List>(
         'audio',
-        aliasedName,
-        true,
-        type: DriftSqlType.blob,
-        requiredDuringInsert: false,
-        $customConstraints: 'NULL',
-      );
-  late final GeneratedColumn<i2.Uint8List> image =
-      GeneratedColumn<i2.Uint8List>(
-        'image',
         aliasedName,
         true,
         type: DriftSqlType.blob,
@@ -1661,28 +1638,18 @@ class Captures extends Table with TableInfo {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  late final GeneratedColumn<String> undoJson = GeneratedColumn<String>(
-    'undo_json',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-    $customConstraints: 'NULL',
-  );
   @override
   List<GeneratedColumn> get $columns => [
     id,
     source,
     status,
     audio,
-    image,
     transcript,
     parsedJson,
     parsedBy,
     failureType,
     createdAt,
     updatedAt,
-    undoJson,
   ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -1705,11 +1672,75 @@ class Captures extends Table with TableInfo {
   bool get dontWriteConstraints => true;
 }
 
-class Tasks extends Table with TableInfo {
+class VaultMeta extends Table with TableInfo {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  Tasks(this.attachedDatabase, [this._alias]);
+  VaultMeta(this.attachedDatabase, [this._alias]);
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    $customConstraints: 'NOT NULL DEFAULT 1 CHECK (id = 1)',
+    defaultValue: const CustomExpression('1'),
+  );
+  late final GeneratedColumn<String> vaultId = GeneratedColumn<String>(
+    'vault_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
+  late final GeneratedColumn<i2.Uint8List> checkBlob =
+      GeneratedColumn<i2.Uint8List>(
+        'check_blob',
+        aliasedName,
+        false,
+        type: DriftSqlType.blob,
+        requiredDuringInsert: true,
+        $customConstraints: 'NOT NULL',
+      );
+  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, vaultId, checkBlob, createdAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'vault_meta';
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Never map(Map<String, dynamic> data, {String? tablePrefix}) {
+    throw UnsupportedError('TableInfo.map in schema verification code');
+  }
+
+  @override
+  VaultMeta createAlias(String alias) {
+    return VaultMeta(attachedDatabase, alias);
+  }
+
+  @override
+  List<String> get customConstraints => const ['PRIMARY KEY(id)'];
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class VaultKeyWraps extends Table with TableInfo {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  VaultKeyWraps(this.attachedDatabase, [this._alias]);
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
     'id',
     aliasedName,
@@ -1719,6 +1750,104 @@ class Tasks extends Table with TableInfo {
     requiredDuringInsert: false,
     $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT',
   );
+  late final GeneratedColumn<String> kind = GeneratedColumn<String>(
+    'kind',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints:
+        'NOT NULL CHECK (kind IN (\'password\', \'recovery\')) UNIQUE',
+  );
+  late final GeneratedColumn<String> kdfJson = GeneratedColumn<String>(
+    'kdf_json',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    $customConstraints: 'NULL',
+  );
+  late final GeneratedColumn<i2.Uint8List> salt = GeneratedColumn<i2.Uint8List>(
+    'salt',
+    aliasedName,
+    false,
+    type: DriftSqlType.blob,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
+  late final GeneratedColumn<i2.Uint8List> sealedKey =
+      GeneratedColumn<i2.Uint8List>(
+        'sealed_key',
+        aliasedName,
+        false,
+        type: DriftSqlType.blob,
+        requiredDuringInsert: true,
+        $customConstraints: 'NOT NULL',
+      );
+  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
+    'created_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    kind,
+    kdfJson,
+    salt,
+    sealedKey,
+    createdAt,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'vault_key_wraps';
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  Never map(Map<String, dynamic> data, {String? tablePrefix}) {
+    throw UnsupportedError('TableInfo.map in schema verification code');
+  }
+
+  @override
+  VaultKeyWraps createAlias(String alias) {
+    return VaultKeyWraps(attachedDatabase, alias);
+  }
+
+  @override
+  List<String> get customConstraints => const [
+    'CHECK((kind = \'password\')=(kdf_json IS NOT NULL))',
+  ];
+  @override
+  bool get dontWriteConstraints => true;
+}
+
+class VaultItems extends Table with TableInfo {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  VaultItems(this.attachedDatabase, [this._alias]);
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT',
+  );
+  late final GeneratedColumn<String> uid = GeneratedColumn<String>(
+    'uid',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL UNIQUE',
+  );
   late final GeneratedColumn<String> title = GeneratedColumn<String>(
     'title',
     aliasedName,
@@ -1727,75 +1856,37 @@ class Tasks extends Table with TableInfo {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
-  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
-    'notes',
+  late final GeneratedColumn<String> url = GeneratedColumn<String>(
+    'url',
     aliasedName,
     true,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
     $customConstraints: 'NULL',
   );
-  late final GeneratedColumn<String> kind = GeneratedColumn<String>(
-    'kind',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-    $customConstraints: 'NOT NULL DEFAULT \'task\' CHECK (kind IN (\'task\', \'appointment\', \'reminder\'))',
-    defaultValue: const CustomExpression('\'task\''),
-  );
-  late final GeneratedColumn<int> dueAt = GeneratedColumn<int>(
-    'due_at',
-    aliasedName,
-    true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NULL',
-  );
-  late final GeneratedColumn<int> hasTime = GeneratedColumn<int>(
-    'has_time',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NOT NULL DEFAULT 0 CHECK (has_time IN (0, 1))',
-    defaultValue: const CustomExpression('0'),
-  );
-  late final GeneratedColumn<String> place = GeneratedColumn<String>(
-    'place',
+  late final GeneratedColumn<String> username = GeneratedColumn<String>(
+    'username',
     aliasedName,
     true,
     type: DriftSqlType.string,
     requiredDuringInsert: false,
     $customConstraints: 'NULL',
   );
-  late final GeneratedColumn<int> priority = GeneratedColumn<int>(
-    'priority',
+  late final GeneratedColumn<String> email = GeneratedColumn<String>(
+    'email',
     aliasedName,
-    false,
-    type: DriftSqlType.int,
+    true,
+    type: DriftSqlType.string,
     requiredDuringInsert: false,
-    $customConstraints: 'NOT NULL DEFAULT 1 CHECK (priority BETWEEN 0 AND 2)',
-    defaultValue: const CustomExpression('1'),
+    $customConstraints: 'NULL',
   );
-  late final GeneratedColumn<String> status = GeneratedColumn<String>(
-    'status',
+  late final GeneratedColumn<String> category = GeneratedColumn<String>(
+    'category',
     aliasedName,
     false,
     type: DriftSqlType.string,
-    requiredDuringInsert: false,
-    $customConstraints:
-        'NOT NULL DEFAULT \'open\' CHECK (status IN (\'open\', \'done\'))',
-    defaultValue: const CustomExpression('\'open\''),
-  );
-  late final GeneratedColumn<String> recurrence = GeneratedColumn<String>(
-    'recurrence',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-    $customConstraints: 'NOT NULL DEFAULT \'none\' CHECK (recurrence IN (\'none\', \'daily\', \'weekly\', \'monthly\'))',
-    defaultValue: const CustomExpression('\'none\''),
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL CHECK (category IN (\'personal\', \'business\', \'social\', \'banking\', \'hosting\', \'domain\', \'email\', \'marketing\', \'dev\', \'other\'))',
   );
   late final GeneratedColumn<int> workspaceId = GeneratedColumn<int>(
     'workspace_id',
@@ -1803,433 +1894,51 @@ class Tasks extends Table with TableInfo {
     true,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    $customConstraints: 'NULL REFERENCES workspaces(id)ON DELETE SET NULL',
+    $customConstraints: 'NULL REFERENCES workspaces(id)ON DELETE RESTRICT',
   );
-  late final GeneratedColumn<int> projectId = GeneratedColumn<int>(
-    'project_id',
-    aliasedName,
-    true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NULL',
-  );
-  late final GeneratedColumn<int> projectStepId = GeneratedColumn<int>(
-    'project_step_id',
-    aliasedName,
-    true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NULL',
-  );
-  late final GeneratedColumn<int> captureId = GeneratedColumn<int>(
-    'capture_id',
-    aliasedName,
-    true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NULL',
-  );
-  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
-    'created_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL',
-  );
-  late final GeneratedColumn<int> completedAt = GeneratedColumn<int>(
-    'completed_at',
-    aliasedName,
-    true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NULL',
-  );
-  @override
-  List<GeneratedColumn> get $columns => [
-    id,
-    title,
-    notes,
-    kind,
-    dueAt,
-    hasTime,
-    place,
-    priority,
-    status,
-    recurrence,
-    workspaceId,
-    projectId,
-    projectStepId,
-    captureId,
-    createdAt,
-    completedAt,
-  ];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'tasks';
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  Never map(Map<String, dynamic> data, {String? tablePrefix}) {
-    throw UnsupportedError('TableInfo.map in schema verification code');
-  }
-
-  @override
-  Tasks createAlias(String alias) {
-    return Tasks(attachedDatabase, alias);
-  }
-
-  @override
-  bool get dontWriteConstraints => true;
-}
-
-class Notes extends Table with TableInfo {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  Notes(this.attachedDatabase, [this._alias]);
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-    'id',
-    aliasedName,
-    false,
-    hasAutoIncrement: true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT',
-  );
-  late final GeneratedColumn<String> body = GeneratedColumn<String>(
-    'body',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL',
-  );
-  late final GeneratedColumn<int> projectId = GeneratedColumn<int>(
-    'project_id',
-    aliasedName,
-    true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NULL',
-  );
-  late final GeneratedColumn<int> captureId = GeneratedColumn<int>(
-    'capture_id',
-    aliasedName,
-    true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NULL',
-  );
-  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
-    'created_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL',
-  );
-  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
-    'updated_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL',
-  );
-  @override
-  List<GeneratedColumn> get $columns => [
-    id,
-    body,
-    projectId,
-    captureId,
-    createdAt,
-    updatedAt,
-  ];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'notes';
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  Never map(Map<String, dynamic> data, {String? tablePrefix}) {
-    throw UnsupportedError('TableInfo.map in schema verification code');
-  }
-
-  @override
-  Notes createAlias(String alias) {
-    return Notes(attachedDatabase, alias);
-  }
-
-  @override
-  bool get dontWriteConstraints => true;
-}
-
-class Projects extends Table with TableInfo {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  Projects(this.attachedDatabase, [this._alias]);
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-    'id',
-    aliasedName,
-    false,
-    hasAutoIncrement: true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT',
-  );
-  late final GeneratedColumn<String> title = GeneratedColumn<String>(
-    'title',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL',
-  );
-  late final GeneratedColumn<String> description = GeneratedColumn<String>(
-    'description',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-    $customConstraints: 'NULL',
-  );
-  late final GeneratedColumn<String> status = GeneratedColumn<String>(
-    'status',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-    $customConstraints: 'NOT NULL DEFAULT \'idea\' CHECK (status IN (\'idea\', \'planning\', \'active\', \'done\', \'dropped\'))',
-    defaultValue: const CustomExpression('\'idea\''),
-  );
-  late final GeneratedColumn<int> estCostMinor = GeneratedColumn<int>(
-    'est_cost_minor',
-    aliasedName,
-    true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NULL',
-  );
-  late final GeneratedColumn<String> currencyCode = GeneratedColumn<String>(
-    'currency_code',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-    $customConstraints: 'NULL',
-  );
-  late final GeneratedColumn<int> targetDate = GeneratedColumn<int>(
-    'target_date',
-    aliasedName,
-    true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NULL',
-  );
-  late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
-    'created_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL',
-  );
-  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
-    'updated_at',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL',
-  );
-  late final GeneratedColumn<int> captureId = GeneratedColumn<int>(
-    'capture_id',
-    aliasedName,
-    true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NULL',
-  );
-  @override
-  List<GeneratedColumn> get $columns => [
-    id,
-    title,
-    description,
-    status,
-    estCostMinor,
-    currencyCode,
-    targetDate,
-    createdAt,
-    updatedAt,
-    captureId,
-  ];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'projects';
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  Never map(Map<String, dynamic> data, {String? tablePrefix}) {
-    throw UnsupportedError('TableInfo.map in schema verification code');
-  }
-
-  @override
-  Projects createAlias(String alias) {
-    return Projects(attachedDatabase, alias);
-  }
-
-  @override
-  bool get dontWriteConstraints => true;
-}
-
-class ProjectSteps extends Table with TableInfo {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  ProjectSteps(this.attachedDatabase, [this._alias]);
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-    'id',
-    aliasedName,
-    false,
-    hasAutoIncrement: true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT',
-  );
-  late final GeneratedColumn<int> projectId = GeneratedColumn<int>(
-    'project_id',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL REFERENCES projects(id)ON DELETE CASCADE',
-  );
-  late final GeneratedColumn<int> seq = GeneratedColumn<int>(
-    'seq',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL',
-  );
-  late final GeneratedColumn<String> phase = GeneratedColumn<String>(
-    'phase',
-    aliasedName,
-    true,
-    type: DriftSqlType.string,
-    requiredDuringInsert: false,
-    $customConstraints: 'NULL',
-  );
-  late final GeneratedColumn<String> title = GeneratedColumn<String>(
-    'title',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL',
-  );
-  late final GeneratedColumn<int> dueDate = GeneratedColumn<int>(
-    'due_date',
-    aliasedName,
-    true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NULL',
-  );
-  late final GeneratedColumn<int> done = GeneratedColumn<int>(
-    'done',
+  late final GeneratedColumn<int> favorite = GeneratedColumn<int>(
+    'favorite',
     aliasedName,
     false,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
-    $customConstraints: 'NOT NULL DEFAULT 0 CHECK (done IN (0, 1))',
+    $customConstraints: 'NOT NULL DEFAULT 0 CHECK (favorite IN (0, 1))',
     defaultValue: const CustomExpression('0'),
   );
-  late final GeneratedColumn<int> taskId = GeneratedColumn<int>(
-    'task_id',
+  late final GeneratedColumn<i2.Uint8List> passwordBlob =
+      GeneratedColumn<i2.Uint8List>(
+        'password_blob',
+        aliasedName,
+        true,
+        type: DriftSqlType.blob,
+        requiredDuringInsert: false,
+        $customConstraints: 'NULL',
+      );
+  late final GeneratedColumn<i2.Uint8List> notesBlob =
+      GeneratedColumn<i2.Uint8List>(
+        'notes_blob',
+        aliasedName,
+        true,
+        type: DriftSqlType.blob,
+        requiredDuringInsert: false,
+        $customConstraints: 'NULL',
+      );
+  late final GeneratedColumn<i2.Uint8List> recoveryCodesBlob =
+      GeneratedColumn<i2.Uint8List>(
+        'recovery_codes_blob',
+        aliasedName,
+        true,
+        type: DriftSqlType.blob,
+        requiredDuringInsert: false,
+        $customConstraints: 'NULL',
+      );
+  late final GeneratedColumn<int> passwordChangedAt = GeneratedColumn<int>(
+    'password_changed_at',
     aliasedName,
     true,
     type: DriftSqlType.int,
     requiredDuringInsert: false,
     $customConstraints: 'NULL',
-  );
-  @override
-  List<GeneratedColumn> get $columns => [
-    id,
-    projectId,
-    seq,
-    phase,
-    title,
-    dueDate,
-    done,
-    taskId,
-  ];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'project_steps';
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  Never map(Map<String, dynamic> data, {String? tablePrefix}) {
-    throw UnsupportedError('TableInfo.map in schema verification code');
-  }
-
-  @override
-  ProjectSteps createAlias(String alias) {
-    return ProjectSteps(attachedDatabase, alias);
-  }
-
-  @override
-  bool get dontWriteConstraints => true;
-}
-
-class ProjectMessages extends Table with TableInfo {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  ProjectMessages(this.attachedDatabase, [this._alias]);
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-    'id',
-    aliasedName,
-    false,
-    hasAutoIncrement: true,
-    type: DriftSqlType.int,
-    requiredDuringInsert: false,
-    $customConstraints: 'NOT NULL PRIMARY KEY AUTOINCREMENT',
-  );
-  late final GeneratedColumn<int> projectId = GeneratedColumn<int>(
-    'project_id',
-    aliasedName,
-    false,
-    type: DriftSqlType.int,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL REFERENCES projects(id)ON DELETE CASCADE',
-  );
-  late final GeneratedColumn<String> role = GeneratedColumn<String>(
-    'role',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL CHECK (role IN (\'user\', \'assistant\'))',
-  );
-  late final GeneratedColumn<String> body = GeneratedColumn<String>(
-    'body',
-    aliasedName,
-    false,
-    type: DriftSqlType.string,
-    requiredDuringInsert: true,
-    $customConstraints: 'NOT NULL',
   );
   late final GeneratedColumn<int> createdAt = GeneratedColumn<int>(
     'created_at',
@@ -2239,13 +1948,37 @@ class ProjectMessages extends Table with TableInfo {
     requiredDuringInsert: true,
     $customConstraints: 'NOT NULL',
   );
+  late final GeneratedColumn<int> updatedAt = GeneratedColumn<int>(
+    'updated_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+    $customConstraints: 'NOT NULL',
+  );
   @override
-  List<GeneratedColumn> get $columns => [id, projectId, role, body, createdAt];
+  List<GeneratedColumn> get $columns => [
+    id,
+    uid,
+    title,
+    url,
+    username,
+    email,
+    category,
+    workspaceId,
+    favorite,
+    passwordBlob,
+    notesBlob,
+    recoveryCodesBlob,
+    passwordChangedAt,
+    createdAt,
+    updatedAt,
+  ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'project_messages';
+  static const String $name = 'vault_items';
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
@@ -2254,8 +1987,8 @@ class ProjectMessages extends Table with TableInfo {
   }
 
   @override
-  ProjectMessages createAlias(String alias) {
-    return ProjectMessages(attachedDatabase, alias);
+  VaultItems createAlias(String alias) {
+    return VaultItems(attachedDatabase, alias);
   }
 
   @override
@@ -2278,11 +2011,9 @@ class DatabaseAtV3 extends GeneratedDatabase {
   late final BucketAllocations bucketAllocations = BucketAllocations(this);
   late final Budgets budgets = Budgets(this);
   late final Captures captures = Captures(this);
-  late final Tasks tasks = Tasks(this);
-  late final Notes notes = Notes(this);
-  late final Projects projects = Projects(this);
-  late final ProjectSteps projectSteps = ProjectSteps(this);
-  late final ProjectMessages projectMessages = ProjectMessages(this);
+  late final VaultMeta vaultMeta = VaultMeta(this);
+  late final VaultKeyWraps vaultKeyWraps = VaultKeyWraps(this);
+  late final VaultItems vaultItems = VaultItems(this);
   late final Index txAccountTime = Index(
     'tx_account_time',
     'CREATE INDEX tx_account_time ON transactions (account_id, occurred_at)',
@@ -2294,6 +2025,10 @@ class DatabaseAtV3 extends GeneratedDatabase {
   late final Index txBatch = Index(
     'tx_batch',
     'CREATE INDEX tx_batch ON transactions (import_batch_id)',
+  );
+  late final Index vaultItemTitle = Index(
+    'vault_item_title',
+    'CREATE INDEX vault_item_title ON vault_items (title)',
   );
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
@@ -2314,14 +2049,13 @@ class DatabaseAtV3 extends GeneratedDatabase {
     bucketAllocations,
     budgets,
     captures,
-    tasks,
-    notes,
-    projects,
-    projectSteps,
-    projectMessages,
+    vaultMeta,
+    vaultKeyWraps,
+    vaultItems,
     txAccountTime,
     txTime,
     txBatch,
+    vaultItemTitle,
   ];
   @override
   StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules([
@@ -2338,27 +2072,6 @@ class DatabaseAtV3 extends GeneratedDatabase {
         limitUpdateKind: UpdateKind.delete,
       ),
       result: [TableUpdate('bucket_allocations', kind: UpdateKind.delete)],
-    ),
-    WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'workspaces',
-        limitUpdateKind: UpdateKind.delete,
-      ),
-      result: [TableUpdate('tasks', kind: UpdateKind.update)],
-    ),
-    WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'projects',
-        limitUpdateKind: UpdateKind.delete,
-      ),
-      result: [TableUpdate('project_steps', kind: UpdateKind.delete)],
-    ),
-    WritePropagation(
-      on: TableUpdateQuery.onTableName(
-        'projects',
-        limitUpdateKind: UpdateKind.delete,
-      ),
-      result: [TableUpdate('project_messages', kind: UpdateKind.delete)],
     ),
   ]);
   @override

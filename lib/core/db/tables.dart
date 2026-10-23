@@ -63,7 +63,11 @@ class AppSettingsTable extends Table {
   BoolColumn get unallocatedIncomeAlert => boolean().withDefault(const Constant(false))();
   BoolColumn get bucketsConfirmed => boolean().withDefault(const Constant(false))();
 
-  // Redesign (schema v3)
+  // Phase 3: idle time before the vault locks itself (spec §9.2).
+  IntColumn get vaultAutoLockSeconds =>
+      integer().withDefault(const Constant(120)).check(vaultAutoLockSeconds.isIn(const [60, 120, 300, 600]))();
+
+  // Redesign
   TextColumn get groqVisionModel => text().withDefault(const Constant('meta-llama/llama-4-scout-17b-16e-instruct'))();
   TextColumn get aiReceiptConsent => text().nullable().check(aiReceiptConsent.isIn(const ['granted', 'declined']))();
 

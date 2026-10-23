@@ -291,8 +291,8 @@ void main() {
     await service(db).restore(file, _pw);
     await BackupService.recoverInterruptedRestore(dir, _key);
     db = await openAppDatabase(file: appDatabaseFile(dir), hexKey: _key);
-    expect(db.schemaVersion, 3);
-    // v3 drops the empty workspace and the unused default categories.
+    expect(db.schemaVersion, 5);
+    // v5 drops the empty workspace and the unused default categories.
     expect(await db.select(db.workspaces).get(), hasLength(3));
     expect(await db.select(db.accounts).get(), hasLength(6));
     expect(await db.select(db.categories).get(), isEmpty);

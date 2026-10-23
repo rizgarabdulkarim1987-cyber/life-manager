@@ -10,7 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/security/money_privacy.dart';
 import '../capture/ui/composer.dart';
 
-/// Four destinations, with the composer above the bar on every tab (redesign §9.1).
+/// Five destinations, with the composer above the bar on every tab (redesign §9.1).
 class ShellScaffold extends StatelessWidget {
   const ShellScaffold({super.key, required this.shell});
 
@@ -25,6 +25,7 @@ class ShellScaffold extends StatelessWidget {
       (Icons.account_balance_wallet_outlined, Icons.account_balance_wallet_rounded, l10n.navFinance),
       (Icons.task_alt_outlined, Icons.task_alt_rounded, l10n.navTasks),
       (Icons.rocket_launch_outlined, Icons.rocket_launch_rounded, l10n.navProjects),
+      (Icons.lock_outline_rounded, Icons.lock_rounded, l10n.navVault),
     ];
     Widget item(int i) => Expanded(
       child: _NavItem(
@@ -45,8 +46,8 @@ class ShellScaffold extends StatelessWidget {
       body: Column(
         children: [
           Expanded(child: shell),
-          // Home has its own, larger box.
-          if (shell.currentIndex != 0)
+          // Home has its own, larger box; the vault keeps typing out of it.
+          if (shell.currentIndex != 0 && shell.currentIndex != 4)
             Padding(padding: const EdgeInsets.fromLTRB(12, 6, 12, 8), child: const Composer()),
         ],
       ),

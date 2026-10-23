@@ -4149,6 +4149,768 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'I couldn\'t save that. Check the details, or open the full form with Edit.'**
   String get chatSaveFailed;
+
+  /// No description provided for @vltLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Vault locked'**
+  String get vltLocked;
+
+  /// No description provided for @vltLockedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your master password to open it.'**
+  String get vltLockedBody;
+
+  /// No description provided for @vltMasterPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Master password'**
+  String get vltMasterPassword;
+
+  /// No description provided for @vltUnlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock'**
+  String get vltUnlock;
+
+  /// No description provided for @vltUnlocking.
+  ///
+  /// In en, this message translates to:
+  /// **'Opening the vault…'**
+  String get vltUnlocking;
+
+  /// No description provided for @vltWrongSecret.
+  ///
+  /// In en, this message translates to:
+  /// **'That doesn\'t open the vault. Check it and try again.'**
+  String get vltWrongSecret;
+
+  /// No description provided for @vltAttemptsLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} tries left before a pause'**
+  String vltAttemptsLeft(int count);
+
+  /// No description provided for @vltCorrupt.
+  ///
+  /// In en, this message translates to:
+  /// **'The vault data looks damaged. Nothing was deleted; if this keeps happening, restore a backup.'**
+  String get vltCorrupt;
+
+  /// No description provided for @vltUseRecoveryKey.
+  ///
+  /// In en, this message translates to:
+  /// **'Use recovery key'**
+  String get vltUseRecoveryKey;
+
+  /// No description provided for @vltUsePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Use master password'**
+  String get vltUsePassword;
+
+  /// No description provided for @vltRecoveryKey.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery key'**
+  String get vltRecoveryKey;
+
+  /// No description provided for @vltRecoveryKeyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'32 letters and digits; dashes and spaces don\'t matter'**
+  String get vltRecoveryKeyHint;
+
+  /// No description provided for @vltUseFingerprint.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock with fingerprint'**
+  String get vltUseFingerprint;
+
+  /// No description provided for @vltBioTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the vault'**
+  String get vltBioTitle;
+
+  /// No description provided for @vltBioSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Touch the fingerprint sensor'**
+  String get vltBioSubtitle;
+
+  /// No description provided for @vltBioInvalidated.
+  ///
+  /// In en, this message translates to:
+  /// **'Fingerprint unlock was turned off because the phone\'s fingerprints changed or a backup was restored. Unlock with your master password, then turn it on again in vault settings.'**
+  String get vltBioInvalidated;
+
+  /// No description provided for @vltNewPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a new master password'**
+  String get vltNewPasswordTitle;
+
+  /// No description provided for @vltNewPasswordBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You opened the vault with the recovery key. Choose a new master password before you continue.'**
+  String get vltNewPasswordBody;
+
+  /// No description provided for @vltNewPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New master password'**
+  String get vltNewPassword;
+
+  /// No description provided for @vltPasswordTooShort.
+  ///
+  /// In en, this message translates to:
+  /// **'At least {min} characters'**
+  String vltPasswordTooShort(int min);
+
+  /// No description provided for @vltStrengthVeryStrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Very strong'**
+  String get vltStrengthVeryStrong;
+
+  /// No description provided for @vltSetupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up your vault'**
+  String get vltSetupTitle;
+
+  /// No description provided for @vltSetupIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'The vault keeps passwords encrypted on this phone only. It has its own master password, separate from the app PIN, and a recovery key in case you forget it. Without one of the two, nobody can open it, not even you.'**
+  String get vltSetupIntro;
+
+  /// No description provided for @vltSetupTestFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Use test passwords until you have read the vault security review.'**
+  String get vltSetupTestFirst;
+
+  /// No description provided for @vltSetupStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Get started'**
+  String get vltSetupStart;
+
+  /// No description provided for @vltSetupPasswordBody.
+  ///
+  /// In en, this message translates to:
+  /// **'At least 10 characters. A few random words are easier to remember and harder to guess than a short complicated password.'**
+  String get vltSetupPasswordBody;
+
+  /// No description provided for @vltPreparing.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing encryption… this takes a few seconds.'**
+  String get vltPreparing;
+
+  /// No description provided for @vltRecoveryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your recovery key'**
+  String get vltRecoveryTitle;
+
+  /// No description provided for @vltRecoveryBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Write this key on paper and keep it somewhere safe. It is the only way back in if you forget the master password. It won\'t be shown again.'**
+  String get vltRecoveryBody;
+
+  /// No description provided for @vltCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied. Cleared from the clipboard after 30 seconds where Android allows it.'**
+  String get vltCopied;
+
+  /// No description provided for @vltCopiedPlain.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied'**
+  String get vltCopiedPlain;
+
+  /// No description provided for @vltCopyFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t copy'**
+  String get vltCopyFailed;
+
+  /// No description provided for @vltRecoveryConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Type the recovery key back'**
+  String get vltRecoveryConfirmTitle;
+
+  /// No description provided for @vltRecoveryConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This checks that you wrote it down correctly.'**
+  String get vltRecoveryConfirmBody;
+
+  /// No description provided for @vltRecoveryMismatch.
+  ///
+  /// In en, this message translates to:
+  /// **'That doesn\'t match the key shown before.'**
+  String get vltRecoveryMismatch;
+
+  /// No description provided for @vltSetupBioTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock with fingerprint?'**
+  String get vltSetupBioTitle;
+
+  /// No description provided for @vltSetupBioBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your fingerprint can open the vault on this phone. The master password still works, and the phone\'s PIN is never accepted.'**
+  String get vltSetupBioBody;
+
+  /// No description provided for @vltSetupDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish'**
+  String get vltSetupDone;
+
+  /// No description provided for @vltNotNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get vltNotNow;
+
+  /// No description provided for @vltSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search titles, sites and usernames'**
+  String get vltSearch;
+
+  /// No description provided for @vltAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get vltAll;
+
+  /// No description provided for @vltFavorites.
+  ///
+  /// In en, this message translates to:
+  /// **'Favourites'**
+  String get vltFavorites;
+
+  /// No description provided for @vltEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No passwords yet'**
+  String get vltEmpty;
+
+  /// No description provided for @vltEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Add one, or import them from your notes.'**
+  String get vltEmptyBody;
+
+  /// No description provided for @vltNoMatches.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing matches'**
+  String get vltNoMatches;
+
+  /// No description provided for @vltAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add password'**
+  String get vltAdd;
+
+  /// No description provided for @vltLock.
+  ///
+  /// In en, this message translates to:
+  /// **'Lock vault'**
+  String get vltLock;
+
+  /// No description provided for @vltGenerator.
+  ///
+  /// In en, this message translates to:
+  /// **'Password generator'**
+  String get vltGenerator;
+
+  /// No description provided for @vltImport.
+  ///
+  /// In en, this message translates to:
+  /// **'Import from notes'**
+  String get vltImport;
+
+  /// No description provided for @vltSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Vault settings'**
+  String get vltSettings;
+
+  /// No description provided for @vltSettingsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-lock, fingerprint, master password, recovery key'**
+  String get vltSettingsHint;
+
+  /// No description provided for @vltMore.
+  ///
+  /// In en, this message translates to:
+  /// **'More'**
+  String get vltMore;
+
+  /// No description provided for @vltSort.
+  ///
+  /// In en, this message translates to:
+  /// **'Sort'**
+  String get vltSort;
+
+  /// No description provided for @vltSortTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'By name'**
+  String get vltSortTitle;
+
+  /// No description provided for @vltSortUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Recently changed'**
+  String get vltSortUpdated;
+
+  /// No description provided for @vltSortCreated.
+  ///
+  /// In en, this message translates to:
+  /// **'Recently added'**
+  String get vltSortCreated;
+
+  /// No description provided for @vltCatPersonal.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal'**
+  String get vltCatPersonal;
+
+  /// No description provided for @vltCatBusiness.
+  ///
+  /// In en, this message translates to:
+  /// **'Business'**
+  String get vltCatBusiness;
+
+  /// No description provided for @vltCatSocial.
+  ///
+  /// In en, this message translates to:
+  /// **'Social'**
+  String get vltCatSocial;
+
+  /// No description provided for @vltCatBanking.
+  ///
+  /// In en, this message translates to:
+  /// **'Banking'**
+  String get vltCatBanking;
+
+  /// No description provided for @vltCatHosting.
+  ///
+  /// In en, this message translates to:
+  /// **'Hosting'**
+  String get vltCatHosting;
+
+  /// No description provided for @vltCatDomain.
+  ///
+  /// In en, this message translates to:
+  /// **'Domains'**
+  String get vltCatDomain;
+
+  /// No description provided for @vltCatEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get vltCatEmail;
+
+  /// No description provided for @vltCatMarketing.
+  ///
+  /// In en, this message translates to:
+  /// **'Marketing'**
+  String get vltCatMarketing;
+
+  /// No description provided for @vltCatDev.
+  ///
+  /// In en, this message translates to:
+  /// **'Development'**
+  String get vltCatDev;
+
+  /// No description provided for @vltCatOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get vltCatOther;
+
+  /// No description provided for @vltTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get vltTitle;
+
+  /// No description provided for @vltUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'Website'**
+  String get vltUrl;
+
+  /// No description provided for @vltUsername.
+  ///
+  /// In en, this message translates to:
+  /// **'Username'**
+  String get vltUsername;
+
+  /// No description provided for @vltEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get vltEmail;
+
+  /// No description provided for @vltPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get vltPassword;
+
+  /// No description provided for @vltNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get vltNotes;
+
+  /// No description provided for @vltRecoveryCodes.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery codes'**
+  String get vltRecoveryCodes;
+
+  /// No description provided for @vltCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get vltCategory;
+
+  /// No description provided for @vltWorkspace.
+  ///
+  /// In en, this message translates to:
+  /// **'Workspace'**
+  String get vltWorkspace;
+
+  /// No description provided for @vltNoWorkspace.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get vltNoWorkspace;
+
+  /// No description provided for @vltFavorite.
+  ///
+  /// In en, this message translates to:
+  /// **'Favourite'**
+  String get vltFavorite;
+
+  /// No description provided for @vltReveal.
+  ///
+  /// In en, this message translates to:
+  /// **'Show'**
+  String get vltReveal;
+
+  /// No description provided for @vltHide.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide'**
+  String get vltHide;
+
+  /// No description provided for @vltCopy.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy'**
+  String get vltCopy;
+
+  /// No description provided for @vltPasswordChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Password changed {date}'**
+  String vltPasswordChanged(String date);
+
+  /// No description provided for @vltEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get vltEdit;
+
+  /// No description provided for @vltDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get vltDelete;
+
+  /// No description provided for @vltDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this password?'**
+  String get vltDeleteTitle;
+
+  /// No description provided for @vltDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'It can\'t be brought back, except from a backup.'**
+  String get vltDeleteBody;
+
+  /// No description provided for @vltConfirmIdentity.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm it\'s you'**
+  String get vltConfirmIdentity;
+
+  /// No description provided for @vltConfirmIdentityBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the master password to show or copy secrets.'**
+  String get vltConfirmIdentityBody;
+
+  /// No description provided for @vltConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get vltConfirm;
+
+  /// No description provided for @vltNewItem.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get vltNewItem;
+
+  /// No description provided for @vltEditItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit password'**
+  String get vltEditItem;
+
+  /// No description provided for @vltGenerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Generate'**
+  String get vltGenerate;
+
+  /// No description provided for @vltDiscardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard changes?'**
+  String get vltDiscardTitle;
+
+  /// No description provided for @vltDiscard.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard'**
+  String get vltDiscard;
+
+  /// No description provided for @vltKeepEditing.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep editing'**
+  String get vltKeepEditing;
+
+  /// No description provided for @vltLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Length: {n}'**
+  String vltLength(int n);
+
+  /// No description provided for @vltLower.
+  ///
+  /// In en, this message translates to:
+  /// **'Lowercase (a–z)'**
+  String get vltLower;
+
+  /// No description provided for @vltUpper.
+  ///
+  /// In en, this message translates to:
+  /// **'Uppercase (A–Z)'**
+  String get vltUpper;
+
+  /// No description provided for @vltDigits.
+  ///
+  /// In en, this message translates to:
+  /// **'Digits (0–9)'**
+  String get vltDigits;
+
+  /// No description provided for @vltSymbols.
+  ///
+  /// In en, this message translates to:
+  /// **'Symbols (!@#)'**
+  String get vltSymbols;
+
+  /// No description provided for @vltAvoidLookAlikes.
+  ///
+  /// In en, this message translates to:
+  /// **'Avoid look-alikes (I l 1 O 0)'**
+  String get vltAvoidLookAlikes;
+
+  /// No description provided for @vltEntropy.
+  ///
+  /// In en, this message translates to:
+  /// **'About {bits} bits of entropy'**
+  String vltEntropy(int bits);
+
+  /// No description provided for @vltRegenerate.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get vltRegenerate;
+
+  /// No description provided for @vltUseThis.
+  ///
+  /// In en, this message translates to:
+  /// **'Use this password'**
+  String get vltUseThis;
+
+  /// No description provided for @vltImportBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste the text from your notes. It is read on this phone only; nothing is sent anywhere.'**
+  String get vltImportBody;
+
+  /// No description provided for @vltImportHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste your notes here'**
+  String get vltImportHint;
+
+  /// No description provided for @vltFindItems.
+  ///
+  /// In en, this message translates to:
+  /// **'Find items'**
+  String get vltFindItems;
+
+  /// No description provided for @vltFoundNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No passwords found in this text.'**
+  String get vltFoundNone;
+
+  /// No description provided for @vltImportTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'That text is too long. Paste a smaller part.'**
+  String get vltImportTooLong;
+
+  /// No description provided for @vltKeep.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep'**
+  String get vltKeep;
+
+  /// No description provided for @vltSaveN.
+  ///
+  /// In en, this message translates to:
+  /// **'Save {count}'**
+  String vltSaveN(int count);
+
+  /// No description provided for @vltImportDoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Now delete the original note'**
+  String get vltImportDoneTitle;
+
+  /// No description provided for @vltImportDoneBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The passwords are in the vault. The note you copied them from is still in your notes app as plain text; delete it yourself.'**
+  String get vltImportDoneBody;
+
+  /// No description provided for @vltAutoLock.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-lock'**
+  String get vltAutoLock;
+
+  /// No description provided for @vltAutoLockAfter.
+  ///
+  /// In en, this message translates to:
+  /// **'After {minutes} min without use'**
+  String vltAutoLockAfter(int minutes);
+
+  /// No description provided for @vltAutoLockNote.
+  ///
+  /// In en, this message translates to:
+  /// **'The vault also locks whenever you leave the app or the app locks.'**
+  String get vltAutoLockNote;
+
+  /// No description provided for @vltFingerprint.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock with fingerprint'**
+  String get vltFingerprint;
+
+  /// No description provided for @vltFingerprintUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No strong fingerprint is set up on this phone.'**
+  String get vltFingerprintUnavailable;
+
+  /// No description provided for @vltChangePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Change master password'**
+  String get vltChangePassword;
+
+  /// No description provided for @vltCurrentPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Current master password'**
+  String get vltCurrentPassword;
+
+  /// No description provided for @vltPasswordChangedOk.
+  ///
+  /// In en, this message translates to:
+  /// **'Master password changed'**
+  String get vltPasswordChangedOk;
+
+  /// No description provided for @vltNewRecoveryKey.
+  ///
+  /// In en, this message translates to:
+  /// **'New recovery key'**
+  String get vltNewRecoveryKey;
+
+  /// No description provided for @vltNewRecoveryKeyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The old recovery key stops working once you confirm the new one.'**
+  String get vltNewRecoveryKeyBody;
+
+  /// No description provided for @vltRecoveryReplaced.
+  ///
+  /// In en, this message translates to:
+  /// **'New recovery key saved'**
+  String get vltRecoveryReplaced;
+
+  /// No description provided for @vltHowProtected.
+  ///
+  /// In en, this message translates to:
+  /// **'How your vault is protected'**
+  String get vltHowProtected;
+
+  /// No description provided for @vltHowProtectedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Each password, note and recovery code is encrypted with AES-256-GCM using a random vault key. That key is locked by your master password (Argon2id), by your recovery key, and, if you turn it on, by a fingerprint-only key inside the phone\'s secure hardware. Titles, sites and usernames are stored in the app\'s encrypted database so you can search them. Nothing in the vault is sent to the internet or to the AI. Backups carry the vault still encrypted; fingerprint unlock must be turned on again after a restore. Copied secrets are marked sensitive and cleared after 30 seconds where Android allows it.'**
+  String get vltHowProtectedBody;
+
+  /// No description provided for @vltFillIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill in this field'**
+  String get vltFillIn;
+
+  /// No description provided for @backupVaultNote.
+  ///
+  /// In en, this message translates to:
+  /// **'The vault goes into the backup still encrypted with your master password. After a restore, turn fingerprint unlock on again in vault settings.'**
+  String get backupVaultNote;
 }
 
 class _AppLocalizationsDelegate

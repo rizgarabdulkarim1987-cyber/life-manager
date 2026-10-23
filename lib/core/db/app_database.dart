@@ -14,12 +14,14 @@ import 'finance_tables.dart';
 import 'life_tables.dart';
 import 'project_tables.dart';
 import 'tables.dart';
+import 'vault_tables.dart';
 
 export 'capture_tables.dart';
 export 'finance_tables.dart';
 export 'life_tables.dart';
 export 'project_tables.dart';
 export 'tables.dart';
+export 'vault_tables.dart';
 
 part 'app_database.g.dart';
 
@@ -44,13 +46,16 @@ part 'app_database.g.dart';
     Projects,
     ProjectSteps,
     ProjectMessages,
+    VaultMeta,
+    VaultKeyWraps,
+    VaultItems,
   ],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase(super.e);
 
   @override
-  int get schemaVersion => 3;
+  int get schemaVersion => 5;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -94,7 +99,16 @@ class AppDatabase extends _$AppDatabase {
         await seedFinanceDefaults(this);
         await markPersonalCountsInBuckets(this);
       }
-      if (from < 3) await _toV3(m);
+      if (from < 3) {
+        // The vault (shipped as schema 3).
+        await _addColumnOnce(m, appSettingsTable, appSettingsTable.vaultAutoLockSeconds);
+        for (final t in <TableInfo>[vaultMeta, vaultKeyWraps, vaultItems]) {
+          await _createOnce(m, t);
+        }
+        await customStatement('CREATE INDEX IF NOT EXISTS vault_item_title ON vault_items (title)');
+      }
+      // Schema 4 shipped an older Tasks design; the redesign (schema 5) replaces it and carries its rows over.
+      if (from < 5) await _toV5(m);
     },
     beforeOpen: (details) async {
       await customStatement('PRAGMA foreign_keys = ON');
@@ -120,7 +134,9 @@ class AppDatabase extends _$AppDatabase {
   }
 
   /// Redesign (spec 2026-10-23): light and minimal by default, relock after a minute.
-  Future<void> _toV3(Migrator m) async {
+  Future<void> _toV5(Migrator m) async {
+    final oldTasks = await _hasColumn('tasks', 'parent_id');
+    if (oldTasks) await customStatement('ALTER TABLE tasks RENAME TO tasks_v4');
     // Rebuilt so the column defaults change too.
     await m.alterTable(
       TableMigration(
@@ -137,10 +153,39 @@ class AppDatabase extends _$AppDatabase {
     await _createOnce(m, projects);
     await _createOnce(m, projectSteps);
     await _createOnce(m, projectMessages);
+    if (oldTasks) await _carryOverV4Tasks();
     await customStatement("UPDATE app_settings SET theme_mode = 'light' WHERE theme_mode = 'dark'");
     await customStatement('UPDATE app_settings SET lock_timeout_seconds = 60 WHERE lock_timeout_seconds = 300');
     await _dropUnusedSeeds();
     await seedBuckets(this);
+  }
+
+  Future<bool> _hasColumn(String table, String column) async {
+    final cols = await customSelect('PRAGMA table_info("$table")').get();
+    return cols.any((r) => r.read<String>('name') == column);
+  }
+
+  /// Rows of the schema-4 Tasks and meeting notes become tasks and notes of the new design.
+  Future<void> _carryOverV4Tasks() async {
+    await customStatement(
+      'INSERT INTO tasks (title, notes, kind, due_at, has_time, priority, status, recurrence, workspace_id, '
+      'capture_id, created_at, completed_at) '
+      "SELECT title, notes, 'task', due_at, CASE WHEN due_at IS NOT NULL AND due_all_day = 0 THEN 1 ELSE 0 END, "
+      "CASE priority WHEN 'low' THEN 0 WHEN 'normal' THEN 1 ELSE 2 END, "
+      "CASE status WHEN 'done' THEN 'done' ELSE 'open' END, "
+      "CASE WHEN recurrence IN ('daily', 'weekly', 'monthly') THEN recurrence ELSE 'none' END, "
+      'workspace_id, capture_id, created_at, completed_at FROM tasks_v4',
+    );
+    await customStatement('DROP TABLE tasks_v4');
+    if (await customSelect("SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'meeting_notes'").get()
+        case final t when t.isNotEmpty) {
+      await customStatement(
+        'INSERT INTO notes (body, created_at, updated_at) '
+        "SELECT substr(CASE WHEN body = '' THEN title ELSE title || char(10) || body END, 1, 5000), created_at, updated_at "
+        'FROM meeting_notes',
+      );
+      await customStatement('DROP TABLE meeting_notes');
+    }
   }
 
   /// Redesign §11.1: the owner makes their own categories and accounts. Seeded

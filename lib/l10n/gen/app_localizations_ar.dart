@@ -2265,4 +2265,417 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get chatSaveFailed =>
       'ما كدرت أحفظها. راجع التفاصيل أو افتح النموذج الكامل بزر تعديل.';
+
+  @override
+  String get vltLocked => 'الخزنة مقفلة';
+
+  @override
+  String get vltLockedBody => 'اكتب كلمة المرور الرئيسية لفتحها.';
+
+  @override
+  String get vltMasterPassword => 'كلمة المرور الرئيسية';
+
+  @override
+  String get vltUnlock => 'فتح';
+
+  @override
+  String get vltUnlocking => 'جارٍ فتح الخزنة…';
+
+  @override
+  String get vltWrongSecret => 'هذا لا يفتح الخزنة. تأكد منه وحاول مرة أخرى.';
+
+  @override
+  String vltAttemptsLeft(int count) {
+    return 'تبقّت $count محاولات قبل الإيقاف المؤقت';
+  }
+
+  @override
+  String get vltCorrupt =>
+      'يبدو أن بيانات الخزنة تالفة. لم يُحذف شيء؛ إذا تكرر هذا فاسترجع نسخة احتياطية.';
+
+  @override
+  String get vltUseRecoveryKey => 'استخدم مفتاح الاسترداد';
+
+  @override
+  String get vltUsePassword => 'استخدم كلمة المرور الرئيسية';
+
+  @override
+  String get vltRecoveryKey => 'مفتاح الاسترداد';
+
+  @override
+  String get vltRecoveryKeyHint => '32 حرفاً ورقماً؛ الشرطات والمسافات لا تهم';
+
+  @override
+  String get vltUseFingerprint => 'افتح بالبصمة';
+
+  @override
+  String get vltBioTitle => 'فتح الخزنة';
+
+  @override
+  String get vltBioSubtitle => 'المس حساس البصمة';
+
+  @override
+  String get vltBioInvalidated =>
+      'أُوقف الفتح بالبصمة لأن بصمات الهاتف تغيّرت أو استُرجعت نسخة احتياطية. افتح بكلمة المرور الرئيسية ثم فعّله من جديد في إعدادات الخزنة.';
+
+  @override
+  String get vltNewPasswordTitle => 'عيّن كلمة مرور رئيسية جديدة';
+
+  @override
+  String get vltNewPasswordBody =>
+      'فتحت الخزنة بمفتاح الاسترداد. اختر كلمة مرور رئيسية جديدة قبل المتابعة.';
+
+  @override
+  String get vltNewPassword => 'كلمة المرور الرئيسية الجديدة';
+
+  @override
+  String vltPasswordTooShort(int min) {
+    return 'على الأقل $min حروف';
+  }
+
+  @override
+  String get vltStrengthVeryStrong => 'قوية جداً';
+
+  @override
+  String get vltSetupTitle => 'جهّز خزنتك';
+
+  @override
+  String get vltSetupIntro =>
+      'تحفظ الخزنة كلمات المرور مشفّرة على هذا الهاتف فقط. لها كلمة مرور رئيسية خاصة بها منفصلة عن رمز التطبيق، ومفتاح استرداد في حال نسيتها. بدون أحدهما لا يستطيع أحد فتحها، ولا أنت.';
+
+  @override
+  String get vltSetupTestFirst =>
+      'استخدم كلمات مرور تجريبية حتى تقرأ مراجعة أمان الخزنة.';
+
+  @override
+  String get vltSetupStart => 'ابدأ';
+
+  @override
+  String get vltSetupPasswordBody =>
+      '10 حروف على الأقل. بضع كلمات عشوائية أسهل للحفظ وأصعب في التخمين من كلمة مرور قصيرة معقدة.';
+
+  @override
+  String get vltPreparing => 'جارٍ تجهيز التشفير… يستغرق بضع ثوانٍ.';
+
+  @override
+  String get vltRecoveryTitle => 'مفتاح الاسترداد الخاص بك';
+
+  @override
+  String get vltRecoveryBody =>
+      'اكتب هذا المفتاح على ورقة واحفظها في مكان آمن. هو الطريق الوحيد للدخول إذا نسيت كلمة المرور الرئيسية. لن يُعرض مرة أخرى.';
+
+  @override
+  String get vltCopied =>
+      'نُسخ. يُمسح من الحافظة بعد 30 ثانية حيث يسمح أندرويد.';
+
+  @override
+  String get vltCopiedPlain => 'نُسخ';
+
+  @override
+  String get vltCopyFailed => 'تعذّر النسخ';
+
+  @override
+  String get vltRecoveryConfirmTitle => 'اكتب مفتاح الاسترداد مرة أخرى';
+
+  @override
+  String get vltRecoveryConfirmBody => 'هذا يتأكد من أنك كتبته بشكل صحيح.';
+
+  @override
+  String get vltRecoveryMismatch => 'هذا لا يطابق المفتاح المعروض سابقاً.';
+
+  @override
+  String get vltSetupBioTitle => 'الفتح بالبصمة؟';
+
+  @override
+  String get vltSetupBioBody =>
+      'يمكن لبصمتك فتح الخزنة على هذا الهاتف. تبقى كلمة المرور الرئيسية تعمل، ولا يُقبل رمز قفل الهاتف أبداً.';
+
+  @override
+  String get vltSetupDone => 'إنهاء';
+
+  @override
+  String get vltNotNow => 'ليس الآن';
+
+  @override
+  String get vltSearch => 'ابحث في العناوين والمواقع وأسماء المستخدمين';
+
+  @override
+  String get vltAll => 'الكل';
+
+  @override
+  String get vltFavorites => 'المفضلة';
+
+  @override
+  String get vltEmpty => 'لا توجد كلمات مرور بعد';
+
+  @override
+  String get vltEmptyBody => 'أضف واحدة، أو استوردها من ملاحظاتك.';
+
+  @override
+  String get vltNoMatches => 'لا توجد نتائج';
+
+  @override
+  String get vltAdd => 'إضافة كلمة مرور';
+
+  @override
+  String get vltLock => 'قفل الخزنة';
+
+  @override
+  String get vltGenerator => 'مولّد كلمات المرور';
+
+  @override
+  String get vltImport => 'استيراد من الملاحظات';
+
+  @override
+  String get vltSettings => 'إعدادات الخزنة';
+
+  @override
+  String get vltSettingsHint =>
+      'القفل التلقائي، البصمة، كلمة المرور الرئيسية، مفتاح الاسترداد';
+
+  @override
+  String get vltMore => 'المزيد';
+
+  @override
+  String get vltSort => 'ترتيب';
+
+  @override
+  String get vltSortTitle => 'حسب الاسم';
+
+  @override
+  String get vltSortUpdated => 'المعدّلة مؤخراً';
+
+  @override
+  String get vltSortCreated => 'المضافة مؤخراً';
+
+  @override
+  String get vltCatPersonal => 'شخصي';
+
+  @override
+  String get vltCatBusiness => 'عمل';
+
+  @override
+  String get vltCatSocial => 'تواصل اجتماعي';
+
+  @override
+  String get vltCatBanking => 'بنوك';
+
+  @override
+  String get vltCatHosting => 'استضافة';
+
+  @override
+  String get vltCatDomain => 'دومينات';
+
+  @override
+  String get vltCatEmail => 'بريد إلكتروني';
+
+  @override
+  String get vltCatMarketing => 'تسويق';
+
+  @override
+  String get vltCatDev => 'برمجة';
+
+  @override
+  String get vltCatOther => 'أخرى';
+
+  @override
+  String get vltTitle => 'العنوان';
+
+  @override
+  String get vltUrl => 'الموقع';
+
+  @override
+  String get vltUsername => 'اسم المستخدم';
+
+  @override
+  String get vltEmail => 'البريد الإلكتروني';
+
+  @override
+  String get vltPassword => 'كلمة المرور';
+
+  @override
+  String get vltNotes => 'ملاحظات';
+
+  @override
+  String get vltRecoveryCodes => 'رموز الاسترداد';
+
+  @override
+  String get vltCategory => 'التصنيف';
+
+  @override
+  String get vltWorkspace => 'مساحة العمل';
+
+  @override
+  String get vltNoWorkspace => 'بدون';
+
+  @override
+  String get vltFavorite => 'مفضلة';
+
+  @override
+  String get vltReveal => 'إظهار';
+
+  @override
+  String get vltHide => 'إخفاء';
+
+  @override
+  String get vltCopy => 'نسخ';
+
+  @override
+  String vltPasswordChanged(String date) {
+    return 'تغيّرت كلمة المرور $date';
+  }
+
+  @override
+  String get vltEdit => 'تعديل';
+
+  @override
+  String get vltDelete => 'حذف';
+
+  @override
+  String get vltDeleteTitle => 'حذف كلمة المرور هذه؟';
+
+  @override
+  String get vltDeleteBody => 'لا يمكن استرجاعها إلا من نسخة احتياطية.';
+
+  @override
+  String get vltConfirmIdentity => 'أكّد أنه أنت';
+
+  @override
+  String get vltConfirmIdentityBody =>
+      'اكتب كلمة المرور الرئيسية لإظهار الأسرار أو نسخها.';
+
+  @override
+  String get vltConfirm => 'تأكيد';
+
+  @override
+  String get vltNewItem => 'كلمة مرور جديدة';
+
+  @override
+  String get vltEditItem => 'تعديل كلمة المرور';
+
+  @override
+  String get vltGenerate => 'توليد';
+
+  @override
+  String get vltDiscardTitle => 'تجاهل التغييرات؟';
+
+  @override
+  String get vltDiscard => 'تجاهل';
+
+  @override
+  String get vltKeepEditing => 'متابعة التعديل';
+
+  @override
+  String vltLength(int n) {
+    return 'الطول: $n';
+  }
+
+  @override
+  String get vltLower => 'أحرف صغيرة (a–z)';
+
+  @override
+  String get vltUpper => 'أحرف كبيرة (A–Z)';
+
+  @override
+  String get vltDigits => 'أرقام (0–9)';
+
+  @override
+  String get vltSymbols => 'رموز (!@#)';
+
+  @override
+  String get vltAvoidLookAlikes => 'تجنّب المتشابهات (I l 1 O 0)';
+
+  @override
+  String vltEntropy(int bits) {
+    return 'حوالي $bits بت من العشوائية';
+  }
+
+  @override
+  String get vltRegenerate => 'كلمة مرور أخرى';
+
+  @override
+  String get vltUseThis => 'استخدم كلمة المرور هذه';
+
+  @override
+  String get vltImportBody =>
+      'الصق النص من ملاحظاتك. يُقرأ على هذا الهاتف فقط ولا يُرسل إلى أي مكان.';
+
+  @override
+  String get vltImportHint => 'الصق ملاحظاتك هنا';
+
+  @override
+  String get vltFindItems => 'استخراج العناصر';
+
+  @override
+  String get vltFoundNone => 'لم يُعثر على كلمات مرور في هذا النص.';
+
+  @override
+  String get vltImportTooLong => 'النص طويل جداً. الصق جزءاً أصغر.';
+
+  @override
+  String get vltKeep => 'احتفاظ';
+
+  @override
+  String vltSaveN(int count) {
+    return 'حفظ $count';
+  }
+
+  @override
+  String get vltImportDoneTitle => 'الآن احذف الملاحظة الأصلية';
+
+  @override
+  String get vltImportDoneBody =>
+      'كلمات المرور الآن في الخزنة. الملاحظة التي نسختها منها ما زالت في تطبيق الملاحظات كنص عادي؛ احذفها بنفسك.';
+
+  @override
+  String get vltAutoLock => 'القفل التلقائي';
+
+  @override
+  String vltAutoLockAfter(int minutes) {
+    return 'بعد $minutes دقيقة دون استخدام';
+  }
+
+  @override
+  String get vltAutoLockNote =>
+      'تُقفل الخزنة أيضاً كلما خرجت من التطبيق أو قُفل التطبيق.';
+
+  @override
+  String get vltFingerprint => 'الفتح بالبصمة';
+
+  @override
+  String get vltFingerprintUnavailable =>
+      'لا توجد بصمة قوية مُعدّة على هذا الهاتف.';
+
+  @override
+  String get vltChangePassword => 'تغيير كلمة المرور الرئيسية';
+
+  @override
+  String get vltCurrentPassword => 'كلمة المرور الرئيسية الحالية';
+
+  @override
+  String get vltPasswordChangedOk => 'تغيّرت كلمة المرور الرئيسية';
+
+  @override
+  String get vltNewRecoveryKey => 'مفتاح استرداد جديد';
+
+  @override
+  String get vltNewRecoveryKeyBody =>
+      'يتوقف مفتاح الاسترداد القديم عن العمل بمجرد تأكيد الجديد.';
+
+  @override
+  String get vltRecoveryReplaced => 'حُفظ مفتاح الاسترداد الجديد';
+
+  @override
+  String get vltHowProtected => 'كيف تُحمى خزنتك';
+
+  @override
+  String get vltHowProtectedBody =>
+      'كل كلمة مرور وملاحظة ورمز استرداد مشفّر بـ AES-256-GCM بمفتاح خزنة عشوائي. هذا المفتاح مقفل بكلمة مرورك الرئيسية (Argon2id)، وبمفتاح الاسترداد، وإذا فعّلته، بمفتاح بصمة فقط داخل العتاد الآمن للهاتف. العناوين والمواقع وأسماء المستخدمين محفوظة في قاعدة بيانات التطبيق المشفّرة لتتمكن من البحث فيها. لا يُرسل شيء من الخزنة إلى الإنترنت أو إلى الذكاء الاصطناعي. النسخ الاحتياطية تحمل الخزنة مشفّرة كما هي؛ ويجب تفعيل الفتح بالبصمة من جديد بعد الاسترجاع. الأسرار المنسوخة تُعلَّم كحساسة وتُمسح بعد 30 ثانية حيث يسمح أندرويد.';
+
+  @override
+  String get vltFillIn => 'املأ هذا الحقل';
+
+  @override
+  String get backupVaultNote =>
+      'تدخل الخزنة في النسخة الاحتياطية مشفّرة بكلمة مرورك الرئيسية. بعد الاسترجاع، فعّل الفتح بالبصمة من جديد في إعدادات الخزنة.';
 }

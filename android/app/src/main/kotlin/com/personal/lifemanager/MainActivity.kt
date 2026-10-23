@@ -8,7 +8,7 @@ import io.flutter.embedding.android.FlutterFragmentActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 
-// FlutterFragmentActivity is required by local_auth's BiometricPrompt.
+// FlutterFragmentActivity is required by local_auth's BiometricPrompt, and by the vault's.
 class MainActivity : FlutterFragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,5 +28,7 @@ class MainActivity : FlutterFragmentActivity() {
                 else -> result.notImplemented()
             }
         }
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, VaultChannel.NAME)
+            .setMethodCallHandler(VaultChannel(this))
     }
 }

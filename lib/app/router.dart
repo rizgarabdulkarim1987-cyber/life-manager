@@ -33,6 +33,12 @@ import '../features/projects/ui/project_detail_screen.dart';
 import '../features/projects/ui/projects_screen.dart';
 import '../features/tasks/ui/tasks_screen.dart';
 import '../features/shell/shell_scaffold.dart';
+import '../features/vault/ui/vault_gate.dart';
+import '../features/vault/ui/vault_import_screen.dart';
+import '../features/vault/ui/vault_item_form_screen.dart';
+import '../features/vault/ui/vault_item_screen.dart';
+import '../features/vault/ui/vault_list_screen.dart';
+import '../features/vault/ui/vault_settings_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final router = buildRouter(onNavigate: () => ref.read(moneyRevealedProvider.notifier).hide());
@@ -172,6 +178,7 @@ GoRouter buildRouter({void Function()? onNavigate}) => GoRouter(
         StatefulShellBranch(
           observers: [if (onNavigate != null) MoneyHideObserver(onNavigate)],
           routes: [
+            // Every vault route renders through VaultGate; forms and details cover the shell.
             GoRoute(
               path: '/projects',
               builder: (_, _) => const ProjectsScreen(),
@@ -180,6 +187,48 @@ GoRouter buildRouter({void Function()? onNavigate}) => GoRouter(
                   path: ':id',
                   parentNavigatorKey: _rootKey,
                   builder: (_, state) => ProjectDetailScreen(projectId: int.parse(state.pathParameters['id']!)),
+                ),
+              ],
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          observers: [if (onNavigate != null) MoneyHideObserver(onNavigate)],
+          routes: [
+            // Every vault route renders through VaultGate; forms and details cover the shell.
+            GoRoute(
+              path: '/vault',
+              builder: (_, _) => VaultGate(builder: (_) => const VaultListScreen()),
+              routes: [
+                GoRoute(
+                  path: 'new',
+                  parentNavigatorKey: _rootKey,
+                  builder: (_, _) => VaultGate(builder: (_) => const VaultItemFormScreen()),
+                ),
+                GoRoute(
+                  path: 'item/:id',
+                  parentNavigatorKey: _rootKey,
+                  builder: (_, state) =>
+                      VaultGate(builder: (_) => VaultItemScreen(itemId: int.parse(state.pathParameters['id']!))),
+                  routes: [
+                    GoRoute(
+                      path: 'edit',
+                      parentNavigatorKey: _rootKey,
+                      builder: (_, state) => VaultGate(
+                        builder: (_) => VaultItemFormScreen(editId: int.parse(state.pathParameters['id']!)),
+                      ),
+                    ),
+                  ],
+                ),
+                GoRoute(
+                  path: 'import',
+                  parentNavigatorKey: _rootKey,
+                  builder: (_, _) => VaultGate(builder: (_) => const VaultImportScreen()),
+                ),
+                GoRoute(
+                  path: 'settings',
+                  parentNavigatorKey: _rootKey,
+                  builder: (_, _) => VaultGate(builder: (_) => const VaultSettingsScreen()),
                 ),
               ],
             ),

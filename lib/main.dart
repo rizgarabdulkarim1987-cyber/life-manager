@@ -23,6 +23,8 @@ import 'features/backup/db_snapshot.dart';
 import 'features/capture/ai/ai_config.dart';
 import 'features/capture/speech/recorder.dart';
 import 'features/settings/settings_repository.dart';
+import 'features/vault/data/vault_key_service.dart';
+import 'features/vault/platform/biometric_key_store.dart';
 
 /// Keep in step with `version:` in pubspec.yaml; it is written into every backup.
 const kAppVersion = '2.0.0';
@@ -68,6 +70,9 @@ Future<Widget> _openApp() async {
     settings: SettingsRepository(db),
     appVersion: kAppVersion,
     groqKey: GroqKeyStore(FlutterSecureStore()),
+    // The fingerprint wrap belongs to the replaced vault; the restored one opens with its master password.
+    afterRestore: () =>
+        forgetVaultDeviceKeys(SecureBioWrapStore(FlutterSecureStore()), const PlatformBiometricKeyStore()),
   );
   return ProviderScope(
     overrides: [appDatabaseProvider.overrideWithValue(db), backupServiceProvider.overrideWithValue(backup)],

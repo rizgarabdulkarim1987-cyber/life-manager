@@ -5,6 +5,7 @@ import '../../core/db/app_database.dart';
 
 const kSupportedLocaleCodes = {'ar', 'en', 'ckb'};
 const kMaxLockTimeout = Duration(hours: 1);
+const kVaultAutoLockChoices = [Duration(minutes: 1), Duration(minutes: 2), Duration(minutes: 5), Duration(minutes: 10)];
 
 enum AiFeature { voice, parse, receipt }
 
@@ -51,6 +52,12 @@ class SettingsRepository {
   Future<void> setBaseCurrency(String code) {
     if (!_isoCode.hasMatch(code)) throw ArgumentError.value(code, 'code', 'not an ISO 4217 code');
     return _write(AppSettingsTableCompanion(baseCurrency: Value(code)));
+  }
+
+  /// Idle time before the vault locks itself (spec §9.2): 1, 2, 5 or 10 minutes.
+  Future<void> setVaultAutoLock(Duration d) {
+    if (!kVaultAutoLockChoices.contains(d)) throw ArgumentError.value(d, 'd', 'unsupported vault auto-lock');
+    return _write(AppSettingsTableCompanion(vaultAutoLockSeconds: Value(d.inSeconds)));
   }
 
   Future<void> setAiOnlineEnabled(bool v) => _write(AppSettingsTableCompanion(aiOnlineEnabled: Value(v)));

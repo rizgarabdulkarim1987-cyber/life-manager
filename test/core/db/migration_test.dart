@@ -70,19 +70,19 @@ void main() {
     );
     expect(s.groqSttModel, 'whisper-large-v3-turbo');
     expect(await db.select(db.backupMetadata).get(), hasLength(1));
-    expect(await db.select(db.categories).get(), isEmpty, reason: 'unused seeded categories go in v3');
+    expect(await db.select(db.categories).get(), isEmpty, reason: 'unused seeded categories go in the redesign step');
     expect(await db.select(db.buckets).get(), hasLength(3));
     await db.close();
   });
 
-  test('v2 → v3 switches to the light theme and the 60 s relock once', () async {
+  test('v2 → current switches to the light theme and the 60 s relock once', () async {
     final schema = await verifier.schemaAt(2);
     schema.rawDatabase.execute(
       "INSERT INTO app_settings (id, locale_code, theme_mode, lock_timeout_seconds, biometric_enabled, base_currency, setup_completed) "
       "VALUES (1, 'ar', 'dark', 300, 1, 'IQD', 1)",
     );
     final db = AppDatabase(schema.newConnection());
-    await verifier.migrateAndValidate(db, 3);
+    await verifier.migrateAndValidate(db, db.schemaVersion);
     final s = await db.select(db.appSettingsTable).getSingle();
     expect((s.themeMode, s.lockTimeoutSeconds), ('light', 60));
     await db.close();
@@ -95,7 +95,7 @@ void main() {
     await db.close();
   });
 
-  test('v2 → v3 keeps used seeded rows (named) and removes the unused ones', () async {
+  test('v2 → current keeps used seeded rows (named) and removes the unused ones', () async {
     final schema = await verifier.schemaAt(2);
     final raw = schema.rawDatabase;
     const at = 1761177600;
@@ -132,7 +132,7 @@ void main() {
     );
 
     final db = AppDatabase(schema.newConnection());
-    await verifier.migrateAndValidate(db, 3);
+    await verifier.migrateAndValidate(db, db.schemaVersion);
     expect((await db.select(db.accounts).get()).map((a) => a.name).toSet(), {'Personal · Cash IQD', 'My bank'});
     expect((await db.select(db.workspaces).get()).map((w) => w.name), ['Personal']);
     final cats = await db.select(db.categories).get();
@@ -142,7 +142,7 @@ void main() {
     await db.close();
   });
 
-  test('v2 → v3 never removes every account, even when all of them are unused seeds', () async {
+  test('v2 → current never removes every account, even when all of them are unused seeds', () async {
     final schema = await verifier.schemaAt(2);
     final raw = schema.rawDatabase;
     const at = 1761177600;
@@ -163,12 +163,84 @@ void main() {
       );
     }
     final db = AppDatabase(schema.newConnection());
-    await verifier.migrateAndValidate(db, 3);
+    await verifier.migrateAndValidate(db, db.schemaVersion);
     expect(
       await db.select(db.accounts).get(),
       hasLength(1),
       reason: 'one account is kept so the app has somewhere to record',
     );
+    await db.close();
+  });
+
+  void seedVault(dynamic raw, int at) {
+    raw.execute(
+      "INSERT INTO app_settings (id, locale_code, theme_mode, lock_timeout_seconds, biometric_enabled, base_currency, setup_completed) "
+      "VALUES (1, 'ar', 'light', 60, 1, 'IQD', 1)",
+    );
+    raw.execute("INSERT INTO vault_meta (id, vault_id, check_blob, created_at) VALUES (1, 'v-1', X'0102', ?)", [at]);
+    raw.execute(
+      "INSERT INTO vault_key_wraps (kind, kdf_json, salt, sealed_key, created_at) VALUES ('password', '{}', X'0A0B', X'0C0D', ?)",
+      [at],
+    );
+    raw.execute(
+      "INSERT INTO vault_items (uid, title, username, category, favorite, password_blob, created_at, updated_at) "
+      "VALUES ('u-1', 'Netflix', 'me@x.com', 'social', 1, X'AABB', ?, ?)",
+      [at, at],
+    );
+  }
+
+  Future<void> expectVaultKept(AppDatabase db) async {
+    final item = await db.select(db.vaultItems).getSingle();
+    expect((item.title, item.username, item.category, item.favorite), ('Netflix', 'me@x.com', 'social', true));
+    expect(item.passwordBlob, isNotNull);
+    expect((await db.select(db.vaultMeta).getSingle()).vaultId, 'v-1');
+    expect(await db.select(db.vaultKeyWraps).get(), hasLength(1));
+    expect((await db.select(db.appSettingsTable).getSingle()).vaultAutoLockSeconds, 120);
+  }
+
+  test('v3 (1.2.0, vault) → current keeps every vault row', () async {
+    final schema = await verifier.schemaAt(3);
+    seedVault(schema.rawDatabase, 1761177600);
+    final db = AppDatabase(schema.newConnection());
+    await verifier.migrateAndValidate(db, db.schemaVersion);
+    await expectVaultKept(db);
+    await db.close();
+  });
+
+  test('v4 (1.3.0, vault + old tasks) → current keeps the vault and carries tasks and meeting notes over', () async {
+    final schema = await verifier.schemaAt(4);
+    final raw = schema.rawDatabase;
+    const at = 1761177600;
+    seedVault(raw, at);
+    raw.execute(
+      "INSERT INTO tasks (title, priority, status, due_at, due_all_day, recurrence, tags, created_at, updated_at) "
+      "VALUES ('Pay rent', 'high', 'todo', ?, 0, 'monthly', '', ?, ?)",
+      [at + 86400, at, at],
+    );
+    raw.execute(
+      "INSERT INTO tasks (title, priority, status, due_all_day, tags, completed_at, created_at, updated_at) "
+      "VALUES ('Old thing', 'low', 'done', 1, '', ?, ?, ?)",
+      [at, at, at],
+    );
+    raw.execute("INSERT INTO meeting_notes (title, body, created_at, updated_at) VALUES ('Standup', 'ship it', ?, ?)", [
+      at,
+      at,
+    ]);
+    final db = AppDatabase(schema.newConnection());
+    await verifier.migrateAndValidate(db, db.schemaVersion);
+    await expectVaultKept(db);
+    final tasks = await (db.select(db.tasks)..orderBy([(t) => OrderingTerm.asc(t.id)])).get();
+    expect(tasks.map((t) => t.title), ['Pay rent', 'Old thing']);
+    expect((tasks[0].priority, tasks[0].status, tasks[0].recurrence, tasks[0].hasTime), (2, 'open', 'monthly', true));
+    expect((tasks[1].priority, tasks[1].status, tasks[1].recurrence), (0, 'done', 'none'));
+    final notes = await db.select(db.notes).get();
+    expect(notes.single.body, 'Standup\nship it');
+    await db.close();
+  });
+
+  test('a fresh database has the vault tables, empty', () async {
+    final db = AppDatabase(NativeDatabase.memory());
+    expect(await db.select(db.vaultItems).get(), isEmpty);
     await db.close();
   });
 }

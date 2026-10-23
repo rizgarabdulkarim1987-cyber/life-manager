@@ -2285,4 +2285,421 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get chatSaveFailed =>
       'I couldn\'t save that. Check the details, or open the full form with Edit.';
+
+  @override
+  String get vltLocked => 'Vault locked';
+
+  @override
+  String get vltLockedBody => 'Enter your master password to open it.';
+
+  @override
+  String get vltMasterPassword => 'Master password';
+
+  @override
+  String get vltUnlock => 'Unlock';
+
+  @override
+  String get vltUnlocking => 'Opening the vault…';
+
+  @override
+  String get vltWrongSecret =>
+      'That doesn\'t open the vault. Check it and try again.';
+
+  @override
+  String vltAttemptsLeft(int count) {
+    return '$count tries left before a pause';
+  }
+
+  @override
+  String get vltCorrupt =>
+      'The vault data looks damaged. Nothing was deleted; if this keeps happening, restore a backup.';
+
+  @override
+  String get vltUseRecoveryKey => 'Use recovery key';
+
+  @override
+  String get vltUsePassword => 'Use master password';
+
+  @override
+  String get vltRecoveryKey => 'Recovery key';
+
+  @override
+  String get vltRecoveryKeyHint =>
+      '32 letters and digits; dashes and spaces don\'t matter';
+
+  @override
+  String get vltUseFingerprint => 'Unlock with fingerprint';
+
+  @override
+  String get vltBioTitle => 'Open the vault';
+
+  @override
+  String get vltBioSubtitle => 'Touch the fingerprint sensor';
+
+  @override
+  String get vltBioInvalidated =>
+      'Fingerprint unlock was turned off because the phone\'s fingerprints changed or a backup was restored. Unlock with your master password, then turn it on again in vault settings.';
+
+  @override
+  String get vltNewPasswordTitle => 'Set a new master password';
+
+  @override
+  String get vltNewPasswordBody =>
+      'You opened the vault with the recovery key. Choose a new master password before you continue.';
+
+  @override
+  String get vltNewPassword => 'New master password';
+
+  @override
+  String vltPasswordTooShort(int min) {
+    return 'At least $min characters';
+  }
+
+  @override
+  String get vltStrengthVeryStrong => 'Very strong';
+
+  @override
+  String get vltSetupTitle => 'Set up your vault';
+
+  @override
+  String get vltSetupIntro =>
+      'The vault keeps passwords encrypted on this phone only. It has its own master password, separate from the app PIN, and a recovery key in case you forget it. Without one of the two, nobody can open it, not even you.';
+
+  @override
+  String get vltSetupTestFirst =>
+      'Use test passwords until you have read the vault security review.';
+
+  @override
+  String get vltSetupStart => 'Get started';
+
+  @override
+  String get vltSetupPasswordBody =>
+      'At least 10 characters. A few random words are easier to remember and harder to guess than a short complicated password.';
+
+  @override
+  String get vltPreparing => 'Preparing encryption… this takes a few seconds.';
+
+  @override
+  String get vltRecoveryTitle => 'Your recovery key';
+
+  @override
+  String get vltRecoveryBody =>
+      'Write this key on paper and keep it somewhere safe. It is the only way back in if you forget the master password. It won\'t be shown again.';
+
+  @override
+  String get vltCopied =>
+      'Copied. Cleared from the clipboard after 30 seconds where Android allows it.';
+
+  @override
+  String get vltCopiedPlain => 'Copied';
+
+  @override
+  String get vltCopyFailed => 'Couldn\'t copy';
+
+  @override
+  String get vltRecoveryConfirmTitle => 'Type the recovery key back';
+
+  @override
+  String get vltRecoveryConfirmBody =>
+      'This checks that you wrote it down correctly.';
+
+  @override
+  String get vltRecoveryMismatch => 'That doesn\'t match the key shown before.';
+
+  @override
+  String get vltSetupBioTitle => 'Unlock with fingerprint?';
+
+  @override
+  String get vltSetupBioBody =>
+      'Your fingerprint can open the vault on this phone. The master password still works, and the phone\'s PIN is never accepted.';
+
+  @override
+  String get vltSetupDone => 'Finish';
+
+  @override
+  String get vltNotNow => 'Not now';
+
+  @override
+  String get vltSearch => 'Search titles, sites and usernames';
+
+  @override
+  String get vltAll => 'All';
+
+  @override
+  String get vltFavorites => 'Favourites';
+
+  @override
+  String get vltEmpty => 'No passwords yet';
+
+  @override
+  String get vltEmptyBody => 'Add one, or import them from your notes.';
+
+  @override
+  String get vltNoMatches => 'Nothing matches';
+
+  @override
+  String get vltAdd => 'Add password';
+
+  @override
+  String get vltLock => 'Lock vault';
+
+  @override
+  String get vltGenerator => 'Password generator';
+
+  @override
+  String get vltImport => 'Import from notes';
+
+  @override
+  String get vltSettings => 'Vault settings';
+
+  @override
+  String get vltSettingsHint =>
+      'Auto-lock, fingerprint, master password, recovery key';
+
+  @override
+  String get vltMore => 'More';
+
+  @override
+  String get vltSort => 'Sort';
+
+  @override
+  String get vltSortTitle => 'By name';
+
+  @override
+  String get vltSortUpdated => 'Recently changed';
+
+  @override
+  String get vltSortCreated => 'Recently added';
+
+  @override
+  String get vltCatPersonal => 'Personal';
+
+  @override
+  String get vltCatBusiness => 'Business';
+
+  @override
+  String get vltCatSocial => 'Social';
+
+  @override
+  String get vltCatBanking => 'Banking';
+
+  @override
+  String get vltCatHosting => 'Hosting';
+
+  @override
+  String get vltCatDomain => 'Domains';
+
+  @override
+  String get vltCatEmail => 'Email';
+
+  @override
+  String get vltCatMarketing => 'Marketing';
+
+  @override
+  String get vltCatDev => 'Development';
+
+  @override
+  String get vltCatOther => 'Other';
+
+  @override
+  String get vltTitle => 'Title';
+
+  @override
+  String get vltUrl => 'Website';
+
+  @override
+  String get vltUsername => 'Username';
+
+  @override
+  String get vltEmail => 'Email';
+
+  @override
+  String get vltPassword => 'Password';
+
+  @override
+  String get vltNotes => 'Notes';
+
+  @override
+  String get vltRecoveryCodes => 'Recovery codes';
+
+  @override
+  String get vltCategory => 'Category';
+
+  @override
+  String get vltWorkspace => 'Workspace';
+
+  @override
+  String get vltNoWorkspace => 'None';
+
+  @override
+  String get vltFavorite => 'Favourite';
+
+  @override
+  String get vltReveal => 'Show';
+
+  @override
+  String get vltHide => 'Hide';
+
+  @override
+  String get vltCopy => 'Copy';
+
+  @override
+  String vltPasswordChanged(String date) {
+    return 'Password changed $date';
+  }
+
+  @override
+  String get vltEdit => 'Edit';
+
+  @override
+  String get vltDelete => 'Delete';
+
+  @override
+  String get vltDeleteTitle => 'Delete this password?';
+
+  @override
+  String get vltDeleteBody =>
+      'It can\'t be brought back, except from a backup.';
+
+  @override
+  String get vltConfirmIdentity => 'Confirm it\'s you';
+
+  @override
+  String get vltConfirmIdentityBody =>
+      'Enter the master password to show or copy secrets.';
+
+  @override
+  String get vltConfirm => 'Confirm';
+
+  @override
+  String get vltNewItem => 'New password';
+
+  @override
+  String get vltEditItem => 'Edit password';
+
+  @override
+  String get vltGenerate => 'Generate';
+
+  @override
+  String get vltDiscardTitle => 'Discard changes?';
+
+  @override
+  String get vltDiscard => 'Discard';
+
+  @override
+  String get vltKeepEditing => 'Keep editing';
+
+  @override
+  String vltLength(int n) {
+    return 'Length: $n';
+  }
+
+  @override
+  String get vltLower => 'Lowercase (a–z)';
+
+  @override
+  String get vltUpper => 'Uppercase (A–Z)';
+
+  @override
+  String get vltDigits => 'Digits (0–9)';
+
+  @override
+  String get vltSymbols => 'Symbols (!@#)';
+
+  @override
+  String get vltAvoidLookAlikes => 'Avoid look-alikes (I l 1 O 0)';
+
+  @override
+  String vltEntropy(int bits) {
+    return 'About $bits bits of entropy';
+  }
+
+  @override
+  String get vltRegenerate => 'New password';
+
+  @override
+  String get vltUseThis => 'Use this password';
+
+  @override
+  String get vltImportBody =>
+      'Paste the text from your notes. It is read on this phone only; nothing is sent anywhere.';
+
+  @override
+  String get vltImportHint => 'Paste your notes here';
+
+  @override
+  String get vltFindItems => 'Find items';
+
+  @override
+  String get vltFoundNone => 'No passwords found in this text.';
+
+  @override
+  String get vltImportTooLong => 'That text is too long. Paste a smaller part.';
+
+  @override
+  String get vltKeep => 'Keep';
+
+  @override
+  String vltSaveN(int count) {
+    return 'Save $count';
+  }
+
+  @override
+  String get vltImportDoneTitle => 'Now delete the original note';
+
+  @override
+  String get vltImportDoneBody =>
+      'The passwords are in the vault. The note you copied them from is still in your notes app as plain text; delete it yourself.';
+
+  @override
+  String get vltAutoLock => 'Auto-lock';
+
+  @override
+  String vltAutoLockAfter(int minutes) {
+    return 'After $minutes min without use';
+  }
+
+  @override
+  String get vltAutoLockNote =>
+      'The vault also locks whenever you leave the app or the app locks.';
+
+  @override
+  String get vltFingerprint => 'Unlock with fingerprint';
+
+  @override
+  String get vltFingerprintUnavailable =>
+      'No strong fingerprint is set up on this phone.';
+
+  @override
+  String get vltChangePassword => 'Change master password';
+
+  @override
+  String get vltCurrentPassword => 'Current master password';
+
+  @override
+  String get vltPasswordChangedOk => 'Master password changed';
+
+  @override
+  String get vltNewRecoveryKey => 'New recovery key';
+
+  @override
+  String get vltNewRecoveryKeyBody =>
+      'The old recovery key stops working once you confirm the new one.';
+
+  @override
+  String get vltRecoveryReplaced => 'New recovery key saved';
+
+  @override
+  String get vltHowProtected => 'How your vault is protected';
+
+  @override
+  String get vltHowProtectedBody =>
+      'Each password, note and recovery code is encrypted with AES-256-GCM using a random vault key. That key is locked by your master password (Argon2id), by your recovery key, and, if you turn it on, by a fingerprint-only key inside the phone\'s secure hardware. Titles, sites and usernames are stored in the app\'s encrypted database so you can search them. Nothing in the vault is sent to the internet or to the AI. Backups carry the vault still encrypted; fingerprint unlock must be turned on again after a restore. Copied secrets are marked sensitive and cleared after 30 seconds where Android allows it.';
+
+  @override
+  String get vltFillIn => 'Fill in this field';
+
+  @override
+  String get backupVaultNote =>
+      'The vault goes into the backup still encrypted with your master password. After a restore, turn fingerprint unlock on again in vault settings.';
 }

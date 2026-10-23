@@ -5,6 +5,8 @@ import 'package:life_manager/features/capture/speech/recorder.dart';
 import 'package:life_manager/core/crypto/kdf.dart';
 import 'package:life_manager/core/net/http_port.dart';
 import 'package:life_manager/features/lock/biometric_authenticator.dart';
+import 'package:life_manager/features/vault/crypto/vault_errors.dart';
+import 'package:life_manager/features/vault/platform/biometric_key_store.dart';
 
 /// Fast deterministic stand-in so widget tests don't wait on a real KDF isolate.
 class FakeKdf implements Kdf {
@@ -118,4 +120,54 @@ class FakeRecorder implements AudioRecorderPort {
 
   @override
   Future<void> cancel() async => cancels++;
+}
+
+/// Stands in for the Keystore key: "encrypts" by XOR with a fixed pad, and can
+/// be told to fail the way the platform does.
+class FakeBiometricKeyStore implements BiometricKeyStore {
+  FakeBiometricKeyStore({this.available = true});
+
+  bool available;
+
+  /// When set, the next encrypt/decrypt throws it instead of prompting.
+  Object? failNext;
+
+  /// True after the Keystore key was deleted; decrypt then reports it invalidated.
+  bool keyDeleted = false;
+  int prompts = 0;
+  int deletes = 0;
+
+  static Uint8List _xor(Uint8List data) =>
+      Uint8List.fromList([for (var i = 0; i < data.length; i++) data[i] ^ (0x5A + i)]);
+
+  Future<Uint8List> _run(Uint8List data) async {
+    prompts++;
+    final f = failNext;
+    if (f != null) {
+      failNext = null;
+      throw f;
+    }
+    return _xor(data);
+  }
+
+  @override
+  Future<bool> isAvailable() async => available;
+
+  @override
+  Future<Uint8List> encrypt(Uint8List data, BioPromptText t) async {
+    keyDeleted = false;
+    return _run(data);
+  }
+
+  @override
+  Future<Uint8List> decrypt(Uint8List data, BioPromptText t) async {
+    if (keyDeleted) throw const VaultBiometricInvalidated();
+    return _run(data);
+  }
+
+  @override
+  Future<void> deleteKey() async {
+    deletes++;
+    keyDeleted = true;
+  }
 }

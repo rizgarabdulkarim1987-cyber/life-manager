@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:life_manager/core/crypto/aead.dart';
+import 'package:life_manager/core/security/sensitive.dart';
 import 'package:life_manager/features/capture/ai/ai_payload.dart';
 import 'package:life_manager/features/capture/domain/intent_validator.dart';
 import 'package:life_manager/features/capture/domain/lexicon.dart';
@@ -9,6 +11,9 @@ import 'package:life_manager/features/finance/data/budgets_repository.dart';
 import 'package:life_manager/features/finance/data/rates_repository.dart';
 import 'package:life_manager/features/finance/data/transactions_repository.dart';
 import 'package:life_manager/features/finance/data/workspaces_repository.dart';
+import 'package:life_manager/features/vault/crypto/field_cipher.dart';
+import 'package:life_manager/features/vault/crypto/vault_key.dart';
+import 'package:life_manager/features/vault/data/vault_items_repository.dart';
 import 'package:life_manager/l10n/gen/app_localizations.dart';
 
 import '../../../helpers/finance_fixtures.dart';
@@ -34,6 +39,17 @@ void main() {
       RatesRepository(f.db),
     ).create(categoryId: f.cat('food'), currencyCode: 'IQD', amountMinor: 3344556);
     await WorkspacesRepository(f.db).setAliases(f.buzzWs, ['بزفاي']);
+    final vaultKey = generateVaultKey();
+    await VaultItemsRepository(f.db, FieldCipher(const AesGcmAead())).create(
+      vaultKey,
+      VaultItemInput(
+        title: 'VAULT-TITLE-5521',
+        username: 'VAULT-USER-5521',
+        category: 'other',
+        password: const Sensitive('VAULT-PW-5521'),
+      ),
+    );
+    vaultKey.destroy();
     final lex = await loadLexicon(f.db, lookupAppLocalizations(const Locale('ar')));
     final body = jsonEncode(buildParsePayload('غدا 15 الف', lex, now));
     final json = jsonDecode(body) as Map<String, Object?>;
@@ -47,7 +63,17 @@ void main() {
       'buckets',
       'projects',
     });
-    for (final s in ['SECRET-DESC-7731', '987654', '4455667', '3344556', 'openingBalance', 'balance']) {
+    for (final s in [
+      'SECRET-DESC-7731',
+      'VAULT-TITLE-5521',
+      'VAULT-USER-5521',
+      'VAULT-PW-5521',
+      '987654',
+      '4455667',
+      '3344556',
+      'openingBalance',
+      'balance',
+    ]) {
       expect(body, isNot(contains(s)), reason: s);
     }
     expect(json['transcript'], 'غدا 15 الف');

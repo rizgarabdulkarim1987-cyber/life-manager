@@ -6,9 +6,9 @@ import '../../helpers/app_harness.dart';
 import '../../helpers/fakes.dart';
 
 void main() {
-  testWidgets('shell shows four destinations and the composer', (t) async {
+  testWidgets('shell shows five destinations and the composer', (t) async {
     await pumpApp(t);
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < 5; i++) {
       expect(find.byKey(ValueKey('nav-$i')), findsOneWidget);
     }
     expect(find.byKey(const ValueKey('composer-field')), findsWidgets);
