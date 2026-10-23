@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart' show Value;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:life_manager/core/security/money_privacy.dart';
 import 'package:life_manager/core/db/app_database.dart';
 import 'package:life_manager/features/finance/data/rates_repository.dart';
 import 'package:life_manager/features/finance/ui/widgets/how_converted_sheet.dart';
@@ -123,5 +124,40 @@ void main() {
     await t.pumpAndSettle();
     final a = await (dbOf(c).select(dbOf(c).accounts)..where((a) => a.name.equals('Bank EUR'))).getSingle();
     expect(a.currencyCode, 'EUR');
+  });
+
+  testWidgets('no per-account balances on the overview', (t) async {
+    await pumpApp(t, locale: 'en');
+    await openFinance(t);
+    expect(find.byKey(const ValueKey('finance-accounts')), findsNothing);
+    expect(
+      find.byWidgetPredicate(
+        (w) => w.key is ValueKey<String> && (w.key! as ValueKey<String>).value.startsWith('overview-account-'),
+      ),
+      findsNothing,
+    );
+    expect(find.byKey(const ValueKey('fin-total')), findsOneWidget);
+  });
+
+  testWidgets('the three bucket cards are visible, with "set a target" where none is set', (t) async {
+    await pumpApp(t, locale: 'en');
+    await openFinance(t);
+    for (final key in ['expenses', 'emergency', 'investment']) {
+      await t.scrollUntilVisible(find.byKey(ValueKey('bucket-$key')), 200, scrollable: find.byType(Scrollable).first);
+      expect(find.byKey(ValueKey('bucket-$key')), findsOneWidget);
+    }
+    expect(find.byKey(const ValueKey('bucket-set-target-emergency')), findsOneWidget);
+  });
+
+  testWidgets('all amounts are masked until the eye is tapped', (t) async {
+    final c = await pumpApp(t, locale: 'en', revealMoney: false);
+    final p = await accountId(c, 'Personal', 'IQD');
+    await txRepo(c).addSimple(type: 'income', accountId: p, amountMinor: 1500000, occurredAt: DateTime.now().toUtc());
+    await openFinance(t);
+    expect(find.textContaining('1,500,000'), findsNothing);
+    expect(find.text(kMaskedMoney), findsWidgets);
+    await t.tap(find.byKey(const ValueKey('reveal-money')));
+    await settle(t);
+    expect(find.textContaining('1,500,000'), findsWidgets);
   });
 }

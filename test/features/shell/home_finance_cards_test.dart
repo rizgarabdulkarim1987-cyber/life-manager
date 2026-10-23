@@ -42,7 +42,7 @@ void main() {
     );
 
     final expensesBar = find.byWidgetPredicate(
-      (w) => w.key is ValueKey<String> && (w.key! as ValueKey<String>).value.startsWith('home-bucket-bar-'),
+      (w) => w.key is ValueKey<String> && (w.key! as ValueKey<String>).value.startsWith('fin-bucket-bar-'),
     );
     expect(expensesBar, findsWidgets);
   });
