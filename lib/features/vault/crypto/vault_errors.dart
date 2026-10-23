@@ -7,7 +7,10 @@ sealed class VaultUnlockError implements Exception {
 /// Wrong master password or recovery key. GCM can't tell that from a damaged
 /// wrap, so both look the same to the owner (spec §9.1).
 final class VaultWrongSecret extends VaultUnlockError {
-  const VaultWrongSecret();
+  const VaultWrongSecret([this.attemptsLeft]);
+
+  /// Tries left before a lockout, when the throttle counted this attempt.
+  final int? attemptsLeft;
 }
 
 /// Stored vault data failed authentication or has an impossible shape.
